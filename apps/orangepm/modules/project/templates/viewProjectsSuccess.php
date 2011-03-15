@@ -68,7 +68,7 @@
 
     <table border="1" bordercolor="red" >
         <tr><th> Id </th>
-            <th id="project_name_heading"> PROJECT NAME </th>
+            <th> Project Name </th>
 
             <?php $alt = '1' ?>
             <?php foreach ($projectList as $project): ?>
@@ -114,15 +114,15 @@
                             data: "name="+$('.ajax input').val()+"&id="+arr[2],
                             success: function(data){
                                 var hstring = '<a href=' + '<?php echo url_for("project/viewStories?id={$project->getId()}"); ?>' +' > '+$('.ajax input').val()+'</a>';
-                        $('.ajax').html(hstring);
-                        $('.ajax').removeClass('ajax');
-                    }});
-            }
+                                $('.ajax').html(hstring);
+                                $('.ajax').removeClass('ajax');
+                            }});
+                    }
 
-        }
+                }
 
 
-    );
+            );
 
 
         $('#editbox').live('blur',function(){
