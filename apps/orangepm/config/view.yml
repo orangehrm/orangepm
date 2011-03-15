@@ -12,9 +12,9 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [main.css]
+  stylesheets:    [main.css,jquery-ui-1.8.10.custom.css,jquery.alerts.css]
 
-  javascripts:    []
+  javascripts:    [jquery/jquery-1.5.1.js, jquery/jquery-validate/jquery.validate.js, jquery/jquery.datePicker-2.1.2.js,jquery/jquery-ui-1.8.10.custom.min.js,jquery/jquery.alerts.js]
 
   has_layout:     true
   layout:         layout

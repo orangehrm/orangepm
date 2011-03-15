@@ -3,5 +3,5 @@
 
 require_once(dirname(__FILE__).'/../config/ProjectConfiguration.class.php');
 
-$configuration = ProjectConfiguration::getApplicationConfiguration('orangepm', 'prod', false);
+$configuration = ProjectConfiguration::getApplicationConfiguration('orangepm', 'dev', true);
 sfContext::createInstance($configuration)->dispatch();
