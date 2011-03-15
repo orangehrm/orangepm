@@ -18,10 +18,10 @@
 
 <table border ="1">
     <tr>
-        <td><b>Story Id</b></td>
-        <td><b>Story Name</b></td>
-        <td><b>Effort estimation</b></td>
-        <td><b>Date Added</b></td>
+        <th>Story Id</th>
+        <th>Story Name</th>
+        <th>Effort estimation</th>
+        <th>Date Added</th>
     </tr>
 
     <?php foreach ($storyList as $story): ?>
