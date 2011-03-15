@@ -5,6 +5,7 @@
         <tr>
             <td colspan="2">
                 <input type="submit" value="Save" />
+                <input type="button" id="cancel" value="Cancel" />
             </td>
         </tr>
     </table>
@@ -36,6 +37,10 @@
     function() {
         $( "#project_Date_added" ).datepicker({dateFormat: 'yy-mm-dd'});
     });
+
+    $(document).ready(function(){
+                $('#cancel').click(function(){
+                        location.href="<?php echo url_for('project/viewStories?id=' . $projectId); ?>";
+                });
+        });
 </script>                
-
-

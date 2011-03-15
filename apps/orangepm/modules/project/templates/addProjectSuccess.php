@@ -9,6 +9,7 @@
             <tr>
                 <td colspan="2">
                     <input type="submit" value="Save" id="saveButton" />
+                    <input type="button" id="cancel" value="Cancel" />
                 </td>
             </tr>
         </table>
@@ -27,4 +28,15 @@
     </table>
 </div>
 
+
+
+<script type="text/javascript">
+
+        $(document).ready(function(){
+                $('#cancel').click(function(){
+                        location.href="<?php echo url_for('project/viewProjects') ?>";
+                });
+        });
+
+</script> 
 
