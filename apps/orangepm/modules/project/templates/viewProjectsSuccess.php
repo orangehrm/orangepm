@@ -1,9 +1,5 @@
 <style type="text/css">
 
-    #addProject{
-        border: 1px solid #006;
-    }
-
     td.edit{
         cursor:pointer;
     }
@@ -23,31 +19,6 @@
     a img{
         border: NONE;
     }
-
-    body{
-        background-color: #fed00e;
-    }
-
-    a:link{
-        color: blue;
-        text-decoration:none;
-    }
-
-    a:visited{
-        color: purple;
-        text-decoration:none;
-    }
-
-    a:active{
-        background-color: yellow;
-        text-decoration:none;
-    }
-
-    a:hover{
-        color:red;
-        text-decoration:none;
-    }
-
     }
 </style>
 
@@ -66,10 +37,11 @@
     </form>
 
 
-    <table border="1" bordercolor="red" >
+    <table class="tableContent" >
         <?php //use_helper('I18N') ?>
         <tr><th> <?php echo __('ID') ?></th>
             <th> <?php echo __('Project Name'); ?> </th>
+            <th colspan="2"> Actions </th>
 
             <?php $alt = '1' ?>
             <?php foreach ($projectList as $project): ?>

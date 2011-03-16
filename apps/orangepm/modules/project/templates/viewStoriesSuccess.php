@@ -12,16 +12,16 @@
     <input type="submit" value=<?php echo __('Add') ?> />
 </form>
 
-<?php echo "REGISTRED STORIES"; ?>
 
 <br/>
 
-<table border ="1">
+<table class="tableContent">
     <tr>
         <th><?php echo __('Story Id')?></th>
         <th><?php echo __('Story Name')?></th>
         <th><?php echo __('Estimated Effort')?></th>
         <th><?php echo __('Date Added')?></th>
+        <th colspan="2"> Actions </th>
     </tr>
 
     <?php foreach ($storyList as $story): ?>
@@ -31,7 +31,7 @@
             <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
             <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
             <td class="<?php echo "edit edit " . $story->getId(); ?>"><?php echo image_tag('b_edit.png') ?></td>
-            <td>  <a href="<?php echo url_for("project/deleteStory?id={$story->getId()}&projectId={$projectId}"); ?> " > <?php echo image_tag('b_drop.png'); ?></a></td>
+            <td class="close"><a href="<?php echo url_for("project/deleteStory?id={$story->getId()}&projectId={$projectId}"); ?> " > <?php echo image_tag('b_drop.png'); ?></a></td>
 
         </tr>
     <?php endforeach; ?>
