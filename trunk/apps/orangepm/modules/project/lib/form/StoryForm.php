@@ -17,7 +17,7 @@ class storyForm extends sfForm {
         $this->setWidgets(array(
             'Story_name' => new sfWidgetFormInputText(),
             'Date_added' => new sfWidgetFormInputText(),
-            'Estimated_effort' => new sfWidgetFormInputText(),
+            'Estimated_Effort' => new sfWidgetFormInputText(),
             'projectId' => new sfWidgetFormInputHidden(),
         ));
 
