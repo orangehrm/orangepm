@@ -71,9 +71,9 @@ class projectActions extends sfActions {
     public function executeEditStory($request) {
 
         $dao = new StoryDao();
-        $dao->updateStory($request->getParameter('id'), $request->getParameter('name'));
+        $dao->updateStory($request->getParameter('id'), $request->getParameter('name'), $request->getParameter('estimation'), $request->getParameter('date'));
         die;
-        sfView::NONE;
+       
     }
 
     public function executeAddStory($request) {
