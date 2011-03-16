@@ -12,8 +12,6 @@
  */
 class storyForm extends sfForm {
 
-
-
     public function configure() {
 
         $this->setWidgets(array(
@@ -22,6 +20,8 @@ class storyForm extends sfForm {
             'Estimated_effort' => new sfWidgetFormInputText(),
             'projectId' => new sfWidgetFormInputHidden(),
         ));
+
+        $this->setDefault('Date_added', date('Y-m-d'));
 
 
         $this->widgetSchema->setNameFormat('project[%s]');
@@ -32,7 +32,6 @@ class storyForm extends sfForm {
             'Estimated_effort' => new sfValidatorNumber(),
             'projectId' => new sfValidatorString(),
         ));
-
     }
 
 }
