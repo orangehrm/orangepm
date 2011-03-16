@@ -59,7 +59,7 @@
 
             <tr>
                 <td colspan="2">
-                    <input type="submit" value="Add" id="addProject" />
+                    <input type="submit" value=<?php echo __('ADD') ?> id="addProject" />
                 </td>
             </tr>
         </table>
@@ -67,8 +67,9 @@
 
 
     <table border="1" bordercolor="red" >
-        <tr><th> Id </th>
-            <th> Project Name </th>
+        <?php //use_helper('I18N') ?>
+        <tr><th> <?php echo __('ID') ?></th>
+            <th> <?php echo __('Project Name'); ?> </th>
 
             <?php $alt = '1' ?>
             <?php foreach ($projectList as $project): ?>

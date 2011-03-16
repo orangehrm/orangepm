@@ -4,8 +4,8 @@
         
         <tr>
             <td colspan="2">
-                <input type="submit" value="Save" />
-                <input type="button" id="cancel" value="Cancel" />
+                <input type="submit" value="<?php echo __('Save') ?>" />
+                <input type="button" id="cancel" value="<?php echo __('Cancel') ?>" />
             </td>
         </tr>
     </table>
@@ -16,10 +16,10 @@
         <br/>
     <table border ="1">
         <tr>
-            <td><b>Story Id</b></td>
-            <td><b>Story Name</b></td>
-            <td><b>Effort estimation</b></td>
-            <td><b>Date Added</b></td>
+            <td><b><?php echo __('Story Id')?></b></td>
+            <td><b><?php echo __('Story Name')?></b></td>
+            <td><b><?php echo __('Estimated Effort')?></b></td>
+            <td><b><?php echo __('Date Added')?></b></td>
         </tr>
 
     <?php foreach ($storyList as $story): ?>

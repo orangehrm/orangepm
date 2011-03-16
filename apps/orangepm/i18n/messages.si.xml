@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+    <header/>
+    <file source-language="en" target-language="si" datatype="plaintext" original="messages" date="2011-03-16T15:09:01Z" product-name="messages">
+        <body>
+            <trans-unit id="1">
+                <source>Add</source>
+                <target>ඇතුලත් කරන්න </target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>ID</source>
+                <target>අංකය </target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Project Name</source>
+                <target>ව්‍යාපෘති  නම </target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Story Id</source>
+                <target>විස්තර අංකය </target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Story Name</source>
+                <target>විස්තරය</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Estimated Effort</source>
+                <target>බාර දෙන්න</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Date Added</source>
+                <target>ඇතුලත් කල දිනය </target>
+            </trans-unit>
+	    <trans-unit id="8">
+                <source>Projects</source>
+                <target>ව්‍යාපෘති</target>
+            </trans-unit>
+	    <trans-unit id="9">
+                <source>Save</source>
+                <target>ව්‍යාපෘති</target>
+            </trans-unit>
+	    <trans-unit id="10">
+                <source>Cancel</source>
+                <target>අවලංගු කරන්න </target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
