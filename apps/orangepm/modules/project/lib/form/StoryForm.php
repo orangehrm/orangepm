@@ -15,21 +15,21 @@ class storyForm extends sfForm {
     public function configure() {
 
         $this->setWidgets(array(
-            'Story_name' => new sfWidgetFormInputText(),
-            'Date_added' => new sfWidgetFormInputText(),
+            'Story_Name' => new sfWidgetFormInputText(),
+            'Date_Added' => new sfWidgetFormInputText(),
             'Estimated_Effort' => new sfWidgetFormInputText(),
             'projectId' => new sfWidgetFormInputHidden(),
         ));
 
-        $this->setDefault('Date_added', date('Y-m-d'));
+        $this->setDefault('Date_Added', date('Y-m-d'));
 
 
         $this->widgetSchema->setNameFormat('project[%s]');
 
         $this->setValidators(array(
-            'Story_name' => new sfValidatorString(),
-            'Date_added' => new sfValidatorDate(),
-            'Estimated_effort' => new sfValidatorNumber(),
+            'Story_Name' => new sfValidatorString(),
+            'Date_Added' => new sfValidatorDate(),
+            'Estimated_Effort' => new sfValidatorNumber(),
             'projectId' => new sfValidatorString(),
         ));
     }
