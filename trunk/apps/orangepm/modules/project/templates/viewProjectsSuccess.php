@@ -18,7 +18,7 @@
 
 
     <table class="tableContent" >
-        <tr><th> <?php echo __('ID') ?></th>
+        <tr><th> <?php echo __('Id') ?></th>
             <th> <?php echo __('Project Name'); ?> </th>
             <th colspan="2"><?php echo __('Actions')?></th>
 

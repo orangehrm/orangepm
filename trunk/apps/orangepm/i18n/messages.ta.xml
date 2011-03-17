@@ -9,11 +9,11 @@
                 <target>சேர்க்க </target>
             </trans-unit>
             <trans-unit id="2">
-                <source>ID</source>
+                <source>Id</source>
                 <target>அடையால எண்</target>
             </trans-unit>
             <trans-unit id="3">
-                <source>Project name</source>
+                <source>Project Name</source>
                 <target>திட்டப்பணி பெயர்</target>
             </trans-unit>
             <trans-unit id="4">
@@ -29,7 +29,7 @@
                 <target>கணிக்கப்பட்ட வேலை</target>
             </trans-unit>
             <trans-unit id="7">
-                <source>Date added</source>
+                <source>Date Added</source>
                 <target>சேர்க்கப்பட்ட திகதி</target>
             </trans-unit>
 	    <trans-unit id="8">
@@ -53,21 +53,10 @@
                 <target>திட்டப்பணியை சேர்க்க</target>
             </trans-unit>
 	    <trans-unit id="13">
-                <source>name</source>
+                <source>Name</source>
                 <target>பெயர்</target>
             </trans-unit>
-	    <trans-unit id="14">
-                <source>Project Name</source>
-                <target>திட்டப்பணி பெயர்</target>
-            </trans-unit>
-  	    <trans-unit id="15">
-                <source>Date Added</source>
-                <target>சேர்க்கப்பட்ட திகதி</target>
-            </trans-unit>
-      	    <trans-unit id="16">
-                <source>Story name</source>
-                <target>தொகுப்புப் பெயர்</target>
-            </trans-unit>
+	   
         </body>
     </file>
 </xliff>

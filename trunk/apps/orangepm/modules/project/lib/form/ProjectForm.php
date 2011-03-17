@@ -5,7 +5,7 @@ class ProjectForm extends sfForm {
     public function configure() {
         
         $this->setWidgets(array(
-            __('name') => new sfWidgetFormInputText(),
+            'Name' => new sfWidgetFormInputText(),
             
         ));
 
@@ -13,7 +13,7 @@ class ProjectForm extends sfForm {
 
 
         $this->setValidators(array(
-            'name' => new sfValidatorString(array('required' => true), array('required' => 'The Project Name is required.')),
+            'Name' => new sfValidatorString(array('required' => true), array('required' => 'The Project Name is required.')),
             
         ));
     }
