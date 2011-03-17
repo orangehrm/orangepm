@@ -1,0 +1,40 @@
+/* 
+    Document   : viewProjects
+    Created on : Mar 17, 2011, 9:11:00 AM
+    Author     : orangehrm
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+table.tableContent {
+    top: 125px;
+}
+
+td.edit {
+    cursor:pointer;
+}
+
+.tip {
+    color: #000;
+    background:#fdbc27;
+    display:none; /*--Hides by default--*/
+    padding:3px;
+    position:absolute;    z-index:1000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+a img {
+    border: none;
+}
