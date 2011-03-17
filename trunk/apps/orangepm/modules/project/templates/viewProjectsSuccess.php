@@ -30,7 +30,7 @@
 
             <tr>
                 <td colspan="2">
-                    <input type="submit" value=<?php echo __('ADD') ?> id="addProject" />
+                    <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
                 </td>
             </tr>
         </table>
@@ -38,10 +38,9 @@
 
 
     <table class="tableContent" >
-        <?php //use_helper('I18N') ?>
         <tr><th> <?php echo __('ID') ?></th>
             <th> <?php echo __('Project Name'); ?> </th>
-            <th colspan="2"> Actions </th>
+            <th colspan="2"><?php echo __('Actions')?></th>
 
             <?php $alt = '1' ?>
             <?php foreach ($projectList as $project): ?>

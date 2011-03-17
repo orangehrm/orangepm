@@ -13,7 +13,7 @@
                 <target>අංකය </target>
             </trans-unit>
             <trans-unit id="3">
-                <source>Project Name</source>
+                <source>Project name</source>
                 <target>ව්‍යාපෘති  නම </target>
             </trans-unit>
             <trans-unit id="4">
@@ -26,11 +26,11 @@
             </trans-unit>
             <trans-unit id="6">
                 <source>Estimated Effort</source>
-                <target>බාර දෙන්න</target>
+                <target>තක්සේරු ශ්‍රම වටිනාකම</target>
             </trans-unit>
             <trans-unit id="7">
-                <source>Date Added</source>
-                <target>ඇතුලත් කල දිනය </target>
+                <source>Date added</source>
+                <target>ඇතුලත් කල දිනය</target>
             </trans-unit>
 	    <trans-unit id="8">
                 <source>Projects</source>
@@ -38,11 +38,35 @@
             </trans-unit>
 	    <trans-unit id="9">
                 <source>Save</source>
-                <target>ව්‍යාපෘති</target>
+                <target>සුරකින්න</target>
             </trans-unit>
 	    <trans-unit id="10">
                 <source>Cancel</source>
                 <target>අවලංගු කරන්න </target>
+            </trans-unit>
+	    <trans-unit id="11">
+                <source>Actions</source>
+                <target>ක්‍රියාව</target>
+            </trans-unit>
+	    <trans-unit id="12">
+                <source>Add Project</source>
+                <target>ව්‍යපෘති ඇතුලත් කරන්න</target>
+            </trans-unit>
+	    <trans-unit id="13">
+                <source>name</source>
+                <target>නම</target>
+            </trans-unit>
+	    <trans-unit id="14">
+                <source>Project Name</source>
+                <target>ව්‍යාපෘති  නම</target>
+            </trans-unit>
+  	    <trans-unit id="15">
+                <source>Date Added</source>
+                <target>ඇතුලත් කල දිනය</target>
+            </trans-unit>
+      	    <trans-unit id="16">
+                <source>Story name</source>
+                <target>විස්තරය</target>
             </trans-unit>
         </body>
     </file>
