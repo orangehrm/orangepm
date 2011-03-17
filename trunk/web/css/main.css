@@ -82,7 +82,7 @@ a:hover {
 }
 
 input.formButton {
-    width: 80px;
+    width: auto;
     text-align: center;
 }
 
