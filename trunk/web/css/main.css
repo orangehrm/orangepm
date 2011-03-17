@@ -3,6 +3,9 @@ body {
     font-style: normal;
 }
 
+/* Standard margin and padding reset, normally done on the body */
+
+
 table.tableContent {
     position: relative;
     top: 125px;
@@ -29,7 +32,6 @@ table.tableContent td {
 
 
 table.tableContent th {
-
     white-space: pre;
     background-color: #666;
     color: #fff;
@@ -57,9 +59,38 @@ form * {
     text-align: left;
     font-style: normal;
     font-weight: normal;
+}
 
+a:link {
+    color: blue;
+    text-decoration:none;
+}
 
-} /* Standard margin and padding reset, normally done on the body */
+a:visited {
+    color: purple;
+    text-decoration:none;
+}
+
+a:active {
+    background-color: yellow;
+    text-decoration:none;
+}
+
+a:hover {
+    color:red;
+    text-decoration:none;
+}
+
+input.formButton {
+    width: 80px;
+    text-align: center;
+}
+
+div.addButton {
+    position: relative;
+    top: 100px;
+    left: 50px;
+}
 
 
 div.addForm {
@@ -80,36 +111,13 @@ div.headlineField {
     font-weight: bold;
     width: auto;
     position: relative;
-
     background-color: #666;
     color: #fff;
     top: 0px;
-
-
 }
 
 div.formField {
     padding-top: 10px;
     padding-left: 13px;
     padding-bottom: 10px;
-}
-
-a:link{
-    color: blue;
-    text-decoration:none;
-}
-
-a:visited{
-    color: purple;
-    text-decoration:none;
-}
-
-a:active{
-    background-color: yellow;
-    text-decoration:none;
-}
-
-a:hover{
-    color:red;
-    text-decoration:none;
 }

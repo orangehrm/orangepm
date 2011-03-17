@@ -1,16 +1,10 @@
-<style type="text/css">
-    td.edit{
-        cursor:pointer;
-    }
+<?php echo stylesheet_tag('viewStories') ?>
 
-    a img{
-        border: NONE;
-    }
-
-</style>
+<div class="addButton">
 <form action="<?php echo url_for('project/addStory?id=' . $projectId); ?>" method="GET">
     <input type="submit" value="<?php echo __('Add') ?>" />
 </form>
+</div>
 
 
 <br/>

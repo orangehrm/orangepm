@@ -1,3 +1,5 @@
+<?php echo stylesheet_tag('addStory') ?>
+
 <div class="addForm">
     <div class="headlineField"><?php echo __('Add Project')?></div>
     <div class="formField">
@@ -6,9 +8,9 @@
                 <?php echo $storyForm ?>
                 <tr>
                     <td colspan="2">
-                        <input style="width: 80px;text-align: center;" type="submit" value="<?php echo __('Save') ?>" />
+                        <input class="formButton" type="submit" value="<?php echo __('Save') ?>" />
                         &nbsp;&nbsp;&nbsp;
-                        <input style="width: 80px;text-align: center;" type="button" id="cancel" value="<?php echo __('Cancel') ?>" />
+                        <input class="formButton" type="button" id="cancel" value="<?php echo __('Cancel') ?>" />
                     </td>
                 </tr>
             </table>
