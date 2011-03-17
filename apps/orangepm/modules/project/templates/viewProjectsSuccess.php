@@ -1,28 +1,7 @@
-<style type="text/css">
-
-    td.edit{
-        cursor:pointer;
-    }
-
-    .tip{
-        color: #000;
-        background:#fdbc27;
-        display:none; /*--Hides by default--*/
-        padding:3px;
-        position:absolute;    z-index:1000;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        font-size: 12px;
-    }
-
-    a img{
-        border: NONE;
-    }
-    }
-</style>
+<?php echo stylesheet_tag('viewProjects') ?>
 
 <div class="Project">
+    <div class="addButton">
     <form id="form1" action="<?php echo url_for('project/addProject') ?>" method="get">
 
         <table>
@@ -35,6 +14,7 @@
             </tr>
         </table>
     </form>
+    </div>
 
 
     <table class="tableContent" >

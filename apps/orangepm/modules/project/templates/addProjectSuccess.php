@@ -1,4 +1,4 @@
-
+<?php echo stylesheet_tag('addProject') ?>
 
 <div class="Project">
     <div class="addForm">
@@ -11,8 +11,8 @@
 
                     <tr>
                         <td colspan="2">
-                            <input style="width: 80px;text-align: center;" type="submit" value="<?php echo __('Save') ?>" id="saveButton" />
-                            <input style="width: 80px;text-align: center;" type="button" id="cancel" value="<?php echo __('Cancel') ?>" />
+                            <input class="formButton" type="submit" value="<?php echo __('Save') ?>" id="saveButton" />
+                            <input class="formButton" type="button" id="cancel" value="<?php echo __('Cancel') ?>" />
                         </td>
                     </tr>
                 </table>
