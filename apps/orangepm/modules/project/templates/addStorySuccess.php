@@ -1,5 +1,5 @@
 <div class="addForm">
-    <div class="headlineField">Add Project</div>
+    <div class="headlineField"><?php echo __('Add Project')?></div>
     <div class="formField">
         <form action="<?php echo url_for('project/addStory') ?>" method="post">
             <table>

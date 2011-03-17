@@ -2,7 +2,7 @@
 
 <div class="Project">
     <div class="addForm">
-        <div class="headlineField">Add Project</div>
+        <div class="headlineField"><?php echo __('Add Project') ?></div>
         <div class="formField">
             <form id="form1" action="<?php echo url_for('project/addProject') ?>" method="POST">
 

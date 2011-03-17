@@ -9,7 +9,7 @@
 
 </style>
 <form action="<?php echo url_for('project/addStory?id=' . $projectId); ?>" method="GET">
-    <input type="submit" value=<?php echo __('Add') ?> />
+    <input type="submit" value="<?php echo __('Add') ?>" />
 </form>
 
 
@@ -21,7 +21,7 @@
         <th><?php echo __('Story Name')?></th>
         <th><?php echo __('Estimated Effort')?></th>
         <th><?php echo __('Date Added')?></th>
-        <th colspan="2"> Actions </th>
+        <th colspan="2"><?php echo __('Actions')?></th>
     </tr>
 
     <?php foreach ($storyList as $story): ?>
