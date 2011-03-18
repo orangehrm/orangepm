@@ -58,6 +58,10 @@
                 <source>Date Added</source>
                 <target>ඇතුලත් කල දිනය</target>
             </trans-unit>
+	    <trans-unit id="14">
+                <source>(Engineering Hours)</source>
+                <target>(ඉංජිනේරු පැය)</target>
+            </trans-unit>
       	    
         </body>
     </file>
