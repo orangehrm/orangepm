@@ -11,16 +11,14 @@
     </head>
     <body>
         <div class="header">
-            <h1> OrangePM </h1>
+            <div class="navigaiton">
+                <ul id="menu">
+                    <li> <?php echo link_to(__('Projects'), 'project/viewProjects', array('id' => 'projects')); ?></li>
+                    <li> <a href="#" id="issueTracker" >Issue Tacker </a></li>
+                </ul>
+            </div>
         </div>
-        <div class="navigaiton">
-            <ul>
-                <li> <?php echo link_to(__('Home'), 'project/index'); ?></li>
-                <li> <?php echo link_to(__('Projects'), 'project/viewProjects'); ?></li>
-                <li> Help </li>
-                <li> Issue Tacker </li>
-            </ul>
-        </div>
+
         <?php echo $sf_content ?>        
     </body>
 
