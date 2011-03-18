@@ -8,7 +8,7 @@ body {
 
 table.tableContent {
     position: relative;
-    top: 125px;
+    top: 60px;
     left: 50px;
     text-align: center;
     font-weight: normal;
@@ -111,14 +111,15 @@ input.formButton {
 
 div.addButton {
     position: relative;
-    top: 100px;
+    top: 5px;
     left: 50px;
+    margin: 0px;
 }
 
 
 div.addForm {
     position: relative;
-    top: 100px;
+    top: 20px;
     left: 50px;
     padding: 0px;
     width: 300px;
@@ -152,11 +153,76 @@ table.tableContent td.pageNav {
 }
 
 div.header {
-    background-color: #f1aa1b;
+    background-color: #FFF;
+    height: 200px;
 }
 
 div.navigaiton {
-    background-color: #f1aa1b;
+    position: relative;
+    top: 125px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 
+
+#menu {
+    padding:0 0 0 30px;
+    margin:0 0 0 0;
+    list-style:none;
+    width:auto;
+    height:60px;
+    background:url("../images/menuimg.png") repeat-x;
+}
+
+#menu li {
+    position:relative;
+    float:left;
+    margin:0;
+}
+
+#menu li a {
+    display:block;
+    height:36px;
+    line-height:35px;
+    padding:0 20px 0 20px;
+    float:left;
+    color:#333;
+    text-decoration:none;
+    font-family:arial, sans-serif;
+    font-size:16px;
+    font-weight: bold;
+    background:url("../images/divide.png") no-repeat right top;
+
+}
+
+#menu li a b {
+    display:block;
+    height:36px;
+    float:left;
+    padding:0 0 0 20px;
+}
+
+#menu li a:hover,
+#menu li a:active,
+#menu li a:focus,
+.projects #menu li#projects a,
+.issueTracker #menu li#issueTracker a
+{
+    background:#999 url("../images/divide2.png") no-repeat right top;
+    cursor:pointer;
+    color:#fff;
+    line-height:35px;
+}
+
+
+#menu li a:hover b,
+#menu li a:active b,
+#menu li a:focus b,
+.projects #menu li#projects a b,
+.issueTracker #menu li#issueTracker a b
+{
+    background:#999;
+    cursor:pointer;
+}
