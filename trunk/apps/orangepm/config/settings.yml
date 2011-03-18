@@ -33,7 +33,5 @@ all:
 
     # Enable the database manager
     use_database:           true
-    default_culture: en_US
+    default_culture: en_LK 
     i18n: on
-
-

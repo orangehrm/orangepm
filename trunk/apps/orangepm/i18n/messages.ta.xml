@@ -56,6 +56,10 @@
                 <source>Name</source>
                 <target>பெயர்</target>
             </trans-unit>
+	    <trans-unit id="14">
+                <source>(Engineering Hours)</source>
+                <target>(இன்ஜினியரிங் ஹெர்ஸ்)</target>
+            </trans-unit>
 	   
         </body>
     </file>
