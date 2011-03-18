@@ -64,14 +64,14 @@ form * {
 
 
 .pageNav a:link {
-    color: #31d42a;
+    color: blue;
     text-decoration: underline;
 }
 
 .pageNav a:visited {
     color: purple;
     text-decoration: underline;
-    
+
 }
 
 .pageNav a:active {
@@ -149,3 +149,12 @@ table.tableContent td.pageNav {
     background-color: #fff;
     text-align: right;
 }
+
+div.header {
+    background-color: #f1aa1b;
+}
+
+div.navigaiton {
+    background-color: #f1aa1b;
+}
+

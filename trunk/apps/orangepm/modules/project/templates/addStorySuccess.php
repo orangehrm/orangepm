@@ -1,5 +1,4 @@
 <?php echo stylesheet_tag('addStory') ?>
-<?php echo stylesheet_tag('jquery-ui-1.8.10.custom.css') ?>
 <?php use_helper('Pagination'); ?>
 
 <div class="addForm">
@@ -45,7 +44,7 @@
                 <script type="text/javascript">
                     $(document).ready(
                     function() {
-                        $( "#project_Date_added" ).datepicker(
+                        $( "#project_Date_Added" ).datepicker(
                         {
                             dateFormat: 'yy-mm-dd',
                             changeMonth: true,
