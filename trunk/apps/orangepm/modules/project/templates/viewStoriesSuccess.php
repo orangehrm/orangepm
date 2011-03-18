@@ -1,4 +1,5 @@
 <?php echo stylesheet_tag('viewStories') ?>
+<?php use_helper('Pagination'); ?>
 
 <div class="addButton">
 <form action="<?php echo url_for('project/addStory?id=' . $projectId); ?>" method="GET">
@@ -10,6 +11,7 @@
 <br/>
 
 <table class="tableContent">
+    <tr><td class="pageNav" colspan="6"><?php  echo pager_navigation($storyList, url_for("project/viewStories")."?id={$projectId}") ?></td></tr>
     <tr>
         <th><?php echo __('Story Id')?></th>
         <th><?php echo __('Story Name')?></th>
@@ -18,7 +20,7 @@
         <th colspan="2"><?php echo __('Actions')?></th>
     </tr>
 
-    <?php foreach ($storyList as $story): ?>
+    <?php foreach ($storyList->getResults() as $story): ?>
         <tr id="row">
             <td class="<?php echo "not id " . $story->getId(); ?>"><?php echo $story->getId(); ?></td>
             <td class="<?php echo "changedName name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>

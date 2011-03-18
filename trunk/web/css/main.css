@@ -61,6 +61,29 @@ form * {
     font-weight: normal;
 }
 
+
+
+.pageNav a:link {
+    color: #31d42a;
+    text-decoration: underline;
+}
+
+.pageNav a:visited {
+    color: purple;
+    text-decoration: underline;
+    
+}
+
+.pageNav a:active {
+    background-color: yellow;
+    text-decoration: none;
+}
+
+.pageNav a:hover {
+    color:red;
+    text-decoration: underline;
+}
+
 a:link {
     color: blue;
     text-decoration:none;
@@ -120,4 +143,9 @@ div.formField {
     padding-top: 10px;
     padding-left: 13px;
     padding-bottom: 10px;
+}
+
+table.tableContent td.pageNav {
+    background-color: #fff;
+    text-align: right;
 }

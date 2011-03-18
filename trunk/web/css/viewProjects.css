@@ -16,7 +16,7 @@ root {
 }
 
 table.tableContent {
-    top: 125px;
+    top: 100px;
 }
 
 td.edit {
@@ -38,3 +38,4 @@ td.edit {
 a img {
     border: none;
 }
+

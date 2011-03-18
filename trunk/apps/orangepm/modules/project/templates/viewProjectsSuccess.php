@@ -1,4 +1,6 @@
 <?php echo stylesheet_tag('viewProjects') ?>
+<?php use_helper('Pagination'); ?>
+
 
 <div class="Project">
     <div class="addButton">
@@ -18,12 +20,14 @@
 
 
     <table class="tableContent" >
+        <tr><td class="pageNav" colspan="4"><?php  echo pager_navigation($pager, url_for('project/viewProjects')) ?></td></tr>
         <tr><th> <?php echo __('Id') ?></th>
             <th> <?php echo __('Project Name'); ?> </th>
             <th colspan="2"><?php echo __('Actions')?></th>
 
             <?php $alt = '1' ?>
-            <?php foreach ($projectList as $project): ?>
+            <?php //foreach ($projectList as $project): ?>
+            <?php foreach ($pager->getResults() as $project): ?>
             <?php
                 if ($alt == 1) {
                     echo '<tr class="alt">';
@@ -39,6 +43,7 @@
                 <td class="<?php echo "not close " . $project->getId(); ?>"><a href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?><span class="tip">Click here to delete the project</span></a></td>
             </tr>
         <?php endforeach; ?>
+            
             </table>
         </div>
 

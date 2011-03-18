@@ -1,4 +1,5 @@
 <?php echo stylesheet_tag('addProject') ?>
+<?php use_helper('Pagination'); ?>
 
 <div class="Project">
     <div class="addForm">
@@ -22,10 +23,11 @@
 
     
     <table class="tableContent" >
+        <tr><td class="pageNav" colspan="4"><?php  echo pager_navigation($pager, url_for('project/addProject')) ?></td></tr>
         <tr><th><?php echo __('Id') ?></th>
             <th><?php echo __('Project Name')?></th>
 
-            <?php foreach ($projectList as $project): ?>
+            <?php foreach ($pager->getResults() as $project): ?>
                     <tr>
                         <td> <?php echo $project->getId(); ?></td>
                         <td> <?php echo $project->getName(); ?></td>
