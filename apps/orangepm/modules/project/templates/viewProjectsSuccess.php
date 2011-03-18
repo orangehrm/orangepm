@@ -40,7 +40,7 @@
                 <td class="<?php echo "not id " . $project->getId(); ?>"><?php echo $project->getId(); ?></td>
                 <td class="<?php echo "change name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewStories?id={$project->getId()}"); ?>" > <?php echo $project->getName(); ?></a></td>
                 <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?><span class="tip">Click here to view the stories</span></td>
-                <td class="<?php echo "not close " . $project->getId(); ?>"><a href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?><span class="tip">Click here to delete the project</span></a></td>
+                <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
             </tr>
         <?php endforeach; ?>
             
@@ -130,6 +130,38 @@
 
 
 
+<div id="dialog" title="Confirmation Required">
+  Project Will Be Deleted??
+</div>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#dialog").dialog({
+      autoOpen: false,
+      modal: true
+    });
+  });
+
+  $(".confirmLink").click(function(e) {
+    e.preventDefault();
+    var targetUrl = $(this).attr("href");
+
+    $("#dialog").dialog({
+      buttons : {
+        "OK" : function() {
+          window.location.href = targetUrl;
+        },
+        "Cancel" : function() {
+          $(this).dialog("close");
+        }
+      }
+    });
+
+    $("#dialog").dialog("open");
+  });
+</script>
 
 
 

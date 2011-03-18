@@ -27,7 +27,7 @@
             <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
             <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
             <td class="<?php echo "edit edit " . $story->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn') ?></td>
-            <td class="close"><a href="<?php echo url_for("project/deleteStory?id={$story->getId()}&projectId={$projectId}"); ?> " > <?php echo image_tag('b_drop.png'); ?></a></td>
+            <td class="close"><a class="confirmLink" href="<?php echo url_for("project/deleteStory?id={$story->getId()}&projectId={$projectId}"); ?>"><?php echo image_tag('b_drop.png'); ?></a></td>
 
         </tr>
     <?php endforeach; ?>
@@ -96,3 +96,37 @@
 });
 </script>
 
+
+
+
+
+<div id="dialog" title="Confirmation Required">
+  Story Will Be Deleted??
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#dialog").dialog({
+      autoOpen: false,
+      modal: true
+    });
+  });
+
+  $(".confirmLink").click(function(e) {
+    e.preventDefault();
+    var targetUrl = $(this).attr("href");
+
+    $("#dialog").dialog({
+      buttons : {
+        "OK" : function() {
+          window.location.href = targetUrl;
+        },
+        "Cancel" : function() {
+          $(this).dialog("close");
+        }
+      }
+    });
+
+    $("#dialog").dialog("open");
+  });
+</script>
