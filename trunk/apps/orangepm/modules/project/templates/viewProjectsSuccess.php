@@ -39,7 +39,7 @@
             ?>
                 <td class="<?php echo "not id " . $project->getId(); ?>"><?php echo $project->getId(); ?></td>
                 <td class="<?php echo "change name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewStories?id={$project->getId()}"); ?>" > <?php echo $project->getName(); ?></a></td>
-                <td class="<?php echo "edit edit " . $project->getId() ?>"><?php echo image_tag('b_edit.png'); ?><span class="tip">Click here to view the stories</span></td>
+                <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?><span class="tip">Click here to view the stories</span></td>
                 <td class="<?php echo "not close " . $project->getId(); ?>"><a href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?><span class="tip">Click here to delete the project</span></a></td>
             </tr>
         <?php endforeach; ?>
@@ -50,43 +50,53 @@
         <script type="text/javascript">
 
             $(document).ready(function(){
+                nVar = true;
+                nVariable = "Saved";
+
                 $('td.edit').click(function(){
+                if(nVar){
+                    
+                    if(nVariable == "Saved"){
+
+                        $(this).html('<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>');
+                        nVar = false;
+                    }
+
+                    if(nVariable == "Edited"){
+                        $(this).html('<?php echo image_tag('b_edit.png', 'id=editBtn') ?>');
+                        nVariable = "Saved";
+                    }
+                    
+                    arr = $(this).attr('class').split( " " );
+
                     $('.ajax').html($('.ajax input').val());
                     $('.ajax').removeClass('ajax');
 
                     $(this).parent().children('td.change').addClass('ajax');
-                    $(this).parent().children('td.change').html('<input id="editbox" size="'+$(this).parent().children('td.change').text().length+'" type="text" value="' + $(this).parent().children('td.change').text() + '">');
+                    $(this).parent().children('td.change').html('<input id="editbox" size="'+16+'" type="text" value="'+$(this).parent().children('td.change').text()+'">');
 
-                    $('#editbox').focus();
+                    $('#saveBtn').click(function(){
+                    nVar = true;
 
+                        $.ajax({    type: "post",
+                            url: "<?php echo url_for('project/editProject') ?>",
+                            data: "name="+$('.ajax input').val()+"&id="+arr[2],
+                            success: function(){
+        
+                                var hstring = '<a href=' + '<?php echo url_for("project/viewStories?id={$project->getId()}"); ?>' +' > '+$('.ajax input').val()+'</a>';
+                        $('.ajax').html(hstring);
+
+                    }
                 });
 
-                $('td.change').keydown(function(event){
-
-                    arr = $(this).attr('class').split( " " );
-                    if(event.which == 13)
-                    {
-                        $.ajax({    type: "POST",
-                            url:"<?php echo url_for('project/editProject') ?>",
-                            data: "name="+$('.ajax input').val()+"&id="+arr[2],
-                            success: function(data){
-                                var hstring = '<a href=' + '<?php echo url_for("project/viewStories?id={$project->getId()}"); ?>' +' > '+$('.ajax input').val()+'</a>';
-                                $('.ajax').html(hstring);
-                                $('.ajax').removeClass('ajax');
-                            }});
-                    }
-
-                }
-
-
-            );
-
-
-        $('#editbox').live('blur',function(){
-
-            $('.ajax').html($('.ajax input').val());
-            $('.ajax').removeClass('ajax');
+                nVariable = "Edited";
+                
+            }
+        );}
         });
+
+
+
 
         $("td.edit,td.close,a.storyLink").hover(function(){
             tip = $(this).find('.tip');
