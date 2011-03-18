@@ -10,7 +10,6 @@ class StoryDao {
         $story->setEstimation($estimation);
         $story->setProjectId($projectId);
         $story->save();
-        
     }
 
     public function deleteStory($id) {
@@ -18,7 +17,6 @@ class StoryDao {
         $story = Doctrine_Core::getTable('Story')->find($id);
         $story->setDeleted(Story::FLAG_DELETED);
         $story->save();
-        
     }
 
     public function getAllStories($isDeleted) {
@@ -31,7 +29,7 @@ class StoryDao {
     }
 
     public function getRelatedProjectStories($isDeleted, $projectId) {
-        
+
         if ($isDeleted) {
             $q = Doctrine_Core::getTable('Story')
                             ->createQuery('c')
@@ -42,7 +40,21 @@ class StoryDao {
         } elseif (!$isDeleted) {
             return Doctrine_Core::getTable('Story')->findAll();
         }
-        
+    }
+
+    public function getRelatedProjectStoriesPaged($isDeleted, $projectId, $exam) {
+
+        if ($isDeleted) {
+
+            $pager = new sfDoctrinePager('Story', 2);
+
+            $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId);
+            $pager->setPage($exam->getRequestParameter('page', 1));
+            $pager->init();
+            return $pager;
+        } elseif (!$isDeleted) {
+            return Doctrine_Core::getTable('Story')->findAll();
+        }
     }
 
     public function updateStory($id, $updatedName, $updatedEstimation, $updatedDate) {
@@ -55,7 +67,6 @@ class StoryDao {
             $story->setDateAdded($updatedDate);
             $story->save();
         }
-        
     }
 
 }

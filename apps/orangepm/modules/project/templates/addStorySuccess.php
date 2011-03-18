@@ -1,4 +1,6 @@
 <?php echo stylesheet_tag('addStory') ?>
+<?php echo stylesheet_tag('jquery-ui-1.8.10.custom.css') ?>
+<?php use_helper('Pagination'); ?>
 
 <div class="addForm">
     <div class="headlineField"><?php echo __('Add Project')?></div>
@@ -22,6 +24,7 @@
 <p>
     <br/>
 <table class="tableContent">
+    <tr><td class="pageNav" colspan="4"><?php  echo pager_navigation($storyList, url_for('project/addStory')."?id={$projectId}") ?></td></tr>
     <tr>
         <th><?php echo __('Story Id')?></th>
         <th><?php echo __('Story Name')?></th>
@@ -29,7 +32,7 @@
         <th><?php echo __('Date Added')?></th>
     </tr>
 
-    <?php foreach ($storyList as $story): ?>
+    <?php foreach ($storyList->getResults() as $story): ?>
                     <tr>
                         <td class="<?php echo "not id " . $story->getId(); ?>"><?php echo $story->getId(); ?></td>
                         <td class="<?php echo "change name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>

@@ -27,7 +27,11 @@ class projectActions extends sfActions {
 
         $this->projectForm = new sfForm();
         $dao = new ProjectDao();
-        $this->projectList = $dao->getAllProjects(true);
+//        $this->projectList = $dao->getAllProjects(true);
+
+        $this->pager = $dao->getProjects(true,$this);
+
+        
     }
 
     public function executeSaveProject($request) {
@@ -50,7 +54,8 @@ class projectActions extends sfActions {
         }
 
         $dao = new ProjectDao();
-        $this->projectList = $dao->getAllProjects(true);
+//        $this->projectList = $dao->getAllProjects(true);
+        $this->pager = $dao->getProjects(true,$this);
     }
 
     public function executeDeleteProject($request) {
@@ -73,7 +78,6 @@ class projectActions extends sfActions {
         $dao = new StoryDao();
         $dao->updateStory($request->getParameter('id'), $request->getParameter('name'), $request->getParameter('estimation'), $request->getParameter('date'));
         die;
-       
     }
 
     public function executeAddStory($request) {
@@ -91,7 +95,7 @@ class projectActions extends sfActions {
             }
         }
         $viewStoryDao = new StoryDao();
-        $this->storyList = $viewStoryDao->getRelatedProjectStories(true, $this->projectId);
+        $this->storyList = $viewStoryDao->getRelatedProjectStoriesPaged(true, $this->projectId,$this);
     }
 
     public function executeDeleteStory($request) {
@@ -105,7 +109,7 @@ class projectActions extends sfActions {
 
         $this->projectId = $request->getParameter('id');
         $viewStoriesDao = new StoryDao();
-        $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId);
+        $this->storyList = $viewStoriesDao->getRelatedProjectStoriesPaged(true, $this->projectId,$this);
     }
 
 }
