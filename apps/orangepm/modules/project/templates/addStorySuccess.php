@@ -2,16 +2,15 @@
 <?php use_helper('Pagination'); ?>
 
 <div class="addForm">
-    <div class="headlineField"><?php echo __('Add Project') ?></div>
+    <div class="headlineField"><?php echo __('Add Story') ?></div>
     <div class="formField">
-        <form action="<?php echo url_for('project/addStory') ?>" method="post">
+        <form action="<?php echo url_for('project/addStory?id=' . $projectId); ?>" method="post">
             <table>
 
                 
-
-                <tr><td><?php echo $storyForm['Story_Name']->renderLabel() ?></td><td><?php echo $storyForm['Story_Name']->render() ?></td></tr>
-                <tr><td><?php echo $storyForm['Date_Added']->renderLabel() ?></td><td><?php echo $storyForm['Date_Added']->render() ?></td></tr>
-                <tr><td><?php echo $storyForm['Estimated_Effort']->renderLabel() ?></td><td><?php echo $storyForm['Estimated_Effort']->render() ?></td>&nbsp;<td><?php echo __("(Engineering Hours)") ?></td></tr>
+                <tr><td><?php echo $storyForm['Story_Name']->renderLabel() ?></td><td><?php echo $storyForm['Story_Name']->renderError() ?><?php echo $storyForm['Story_Name']->render() ?></td></tr>
+                <tr><td><?php echo $storyForm['Date_Added']->renderLabel() ?></td><td><?php echo $storyForm['Date_Added']->renderError() ?><?php echo $storyForm['Date_Added']->render() ?></td></tr>
+                <tr><td><?php echo $storyForm['Estimated_Effort']->renderLabel() ?> &nbsp;&nbsp;</td><td><?php echo $storyForm['Estimated_Effort']->renderError() ?><?php echo $storyForm['Estimated_Effort']->render() ?></td>&nbsp;<td><?php echo __("(Engineering Hours)") ?></td></tr>
 
                  <?php echo $storyForm->renderHiddenFields();?>
 

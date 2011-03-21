@@ -11,6 +11,7 @@
     </head>
     <body>
         <div class="header">
+            <?php echo image_tag('orangepmlogo.png', 'id=logo'); ?>
             <div class="navigaiton">
                 <ul id="menu">
                     <li> <?php echo link_to(__('Projects'), 'project/viewProjects', array('id' => 'projects')); ?></li>

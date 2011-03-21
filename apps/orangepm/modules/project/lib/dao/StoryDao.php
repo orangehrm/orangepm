@@ -46,7 +46,7 @@ class StoryDao {
 
         if ($isDeleted) {
 
-            $pager = new sfDoctrinePager('Story', 2);
+            $pager = new sfDoctrinePager('Story', 10);
 
             $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId);
             $pager->setPage($exam->getRequestParameter('page', 1));
