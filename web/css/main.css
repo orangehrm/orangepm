@@ -231,3 +231,10 @@ div.navigaiton {
     color: #ff0300;
     font-size: 12px;
 }
+
+span#message {
+    color: #339900;
+    margin-left: 450px;
+}
+
+
