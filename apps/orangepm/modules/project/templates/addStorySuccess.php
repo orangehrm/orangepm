@@ -1,6 +1,12 @@
 <?php echo stylesheet_tag('addStory') ?>
 <?php use_helper('Pagination'); ?>
 
+<script type="text/javascript">
+    var linkUrl = "<?php echo url_for('project/viewStories') ?>";
+</script>
+
+
+
 <div class="addForm">
     <div class="headlineField"><?php echo __('Add Story') ?></div>
     <div class="formField">
@@ -20,7 +26,7 @@
                        
                         <input class="formButton" type="submit" value="<?php echo __('Save') ?>" />
                         &nbsp;&nbsp;&nbsp;
-                        <input class="formButton" type="button" id="cancel" value="<?php echo __('Cancel') ?>" />
+                        <input class="formButton" type="button" id="cancel" onclick="passProjectId(<?php echo $projectId?>)" value="<?php echo __('Cancel') ?>" />
                     </td>
                 </tr>
             </table>
@@ -51,29 +57,5 @@
 
                             </tr>
     <?php endforeach; ?>
-                        </table>
-
-
-                        <script type="text/javascript">
-                            $(document).ready(
-                            function() {
-                                $( "#project_Date_Added" ).datepicker(
-                                {
-                                    dateFormat: 'yy-mm-dd',
-                                    changeMonth: true,
-                                    changeYear: true,
-                                    showAnim: "slideDown"
-
-
-                                });
-
-
-
-                            });
-
-                            $(document).ready(function(){
-                                $('#cancel').click(function(){
-                                    location.href="<?php echo url_for('project/viewStories?id=' . $projectId); ?>";
-        });
-    });
-</script>                
+</table>      
+<?php echo javascript_include_tag('addStory?id='.$projectId); ?>

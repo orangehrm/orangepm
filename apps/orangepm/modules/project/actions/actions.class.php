@@ -74,7 +74,7 @@ class projectActions extends sfActions {
     }
 
     public function executeEditStory($request) {
-
+        
         $dao = new StoryDao();
         $dao->updateStory($request->getParameter('id'), $request->getParameter('name'), $request->getParameter('estimation'), $request->getParameter('date'));
         die;
@@ -106,7 +106,7 @@ class projectActions extends sfActions {
     }
 
     public function executeViewStories($request) {
-
+        
         $this->projectId = $request->getParameter('id');
         $viewStoriesDao = new StoryDao();
         $this->storyList = $viewStoriesDao->getRelatedProjectStoriesPaged(true, $this->projectId,$this);
