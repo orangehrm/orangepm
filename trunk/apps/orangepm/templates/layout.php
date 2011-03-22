@@ -15,7 +15,7 @@
             <div class="navigaiton">
                 <ul id="menu">
                     <li> <?php echo link_to(__('Projects'), 'project/viewProjects', array('id' => 'projects')); ?></li>
-                    <li> <a href="#" id="issueTracker" >Issue Tacker </a></li>
+                    <li> <a href="#" id="issueTracker" ><?php echo __('Issue Tracker') ?></a></li>
                 </ul>
             </div>
         </div>

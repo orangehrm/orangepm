@@ -60,6 +60,30 @@
                 <source>(Engineering Hours)</source>
                 <target>(இன்ஜினியரிங் ஹெர்ஸ்)</target>
             </trans-unit>
+	    <trans-unit id="15">
+                <source>Enter Story Name</source>
+                <target>විස්තර නාමය ඇතුලත් කරන්න</target>
+            </trans-unit>
+	    <trans-unit id="16">
+                <source>Enter Date Added</source>
+                <target>ඇතුලත් කල දිනය ඇතුලත් කරන්න</target>
+            </trans-unit>
+	    <trans-unit id="17">
+                <source>Enter Estimated Effort</source>
+                <target>තක්සේරු ශ්‍රම වටිනාකම ඇතුලත් කරන්න</target>
+            </trans-unit>
+	    <trans-unit id="18">
+                <source>Issue Tracker</source>
+                <target>දෝෂ සෙවුම</target>
+            </trans-unit>
+	    <trans-unit id="19">
+                <source>The Project Name is required</source>
+                <target>ව්‍යපෘති නාමය ඇතුලත් කරන්න</target>
+            </trans-unit> 
+	    <trans-unit id="20">
+                <source>Add Story</source>
+                <target>විස්තර ඇතුලත් කිරීම</target>
+            </trans-unit> 
 	   
         </body>
     </file>
