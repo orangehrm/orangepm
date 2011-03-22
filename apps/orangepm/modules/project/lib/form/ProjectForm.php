@@ -13,7 +13,7 @@ class ProjectForm extends sfForm {
 
 
         $this->setValidators(array(
-            'Name' => new sfValidatorString(array('required' => true), array('required' => 'The Project Name is required.')),
+            'Name' => new sfValidatorString(array('required' => true), array('required' => __('The Project Name is required'))),
             
         ));
     }
