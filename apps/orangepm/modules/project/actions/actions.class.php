@@ -140,7 +140,7 @@ class projectActions extends sfActions {
            $story = "Story";
 
            mysql_query("INSERT INTO orangepm_story
-            (project_id,estimation,name,date_added) VALUES($id,12,'$story.$j','2011-03-22')")
+            (project_id,estimation,name,date_added) VALUES($id,12,'$story$j','2011-03-22')")
                     or die(mysql_error());
 
            }
