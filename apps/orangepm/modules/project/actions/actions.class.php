@@ -29,9 +29,7 @@ class projectActions extends sfActions {
         $dao = new ProjectDao();
 //        $this->projectList = $dao->getAllProjects(true);
 
-        $this->pager = $dao->getProjects(true,$this);
-
-        
+        $this->pager = $dao->getProjects(true, $this);
     }
 
     public function executeSaveProject($request) {
@@ -55,7 +53,7 @@ class projectActions extends sfActions {
 
         $dao = new ProjectDao();
 //        $this->projectList = $dao->getAllProjects(true);
-        $this->pager = $dao->getProjects(true,$this);
+        $this->pager = $dao->getProjects(true, $this);
     }
 
     public function executeDeleteProject($request) {
@@ -95,7 +93,7 @@ class projectActions extends sfActions {
             }
         }
         $viewStoryDao = new StoryDao();
-        $this->storyList = $viewStoryDao->getRelatedProjectStoriesPaged(true, $this->projectId,$this);
+        $this->storyList = $viewStoryDao->getRelatedProjectStoriesPaged(true, $this->projectId, $this);
     }
 
     public function executeDeleteStory($request) {
@@ -109,7 +107,49 @@ class projectActions extends sfActions {
         
         $this->projectId = $request->getParameter('id');
         $viewStoriesDao = new StoryDao();
-        $this->storyList = $viewStoriesDao->getRelatedProjectStoriesPaged(true, $this->projectId,$this);
+        $this->storyList = $viewStoriesDao->getRelatedProjectStoriesPaged(true, $this->projectId, $this);
     }
+
+    public function executeInsertData() {
+
+        mysql_connect("localhost", "root", "root") or die(mysql_error());
+        echo "Connected to MySQL<br />";
+        mysql_select_db("orangepm") or die(mysql_error());
+        echo "Connected to Database";
+
+        for ($i = 1; $i < 21; $i++) {
+
+            $project = "Project";
+
+            mysql_query("INSERT INTO orangepm_project
+            (name) VALUES('$project$i')")
+                    or die(mysql_error());
+
+        }
+
+       $projects=Doctrine_Core::getTable('Project')->findAll();
+
+       foreach ($projects as $project):
+
+           $id = $project->getId();
+
+           for ($j = 1; $j < 21; $j++) {
+
+           $story = "Story";
+
+           mysql_query("INSERT INTO orangepm_story
+            (project_id,estimation,name,date_added) VALUES($id,12,'$story.$j','2011-03-22')")
+                    or die(mysql_error());
+
+           }
+
+       endforeach;
+
+
+        print_r("   Data added");
+        die;
+    }
+
+
 
 }
