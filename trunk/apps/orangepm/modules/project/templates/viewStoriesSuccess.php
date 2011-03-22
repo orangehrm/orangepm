@@ -1,6 +1,14 @@
 <?php echo stylesheet_tag('viewStories') ?>
 <?php use_helper('Pagination'); ?>
 
+<script type="text/javascript">
+    var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
+    var editImgUrl = '<?php echo image_tag('b_edit.png', 'id=editBtn') ?>';
+    var linkUrl = "<?php echo url_for('project/editStory') ?>";
+</script>
+
+<?php echo javascript_include_tag('viewStories'); ?>
+
 <div class="addButton">
 <form action="<?php echo url_for('project/addStory?id=' . $projectId); ?>" method="GET">
     <input type="submit" value="<?php echo __('Add') ?>" />
@@ -34,99 +42,8 @@
     </table>
 
 
-    <script type="text/javascript">
-
-        $(document).ready(function(){
-            a = true;
-            nVariable = "Saved";
-
-            $('td.edit').click(function(){
-                if(a){
-                
-                arr = $(this).attr('class').split( " " );
-                if(nVariable == "Saved"){
-                    
-                    $(this).html('<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>');
-                    a = false;
-                }
-                if(nVariable == "Edited"){
-                    $(this).html('<?php echo image_tag('b_edit.png', 'id=editBtn') ?>');
-                    nVariable = "Saved";
-                    
-                }
-                
-
-                
-                $('.ajaxName').html($('.ajaxName input').val());
-                $('.ajaxDate').html($('.ajaxDate input').val());
-                $('.ajaxEstimation').html($('.ajaxEstimation input').val());
-                $('.ajaxName').removeClass('ajaxName');
-                $('.ajaxDate').removeClass('ajaxDate');
-                $('.ajaxEstimation').removeClass('ajaxEstimation');
-                $(this).parent().children('td.changedName').addClass('ajaxName');
-                $(this).parent().children('td.changedName').html('<input id="editboxName" size="13" type="text" value="' + $(this).parent().children('td.changedName').text() + '">');
-                $(this).parent().children('td.changedDate').addClass('ajaxDate');
-                $(this).parent().children('td.changedDate').html('<input id="editboxDate" size="9" type="text" value="' + $(this).parent().children('td.changedDate').text() + '">');
-                $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
-                $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="' + $(this).parent().children('td.changedEstimation').text() + '">');
-                
-                $('#saveBtn').click(function(){
-                    a = true;
-                    $.ajax({    type: "post",
-                        url: "<?php echo url_for('project/editStory') ?>",
-                        data: "name="+$('.ajaxName input').val()+"&date="+$('.ajaxDate input').val()+"&estimation="+$('.ajaxEstimation input').val()+"&id="+arr[2],
-                        success: function(){
-
-                            $('.ajaxName').html($('.ajaxName input').val());
-                            $('.ajaxDate').html($('.ajaxDate input').val());
-                            $('.ajaxEstimation').html($('.ajaxEstimation input').val());
-                            
-                         
-                        }
-                    });
-
-                    nVariable = "Edited";
-                
-
-
-            });}
-
-            
-            });
-});
-</script>
-
-
-
-
-
+    
 <div id="dialog" title="Confirmation Required">
   Story Will Be Deleted??
 </div>
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    $("#dialog").dialog({
-      autoOpen: false,
-      modal: true
-    });
-  });
-
-  $(".confirmLink").click(function(e) {
-    e.preventDefault();
-    var targetUrl = $(this).attr("href");
-
-    $("#dialog").dialog({
-      buttons : {
-        "OK" : function() {
-          window.location.href = targetUrl;
-        },
-        "Cancel" : function() {
-          $(this).dialog("close");
-        }
-      }
-    });
-
-    $("#dialog").dialog("open");
-  });
-</script>

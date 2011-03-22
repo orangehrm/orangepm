@@ -1,5 +1,6 @@
 <?php echo stylesheet_tag('addProject') ?>
 <?php use_helper('Pagination'); ?>
+<?php echo javascript_include_tag('addProject');?>
 
 <div class="Project">
     <div class="addForm">
@@ -21,11 +22,11 @@
         </div>
     </div>
 
-    
+
     <table class="tableContent" >
-        <tr><td class="pageNav" colspan="4"><?php  echo pager_navigation($pager, url_for('project/addProject')) ?></td></tr>
+        <tr><td class="pageNav" colspan="4"><?php echo pager_navigation($pager, url_for('project/addProject')) ?></td></tr>
         <tr><th><?php echo __('Id') ?></th>
-            <th><?php echo __('Project Name')?></th>
+            <th><?php echo __('Project Name') ?></th>
 
             <?php foreach ($pager->getResults() as $project): ?>
                     <tr>
@@ -35,16 +36,3 @@
         <?php endforeach; ?>
                     </table>
                 </div>
-
-
-
-                <script type="text/javascript">
-
-                    $(document).ready(function(){
-                        $('#cancel').click(function(){
-                            location.href="<?php echo url_for('project/viewProjects') ?>";
-        });
-    });
-
-</script> 
-
