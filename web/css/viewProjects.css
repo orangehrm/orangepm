@@ -39,3 +39,16 @@ a img {
     border: none;
 }
 
+
+.ui-dialog-buttonpane{
+
+font-size: 14px;
+font-family: sans-serif;
+}
+
+.ui-button-text{
+    color:#211e2d;
+    font-size: medium;
+    font-weight: bold;
+
+}
