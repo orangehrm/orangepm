@@ -59,7 +59,7 @@ $(document).ready(function() {
                 
             $('#saveBtn').click(function(){
                 a = true;
-             
+             if(!isNaN($('.ajaxEstimation input').val())){
                 $.ajax({
                     type: "post",
                     url: linkUrl,
@@ -78,7 +78,9 @@ $(document).ready(function() {
 
                 nVariable = "Edited";
                 
-
+             }
+             else
+                 alert("Please Input a Valid Number for Estimation Effort");
 
             });
         }
