@@ -46,7 +46,7 @@
 </div>
 
 
-<div style="bottom: auto;font: medium" id="dialog" title="Confirmation Required">
+<div  id="dialog" title="Confirmation Required">
     Story Will Be Deleted??
 </div>
 
