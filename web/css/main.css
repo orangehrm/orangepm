@@ -21,6 +21,7 @@ table.tableContent {
 }
 
 table.tableContent td {
+    white-space: pre;
     background-color: #CCC;
     color: #000;
     padding: 4px;
