@@ -15,22 +15,25 @@ class storyForm extends sfForm {
     public function configure() {
 
         $this->setWidgets(array(
-            'Story_Name' => new sfWidgetFormInputText(),
-            'Date_Added' => new sfWidgetFormInputText(),
-            'Estimated_Effort' => new sfWidgetFormInputText(),
+            'storyName' => new sfWidgetFormInputText(),
+            'dateAdded' => new sfWidgetFormInputText(),
+            'estimatedEffort' => new sfWidgetFormInputText(),
             'projectId' => new sfWidgetFormInputHidden(),
         ));
 
-        $this->setDefault('Date_Added', date('Y-m-d'));
+        $this->setDefault('dateAdded', date('Y-m-d'));
 
 
         $this->widgetSchema->setNameFormat('project[%s]');
-        $this->widgetSchema['Story_Name']->setAttribute('size' , 40);
+        $this->widgetSchema['storyName']->setAttribute('size' , 40);
+        $this->widgetSchema->setLabel('storyName', 'Story Name');
+        $this->widgetSchema->setLabel('dateAdded', 'Date Added');
+        $this->widgetSchema->setLabel('estimatedEffort', 'Estimated Effort');
 
         $this->setValidators(array(
-            'Story_Name' => new sfValidatorString(array(),array('required' => __('Enter Story Name'))),
-            'Date_Added' => new sfValidatorDate(array(),array('required' => __('Enter Date Added'))),
-            'Estimated_Effort' => new sfValidatorNumber(array('required' =>false)),
+            'storyName' => new sfValidatorString(array(),array('required' => __('Enter Story Name'))),
+            'dateAdded' => new sfValidatorDate(array(),array('required' => __('Enter Date Added'))),
+            'estimatedEffort' => new sfValidatorNumber(array('required' =>false)),
             'projectId' => new sfValidatorString(),
         ));
     }

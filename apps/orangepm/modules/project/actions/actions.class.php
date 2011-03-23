@@ -41,7 +41,7 @@ class projectActions extends sfActions {
     public function executeSaveProject($request) {
 
         $dao = new ProjectDao();
-        $dao->saveProject($request->getParameter('Name'));
+        $dao->saveProject($request->getParameter('name'));
         $this->redirect('project/viewProjects?msg=added');
     }
 
@@ -100,7 +100,7 @@ class projectActions extends sfActions {
             $this->storyForm->bind($request->getParameter('project'));
             if ($this->storyForm->isValid()) {
                 $dao = new StoryDao();
-                $dao->saveStory($this->storyForm->getValue('Story_Name'), $this->storyForm->getValue('Date_Added'), $this->storyForm->getValue('Estimated_Effort'), $this->storyForm->getValue('projectId'));
+                $dao->saveStory($this->storyForm->getValue('storyName'), $this->storyForm->getValue('dateAdded'), $this->storyForm->getValue('estimatedEffort'), $this->storyForm->getValue('projectId'));
                 $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'),'msg' => 'added','projectName' => $this->projectName)));
             }
         }

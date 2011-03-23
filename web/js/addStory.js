@@ -1,6 +1,6 @@
 $(document).ready(
     function() {
-        $( "#project_Date_Added" ).datepicker(
+        $( "#project_dateAdded" ).datepicker(
 
         {
                 dateFormat: 'yy-mm-dd',
