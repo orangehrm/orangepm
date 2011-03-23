@@ -89,7 +89,7 @@ class projectActions extends sfActions {
             if ($this->storyForm->isValid()) {
                 $dao = new StoryDao();
                 $dao->saveStory($this->storyForm->getValue('Story_Name'), $this->storyForm->getValue('Date_Added'), $this->storyForm->getValue('Estimated_Effort'), $this->storyForm->getValue('projectId'));
-                $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'), 'msg' => 'added')));
+                $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'),'msg' => 'added')));            
             }
         }
         $viewStoryDao = new StoryDao();
