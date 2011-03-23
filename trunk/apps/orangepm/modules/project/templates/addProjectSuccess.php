@@ -1,8 +1,13 @@
 <?php echo stylesheet_tag('addProject') ?>
 <?php use_helper('Pagination'); ?>
-<?php echo javascript_include_tag('addProject');?>
+<?php echo javascript_include_tag('addProject'); ?>
 
 <div class="Project">
+
+    <div class="heading">
+        <h4> <?php echo __('Projects > Add Project'); ?> </h4>
+    </div>
+
     <div class="addForm">
         <div class="headlineField"><?php echo __('Add Project') ?></div>
         <div class="formField">
@@ -34,5 +39,5 @@
                         <td> <?php echo $project->getName(); ?></td>
                     </tr>
         <?php endforeach; ?>
-                    </table>
-                </div>
+    </table>
+</div>

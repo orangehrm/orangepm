@@ -25,6 +25,7 @@ class storyForm extends sfForm {
 
 
         $this->widgetSchema->setNameFormat('project[%s]');
+        $this->widgetSchema['Story_Name']->setAttribute('size' , 40);
 
         $this->setValidators(array(
             'Story_Name' => new sfValidatorString(array(),array('required' => __('Enter Story Name'))),

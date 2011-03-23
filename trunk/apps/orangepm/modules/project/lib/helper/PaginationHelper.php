@@ -13,8 +13,8 @@ function pager_navigation($pager, $uri)
     {
       //$navigation .= link_to(image_tag('/sf/sf_admin/images/first.png', 'align=absmiddle'), $uri.'1');
       //$navigation .= link_to(image_tag('/sf/sf_admin/images/previous.png', 'align=absmiddle'), $uri.$pager->getPreviousPage()).' ';
-      $navigation .= link_to("First    ", $uri.'1');
-      $navigation .= link_to("Previous    ", $uri.$pager->getPreviousPage()).' ';
+      $navigation .= link_to("First ", $uri.'1');
+      $navigation .= link_to("Previous ", $uri.$pager->getPreviousPage()).' ';
     }
 
     // Pages one by one
@@ -30,8 +30,8 @@ function pager_navigation($pager, $uri)
     {
 //      $navigation .= ' '.link_to(image_tag('/sf/sf_admin/images/next.png', 'align=absmiddle'), $uri.$pager->getNextPage());
 //      $navigation .= link_to(image_tag('/sf/sf_admin/images/last.png', 'align=absmiddle'), $uri.$pager->getLastPage());
-      $navigation .= ' '.link_to("Next    ", $uri.$pager->getNextPage());
-      $navigation .= link_to("Last    ", $uri.$pager->getLastPage());
+      $navigation .= ' '.link_to("Next ", $uri.$pager->getNextPage());
+      $navigation .= link_to("Last ", $uri.$pager->getLastPage());
     }
 
   }
