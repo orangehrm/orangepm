@@ -72,7 +72,7 @@ class projectActions extends sfActions {
     }
 
     public function executeEditStory($request) {
-        
+
         $dao = new StoryDao();
         $dao->updateStory($request->getParameter('id'), $request->getParameter('name'), $request->getParameter('estimation'), $request->getParameter('date'));
         die;
@@ -89,7 +89,7 @@ class projectActions extends sfActions {
             if ($this->storyForm->isValid()) {
                 $dao = new StoryDao();
                 $dao->saveStory($this->storyForm->getValue('Story_Name'), $this->storyForm->getValue('Date_Added'), $this->storyForm->getValue('Estimated_Effort'), $this->storyForm->getValue('projectId'));
-                $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'),'msg' => 'added')));
+                $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'), 'msg' => 'added')));
             }
         }
         $viewStoryDao = new StoryDao();
@@ -111,47 +111,5 @@ class projectActions extends sfActions {
         $viewStoriesDao = new StoryDao();
         $this->storyList = $viewStoriesDao->getRelatedProjectStoriesPaged(true, $this->projectId, $this);
     }
-
-    public function executeInsertData() {
-
-        mysql_connect("localhost", "root", "root") or die(mysql_error());
-        echo "Connected to MySQL<br />";
-        mysql_select_db("orangepm") or die(mysql_error());
-        echo "Connected to Database";
-
-        for ($i = 1; $i < 21; $i++) {
-
-            $project = "Project";
-
-            mysql_query("INSERT INTO orangepm_project
-            (name) VALUES('$project$i')")
-                    or die(mysql_error());
-
-        }
-
-       $projects=Doctrine_Core::getTable('Project')->findAll();
-
-       foreach ($projects as $project):
-
-           $id = $project->getId();
-
-           for ($j = 1; $j < 21; $j++) {
-
-           $story = "Story";
-
-           mysql_query("INSERT INTO orangepm_story
-            (project_id,estimation,name,date_added) VALUES($id,12,'$story$j','2011-03-22')")
-                    or die(mysql_error());
-
-           }
-
-       endforeach;
-
-
-        print_r("   Data added");
-        die;
-    }
-
-
 
 }
