@@ -29,7 +29,7 @@ class storyForm extends sfForm {
         $this->setValidators(array(
             'Story_Name' => new sfValidatorString(array(),array('required' => __('Enter Story Name'))),
             'Date_Added' => new sfValidatorDate(array(),array('required' => __('Enter Date Added'))),
-            'Estimated_Effort' => new sfValidatorNumber(array(),array('required' => __('Enter Estimated Effort'))),
+            'Estimated_Effort' => new sfValidatorNumber(array('required' =>false)),
             'projectId' => new sfValidatorString(),
         ));
     }
