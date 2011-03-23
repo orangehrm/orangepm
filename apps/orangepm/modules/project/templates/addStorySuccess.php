@@ -29,7 +29,7 @@
 
                         <input class="formButton" type="submit" value="<?php echo __('Save') ?>" />
                         &nbsp;&nbsp;&nbsp;
-                        <input class="formButton" type="button" id="cancel" onclick="passProjectId(<?php echo $projectId ?>)" value="<?php echo __('Cancel') ?>" />
+                        <input class="formButton" type="button" id="cancel" onclick="passProjectId(<?php echo $projectId?>, '<?php echo $projectName?>' )" value="<?php echo __('Cancel') ?>" />
                     </td>
                 </tr>
             </table>

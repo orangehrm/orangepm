@@ -11,6 +11,8 @@ $(document).ready(
 
     });
     
-   function passProjectId($projectId){
-    location.href=linkUrl+"?id="+$projectId
-    }
+function passProjectId($projectId, $projectName){
+
+    location.href=linkUrl+"?id="+$projectId+"&projectName="+$projectName
+    
+}

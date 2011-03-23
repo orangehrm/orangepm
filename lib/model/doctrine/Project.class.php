@@ -12,6 +12,6 @@
  */
 class Project extends BaseProject
 {
-    const FLAG_DELETED = '0';
-    const FLAG_ACTIVE = '1';
+    const FLAG_DELETED = 0;
+    const FLAG_ACTIVE = 1;
 }
