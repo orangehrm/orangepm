@@ -30,8 +30,6 @@ table.tableContent td {
     border: 1px #fff solid;
 }
 
-
-
 table.tableContent th {
     white-space: pre;
     background-color: #666;
@@ -111,9 +109,9 @@ input.formButton {
 }
 
 div.addButton {
-    position: relative;
-    top: 5px;
-    left: 50px;
+    position: absolute;
+    top: 225px;
+    left: 55px;
     margin: 0px;
 }
 
@@ -151,11 +149,14 @@ div.formField {
 table.tableContent td.pageNav {
     background-color: #fff;
     text-align: right;
+      
 }
+
+
 
 div.header {
     
-    height: 200px;
+    height: 160px;
 }
 
 div.navigaiton {
@@ -238,4 +239,6 @@ span#message {
     margin-left: 450px;
 }
 
-
+div.heading {
+    margin-left: 50px;
+}

@@ -31,7 +31,7 @@ class ProjectDao {
     public function getProjects($isDeleted,$exam) {
 
         if ($isDeleted) {
-            $pager = new sfDoctrinePager('Project', 10);
+            $pager = new sfDoctrinePager('Project', 2);
             
             $pager->getQuery()->from('Project a')->where('a.deleted = ?', Project::FLAG_ACTIVE);
             $pager->setPage($exam->getRequestParameter('page', 1));

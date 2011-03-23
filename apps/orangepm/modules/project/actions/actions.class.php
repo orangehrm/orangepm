@@ -21,6 +21,9 @@ class projectActions extends sfActions {
      */
     public function executeIndex() {
 
+        $response = $this->getResponse();
+        $response->setTitle(  __('Orange Project Management') );
+
     }
 
     public function executeViewProjects($request) {
@@ -30,6 +33,9 @@ class projectActions extends sfActions {
 //        $this->projectList = $dao->getAllProjects(true);
 
         $this->pager = $dao->getProjects(true, $this);
+
+        $response = $this->getResponse();
+        $response->setTitle( __('Projects'));
     }
 
     public function executeSaveProject($request) {
@@ -42,6 +48,8 @@ class projectActions extends sfActions {
     public function executeAddProject($request) {
 
         $this->projectForm = new ProjectForm();
+        $response = $this->getResponse();
+        $response->setTitle( __('Add Project'));
 
         if ($request->isMethod('post')) {
             $this->projectForm->bind($request->getParameter('project'));
@@ -81,15 +89,19 @@ class projectActions extends sfActions {
     public function executeAddStory($request) {
 
         $this->projectId = $request->getParameter('id');
+        $this->projectName = $request->getParameter('projectName');
         $this->storyForm = new StoryForm();
         $this->storyForm->setDefault('projectId', $this->projectId);
+
+        $response = $this->getResponse();
+        $response->setTitle( __('Add Story'));
 
         if ($request->isMethod('post')) {
             $this->storyForm->bind($request->getParameter('project'));
             if ($this->storyForm->isValid()) {
                 $dao = new StoryDao();
                 $dao->saveStory($this->storyForm->getValue('Story_Name'), $this->storyForm->getValue('Date_Added'), $this->storyForm->getValue('Estimated_Effort'), $this->storyForm->getValue('projectId'));
-                $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'),'msg' => 'added')));            
+                $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'),'msg' => 'added','projectName' => $this->projectName)));
             }
         }
         $viewStoryDao = new StoryDao();
@@ -100,14 +112,18 @@ class projectActions extends sfActions {
 
         $dao = new StoryDao();
         $dao->deleteStory($request->getParameter('id'));
-        $this->redirect("project/viewStories?" . http_build_query(array('id' => $request->getParameter('projectId'))));
+        $this->redirect("project/viewStories?" . http_build_query(array('id' => $request->getParameter('projectId'),'projectName' => $request->getParameter('projectName'))));
     }
 
     public function executeViewStories($request) {
 
         $this->message = $request->getParameter('msg');
 
+        $response = $this->getResponse();
+        $response->setTitle( __('Stories'));
+
         $this->projectId = $request->getParameter('id');
+        $this->projectName = $request->getParameter('projectName');
         $viewStoriesDao = new StoryDao();
         $this->storyList = $viewStoriesDao->getRelatedProjectStoriesPaged(true, $this->projectId, $this);
     }
