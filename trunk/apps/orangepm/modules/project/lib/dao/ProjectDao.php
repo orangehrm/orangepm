@@ -7,6 +7,7 @@ class ProjectDao {
         $project = new Project();
         $project->setName($name);
         $project->save();
+        
     }
 
     public function deleteProject($id) {
@@ -17,29 +18,22 @@ class ProjectDao {
             $project->setDeleted(Project::FLAG_DELETED);
             $project->save();
         }
+        
     }
 
-    public function getAllProjects($isDeleted) {
+    public function getProjects($active, $pageNo) {
 
-        if ($isDeleted) {
-            return Doctrine_Core::getTable('Project')->findBy('deleted', Project::FLAG_ACTIVE);
-        } else {
-            return $allProjects = Doctrine_Core::getTable('Project')->findAll();
-        }
-    }
-
-    public function getProjects($isDeleted,$exam) {
-
-        if ($isDeleted) {
+        if ($active) {
             $pager = new sfDoctrinePager('Project', 2);
-            
+
             $pager->getQuery()->from('Project a')->where('a.deleted = ?', Project::FLAG_ACTIVE);
-            $pager->setPage($exam->getRequestParameter('page', 1));
+            $pager->setPage($pageNo);
             $pager->init();
             return $pager;
         } else {
             return $allProjects = Doctrine_Core::getTable('Project')->findAll();
         }
+        
     }
 
     public function updateProject($id, $name) {
@@ -50,7 +44,9 @@ class ProjectDao {
             $project->setName($name);
             $project->save();
         }
+
     }
+    
 
 }
 

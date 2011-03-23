@@ -16,6 +16,7 @@
     echo __('The Story is added successfully') ?></span>
     </div>
 
+    
     <table class="tableContent">
         <tr><td class="pageNav" colspan="6"><?php echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
         <tr>
