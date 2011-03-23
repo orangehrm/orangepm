@@ -17,9 +17,9 @@
             <table>
 
 
-                <tr><td><?php echo $storyForm['Story_Name']->renderLabel() ?></td><td colspan="2"><?php echo $storyForm['Story_Name']->renderError() ?><?php echo $storyForm['Story_Name']->render() ?></td></tr>
-                <tr><td><?php echo $storyForm['Date_Added']->renderLabel() ?></td><td><?php echo $storyForm['Date_Added']->renderError() ?><?php echo $storyForm['Date_Added']->render() ?></td></tr>
-                <tr><td><?php echo $storyForm['Estimated_Effort']->renderLabel() ?> &nbsp;&nbsp;</td><td><?php echo $storyForm['Estimated_Effort']->renderError() ?><?php echo $storyForm['Estimated_Effort']->render() ?></td>&nbsp;<td><?php echo __("(Engineering Hours)") ?></td></tr>
+                <tr><td><?php echo $storyForm['storyName']->renderLabel() ?></td><td colspan="2"><?php echo $storyForm['storyName']->renderError() ?><?php echo $storyForm['storyName']->render() ?></td></tr>
+                <tr><td><?php echo $storyForm['dateAdded']->renderLabel() ?></td><td><?php echo $storyForm['dateAdded']->renderError() ?><?php echo $storyForm['dateAdded']->render() ?></td></tr>
+                <tr><td><?php echo $storyForm['estimatedEffort']->renderLabel() ?> &nbsp;&nbsp;</td><td><?php echo $storyForm['estimatedEffort']->renderError() ?><?php echo $storyForm['estimatedEffort']->render() ?></td>&nbsp;<td><?php echo __("(Engineering Hours)") ?></td></tr>
 
                 <?php echo $storyForm->renderHiddenFields(); ?>
 
