@@ -5,7 +5,7 @@
 <div class="Project">
 
     <div class="heading">
-        <h4> <?php echo __('Projects > Add Project'); ?> </h4>
+        <h4> <?php echo __('Projects')?> > <?php echo __('Add Project'); ?> </h4>
     </div>
 
     <div class="addForm">

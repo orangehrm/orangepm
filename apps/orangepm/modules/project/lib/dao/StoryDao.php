@@ -2,11 +2,11 @@
 
 class StoryDao {
 
-    public function saveStory($name, $date_added, $estimation, $projectId) {
+    public function saveStory($name, $dateAdded, $estimation, $projectId) {
 
         $story = new Story();
         $story->setName($name);
-        $story->setDateAdded($date_added);
+        $story->setDateAdded($dateAdded);
         $story->setEstimation($estimation);
         $story->setProjectId($projectId);
         $story->save();
