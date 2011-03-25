@@ -6,6 +6,14 @@ body {
 /* Standard margin and padding reset, normally done on the body */
 
 
+td.labelfield {
+/*    vertical-align:bottom;
+    font-size: 14px;*/
+    padding-top: 5px;
+    
+}
+
+
 table.tableContent {
     position: relative;
     top: 60px;
