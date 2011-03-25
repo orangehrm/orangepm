@@ -7,7 +7,7 @@
 
 
 <div class="heading">
-    <h4> <?php echo __('Projects'); ?> > <?php echo $projectName;?> > <?php echo __('Add Story'); ?> </h4>
+    <h4> <?php echo __('Projects'); ?> > <?php echo $projectName; ?> > <?php echo __('Add Story'); ?> </h4>
 </div>
 
 <div class="addForm">
@@ -17,7 +17,8 @@
             <table>
 
 
-                <tr><td><?php echo $storyForm['storyName']->renderLabel() ?></td><td colspan="2"><?php echo $storyForm['storyName']->renderError() ?><?php echo $storyForm['storyName']->render() ?></td></tr>
+<!--                <tr><td class="labelfield"><?php //echo $storyForm['storyName']->renderLabel() ?></td><td colspan="2"><?php //echo $storyForm['storyName']->renderError() ?><?php //echo $storyForm['storyName']->render() ?></td></tr>-->
+                <tr><td  valign="top"><span>*</span> Story Name:</td><td colspan="2" class="labelfield" ><?php echo $storyForm['storyName']->render() ?><?php echo $storyForm['storyName']->renderError() ?></td></tr>
                 <tr><td><?php echo $storyForm['dateAdded']->renderLabel() ?></td><td><?php echo $storyForm['dateAdded']->renderError() ?><?php echo $storyForm['dateAdded']->render() ?></td></tr>
                 <tr><td><?php echo $storyForm['estimatedEffort']->renderLabel() ?> &nbsp;&nbsp;</td><td><?php echo $storyForm['estimatedEffort']->renderError() ?><?php echo $storyForm['estimatedEffort']->render() ?></td>&nbsp;<td><?php echo __("(Engineering Hours)") ?></td></tr>
 
@@ -29,7 +30,7 @@
 
                         <input class="formButton" type="submit" value="<?php echo __('Save') ?>" />
                         &nbsp;&nbsp;&nbsp;
-                        <input class="formButton" type="button" id="cancel" onclick="passProjectId(<?php echo $projectId?>, '<?php echo $projectName?>' )" value="<?php echo __('Cancel') ?>" />
+                        <input class="formButton" type="button" id="cancel" onclick="passProjectId(<?php echo $projectId ?>, '<?php echo $projectName ?>' )" value="<?php echo __('Cancel') ?>" />
                     </td>
                 </tr>
             </table>
