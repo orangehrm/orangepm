@@ -20,7 +20,9 @@ Story:
     project_id: integer
     estimation: integer
     name: string(255)
-    date_added: string(255)
+    date_added: date
+    status: string(255)
+    accepted_date: date
     deleted: { type: boolean, notnull: true, default: 1 }
   relations:
     Project:

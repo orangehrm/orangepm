@@ -100,7 +100,17 @@ class projectActions extends sfActions {
             $this->storyForm->bind($request->getParameter('project'));
             if ($this->storyForm->isValid()) {
                 $dao = new StoryDao();
-                $dao->saveStory($this->storyForm->getValue('storyName'), $this->storyForm->getValue('dateAdded'), $this->storyForm->getValue('estimatedEffort'), $this->storyForm->getValue('projectId'));
+                $storyStatus =  array(0 => 'Pending', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing',  5 => 'Rework', 6 => 'Accepted');
+                $inputParameters = array(
+                    'name' => $this->storyForm->getValue('storyName'),
+                    'added date' => $this->storyForm->getValue('dateAdded'),
+                    'estimated effort' => $this->storyForm->getValue('estimatedEffort'),
+                    'project id' => $this->storyForm->getValue('projectId'),
+                    'status' => $storyStatus[$this->storyForm->getValue('status')],
+                    'accepted date' => $this->storyForm->getValue('acceptedDate')
+                );
+                $dao->saveStory($inputParameters);
+                //$dao->saveStory($this->storyForm->getValue('storyName'), $this->storyForm->getValue('dateAdded'), $this->storyForm->getValue('estimatedEffort'), $this->storyForm->getValue('projectId'));
                 $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'), 'msg' => 'added', 'projectName' => $this->projectName)));
             }
         }

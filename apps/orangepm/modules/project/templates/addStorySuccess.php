@@ -3,6 +3,7 @@
 
 <script type="text/javascript">
     var linkUrl = "<?php echo url_for('project/viewStories') ?>";
+   
 </script>
 
 
@@ -21,7 +22,9 @@
                 <tr><td  valign="top"><span>*</span> Story Name:</td><td colspan="2" class="labelfield" ><?php echo $storyForm['storyName']->render() ?><?php echo $storyForm['storyName']->renderError() ?></td></tr>
                 <tr><td><?php echo $storyForm['dateAdded']->renderLabel() ?></td><td><?php echo $storyForm['dateAdded']->renderError() ?><?php echo $storyForm['dateAdded']->render() ?></td></tr>
                 <tr><td><?php echo $storyForm['estimatedEffort']->renderLabel() ?> &nbsp;&nbsp;</td><td><?php echo $storyForm['estimatedEffort']->renderError() ?><?php echo $storyForm['estimatedEffort']->render() ?></td>&nbsp;<td><?php echo __("(Engineering Hours)") ?></td></tr>
-
+                <tr><td><?php echo $storyForm['status']->renderLabel() ?></td><td><?php echo $storyForm['status']->render(array('onchange' => 'clicked(project_status)'))?></td>
+                    &nbsp;
+                    <td><?php echo $storyForm['acceptedDate']->renderLabel() ?></td><td><?php echo $storyForm['acceptedDate']->renderError() ?><?php echo $storyForm['acceptedDate']->render() ?></td></tr>
                 <?php echo $storyForm->renderHiddenFields(); ?>
 
 
@@ -43,12 +46,14 @@
 <p>
     <br/>
 <table class="tableContent">
-    <tr><td class="pageNav" colspan="4"><?php echo pager_navigation($storyList, url_for('project/addStory') . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
+    <tr><td class="pageNav" colspan="6"><?php echo pager_navigation($storyList, url_for('project/addStory') . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
     <tr>
         <th><?php echo __('Story Id') ?></th>
         <th><?php echo __('Story Name') ?></th>
         <th><?php echo __('Estimated Effort'); ?> <br> <?php echo __('(Engineering Hours)'); ?></th>
         <th><?php echo __('Date Added') ?></th>
+        <th><?php echo 'Status' ?></th>
+        <th><?php echo 'Accepted Date' ?></th>
     </tr>
 
     <?php foreach ($storyList->getResults() as $story): ?>
@@ -57,9 +62,15 @@
                         <td class="<?php echo "change name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>
                         <td> <?php echo $story->getEstimation(); ?></td>
                         <td> <?php echo $story->getDateAdded(); ?></td>
+                        <td><?php echo $story->getStatus(); ?></td>
+                        <td><?php echo $story->getAcceptedDate(); ?></td>
 
 
                     </tr>
     <?php endforeach; ?>
                 </table>
 <?php echo javascript_include_tag("addStory?id={$projectId}&projectName={$projectName}"); ?>
+<script type="text/javascript">
+    var linkUrl = "<?php echo url_for('project/viewStories') ?>";
+    var index = "<?php echo $storyForm->getValue('status')?>";
+</script>

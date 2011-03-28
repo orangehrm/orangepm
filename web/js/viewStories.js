@@ -56,6 +56,8 @@ $(document).ready(function() {
             $(this).parent().children('td.changedDate').html('<input id="editboxDate" size="9" type="text" value="'+$(this).parent().children('td.changedDate').text()+'">');
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
             $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
+            //$(this).parent().children('td.changedStatus').addClass('ajaxStatus');
+            //$(this).parent().children('td.changedStatus').html('<input id="editboxStatus" size="13" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
 
             $('#saveBtn').click(function(){
                 a = true;
@@ -177,8 +179,8 @@ $(document).ready(function() {
 
         function ValidateForm(date){
 
-            var dt=jQuery.trim(date);
-            if (isDate(dt)==false){
+            var trimedDate=jQuery.trim(date);
+            if (isDate(trimedDate)==false){
                 return false;
             }
             return true;
