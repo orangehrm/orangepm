@@ -2,13 +2,19 @@
 
 class StoryDao {
 
-    public function saveStory($name, $dateAdded, $estimation, $projectId) {
+
+    public function saveStory($storyParameters) {
+
 
         $story = new Story();
-        $story->setName($name);
-        $story->setDateAdded($dateAdded);
-        $story->setEstimation($estimation);
-        $story->setProjectId($projectId);
+
+        $story->setName($storyParameters['name']);
+        $story->setDateAdded($storyParameters['added date']);
+        $story->setEstimation($storyParameters['estimated effort']);
+        $story->setProjectId($storyParameters['project id']);
+        $story->setStatus($storyParameters['status']);
+        $story->setAcceptedDate($storyParameters['accepted date']);
+
         $story->save();
         
     }

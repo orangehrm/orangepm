@@ -9,24 +9,30 @@
  * @property integer $project_id
  * @property integer $estimation
  * @property string $name
- * @property string $date_added
+ * @property date $date_added
+ * @property string $status
+ * @property date $accepted_date
  * @property boolean $deleted
  * @property Project $Project
  * 
- * @method integer getId()         Returns the current record's "id" value
- * @method integer getProjectId()  Returns the current record's "project_id" value
- * @method integer getEstimation() Returns the current record's "estimation" value
- * @method string  getName()       Returns the current record's "name" value
- * @method string  getDateAdded()  Returns the current record's "date_added" value
- * @method boolean getDeleted()    Returns the current record's "deleted" value
- * @method Project getProject()    Returns the current record's "Project" value
- * @method Story   setId()         Sets the current record's "id" value
- * @method Story   setProjectId()  Sets the current record's "project_id" value
- * @method Story   setEstimation() Sets the current record's "estimation" value
- * @method Story   setName()       Sets the current record's "name" value
- * @method Story   setDateAdded()  Sets the current record's "date_added" value
- * @method Story   setDeleted()    Sets the current record's "deleted" value
- * @method Story   setProject()    Sets the current record's "Project" value
+ * @method integer getId()            Returns the current record's "id" value
+ * @method integer getProjectId()     Returns the current record's "project_id" value
+ * @method integer getEstimation()    Returns the current record's "estimation" value
+ * @method string  getName()          Returns the current record's "name" value
+ * @method date    getDateAdded()     Returns the current record's "date_added" value
+ * @method string  getStatus()        Returns the current record's "status" value
+ * @method date    getAcceptedDate()  Returns the current record's "accepted_date" value
+ * @method boolean getDeleted()       Returns the current record's "deleted" value
+ * @method Project getProject()       Returns the current record's "Project" value
+ * @method Story   setId()            Sets the current record's "id" value
+ * @method Story   setProjectId()     Sets the current record's "project_id" value
+ * @method Story   setEstimation()    Sets the current record's "estimation" value
+ * @method Story   setName()          Sets the current record's "name" value
+ * @method Story   setDateAdded()     Sets the current record's "date_added" value
+ * @method Story   setStatus()        Sets the current record's "status" value
+ * @method Story   setAcceptedDate()  Sets the current record's "accepted_date" value
+ * @method Story   setDeleted()       Sets the current record's "deleted" value
+ * @method Story   setProject()       Sets the current record's "Project" value
  * 
  * @package    orangepm
  * @subpackage model
@@ -53,9 +59,15 @@ abstract class BaseStory extends sfDoctrineRecord
              'type' => 'string',
              'length' => 255,
              ));
-        $this->hasColumn('date_added', 'string', 255, array(
+        $this->hasColumn('date_added', 'date', null, array(
+             'type' => 'date',
+             ));
+        $this->hasColumn('status', 'string', 255, array(
              'type' => 'string',
              'length' => 255,
+             ));
+        $this->hasColumn('accepted_date', 'date', null, array(
+             'type' => 'date',
              ));
         $this->hasColumn('deleted', 'boolean', null, array(
              'type' => 'boolean',
