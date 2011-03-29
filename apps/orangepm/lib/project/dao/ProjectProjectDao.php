@@ -16,26 +16,22 @@ class ProjectProgressDao {
 
     public function getProjectProgress($projectId, $date) {
 
-        $query = Doctrine_Core::getTable('ProjectPrgress')
+        $query = Doctrine_Core::getTable('ProjectProgress')
                         ->createQuery('c')
                         ->where('c.project_id = ?', $projectId)
                         ->andWhere('c.date= ?', $date);
         return $query->execute();
-        
     }
 
     public function updateProjectProgress($projectId, $date, $workCompleted) {
 
-        $query = Doctrine_Core::getTable('ProjectPrgress')
-                        ->createQuery('c')
-                        ->where('c.project_id = ?', $projectId)
-                        ->andWhere('c.date= ?', $date);
-        $projectProgress = $query->execute();
+        $query = Doctrine_Query::create()
+                        ->update('ProjectProgress p')
+                        ->where('p.project_id = ?', $projectId)
+                        ->andWhere('p.date= ?', $date)
+                        ->set('p.work_completed', $workCompleted);
 
-        if ($projectProgress instanceof ProjectProgress) {
-            $projectProgress->setWorkCompleted($workCompleted);
-            $projectProgress->save();
-        }
+        $query->execute();
     }
 
 }
