@@ -18,11 +18,11 @@ Story:
       primary: true
       autoincrement: true
     project_id: integer
-    estimation: integer
+    estimation: { type: integer, notnull: false }
     name: string(255)
     date_added: date
     status: string(255)
-    accepted_date: date
+    accepted_date: { type: date, notnull: false }
     deleted: { type: boolean, notnull: true, default: 1 }
   relations:
     Project:

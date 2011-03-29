@@ -54,6 +54,7 @@ abstract class BaseStory extends sfDoctrineRecord
              ));
         $this->hasColumn('estimation', 'integer', null, array(
              'type' => 'integer',
+             'notnull' => false,
              ));
         $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
@@ -68,6 +69,7 @@ abstract class BaseStory extends sfDoctrineRecord
              ));
         $this->hasColumn('accepted_date', 'date', null, array(
              'type' => 'date',
+             'notnull' => false,
              ));
         $this->hasColumn('deleted', 'boolean', null, array(
              'type' => 'boolean',

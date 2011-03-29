@@ -41,13 +41,15 @@ class StoryDao {
         
     }
 
-    public function updateStory($id, $updatedName, $updatedEstimation, $updatedDate) {
+    public function updateStory($storyParameters) {
 
-        $story = Doctrine_Core::getTable('Story')->find($id);
+        $story = Doctrine_Core::getTable('Story')->find($storyParameters['id']);
         if ($story instanceof Story) {
-            $story->setName($updatedName);
-            $story->setEstimation($updatedEstimation);
-            $story->setDateAdded($updatedDate);
+            $story->setName($storyParameters['name']);
+            $story->setEstimation($storyParameters['estimated effort']);
+            $story->setDateAdded($storyParameters['added date']);
+            $story->setStatus($storyParameters['status']);
+            $story->setAcceptedDate($storyParameters['accepted date']);
             $story->save();
         }
         

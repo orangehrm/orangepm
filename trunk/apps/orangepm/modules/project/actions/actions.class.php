@@ -9,13 +9,11 @@
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class projectActions extends sfActions {
-    
 
     public function executeIndex() {
 
         $response = $this->getResponse();
         $response->setTitle(__('Orange Project Management'));
-        
     }
 
     public function executeViewProjects($request) {
@@ -30,7 +28,6 @@ class projectActions extends sfActions {
 
         $response = $this->getResponse();
         $response->setTitle(__('Projects'));
-        
     }
 
     public function executeSaveProject($request) {
@@ -38,7 +35,6 @@ class projectActions extends sfActions {
         $dao = new ProjectDao();
         $dao->saveProject($request->getParameter('name'));
         $this->redirect('project/viewProjects?msg=added');
-        
     }
 
     public function executeAddProject($request) {
@@ -58,7 +54,6 @@ class projectActions extends sfActions {
         $dao = new ProjectDao();
         $pageNo = $this->getRequestParameter('page', 1);
         $this->pager = $dao->getProjects(true, $pageNo);
-        
     }
 
     public function executeDeleteProject($request) {
@@ -66,7 +61,6 @@ class projectActions extends sfActions {
         $dao = new projectDao();
         $dao->deleteProject($request->getParameter('id'));
         $this->redirect('project/viewProjects');
-        
     }
 
     public function executeEditProject($request) {
@@ -75,15 +69,33 @@ class projectActions extends sfActions {
         $dao->updateProject($request->getParameter('id'), $request->getParameter('name'));
         die;
         sfView::NONE;
-
     }
 
     public function executeEditStory($request) {
 
         $dao = new StoryDao();
-        $dao->updateStory($request->getParameter('id'), $request->getParameter('name'), $request->getParameter('estimation'), $request->getParameter('date'));
+        $inputParameters = array(
+            'name' => $request->getParameter('name'),
+            'added date' => $request->getParameter('date'),
+            //'estimated effort' => $estimation,
+            'id' => $request->getParameter('id'),
+            'status' => $request->getParameter('status')
+                //'accepted date' => $accepttedDate
+        );
+        if ($request->getParameter('estimation') == '')
+            $inputParameters['estimated effort'] = null;
+        else
+            $inputParameters['estimated effort'] = $request->getParameter('estimation');
+
+
+        if ($request->getParameter('acceptedDate') == '')
+            $inputParameters['accepted date'] = null;
+        else
+            $inputParameters['accepted date'] = $request->getParameter('acceptedDate');
+
+
+        $dao->updateStory($inputParameters);
         die;
-        
     }
 
     public function executeAddStory($request) {
@@ -100,7 +112,7 @@ class projectActions extends sfActions {
             $this->storyForm->bind($request->getParameter('project'));
             if ($this->storyForm->isValid()) {
                 $dao = new StoryDao();
-                $storyStatus =  array(0 => 'Pending', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing',  5 => 'Rework', 6 => 'Accepted');
+                $storyStatus = array(0 => 'Pending', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing', 5 => 'Rework', 6 => 'Accepted');
                 $inputParameters = array(
                     'name' => $this->storyForm->getValue('storyName'),
                     'added date' => $this->storyForm->getValue('dateAdded'),
@@ -118,7 +130,6 @@ class projectActions extends sfActions {
         $pageNo = $this->getRequestParameter('page', 1);
         $viewStoryDao = new StoryDao();
         $this->storyList = $viewStoryDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
-        
     }
 
     public function executeDeleteStory($request) {
@@ -126,7 +137,6 @@ class projectActions extends sfActions {
         $dao = new StoryDao();
         $dao->deleteStory($request->getParameter('id'));
         $this->redirect("project/viewStories?" . http_build_query(array('id' => $request->getParameter('projectId'), 'projectName' => $request->getParameter('projectName'))));
-        
     }
 
     public function executeViewStories($request) {
@@ -139,10 +149,9 @@ class projectActions extends sfActions {
         $this->projectId = $request->getParameter('id');
         $this->projectName = $request->getParameter('projectName');
         $viewStoriesDao = new StoryDao();
-        
+
         $pageNo = $this->getRequestParameter('page', 1);
         $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
-        
     }
 
 }
