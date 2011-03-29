@@ -5,7 +5,7 @@ require_once 'PHPUnit/Framework.php';
 class ProjectProgressTest extends PHPUnit_Framework_TestCase {
 
     public function setup() {
-
+        
         $this->deleteData();
         $this->insertData();
     }
@@ -32,14 +32,13 @@ class ProjectProgressTest extends PHPUnit_Framework_TestCase {
         $projectprogress->save();
     }
 
-    public function getData($projectId, $date){
+    public function getData($projectId, $date) {
 
         $query = Doctrine_Core::getTable('ProjectProgress')
                         ->createQuery('c')
                         ->where('c.project_id = ?', $projectId)
                         ->andWhere('c.date= ?', $date);
         return $query->execute();
-
     }
 
     public function testGetProjectProgress() {
@@ -49,30 +48,24 @@ class ProjectProgressTest extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals(20, $record[0]->getWorkCompleted());
         $this->assertEquals(15, $record[0]->getUnitOfWork());
-
-
     }
 
     public function testAddProjectProgress() {
 
         $dao = new ProjectProgressDao();
         $dao->addProjectProgress(1, '2011-04-24', 10, 2);
-
-        $projectProgress = $this->getData(1,'2011-04-24');
-
+        $projectProgress = $this->getData(1, '2011-04-24');
         $this->assertEquals(10, $projectProgress[0]->getWorkCompleted());
         $this->assertEquals(2, $projectProgress[0]->getUnitOfWork());
-
     }
 
-    public function testUpdateProjectProgress(){
+    public function testUpdateProjectProgress() {
 
         $dao = new ProjectProgressDao();
-        $dao->updateProjectProgress(3,'2011-04-01',30);
+        $dao->updateProjectProgress(3, '2011-04-01', 30);
 
-        $projectProgress = $this->getData(3,'2011-04-01');
+        $projectProgress = $this->getData(3, '2011-04-01');
         $this->assertEquals(30, $projectProgress[0]->getWorkCompleted());
-
     }
 
 }

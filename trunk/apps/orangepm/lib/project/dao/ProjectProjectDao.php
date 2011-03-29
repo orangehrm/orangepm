@@ -25,6 +25,7 @@ class ProjectProgressDao {
 
     public function updateProjectProgress($projectId, $date, $workCompleted) {
 
+
         $query = Doctrine_Query::create()
                         ->update('ProjectProgress p')
                         ->where('p.project_id = ?', $projectId)
