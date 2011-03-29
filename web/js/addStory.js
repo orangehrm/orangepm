@@ -10,11 +10,6 @@ $(document).ready(
                 showAnim: "slideDown"
             });
 
-//        $("#project_status").onChange(function(){
-//           alert("success");
-//        });
-
-
     });
 
     function clicked(dropdown){
