@@ -2,18 +2,43 @@
 
 class ProjectService {
 
-    public function trackProjectProgress($projectId, $date, $status, $storyId) {
+    public function trackProjectProgress($date, $status, $storyId) {
 
-        if ($status == 'ACCEPTED') {
-            $projectProgressDao = new ProjectProgressDao();
+        $storyDao = new StoryDao();
+        $story = $storyDao->getStory($storyId);
+        $previousStatus = $story->getStatus();
+        $projectId = $story->getProjectId();
+
+        $projectProgressDao = new ProjectProgressDao();
+
+        if (($status == 'ACCEPTED') && ($previousStatus != 'ACCEPTED')) {
+
             $projectProgress = $projectProgressDao->getProjectProgress($projectId, $date);
-            $workCompleted = $projectProgress->getWorkCompleted();
+            $workCompleted = $projectProgress[0]->getWorkCompleted();
+            $workCompleted += $story->getEstimation();
+            $projectProgressDao->addProjectProgress($projectId, $date, $workCompleted, 2);
+        } elseif (($status != 'ACCEPTED') && ($previousStatus == 'ACCEPTED')) {
 
-            $storyDao = new StoryDao();
-            $workCompleted += $storyDao->getStory($storyId)->getProject()->getEstimatedEffort();
+            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $date);
+            $workCompleted = $projectProgress[0]->getWorkCompleted();
 
-            $projectProgressDao->updateProjectProgress($projectId, $date, $workCompleted);
+            $oldDate = $story->getAcceptedDate();
+            $workCompleted -= $story->getEstimation();
+            $projectProgressDao->updateProjectProgress($projectId, $oldDate, $workCompleted);
+        } elseif (($status == 'ACCEPTED') && ($previousStatus== 'ACCEPTED')) {
 
+            $oldDate = $story->getAcceptedDate();
+            $newDate = $date;
+
+            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $oldDate);
+            $workCompleted = $projectProgress[0]->getWorkCompleted();
+            $workCompleted -= $story->getEstimation();
+            $projectProgressDao->updateProjectProgress($projectId, $oldDate, $workCompleted);
+
+            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $newDate);
+            $workCompleted = $projectProgress[0]->getWorkCompleted();
+            $workCompleted += $story->getEstimation();
+            $projectProgressDao->addProjectProgress($projectId, $newDate, $workCompleted, 2);
         }
     }
 

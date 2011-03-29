@@ -53,4 +53,10 @@ class StoryDao {
         
     }
 
+     public function getStory($storyId){
+
+        return Doctrine_Core::getTable('Story')->find($storyId);
+
+    }
+
 }
