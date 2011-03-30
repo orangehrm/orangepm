@@ -102,6 +102,7 @@ $(document).ready(function() {
                 if(ner=="Accepted"){
                     //alert("Came here");
                     document.getElementById('editboxAcceptedDate').disabled=false;
+                    document.getElementById('editboxEstimation').disabled=true;
                 }
             
                 newVariable = false;
@@ -264,17 +265,20 @@ $(document).ready(function() {
 function findSelected(){
     
     var changedStatus = document.getElementById('changedStatus');
+    var changedEstimation = document.getElementById('editboxEstimation');
     var editboxAcceptedDate = document.getElementById('editboxAcceptedDate');
     if(changedStatus.value == "Accepted"){
 
         //changedStatus.selectedIndex = "Accepted";
         //alert("Selected");
         //document.getElementById('changedStatus').selectedIndex=6;
+        changedEstimation.disabled = true;
         editboxAcceptedDate.disabled=false;
         
     }
     else{
         editboxAcceptedDate.value= '';
+        changedEstimation.disabled = false;
         editboxAcceptedDate.disabled=true;
     }
     
