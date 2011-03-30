@@ -21,6 +21,7 @@ table.tableContent {
 
 div.addButton{
     left: 60px;
+    top:225px;
 }
 td.edit {
         cursor:pointer;
