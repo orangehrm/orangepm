@@ -45,7 +45,7 @@ class ProjectService {
             $projectProgress = $projectProgressDao->getProjectProgress($projectId, $oldDate);
             $workCompleted = $projectProgress[0]->getWorkCompleted();
 
-            
+
             $workCompleted -= $story->getEstimation();
             $projectProgressDao->updateProjectProgress($projectId, $oldDate, $workCompleted);
         } elseif (($status == 'Accepted') && ($previousStatus == 'Accepted')) {
@@ -75,9 +75,8 @@ class ProjectService {
     public function viewWeeklyProgress($storyList, $projectId) {
 
         $totalEstimatedEffort = 0;
-        $weeklyVelocity = 0;
-        foreach ($storyList as $story) {
 
+        foreach ($storyList as $story) {
 
             $totalEstimatedEffort+=$story->getEstimation();
         }
@@ -86,34 +85,46 @@ class ProjectService {
         $progressValues = $t->getRecords($projectId);
 
 
-        $i = 0;
-        $j = 0;;
+        $j = 0;
         $burnDown = 0;
-        $wc = 0;
+        $storeWorkCompleted = 0;
+//         $burnDownArray=0;
+//        $weekStartingDays=null;
+//        $weekStartings=null;
+//         $workCompleted=null;
 
-        foreach ($progressValues as $Values) {
 
+        foreach ($progressValues as $values) {
 
-            if (!isset($weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())])) {
-                $weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())] = 0;
-                
+            if (!isset($weeklyVelocity[$this->CalculateWeekStartDate($values->getDate())])) {
+
+                $weeklyVelocity[$this->CalculateWeekStartDate($values->getDate())] = 0;
             }
-            $weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())] += $Values->getWorkCompleted();
-            $wc += $Values->getWorkCompleted();
-            $workCompleted[$this->CalculateWeekStartDate($Values->getDate())] = $wc;
-            $burnDown = $totalEstimatedEffort - $wc;
-            $burnDownArray[$this->CalculateWeekStartDate($Values->getDate())] = $burnDown;
-            $weekStartings[$j] = $this->CalculateWeekStartDate($Values->getDate());
+
+            if (!isset($burnDownArray[$this->CalculateWeekStartDate($values->getDate())])) {
+
+                $burnDownArray[$this->CalculateWeekStartDate($values->getDate())] = 0;
+            }
+
+            $weeklyVelocity[$this->CalculateWeekStartDate($values->getDate())] += $values->getWorkCompleted();
+
+            $storeWorkCompleted += $values->getWorkCompleted();
+            $workCompletedArray[$this->CalculateWeekStartDate($values->getDate())] = $storeWorkCompleted;
+
+            $burnDown = $totalEstimatedEffort - $storeWorkCompleted;
+            $burnDownArray[$this->CalculateWeekStartDate($values->getDate())] = $burnDown;
+
+            $weekStartings[$j] = $this->CalculateWeekStartDate($values->getDate());
             $j++;
         }
 
-        return array(array_unique($weekStartings), $totalEstimatedEffort, $weekStartingDays, $workCompleted, $burnDownArray);
+        return array(array_unique($weekStartings), $totalEstimatedEffort, $weeklyVelocity, $workCompletedArray, $burnDownArray);
     }
 
     public function CalculateWeekStartDate($date) {
 
         $ts = strtotime($date);
-        $start = (date('w', $ts) == 0) ? $ts : strtotime('last sunday', $ts);
+        $start = (date('w', $ts) == 0) ? $ts : strtotime('last monday', $ts);
         return date('Y-m-d', $start);
     }
 
