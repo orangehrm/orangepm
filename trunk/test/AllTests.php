@@ -39,7 +39,7 @@ class AllTests {
 
         $suite->addTestFile(dirname(__FILE__) . '/ProjectProgressTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/ProjectServiceTest.php');
-        $suite->addTestFile(dirname(__FILE__) . '/StoryDaoTest.php');
+	//$suite->addTestFile(dirname(__FILE__) . '/StoryDaoTest.php');
 
         return $suite;
     }

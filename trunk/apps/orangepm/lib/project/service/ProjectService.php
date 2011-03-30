@@ -3,7 +3,7 @@
 class ProjectService {
 
     public function trackProjectProgressAddStory($date, $status, $projectId, $estimation) {
-        
+
         $projectProgressDao = new ProjectProgressDao();
         if ($status == 'Accepted') {
 
@@ -74,42 +74,40 @@ class ProjectService {
 
     public function viewWeeklyProgress($storyList, $projectId) {
 
-
-        $t = new ProjectProgressDao();
-        $progressValues = $t->getRecords($projectId);
-
-
-        $i = 0;
-        $j = 0;
-
-
-        foreach ($progressValues as $Values) {
-
-
-            if (!isset($weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())])) {
-                $weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())] = 0;
-            }
-            $weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())] += $Values->getWorkCompleted();
-            $weekStartings[$j] = $this->CalculateWeekStartDate($Values->getDate());
-            $j++;
-        }
-
         $totalEstimatedEffort = 0;
         $weeklyVelocity = 0;
         foreach ($storyList as $story) {
 
 
             $totalEstimatedEffort+=$story->getEstimation();
-
-            if ($story->getStatus() == 'Accepted') {
-
-                $weeklyVelocity+=$story->getEstimation();
-            }
-
-            $story->getDateAdded();
         }
 
-         return array(array_unique($weekStartings),$totalEstimatedEffort,$weekStartingDays);
+        $t = new ProjectProgressDao();
+        $progressValues = $t->getRecords($projectId);
+
+
+        $i = 0;
+        $j = 0;;
+        $burnDown = 0;
+        $wc = 0;
+
+        foreach ($progressValues as $Values) {
+
+
+            if (!isset($weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())])) {
+                $weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())] = 0;
+                
+            }
+            $weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())] += $Values->getWorkCompleted();
+            $wc += $Values->getWorkCompleted();
+            $workCompleted[$this->CalculateWeekStartDate($Values->getDate())] = $wc;
+            $burnDown = $totalEstimatedEffort - $wc;
+            $burnDownArray[$this->CalculateWeekStartDate($Values->getDate())] = $burnDown;
+            $weekStartings[$j] = $this->CalculateWeekStartDate($Values->getDate());
+            $j++;
+        }
+
+        return array(array_unique($weekStartings), $totalEstimatedEffort, $weekStartingDays, $workCompleted, $burnDownArray);
     }
 
     public function CalculateWeekStartDate($date) {
@@ -120,22 +118,3 @@ class ProjectService {
     }
 
 }
-
-//if (task = Mark Story ACCEPTED) {
-//   $date =  DATE ACCEPTED
-//   work completed on $date += story size
-//   update database (work completed on $date)
-//} else if (task = Mark ACCEPTED Story to other state) {
-//   $date = DATE ACCEPTED
-//   work completed on $date -= story size
-//   update database (work completed on $date)
-//} else if (task = Change ACCEPTED DATE to NEW ACCEPTED DATE) {
-//   $date = DATE ACCEPTED
-//   $new_date = NEW ACCEPTED DATE
-//
-//   work completed on $date -= story size
-//   work completed on $new_date += story size
-//
-//   update database (work completed on $date)
-//   update database (work completed on $new date)
-//}
