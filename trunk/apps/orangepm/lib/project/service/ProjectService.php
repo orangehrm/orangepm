@@ -72,6 +72,53 @@ class ProjectService {
         }
     }
 
+    public function viewWeeklyProgress($storyList, $projectId) {
+
+
+        $t = new ProjectProgressDao();
+        $progressValues = $t->getRecords($projectId);
+
+
+        $i = 0;
+        $j = 0;
+
+
+        foreach ($progressValues as $Values) {
+
+
+            if (!isset($weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())])) {
+                $weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())] = 0;
+            }
+            $weekStartingDays[$this->CalculateWeekStartDate($Values->getDate())] += $Values->getWorkCompleted();
+            $weekStartings[$j] = $this->CalculateWeekStartDate($Values->getDate());
+            $j++;
+        }
+
+        $totalEstimatedEffort = 0;
+        $weeklyVelocity = 0;
+        foreach ($storyList as $story) {
+
+
+            $totalEstimatedEffort+=$story->getEstimation();
+
+            if ($story->getStatus() == 'Accepted') {
+
+                $weeklyVelocity+=$story->getEstimation();
+            }
+
+            $story->getDateAdded();
+        }
+
+         return array(array_unique($weekStartings),$totalEstimatedEffort,$weekStartingDays);
+    }
+
+    public function CalculateWeekStartDate($date) {
+
+        $ts = strtotime($date);
+        $start = (date('w', $ts) == 0) ? $ts : strtotime('last sunday', $ts);
+        return date('Y-m-d', $start);
+    }
+
 }
 
 //if (task = Mark Story ACCEPTED) {

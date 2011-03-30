@@ -157,4 +157,18 @@ class projectActions extends sfActions {
         $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
     }
 
+    public function executeViewWeeklyProgress($request) {
+
+        $this->projectName = $request->getParameter('projectName');
+        $this->projectId = $request->getParameter('projectId');
+        $viewStoriesDao = new StoryDao();
+        $pageNo = $this->getRequestParameter('page', 1);
+        $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
+        $t = new ProjectService();
+        $allArray = $t->viewWeeklyProgress($this->storyList, $this->projectId);
+        $this->weekStartingDate = $allArray[0];
+        $this->totalEstimation = $allArray[1];
+        $this->workCompleted = $allArray[2];
+    }
+
 }
