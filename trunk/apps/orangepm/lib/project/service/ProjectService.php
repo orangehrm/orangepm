@@ -5,7 +5,7 @@ class ProjectService {
     public function trackProjectProgressAddStory($date, $status, $projectId, $estimation) {
         
         $projectProgressDao = new ProjectProgressDao();
-        if ($status == 'ACCEPTED') {
+        if ($status == 'Accepted') {
 
             $projectProgress = $projectProgressDao->getProjectProgress($projectId, $date);
 
@@ -30,7 +30,7 @@ class ProjectService {
 
         $projectProgressDao = new ProjectProgressDao();
 
-        if (($status == 'ACCEPTED') && ($previousStatus != 'ACCEPTED')) {
+        if (($status == 'Accepted') && ($previousStatus != 'Accepted')) {
 
             $projectProgress = $projectProgressDao->getProjectProgress($projectId, $date);
             if ($projectProgress[0]->getProjectId() == null) {
@@ -40,15 +40,15 @@ class ProjectService {
                 $workCompleted += $story->getEstimation();
                 $projectProgressDao->updateProjectProgress($projectId, $date, $workCompleted);
             }
-        } elseif (($status != 'ACCEPTED') && ($previousStatus == 'ACCEPTED')) {
-
-            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $date);
+        } elseif (($status != 'Accepted') && ($previousStatus == 'Accepted')) {
+            $oldDate = $story->getAcceptedDate();
+            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $oldDate);
             $workCompleted = $projectProgress[0]->getWorkCompleted();
 
-            $oldDate = $story->getAcceptedDate();
+            
             $workCompleted -= $story->getEstimation();
             $projectProgressDao->updateProjectProgress($projectId, $oldDate, $workCompleted);
-        } elseif (($status == 'ACCEPTED') && ($previousStatus == 'ACCEPTED')) {
+        } elseif (($status == 'Accepted') && ($previousStatus == 'Accepted')) {
 
             $oldDate = $story->getAcceptedDate();
             $newDate = $date;

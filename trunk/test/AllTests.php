@@ -32,18 +32,15 @@ class AllTests {
                 self::$connection = self::$databaseManager->getDatabase(SF_CONN);
             }
         }
-           
     }
 
-    
-    public static function suite()
-    {
+    public static function suite() {
         $suite = new PHPUnit_Framework_TestSuite('PHPUnit');
 
         $suite->addTestFile(dirname(__FILE__) . '/ProjectProgressTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/ProjectServiceTest.php');
-	$suite->addTestFile(dirname(__FILE__) . '/StoryDaoTest.php');
-        
+        $suite->addTestFile(dirname(__FILE__) . '/StoryDaoTest.php');
+
         return $suite;
     }
 
