@@ -18,6 +18,19 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         $projectService->trackProjectProgress('2011-2-15', "ACCEPTED", 3);
         $projectProgress = $this->_getProjectProgress(1, '2011-2-15');
         $this->assertEquals(15,$projectProgress[0]->getWorkCompleted());
+
+        $projectService->trackProjectProgress('2011-1-25', "ACCEPTED", 4);
+        $projectProgress = $this->_getProjectProgress(1, '2011-1-25');
+        $this->assertEquals(40,$projectProgress[0]->getWorkCompleted());
+
+        $projectService->trackProjectProgressAddStory('2010-6-12', "ACCEPTED", 1, "100");
+        $projectProgress = $this->_getProjectProgress(1, '2010-6-12');
+        $this->assertEquals(100,$projectProgress[0]->getWorkCompleted());
+
+        $projectService->trackProjectProgressAddStory('2010-6-22', "PENDING", 1, "100");
+        $projectProgress = $this->_getProjectProgress(1, '2010-6-22');
+        $this->assertEquals(null,$projectProgress[0]->getWorkCompleted());
+
    
     }
 
@@ -25,6 +38,7 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
 
         $this->deleteTestData();
         $this->insertTestData();
+        
     }
 
     public function deleteTestData() {
@@ -32,6 +46,18 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         $projectQuery = Doctrine_Query::create()->delete()->from('Project')->execute();
         $storyQuery = Doctrine_Query::create()->delete()->from('Story')->execute();
         $projectProgressQuery = Doctrine_Query::create()->delete()->from('ProjectProgress')->execute();
+        
+    }
+
+
+     public function _getProjectProgress($projectId, $date) {
+
+        $query = Doctrine_Core::getTable('ProjectProgress')
+                        ->createQuery('c')
+                        ->where('c.project_id = ?', $projectId)
+                        ->andWhere('c.date= ?', $date);
+        return $query->execute();
+
     }
 
     public function insertTestData() {
@@ -86,16 +112,26 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         $projectProgress->setWorkCompleted(15);
         $projectProgress->setUnitOfWork(2);
         $projectProgress->save();
+        $story = new Story();
+        
+        $story->setId(4);
+        $story->setProjectId(1);
+        $story->setEstimation(40);
+        $story->setName('story3');
+        $story->setDateAdded('2011-1-14');
+        $story->setStatus('ACCEPTED');
+        $story->setAcceptedDate('2011-1-30');
+        $story->setDeleted(Story::FLAG_ACTIVE);
+        $story->save();
+
+        $projectProgress = new ProjectProgress();
+        $projectProgress->setProjectId(1);
+        $projectProgress->setDate('2011-1-30');
+        $projectProgress->setWorkCompleted(40);
+        $projectProgress->setUnitOfWork(2);
+        $projectProgress->save();
+        
     }
 
-    public function _getProjectProgress($projectId, $date) {
-        
-        $query = Doctrine_Core::getTable('ProjectProgress')
-                        ->createQuery('c')
-                        ->where('c.project_id = ?', $projectId)
-                        ->andWhere('c.date= ?', $date);
-        return $query->execute();
-        
-    }
-
+    
 }
