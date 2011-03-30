@@ -16,7 +16,7 @@
     echo __('The Story is added successfully') ?></span>
     </div>
 
-    
+
     <table class="tableContent">
         <tr><td class="pageNav" colspan="8"><?php echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
         <tr>
@@ -46,6 +46,11 @@
         <div class="addButton">
             <form action="<?php echo url_for("project/addStory?id={$projectId}&projectName={$projectName}"); ?>" method="GET">
                 <input type="submit" value="<?php echo __('Add') ?>" />
+            </form>
+        </div>
+        <div class="viewWeeklyProgressButton">
+            <form action="<?php echo url_for("project/viewWeeklyProgress?projectName={$projectName}&projectId={$projectId}"); ?>" method="GET">
+                <input type="submit" value="<?php echo "View Weekly Progress" ?>"/>
         </form>
     </div>
 </div>

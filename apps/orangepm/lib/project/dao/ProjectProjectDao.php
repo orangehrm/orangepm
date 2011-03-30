@@ -35,5 +35,14 @@ class ProjectProgressDao {
         $query->execute();
     }
 
+    public function getRecords($projectId) {
+
+        $query = Doctrine_Core::getTable('ProjectProgress')
+                        ->createQuery('c')
+                        ->where('c.project_id = ?', $projectId);
+         return $query->execute();
+
+    }
+
 }
 
