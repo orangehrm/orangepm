@@ -114,11 +114,14 @@ $(document).ready(function() {
                 a = true;
                 if(!isNaN($('.ajaxEstimation input').val())){
                     if(ValidateForm($('.ajaxDate input').val())){
-                        if($('.ajaxStatus select').val()=="Accepted"&&jQuery.trim($('.ajaxAcceptedDate input').val())==''){
-                            alert("Please enter the "+"Accepted Date");
+                        if($('.ajaxStatus select').val()=="Accepted" && jQuery.trim($('.ajaxAcceptedDate input').val())==''){
+                            alert("Please enter the Accepted Date");
                         }
-                              //alert($('.ajaxStatus select').val()+"B")
-                         else{    //alert(jQuery.trim($('.ajaxAcceptedDate input').val())+"B")
+                              
+                         else{
+                          if(($('.ajaxStatus select').val()=="Accepted" && ValidateForm(jQuery.trim($('.ajaxAcceptedDate input').val())))||$('.ajaxStatus select').val()!="Accepted"){
+                          //}
+                          //else{
                         $.ajax({
                             type: "post",
                             url: linkUrl,
@@ -139,7 +142,11 @@ $(document).ready(function() {
                         });
                      
                         nVariable = "Edited";
+
+
+
                     }
+                         }
                     }
                 }
                 else
