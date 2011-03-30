@@ -16,6 +16,7 @@ class StoryDao {
         $story->setAcceptedDate($storyParameters['accepted date']);
 
         $story->save();
+        return $story;
         
     }
 
