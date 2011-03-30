@@ -2,8 +2,27 @@
 
 class ProjectService {
 
-    public function trackProjectProgress($date, $status, $storyId) {
+    public function trackProjectProgressAddStory($date, $status, $projectId, $estimation) {
+        
+        $projectProgressDao = new ProjectProgressDao();
+        if ($status == 'ACCEPTED') {
 
+            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $date);
+
+            if ($projectProgress[0]->getProjectId() == null) {
+                $projectProgressDao->addProjectProgress($projectId, $date, $estimation, 2);
+            } else {
+                $workCompleted = $projectProgress[0]->getWorkCompleted();
+                $workCompleted += $estimation;
+                $projectProgressDao->updateProjectProgress($projectId, $date, $workCompleted);
+            }
+        }
+    }
+
+    public function trackProjectProgress($date, $status, $storyId) {
+//        $conn = Doctrine_Manager::getInstance()->getCurrentConnection();
+//        $conn->lastInsertId('continent_id');
+//        print_r(Doctrine::getTable('Story')->count());
         $storyDao = new StoryDao();
         $story = $storyDao->getStory($storyId);
         $previousStatus = $story->getStatus();
@@ -14,9 +33,13 @@ class ProjectService {
         if (($status == 'ACCEPTED') && ($previousStatus != 'ACCEPTED')) {
 
             $projectProgress = $projectProgressDao->getProjectProgress($projectId, $date);
-            $workCompleted = $projectProgress[0]->getWorkCompleted();
-            $workCompleted += $story->getEstimation();
-            $projectProgressDao->addProjectProgress($projectId, $date, $workCompleted, 2);
+            if ($projectProgress[0]->getProjectId() == null) {
+                $projectProgressDao->addProjectProgress($projectId, $date, $story->getEstimation(), 2);
+            } else {
+                $workCompleted = $projectProgress[0]->getWorkCompleted();
+                $workCompleted += $story->getEstimation();
+                $projectProgressDao->updateProjectProgress($projectId, $date, $workCompleted);
+            }
         } elseif (($status != 'ACCEPTED') && ($previousStatus == 'ACCEPTED')) {
 
             $projectProgress = $projectProgressDao->getProjectProgress($projectId, $date);
@@ -25,7 +48,7 @@ class ProjectService {
             $oldDate = $story->getAcceptedDate();
             $workCompleted -= $story->getEstimation();
             $projectProgressDao->updateProjectProgress($projectId, $oldDate, $workCompleted);
-        } elseif (($status == 'ACCEPTED') && ($previousStatus== 'ACCEPTED')) {
+        } elseif (($status == 'ACCEPTED') && ($previousStatus == 'ACCEPTED')) {
 
             $oldDate = $story->getAcceptedDate();
             $newDate = $date;
@@ -36,9 +59,16 @@ class ProjectService {
             $projectProgressDao->updateProjectProgress($projectId, $oldDate, $workCompleted);
 
             $projectProgress = $projectProgressDao->getProjectProgress($projectId, $newDate);
-            $workCompleted = $projectProgress[0]->getWorkCompleted();
-            $workCompleted += $story->getEstimation();
-            $projectProgressDao->addProjectProgress($projectId, $newDate, $workCompleted, 2);
+
+
+            if ($projectProgress[0]->getProjectId() == null) {
+
+                $projectProgressDao->addProjectProgress($projectId, $newDate, $story->getEstimation(), 2);
+            } else {
+                $workCompleted = $projectProgress[0]->getWorkCompleted();
+                $workCompleted += $story->getEstimation();
+                $projectProgressDao->updateProjectProgress($projectId, $newDate, $workCompleted);
+            }
         }
     }
 

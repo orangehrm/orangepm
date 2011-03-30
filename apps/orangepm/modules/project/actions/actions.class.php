@@ -123,12 +123,9 @@ class projectActions extends sfActions {
                     'status' => $storyStatus[$this->storyForm->getValue('status')],
                     'accepted date' => $this->storyForm->getValue('acceptedDate')
                 );
-                
-                $story = $dao->saveStory($inputParameters);
-                
                 $projectService = new ProjectService();
-                $projectService->trackProjectProgress($inputParameters['accepted date'], $inputParameters['status'], $story->getId());
-                //$dao->saveStory($this->storyForm->getValue('storyName'), $this->storyForm->getValue('dateAdded'), $this->storyForm->getValue('estimatedEffort'), $this->storyForm->getValue('projectId'));
+                $projectService->trackProjectProgressAddStory($inputParameters['accepted date'], $inputParameters['status'], $inputParameters['project id'], $inputParameters['estimated effort']);
+                $dao->saveStory($inputParameters);
                 $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'), 'msg' => 'added', 'projectName' => $this->projectName)));
             }
         }
