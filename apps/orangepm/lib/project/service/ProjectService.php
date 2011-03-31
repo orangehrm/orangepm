@@ -2,19 +2,70 @@
 
 class ProjectService {
 
-    public function trackProjectProgressAddStory($date, $status, $projectId, $estimation) {
+    public function trackProjectProgress($acceptedDate, $status, $storyId) {
+
+        $storyDao = new StoryDao();
+        $story = $storyDao->getStory($storyId);
+        $previousStatus = $story->getStatus();
+        $projectId = $story->getProjectId();
+
+        $projectProgressDao = new ProjectProgressDao();
+
+        if (($status == 'Accepted') && ($previousStatus != 'Accepted')) {
+
+            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $acceptedDate);
+            if ($projectProgress[0]->getProjectId() == null) {
+                $projectProgressDao->addProjectProgress($projectId, $acceptedDate, $story->getEstimation(), 2);
+            } else {
+                $workCompleted = $projectProgress[0]->getWorkCompleted();
+                $workCompleted += $story->getEstimation();
+                $projectProgressDao->updateProjectProgress($projectId, $acceptedDate, $workCompleted);
+            }
+        } elseif (($status != 'Accepted') && ($previousStatus == 'Accepted')) {
+            $oldDate = $story->getAcceptedDate();
+            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $oldDate);
+            $workCompleted = $projectProgress[0]->getWorkCompleted();
+
+
+            $workCompleted -= $story->getEstimation();
+            $projectProgressDao->updateProjectProgress($projectId, $oldDate, $workCompleted);
+        } elseif (($status == 'Accepted') && ($previousStatus == 'Accepted')) {
+
+            $oldDate = $story->getAcceptedDate();
+            $newDate = $acceptedDate;
+
+            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $oldDate);
+            $workCompleted = $projectProgress[0]->getWorkCompleted();
+            $workCompleted -= $story->getEstimation();
+            $projectProgressDao->updateProjectProgress($projectId, $oldDate, $workCompleted);
+
+            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $newDate);
+
+
+            if ($projectProgress[0]->getProjectId() == null) {
+
+                $projectProgressDao->addProjectProgress($projectId, $newDate, $story->getEstimation(), 2);
+            } else {
+                $workCompleted = $projectProgress[0]->getWorkCompleted();
+                $workCompleted += $story->getEstimation();
+                $projectProgressDao->updateProjectProgress($projectId, $newDate, $workCompleted);
+            }
+        }
+    }
+
+    public function trackProjectProgressAddStory($acceptedDate, $status, $projectId, $estimation) {
 
         $projectProgressDao = new ProjectProgressDao();
         if ($status == 'Accepted') {
 
-            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $date);
+            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $acceptedDate);
 
             if ($projectProgress[0]->getProjectId() == null) {
-                $projectProgressDao->addProjectProgress($projectId, $date, $estimation, 2);
+                $projectProgressDao->addProjectProgress($projectId, $acceptedDate, $estimation, 2);
             } else {
                 $workCompleted = $projectProgress[0]->getWorkCompleted();
                 $workCompleted += $estimation;
-                $projectProgressDao->updateProjectProgress($projectId, $date, $workCompleted);
+                $projectProgressDao->updateProjectProgress($projectId, $acceptedDate, $workCompleted);
             }
         }
     }
@@ -38,57 +89,6 @@ class ProjectService {
         }
     }
 
-    public function trackProjectProgress($date, $status, $storyId) {
-
-        $storyDao = new StoryDao();
-        $story = $storyDao->getStory($storyId);
-        $previousStatus = $story->getStatus();
-        $projectId = $story->getProjectId();
-
-        $projectProgressDao = new ProjectProgressDao();
-
-        if (($status == 'Accepted') && ($previousStatus != 'Accepted')) {
-
-            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $date);
-            if ($projectProgress[0]->getProjectId() == null) {
-                $projectProgressDao->addProjectProgress($projectId, $date, $story->getEstimation(), 2);
-            } else {
-                $workCompleted = $projectProgress[0]->getWorkCompleted();
-                $workCompleted += $story->getEstimation();
-                $projectProgressDao->updateProjectProgress($projectId, $date, $workCompleted);
-            }
-        } elseif (($status != 'Accepted') && ($previousStatus == 'Accepted')) {
-            $oldDate = $story->getAcceptedDate();
-            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $oldDate);
-            $workCompleted = $projectProgress[0]->getWorkCompleted();
-
-
-            $workCompleted -= $story->getEstimation();
-            $projectProgressDao->updateProjectProgress($projectId, $oldDate, $workCompleted);
-        } elseif (($status == 'Accepted') && ($previousStatus == 'Accepted')) {
-
-            $oldDate = $story->getAcceptedDate();
-            $newDate = $date;
-
-            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $oldDate);
-            $workCompleted = $projectProgress[0]->getWorkCompleted();
-            $workCompleted -= $story->getEstimation();
-            $projectProgressDao->updateProjectProgress($projectId, $oldDate, $workCompleted);
-
-            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $newDate);
-
-
-            if ($projectProgress[0]->getProjectId() == null) {
-
-                $projectProgressDao->addProjectProgress($projectId, $newDate, $story->getEstimation(), 2);
-            } else {
-                $workCompleted = $projectProgress[0]->getWorkCompleted();
-                $workCompleted += $story->getEstimation();
-                $projectProgressDao->updateProjectProgress($projectId, $newDate, $workCompleted);
-            }
-        }
-    }
-
     public function viewWeeklyProgress($storyList, $projectId) {
 
         $totalEstimatedEffort = 0;
@@ -105,33 +105,30 @@ class ProjectService {
         $j = 0;
         $burnDown = 0;
         $storeWorkCompleted = 0;
-//         $burnDownArray=0;
-//        $weekStartingDays=null;
-//        $weekStartings=null;
-//         $workCompleted=null;
+
 
 
         foreach ($progressValues as $values) {
 
-            if (!isset($weeklyVelocity[$this->CalculateWeekStartDate($values->getDate())])) {
+            if (!isset($weeklyVelocity[$this->CalculateWeekStartDate($values->getAcceptedDate())])) {
 
-                $weeklyVelocity[$this->CalculateWeekStartDate($values->getDate())] = 0;
+                $weeklyVelocity[$this->CalculateWeekStartDate($values->getAcceptedDate())] = 0;
             }
 
-            if (!isset($burnDownArray[$this->CalculateWeekStartDate($values->getDate())])) {
+            if (!isset($burnDownArray[$this->CalculateWeekStartDate($values->getAcceptedDate())])) {
 
-                $burnDownArray[$this->CalculateWeekStartDate($values->getDate())] = 0;
+                $burnDownArray[$this->CalculateWeekStartDate($values->getAcceptedDate())] = 0;
             }
 
-            $weeklyVelocity[$this->CalculateWeekStartDate($values->getDate())] += $values->getWorkCompleted();
+            $weeklyVelocity[$this->CalculateWeekStartDate($values->getAcceptedDate())] += $values->getWorkCompleted();
 
             $storeWorkCompleted += $values->getWorkCompleted();
-            $workCompletedArray[$this->CalculateWeekStartDate($values->getDate())] = $storeWorkCompleted;
+            $workCompletedArray[$this->CalculateWeekStartDate($values->getAcceptedDate())] = $storeWorkCompleted;
 
             $burnDown = $totalEstimatedEffort - $storeWorkCompleted;
-            $burnDownArray[$this->CalculateWeekStartDate($values->getDate())] = $burnDown;
+            $burnDownArray[$this->CalculateWeekStartDate($values->getAcceptedDate())] = $burnDown;
 
-            $weekStartings[$j] = $this->CalculateWeekStartDate($values->getDate());
+            $weekStartings[$j] = $this->CalculateWeekStartDate($values->getAcceptedDate());
             $j++;
         }
 

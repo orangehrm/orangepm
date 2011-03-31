@@ -19,25 +19,25 @@ class ProjectProgressTest extends PHPUnit_Framework_TestCase {
 
         $projectprogress = new ProjectProgress();
         $projectprogress->setProjectId(2);
-        $projectprogress->setDate('2011-03-29');
+        $projectprogress->setAcceptedDate('2011-03-29');
         $projectprogress->setWorkCompleted('20');
         $projectprogress->setUnitOfWork('15');
         $projectprogress->save();
 
         $projectprogress = new ProjectProgress();
         $projectprogress->setProjectId(3);
-        $projectprogress->setDate('2011-04-01');
+        $projectprogress->setAcceptedDate('2011-04-01');
         $projectprogress->setWorkCompleted('18');
         $projectprogress->setUnitOfWork('14');
         $projectprogress->save();
     }
 
-    public function getData($projectId, $date) {
+    public function getData($projectId, $acceptedDate) {
 
         $query = Doctrine_Core::getTable('ProjectProgress')
                         ->createQuery('c')
                         ->where('c.project_id = ?', $projectId)
-                        ->andWhere('c.date= ?', $date);
+                        ->andWhere('c.accepted_date= ?', $acceptedDate);
         return $query->execute();
     }
 
