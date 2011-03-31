@@ -12,6 +12,7 @@
  * @property date $date_added
  * @property string $status
  * @property date $accepted_date
+ * @property date $deleted_date
  * @property boolean $deleted
  * @property Project $Project
  * 
@@ -22,6 +23,7 @@
  * @method date    getDateAdded()     Returns the current record's "date_added" value
  * @method string  getStatus()        Returns the current record's "status" value
  * @method date    getAcceptedDate()  Returns the current record's "accepted_date" value
+ * @method date    getDeletedDate()   Returns the current record's "deleted_date" value
  * @method boolean getDeleted()       Returns the current record's "deleted" value
  * @method Project getProject()       Returns the current record's "Project" value
  * @method Story   setId()            Sets the current record's "id" value
@@ -31,6 +33,7 @@
  * @method Story   setDateAdded()     Sets the current record's "date_added" value
  * @method Story   setStatus()        Sets the current record's "status" value
  * @method Story   setAcceptedDate()  Sets the current record's "accepted_date" value
+ * @method Story   setDeletedDate()   Sets the current record's "deleted_date" value
  * @method Story   setDeleted()       Sets the current record's "deleted" value
  * @method Story   setProject()       Sets the current record's "Project" value
  * 
@@ -70,6 +73,9 @@ abstract class BaseStory extends sfDoctrineRecord
         $this->hasColumn('accepted_date', 'date', null, array(
              'type' => 'date',
              'notnull' => false,
+             ));
+        $this->hasColumn('deleted_date', 'date', null, array(
+             'type' => 'date',
              ));
         $this->hasColumn('deleted', 'boolean', null, array(
              'type' => 'boolean',

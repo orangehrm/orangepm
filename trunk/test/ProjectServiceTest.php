@@ -50,12 +50,12 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
     }
 
 
-     public function _getProjectProgress($projectId, $date) {
+     public function _getProjectProgress($projectId, $acceptedDate) {
 
         $query = Doctrine_Core::getTable('ProjectProgress')
                         ->createQuery('c')
                         ->where('c.project_id = ?', $projectId)
-                        ->andWhere('c.date= ?', $date);
+                        ->andWhere('c.accepted_date= ?', $acceptedDate);
         return $query->execute();
 
     }
@@ -90,7 +90,7 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
 
         $projectProgress = new ProjectProgress();
         $projectProgress->setProjectId(1);
-        $projectProgress->setDate('2011-1-25');
+        $projectProgress->setAcceptedDate('2011-1-25');
         $projectProgress->setWorkCompleted(5);
         $projectProgress->setUnitOfWork(2);
         $projectProgress->save();
@@ -108,7 +108,7 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
 
         $projectProgress = new ProjectProgress();
         $projectProgress->setProjectId(1);
-        $projectProgress->setDate('2011-1-27');
+        $projectProgress->setAcceptedDate('2011-1-27');
         $projectProgress->setWorkCompleted(15);
         $projectProgress->setUnitOfWork(2);
         $projectProgress->save();
@@ -126,7 +126,7 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
 
         $projectProgress = new ProjectProgress();
         $projectProgress->setProjectId(1);
-        $projectProgress->setDate('2011-1-30');
+        $projectProgress->setAcceptedDate('2011-1-30');
         $projectProgress->setWorkCompleted(40);
         $projectProgress->setUnitOfWork(2);
         $projectProgress->save();

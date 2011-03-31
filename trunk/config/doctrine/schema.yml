@@ -23,6 +23,7 @@ Story:
     date_added: date
     status: string(255)
     accepted_date: { type: date, notnull: false }
+    deleted_date: {type: date }
     deleted: { type: boolean, notnull: true, default: 1 }
   relations:
     Project:
@@ -37,7 +38,7 @@ ProjectProgress:
     project_id:
       type: integer
       primary: true
-    date:
+    accepted_date:
       type: date
       primary: true
     work_completed: integer
