@@ -77,10 +77,8 @@ class projectActions extends sfActions {
         $inputParameters = array(
             'name' => $request->getParameter('name'),
             'added date' => $request->getParameter('date'),
-            //'estimated effort' => $estimation,
             'id' => $request->getParameter('id'),
             'status' => $request->getParameter('status')
-                //'accepted date' => $accepttedDate
         );
         if ($request->getParameter('estimation') == '')
             $inputParameters['estimated effort'] = null;
