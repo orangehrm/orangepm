@@ -19,10 +19,27 @@ class ProjectService {
         }
     }
 
+    public function trackProjectProgressDeleteStory($storyId) {
+
+        $storyDao = new StoryDao();
+        $story = $storyDao->getStory($storyId);
+        $currentStatus = $story->getStatus();
+
+
+        if ($currentStatus == 'Accepted') {
+
+            $projectId = $story->getProjectId();
+            $acceptedDate = $story->getAcceptedDate();
+
+            $projectProgressDao = new ProjectProgressDao();
+            $projectProgress = $projectProgressDao->getProjectProgress($projectId, $acceptedDate);
+            $workCompleted = $projectProgress[0]->getWorkCompleted() - $story->getEstimation();
+            $projectProgressDao->updateProjectProgress($projectId, $acceptedDate, $workCompleted);
+        }
+    }
+
     public function trackProjectProgress($date, $status, $storyId) {
-//        $conn = Doctrine_Manager::getInstance()->getCurrentConnection();
-//        $conn->lastInsertId('continent_id');
-//        print_r(Doctrine::getTable('Story')->count());
+
         $storyDao = new StoryDao();
         $story = $storyDao->getStory($storyId);
         $previousStatus = $story->getStatus();

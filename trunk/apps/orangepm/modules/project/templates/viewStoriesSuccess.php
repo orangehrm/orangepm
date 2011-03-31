@@ -11,16 +11,15 @@
 
 <div class="Project">
     <div class="heading">
-        <h4> <?php echo __('Projects'); ?> > <?php echo $projectName; ?> > <?php echo __('Stories'); ?> </h4>
+        <h4> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> > <?php echo $projectName; ?> > <?php echo __('Stories'); ?> </h4>
         <span id="message"><?php if (isset($message))
     echo __('The Story is added successfully') ?></span>
     </div>
 
 
     <table class="tableContent">
-        <tr><td class="pageNav" colspan="8"><?php echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
+        <tr><td class="pageNav" colspan="7"><?php echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
         <tr>
-            <th><?php echo __('Story Id') ?></th>
             <th><?php echo __('Story Name') ?></th>
             <th><?php echo __('Estimated Effort'); ?> <br> <?php echo __('(Engineering Hours)'); ?></th>
             <th><?php echo __('Date Added') ?></th>
@@ -31,7 +30,6 @@
 
         <?php foreach ($storyList->getResults() as $story): ?>
             <tr id="row">
-                <td class="<?php echo "not id " . $story->getId(); ?>"><?php echo $story->getId(); ?></td>
                 <td class="<?php echo "changedName name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>
                 <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
                 <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
