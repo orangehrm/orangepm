@@ -20,10 +20,11 @@ class StoryDao {
         
     }
 
-    public function deleteStory($id) {
+    public function deleteStory($id, $deletedDate) {
 
         $story = Doctrine_Core::getTable('Story')->find($id);
         $story->setDeleted(Story::FLAG_DELETED);
+        $story->setDeletedDate($deletedDate);
         $story->save();
         
     }
