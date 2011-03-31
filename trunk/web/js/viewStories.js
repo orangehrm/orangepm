@@ -2,6 +2,7 @@ $(document).ready(function() {
     $("#dialog").dialog({
         autoOpen: false,
         modal: true
+
     });
   
 
@@ -12,7 +13,8 @@ $(document).ready(function() {
         $("#dialog").dialog({
             buttons : {
                 "OK" : function() {
-                    window.location.href = targetUrl;
+                   
+                    window.location.href =  targetUrl+"/"+"deletedDate"+"/"+document.getElementById('deletedDate').value;
                 },
                 "Cancel" : function() {
                     $(this).dialog("close");
@@ -24,6 +26,7 @@ $(document).ready(function() {
     });
   
   
+
     synchronizedVariable = true;
     toggleVariable = "Saved";
     dropdownToggleVariable = true;
@@ -36,6 +39,7 @@ $(document).ready(function() {
         "Rework":5,
         "Accepted":6
     };
+
 
 
     $('td.edit').click(function(){
@@ -73,13 +77,17 @@ $(document).ready(function() {
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
             $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
             
+
             $(this).parent().children('td.changedAcceptedDate').addClass('ajaxAcceptedDate');
             $(this).parent().children('td.changedAcceptedDate').html('<input id="editboxAcceptedDate" size="9" type="text" value="'+$(this).parent().children('td.changedAcceptedDate').text()+ '">');
             document.getElementById('editboxAcceptedDate').disabled = true;
+
                 
+
             $(this).parent().children('td.changedStatus').addClass('ajaxStatus');
             if(dropdownToggleVariable){
                 var previousStatus = jQuery.trim($(this).parent().children('td.changedStatus').text());
+
                 $(this).parent().children('td.changedStatus').html('<select name="changedStatus" id="changedStatus" onchange="findSelected()"">'+
                     '<option value=" Pending">Pending</option>'+
                     '<option value=" Design">Design</option>'+
@@ -108,11 +116,13 @@ $(document).ready(function() {
                             alert("Please enter the Accepted Date");
                         }
                               
+
                         else{
                             if(($('.ajaxStatus select').val()==" Accepted" && ValidateForm($('.ajaxAcceptedDate input').val()))||$('.ajaxStatus select').val()!=" Accepted"){
                                 $.ajax({
                                     type: "post",
                                     url: linkUrl,
+
 
                                     data: "name="+$('.ajaxName input').val()+"&date="+$('.ajaxDate input').val()+"&estimation="+jQuery.trim($('.ajaxEstimation input').val())+"&id="+classNameArray[2]+"&status="+jQuery.trim($('.ajaxStatus select').val())+"&acceptedDate="+jQuery.trim($('.ajaxAcceptedDate input').val()),
 
@@ -128,8 +138,9 @@ $(document).ready(function() {
                             
                                     }
                                 });
-                     
+
                                 toggleVariable = "Edited";
+
 
 
 
@@ -144,12 +155,12 @@ $(document).ready(function() {
 
             $( "#editboxDate, #editboxAcceptedDate" ).datepicker(
 
-        {
-                dateFormat: ' yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                showAnim: "slideDown"
-            });
+            {
+                    dateFormat: ' yy-mm-dd',
+                    changeMonth: true,
+                    changeYear: true,
+                    showAnim: "slideDown"
+                });
 
 
 
@@ -256,7 +267,9 @@ $(document).ready(function() {
 
             
     });
-
+    //document.getElementById('#deletedDate').focus= false;
+    
+   
 });
 
 function findSelected(){
@@ -276,4 +289,14 @@ function findSelected(){
         editboxAcceptedDate.disabled=true;
     }
     
+}
+function datepicker(){
+    $( "#deletedDate" ).datepicker(
+
+    {
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            showAnim: "slideDown"
+        });
 }

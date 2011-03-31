@@ -23,18 +23,29 @@ div.addButton{
     left: 60px;
     top:225px;
 }
-td.edit {
-        cursor:pointer;
+
+
+div.addButton{
+    left: 60px;
+    top:225px;
+}td.edit {
+    cursor:pointer;
 }
 
 a img {
-        border: none;
+    border: none;
+}
+
+#dialog h1{
+    
+    font-size: 1.2em;
+    margin: .6em 0;
 }
 
 .ui-dialog-buttonpane{
 
-font-size: 14px;
-font-family: sans-serif;
+    font-size: 14px;
+    font-family: sans-serif;
 }
 
 .ui-button-text{
