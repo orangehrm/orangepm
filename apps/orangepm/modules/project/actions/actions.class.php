@@ -137,6 +137,10 @@ class projectActions extends sfActions {
 
     public function executeDeleteStory($request) {
 
+        
+        $projectService = new ProjectService();
+        $projectService->trackProjectProgressDeleteStory($request->getParameter('id'));
+
         $dao = new StoryDao();
         $dao->deleteStory($request->getParameter('id'));
         $this->redirect("project/viewStories?" . http_build_query(array('id' => $request->getParameter('projectId'), 'projectName' => $request->getParameter('projectName'))));

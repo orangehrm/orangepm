@@ -117,7 +117,7 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         $story->setId(4);
         $story->setProjectId(1);
         $story->setEstimation(40);
-        $story->setName('story3');
+        $story->setName('story4');
         $story->setDateAdded('2011-1-14');
         $story->setStatus('Accepted');
         $story->setAcceptedDate('2011-1-30');

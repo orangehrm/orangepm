@@ -1,7 +1,9 @@
 <?php echo stylesheet_tag('viewWeeklyProgress') ?>
 
 
-<h1><?php echo $projectName ?></h1>
+<div class="heading">
+    <h4> <?php echo link_to(__('Projects'), 'project/viewProjects'); ?> > <a class="storyLink" href="<?php echo url_for("project/viewStories?id={$projectId}&projectName={$projectName}"); ?>" ><?php echo $projectName; ?></a> > <?php echo __('Weekly Progress'); ?> </h4>
+</div>
 
 
 
@@ -10,7 +12,7 @@
 <table class="tableContent">
 
 
-    <tr><td class="pageNav" colspan="6"><?php //echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}")     ?></td></tr>
+    <tr><td class="pageNav" colspan="6"><?php //echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}")       ?></td></tr>
     <tr>
         <th><?php echo __('Week Startings') ?></th>
         <th><?php echo __('Total Estimated Effort') ?></th>

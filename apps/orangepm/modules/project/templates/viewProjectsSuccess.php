@@ -17,8 +17,9 @@
     echo __('The Project is added successfully') ?></span>
     </div>
     <table class="tableContent" >
-        <tr><td class="pageNav" colspan="4"><?php echo pager_navigation($pager, url_for('project/viewProjects')) ?></td></tr>
-        <tr><th> <?php echo __('Id') ?></th>
+        <tr><td class="pageNav" colspan="3"><?php echo pager_navigation($pager, url_for('project/viewProjects')) ?></td></tr>
+        <tr>
+<!--            <th> <?php //echo __('Id') ?></th>-->
             <th> <?php echo __('Project Name'); ?> </th>
             <th colspan="2"><?php echo __('Actions') ?></th>
 
@@ -34,7 +35,7 @@
                     $alt = 1;
                 }
             ?>
-                <td class="<?php echo "not id " . $project->getId(); ?>"><?php echo $project->getId(); ?></td>
+<!--                <td class="<?php //echo "not id " . $project->getId(); ?>"><?php //echo $project->getId(); ?></td>-->
                 <td class="<?php echo "change name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewStories?id={$project->getId()}&projectName={$project->getName()}"); ?>" > <?php echo $project->getName(); ?></a></td>
                 <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
                 <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
