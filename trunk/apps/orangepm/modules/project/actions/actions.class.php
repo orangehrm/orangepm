@@ -168,7 +168,7 @@ class projectActions extends sfActions {
         $viewStoriesDao = new StoryDao();
 
         $pageNo = $this->getRequestParameter('page', 1);
-        $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
+         $this->storyList = $viewStoriesDao->getStoriesForProjectProgress(true, $this->projectId,"date_added");
 
         $progressServiceObject = new ProjectService();
         $allArray = $progressServiceObject->viewWeeklyProgress($this->storyList, $this->projectId);
