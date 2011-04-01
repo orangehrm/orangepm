@@ -288,8 +288,11 @@ function findSelected(){
         changedEstimation.disabled = false;
         editboxAcceptedDate.disabled=true;
     }
+
+    
     
 }
+
 function datepicker(){
     $( "#deletedDate" ).datepicker(
 

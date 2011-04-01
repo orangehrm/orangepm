@@ -63,4 +63,18 @@ class StoryDao {
 
     }
 
+     public function getStoriesForProjectProgress($active, $projectId,$sortBy) {
+
+        if ($active) {
+            $query = Doctrine_Core::getTable('Story')
+                            ->createQuery('c')
+                            ->where('c.project_id = ?', $projectId)
+                            ->andWhere('c.deleted = ?', Project::FLAG_ACTIVE)
+                            ->orderBy("c.{$sortBy}");
+            return $query->execute();
+        } elseif (!$active) {
+            return Doctrine_Core::getTable('Story')->findAll();
+        }
+    }
+
 }
