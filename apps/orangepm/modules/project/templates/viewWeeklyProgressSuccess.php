@@ -20,8 +20,10 @@
         <th><?php echo __('Total Work Accepted') ?></th>
         <th colspan="2"><?php echo __('Burn Down') ?></th>
     </tr>
+    <?php if($weekStartingDate == !null):?>
     <?php foreach ($weekStartingDate as $array1): ?>
 
         <tr><td> <?php echo $array1 ?></td> <td> <?php echo $totalEstimation[$array1] ?></td><td> <?php echo $weeklyVelocity[$array1] ?></td><td><?php echo $workCompleted[$array1] ?></td><td><?php echo $burnDownArray[$array1] ?></td></tr>
     <?php endforeach; ?>
+        <?php endif;?>
 </table>

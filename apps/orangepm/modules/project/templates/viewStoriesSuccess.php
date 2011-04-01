@@ -36,7 +36,7 @@
                 <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $story->getStatus(); ?></td>
                 <td class="<?php echo "changedAcceptedDate acceptedDate " . $story->getId(); ?>"> <?php echo $story->getAcceptedDate(); ?></td>
                 <td class="<?php echo "edit edit " . $story->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn') ?></td>
-                <td class="close"><a class="confirmLink" href="<?php echo url_for("project/deleteStory?id={$story->getId()}&projectId={$projectId}&projectName={$projectName}&deletedDate"); ?>"><?php echo image_tag('b_drop.png'); ?></a></td>
+                <td class="close"><a class="confirmLink" href="<?php echo url_for("project/deleteStory?id={$story->getId()}&projectId={$projectId}&projectName={$projectName}"); ?>"><?php echo image_tag('b_drop.png'); ?></a></td>
 
             </tr>
            
@@ -58,7 +58,7 @@
 <div  id="dialog" title="Confirmation Required">
     <h1><?php echo __('Story Will Be Deleted?')?></h1>
     <label for="name"><?php echo __('Deleted Date')?></label>
-    <input type="text" name="deletedDate" id="deletedDate" onclick="datepicker()" />
+    <input type="text" name="deletedDate" id="deletedDate" onclick="datepicker()" value="<?php echo Date('Y-m-d')?>" />
 
 </div>
 
