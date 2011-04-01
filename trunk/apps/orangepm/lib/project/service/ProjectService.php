@@ -91,7 +91,9 @@ class ProjectService {
 
     public function viewWeeklyProgress($storyList, $projectId) {
 
-
+        $t = new ProjectProgressDao();
+        $progressValues = $t->getRecords($projectId);
+        if($progressValues[0] == null) {
         $startingDate = $storyList[0]->getDateAdded();
 
         $endDate = 0;
@@ -99,11 +101,9 @@ class ProjectService {
 
         foreach ($storyList as $story) {
 
-            if (!$story->getStatus() == 'Accepted') {
+            if (!($story->getStatus() == 'Accepted')) {
                 $endDate = date('Y-m-d');
                 break;
-            } else {
-
             }
         }
 
@@ -135,8 +135,7 @@ class ProjectService {
             $totalEstimatedEffort+=$story->getEstimation();
         }
 
-        $t = new ProjectProgressDao();
-        $progressValues = $t->getRecords($projectId);
+        
 
         foreach ($progressValues as $values) {
 
@@ -158,16 +157,24 @@ class ProjectService {
 
 
         return $this->buildingTable($weekStartings, $weeklyTotalEstimation, $weeklyVelocity, $workCompletedArray);
+        }else {
+            
+        }
+
     }
 
     public function CalculateWeekStartDate($date) {
 
-        $ts = strtotime($date);
-        $start = (date('w', $ts) == 0) ? $ts : strtotime('last monday', $ts);
-        return date('Y-m-d', $start);
+        
+        $week = date('W', strtotime($date));
+        $year = date('Y',  strtotime($date));
+        $from = date("Y-m-d", strtotime("{$year}-W{$week}-1"));
+        return $from;
+        
+
     }
 
-    public function calculateStartingDatesOfWeeks($startDate1, $endDate1) {
+   public function calculateStartingDatesOfWeeks($startDate1, $endDate1) {
         $weekStartingDates = null;
 
         $j = 1;
@@ -214,6 +221,8 @@ class ProjectService {
         $weeklyTotalEstimationStoreValue = 0;
         $workCompletedStoreValue = 0;
 
+        print_r($reversedWeeklyTotalEstimation);
+
         foreach ($weekStartings as $weekStarting) {
             $temp = end($reversedWeeklyTotalEstimation);
 
@@ -224,7 +233,6 @@ class ProjectService {
             }
 
             $weeklyTotalEstimationArray[$weekStarting] = $weeklyTotalEstimationStoreValue;
-
         }
 
         foreach ($weekStartings as $weekStarting) {
@@ -256,6 +264,6 @@ class ProjectService {
         }
 
         return array($weekStartings, $weeklyTotalEstimationArray, $weeklyVelocityArray, $workCompleted, $burnDownArray);
-
     }
+
 }
