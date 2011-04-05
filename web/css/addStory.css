@@ -17,7 +17,7 @@ root {
 
 
 div.addForm {
-    width: 720px;
+    width: 785px;
     top: 28px;
 }
 
@@ -25,3 +25,7 @@ table.tableContent {
     top: 0px;
 }
 
+
+span.mandatoryStar {
+    color: #fb0000;
+}

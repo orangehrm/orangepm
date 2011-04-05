@@ -32,7 +32,7 @@ class StoryDao {
    public function getRelatedProjectStories($active, $projectId, $pageNo) {
 
         if ($active) {
-            $pager = new sfDoctrinePager('Story', 10);
+            $pager = new sfDoctrinePager('Story', 5);
             $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId)->orderBy('name');
             $pager->setPage($pageNo);
             $pager->init();

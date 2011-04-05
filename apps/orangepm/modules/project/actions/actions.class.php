@@ -135,7 +135,7 @@ class projectActions extends sfActions {
 
     public function executeDeleteStory($request) {
 
-        
+
         $projectService = new ProjectService();
         $projectService->trackProjectProgressDeleteStory($request->getParameter('id'));
 
@@ -160,15 +160,14 @@ class projectActions extends sfActions {
     }
 
     public function executeViewWeeklyProgress($request) {
-
         $this->projectName = $request->getParameter('projectName');
         $this->projectId = $request->getParameter('projectId');
         // $pageNo = $this->getRequestParameter('page', 1);
 
         $viewStoriesDao = new StoryDao();
 
-        $pageNo = $this->getRequestParameter('page', 1);
-         $this->storyList = $viewStoriesDao->getStoriesForProjectProgress(true, $this->projectId,"date_added");
+
+        $this->storyList = $viewStoriesDao->getStoriesForProjectProgress(true, $this->projectId, "date_added");
 
         $progressServiceObject = new ProjectService();
         $allArray = $progressServiceObject->viewWeeklyProgress($this->storyList, $this->projectId);
