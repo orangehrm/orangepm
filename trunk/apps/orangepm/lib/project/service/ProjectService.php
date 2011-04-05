@@ -90,15 +90,14 @@ class ProjectService {
     }
 
     public function viewWeeklyProgress($storyList, $projectId) {
-
         $t = new ProjectProgressDao();
         $progressValues = $t->getRecords($projectId);
-        if($progressValues[0] == null) {
+        if(!($storyList[0]->getProjectId() == null)) {
         $startingDate = $storyList[0]->getDateAdded();
 
         $endDate = 0;
         $indexvalue = 0;
-
+        print_r("test");
         foreach ($storyList as $story) {
 
             if (!($story->getStatus() == 'Accepted')) {
@@ -157,8 +156,6 @@ class ProjectService {
 
 
         return $this->buildingTable($weekStartings, $weeklyTotalEstimation, $weeklyVelocity, $workCompletedArray);
-        }else {
-            
         }
 
     }
@@ -169,6 +166,7 @@ class ProjectService {
         $week = date('W', strtotime($date));
         $year = date('Y',  strtotime($date));
         $from = date("Y-m-d", strtotime("{$year}-W{$week}-1"));
+        
         return $from;
         
 
@@ -221,7 +219,7 @@ class ProjectService {
         $weeklyTotalEstimationStoreValue = 0;
         $workCompletedStoreValue = 0;
 
-        print_r($reversedWeeklyTotalEstimation);
+        
 
         foreach ($weekStartings as $weekStarting) {
             $temp = end($reversedWeeklyTotalEstimation);
