@@ -1,0 +1,6 @@
+1: Get the checkout (svn co https://orangepm.googlecode.com/svn/trunk [folder name]).
+2. Set proper permissions. (sudo chmod -R 777 [folder name])
+3. Build the model.(php symfony doctrine:build-model)
+4. php symfony configure:database "mysql:host=localhost;dbname=[DB name]" [DB username] [DB password]
+5. php symfony doctrine:build-sql
+6. mysql -u [DB username] -p [DB name] < data/sql/schema.sql
