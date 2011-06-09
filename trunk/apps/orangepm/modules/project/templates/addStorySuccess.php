@@ -48,7 +48,7 @@
 <table class="tableContent">
     <tr><td class="pageNav" colspan="6"><?php echo pager_navigation($storyList, url_for('project/addStory') . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
     <tr>
-        <th><?php echo __('Story Id') ?></th>
+        
         <th><?php echo __('Story Name') ?></th>
         <th><?php echo __('Estimated Effort'); ?> <br> <?php echo __('(Engineering Hours)'); ?></th>
         <th><?php echo __('Date Added') ?></th>
@@ -58,7 +58,7 @@
 
     <?php foreach ($storyList->getResults() as $story): ?>
                     <tr>
-                        <td class="<?php echo "not id " . $story->getId(); ?>"><?php echo $story->getId(); ?></td>
+                        
                         <td class="<?php echo "change name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>
                         <td> <?php echo $story->getEstimation(); ?></td>
                         <td> <?php echo $story->getDateAdded(); ?></td>

@@ -19,7 +19,7 @@ class storyForm extends sfForm {
             'dateAdded' => new sfWidgetFormInputText(),
             'estimatedEffort' => new sfWidgetFormInputText(),
             'projectId' => new sfWidgetFormInputHidden(),
-            'status' => new sfWidgetFormSelect(array('choices' => array(0 => 'Pending', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing',  5 => 'Rework', 6 => 'Accepted'))),
+            'status' => new sfWidgetFormSelect(array('choices' => array(0 => 'Backlog', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing',  5 => 'Rework', 6 => 'Accepted'))),
             'acceptedDate' => new sfWidgetFormInputText(),
         ));
 

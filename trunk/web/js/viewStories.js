@@ -31,7 +31,7 @@ $(document).ready(function() {
     toggleVariable = "Saved";
     dropdownToggleVariable = true;
     var selectionArray = {
-        "Pending":0 ,
+        "Backlog":0 ,
         "Design" : 1,
         "Development":2,
         "Development Completed":3,
@@ -89,7 +89,7 @@ $(document).ready(function() {
                 var previousStatus = jQuery.trim($(this).parent().children('td.changedStatus').text());
 
                 $(this).parent().children('td.changedStatus').html('<select name="changedStatus" id="changedStatus" onchange="findSelected()"">'+
-                    '<option value=" Pending">Pending</option>'+
+                    '<option value=" Backlog">Backlog</option>'+
                     '<option value=" Design">Design</option>'+
                     '<option value=" Development">Development</option>'+
                     '<option value=" Development Completed">Development Completed</option>'+
