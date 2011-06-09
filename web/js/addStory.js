@@ -33,6 +33,7 @@ $(document).ready(
                 changeMonth: true,
                 changeYear: true,
                 showAnim: "slideDown"
+               
             });
     
     }

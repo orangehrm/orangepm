@@ -56,8 +56,8 @@
 
 
 <div  id="dialog" title="Confirmation Required">
-    <h1><?php echo __('Story Will Be Deleted?')?></h1>
-    <label for="name"><?php echo __('Deleted Date')?></label>
+    <h1><?php echo __('Story will be deleted?')?></h1>
+    <label for="name"><?php echo __('Deleted date')?></label>
     <input type="text" name="deletedDate" id="deletedDate" onclick="datepicker()" value="<?php echo Date('Y-m-d')?>" />
 
 </div>

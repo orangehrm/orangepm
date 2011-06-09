@@ -14,7 +14,7 @@
 
     <tr><td class="pageNav" colspan="6"><?php //echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}")         ?></td></tr>
     <tr>
-        <th><?php echo __('Week Startings') ?></th>
+        <th><?php echo __('Week Starting') ?></th>
         <th><?php echo __('Total Estimated Effort') ?></th>
         <th><?php echo __('Weekly Velocity'); ?></th>
         <th><?php echo __('Total Work Accepted') ?></th>

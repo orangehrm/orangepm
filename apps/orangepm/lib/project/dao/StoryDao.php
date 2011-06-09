@@ -32,8 +32,8 @@ class StoryDao {
    public function getRelatedProjectStories($active, $projectId, $pageNo) {
 
         if ($active) {
-            $pager = new sfDoctrinePager('Story', 5);
-            $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId)->orderBy('name');
+            $pager = new sfDoctrinePager('Story', 50);
+            $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId)->orderBy('date_added');
             $pager->setPage($pageNo);
             $pager->init();
             return $pager;
@@ -73,7 +73,11 @@ class StoryDao {
                             ->orderBy("c.{$sortBy}");
             return $query->execute();
         } elseif (!$active) {
-            return Doctrine_Core::getTable('Story')->findAll();
+            $query = Doctrine_Core::getTable('Story')
+                            ->createQuery('c')
+                            ->where('c.project_id = ?', $projectId)
+                            ->orderBy("c.{$sortBy}");
+            return $query->execute();
         }
     }
 
