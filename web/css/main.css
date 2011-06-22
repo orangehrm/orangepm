@@ -7,10 +7,10 @@ body {
 
 
 td.labelfield {
-/*    vertical-align:bottom;
-    font-size: 14px;*/
+    /*    vertical-align:bottom;
+        font-size: 14px;*/
     padding-top: 5px;
-    
+
 }
 
 
@@ -157,13 +157,13 @@ div.formField {
 table.tableContent td.pageNav {
     background-color: #fff;
     text-align: right;
-      
+
 }
 
 
 
 div.header {
-    
+
     height: 160px;
 }
 
@@ -256,4 +256,9 @@ div.viewWeeklyProgressButton{
     position:absolute;
     top: 225px;
     margin: 0px;
+}
+
+#menu li div.logoutClass {
+    padding-left: 94%;
+    margin-top: .5%;
 }
