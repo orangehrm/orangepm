@@ -15,8 +15,20 @@
             <div class="navigaiton">
                 <ul id="menu">
                     <li> <?php echo link_to(__('Projects'), 'project/viewProjects', array('id' => 'projects')); ?></li>
+                    <?php if($sf_user->hasCredential('superAdmin')): ?>
+                        <li> <a href="#" id="issueTracker" ><?php echo __('Users') ?></a></li>
+                    <?php endif; ?>
                     <li> <a href="#" id="issueTracker" ><?php echo __('Issue Tracker') ?></a></li>
-                </ul>
+                    <?php if($sf_user->isAuthenticated()): ?>
+                        <li>
+                            <div class="logoutClass" id="logoutClass">
+                                <form action="<?php echo url_for("project/logout"); ?>" name="logoutForm" method="post">
+                                    <input type="submit" name="logoutBotton" value="Logout" />
+                                </form>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+                </ul>               
             </div>
         </div>
 

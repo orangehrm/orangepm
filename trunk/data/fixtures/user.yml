@@ -1,0 +1,10 @@
+## YAML Template.
+---
+User:
+  system_admin_1:
+    firstName: Chanaka
+    lastName: Indrajith
+    username: admin
+    userType: 1
+    password: d033e22ae348aeb5660fc2140aec35850c4da997
+    

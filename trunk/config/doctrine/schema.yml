@@ -8,7 +8,15 @@ Project:
       autoincrement: true
     name: string(255)
     deleted: { type: boolean, notnull: true, default: 1 }
- 
+    admin_id:
+      name: admin_id as adminId
+      type: integer
+  relations:
+    User:
+      local: adminId
+      type: one
+      foreign: id
+       
 Story:
   actAs: [Timestampable]
   tableName: orangepm_story
@@ -44,3 +52,43 @@ ProjectProgress:
     work_completed: integer
     unit_of_work: integer
 
+User:
+  tableName: orangepm_user
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    first_name:
+      name: first_name as firstName
+      type: string(255)
+      notnull: true
+    last_name:
+      name: last_name as lastName
+      type: string(255)
+      notnull: true
+    email:
+      type: string(255)
+    is_active:
+      name: is_active as isActive
+      type: boolean
+      notnull: true
+      default: 1
+    username:
+      type: string(255)
+      unique: true
+      notnull: true
+    user_type:
+      name: user_type as userType
+      type: integer
+      notnull: true
+    password:
+      type: string(255)
+      notnull: true
+  relations:
+    Project:
+      onDelete: set null
+      local: id
+      type: many
+      foreign: adminId
+      

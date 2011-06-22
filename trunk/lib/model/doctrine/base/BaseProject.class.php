@@ -8,15 +8,21 @@
  * @property integer $id
  * @property string $name
  * @property boolean $deleted
+ * @property integer $adminId
+ * @property User $User
  * @property Doctrine_Collection $Story
  * 
  * @method integer             getId()      Returns the current record's "id" value
  * @method string              getName()    Returns the current record's "name" value
  * @method boolean             getDeleted() Returns the current record's "deleted" value
+ * @method integer             getAdminId() Returns the current record's "adminId" value
+ * @method User                getUser()    Returns the current record's "User" value
  * @method Doctrine_Collection getStory()   Returns the current record's "Story" collection
  * @method Project             setId()      Sets the current record's "id" value
  * @method Project             setName()    Sets the current record's "name" value
  * @method Project             setDeleted() Sets the current record's "deleted" value
+ * @method Project             setAdminId() Sets the current record's "adminId" value
+ * @method Project             setUser()    Sets the current record's "User" value
  * @method Project             setStory()   Sets the current record's "Story" collection
  * 
  * @package    orangepm
@@ -43,11 +49,18 @@ abstract class BaseProject extends sfDoctrineRecord
              'notnull' => true,
              'default' => 1,
              ));
+        $this->hasColumn('admin_id as adminId', 'integer', null, array(
+             'type' => 'integer',
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('User', array(
+             'local' => 'adminId',
+             'foreign' => 'id'));
+
         $this->hasMany('Story', array(
              'local' => 'id',
              'foreign' => 'project_id'));

@@ -10,10 +10,68 @@
  */
 class projectActions extends sfActions {
 
+    public function preExecute() {
+    
+        if((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
+            $this->redirect('project/login');
+        }
+        
+    }
+
+    
     public function executeIndex() {
 
         $response = $this->getResponse();
         $response->setTitle(__('Orange Project Management'));
+    }
+    
+    public function executeLogin($request) {
+        
+        $response = $this->getResponse();
+        $response->setTitle(__('Login'));      
+         
+        $this->loginForm = new LoginForm();
+  
+        if ($request->isMethod('post')) {
+            
+            $this->loginForm->bind($request->getParameter('login'));  
+            
+            if ($this->loginForm->isValid()) {
+                
+                $user = $this->loginForm->getValue('username');
+                $pass = sha1($this->loginForm->getValue('password'));
+                
+                $loginService = new LoginService();              
+                $loggedUser = $loginService->getUserByUsernameAndPassword($user, $pass);
+                
+                if($loggedUser instanceof User) {
+                    
+                    $this->getUser()->setAuthenticated (true);
+                    
+                    $userRole = $loginService->getUserRole($loggedUser->getUserType());
+                   
+                    if (!empty($userRole)) {
+                        $this->getUser()->addCredential($userRole);
+                    }                
+                                        
+                    $this->redirect('project/index');          
+                    
+                }
+                else {
+                    //$this->getUser()->setFlash('errorMessage', __('Username or Password is incorrect'));
+                    $this->errorMessage = __('Username or Password is incorrect');
+                }                
+                
+            }
+        }   
+        
+    }
+    
+    public function executeLogout() {
+        
+        $this->getUser()->setAuthenticated (false);
+        $this->redirect('project/login');
+        
     }
 
     public function executeViewProjects($request) {
