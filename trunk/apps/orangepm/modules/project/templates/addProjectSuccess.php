@@ -5,7 +5,7 @@
 <div class="Project">
 
     <div class="heading">
-        <h4> <?php echo link_to(__('Projects'),'project/viewProjects')?> > <?php echo __('Add Project'); ?> </h4>
+        <h3> <?php echo link_to(__('Projects'),'project/viewProjects')?> > <?php echo __('Add Project'); ?> </h3>
     </div>
 
     <div class="addForm">

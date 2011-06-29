@@ -1,9 +1,5 @@
 <?php echo stylesheet_tag('login'); ?>
 
-<?php echo javascript_include_tag('login'); ?>
-<?php echo javascript_include_tag('jquery/jquery.min'); ?>
-<?php echo javascript_include_tag('jquery/jquery.validator'); ?>
-
 <div class="login">
     
     <div class="title"><?php echo __('Login') ; ?></div>
@@ -22,3 +18,7 @@
     </div>
     
 </div>
+
+<?php echo javascript_include_tag('login'); ?>
+<?php echo javascript_include_tag('jquery/jquery.min'); ?>
+<?php echo javascript_include_tag('jquery/jquery.validator'); ?>

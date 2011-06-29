@@ -12,7 +12,7 @@
 <div class="Project">
 
     <div class="heading">
-        <h4> <?php echo __('Projects'); ?> </h4>
+        <h3> <?php echo __('Projects'); ?> </h3>
         <span id="message"><?php if (isset($message))
     echo __('The Project is added successfully') ?></span>
     </div>

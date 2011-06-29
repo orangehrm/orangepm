@@ -9,14 +9,15 @@
         <?php include_stylesheets() ?>
         <?php include_javascripts() ?>
     </head>
+    
     <body>
         <div class="header">
-            <?php echo image_tag('orangepmlogo.png', 'id=logo'); ?>
+            <a href="<?php echo url_for("project/index"); ?>" id="mainLogo"><?php echo image_tag('orangepmlogo.png', 'id=logo'); ?></a>
             <div class="navigaiton">
                 <ul id="menu">
                     <li> <?php echo link_to(__('Projects'), 'project/viewProjects', array('id' => 'projects')); ?></li>
                     <?php if($sf_user->hasCredential('superAdmin')): ?>
-                        <li> <a href="#" id="issueTracker" ><?php echo __('Users') ?></a></li>
+                        <li> <?php echo link_to(__('Users'), 'project/viewUsers', array()); ?></li>
                     <?php endif; ?>
                     <li> <a href="#" id="issueTracker" ><?php echo __('Issue Tracker') ?></a></li>
                     <?php if($sf_user->isAuthenticated()): ?>
