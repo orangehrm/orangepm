@@ -1,0 +1,35 @@
+/* 
+    Document   : viewUser
+    Created on : Jun 27, 2011, 12:29:21 PM
+    Author     : orangehrm
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+td.close a:link {
+    color: #CCCCCC;
+}
+
+td#pass {
+    font-style: italic;
+    color: gray;
+    text-align: center;
+}
+
+td.edit {
+    cursor: pointer;
+}
+
+table.tableContent {
+    top: 40px;
+}
+

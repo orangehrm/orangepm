@@ -87,7 +87,7 @@ $(document).ready(function() {
             $(this).parent().children('td.changedStatus').addClass('ajaxStatus');
             if(dropdownToggleVariable){
                 var previousStatus = jQuery.trim($(this).parent().children('td.changedStatus').text());
-
+                
                 $(this).parent().children('td.changedStatus').html('<select name="changedStatus" id="changedStatus" onchange="findSelected()"">'+
                     '<option value=" Backlog">Backlog</option>'+
                     '<option value=" Design">Design</option>'+

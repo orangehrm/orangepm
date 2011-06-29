@@ -118,8 +118,8 @@ input.formButton {
 
 div.addButton {
     position: absolute;
-    top: 210px;
-    left: 55px;
+    top: 230px;
+    left: 60px;
     margin: 0px;
 }
 
@@ -254,11 +254,15 @@ div.heading {
 div.viewWeeklyProgressButton{
     left: 150px;
     position:absolute;
-    top: 225px;
+    top: 230px;
     margin: 0px;
 }
 
 #menu li div.logoutClass {
     padding-left: 94%;
     margin-top: .5%;
+}
+
+#mainLogo:visited {
+    color: white;
 }

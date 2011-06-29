@@ -19,8 +19,7 @@ class LoginService {
         
         if($type == User::USER_TYPE_SUPER_ADMIN) {
             $userRole = "superAdmin";
-        }
-        elseif($type == User::USER_TYPE_PROJECT_ADMIN) {
+        } elseif($type == User::USER_TYPE_PROJECT_ADMIN) {
             $userRole = "projectAdmin";
         }
         

@@ -11,7 +11,7 @@
 
 <div class="Project">
     <div class="heading">
-        <h4> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> > <?php echo $projectName; ?> > <?php echo __('Stories'); ?> </h4>
+        <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> > <?php echo $projectName; ?> > <?php echo __('Stories'); ?> </h3>
         <span id="message"><?php if (isset($message))
     echo __('The Story is added successfully') ?></span>
     </div>

@@ -8,7 +8,7 @@
 
 
 <div class="heading">
-    <h4> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> ><a class="storyLink" href="<?php echo url_for("project/viewStories?id={$projectId}&projectName={$projectName}"); ?>" > <?php echo $projectName; ?></a> > <?php echo __('Add Story'); ?> </h4>
+    <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> ><a class="storyLink" href="<?php echo url_for("project/viewStories?id={$projectId}&projectName={$projectName}"); ?>" > <?php echo $projectName; ?></a> > <?php echo __('Add Story'); ?> </h3>
 </div>
 
 <div class="addForm">

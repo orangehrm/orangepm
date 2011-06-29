@@ -11,67 +11,126 @@
 class projectActions extends sfActions {
 
     public function preExecute() {
-    
-        if((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
+
+        if ((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
             $this->redirect('project/login');
         }
-        
     }
 
-    
     public function executeIndex() {
 
         $response = $this->getResponse();
         $response->setTitle(__('Orange Project Management'));
     }
-    
+
     public function executeLogin($request) {
         
-        $response = $this->getResponse();
-        $response->setTitle(__('Login'));      
-         
+        $this->getResponse()->setTitle(__('Login'));
+
         $this->loginForm = new LoginForm();
-  
+
         if ($request->isMethod('post')) {
             
-            $this->loginForm->bind($request->getParameter('login'));  
-            
+            $this->loginForm->bind($request->getParameter('login'));
+
             if ($this->loginForm->isValid()) {
-                
+
                 $user = $this->loginForm->getValue('username');
                 $pass = sha1($this->loginForm->getValue('password'));
-                
-                $loginService = new LoginService();              
+
+                $loginService = new LoginService();
                 $loggedUser = $loginService->getUserByUsernameAndPassword($user, $pass);
-                
-                if($loggedUser instanceof User) {
-                    
-                    $this->getUser()->setAuthenticated (true);
-                    
+
+                if ($loggedUser instanceof User) {
+
+                    $this->getUser()->setAuthenticated(true);
+
                     $userRole = $loginService->getUserRole($loggedUser->getUserType());
-                   
+
                     if (!empty($userRole)) {
                         $this->getUser()->addCredential($userRole);
-                    }                
-                                        
-                    $this->redirect('project/index');          
+                    }
+
+                    $this->redirect('project/index');
                     
-                }
-                else {
-                    //$this->getUser()->setFlash('errorMessage', __('Username or Password is incorrect'));
+                } else {
                     $this->errorMessage = __('Username or Password is incorrect');
-                }                
-                
+                }
             }
-        }   
-        
+        }
     }
-    
+
     public function executeLogout() {
-        
-        $this->getUser()->setAuthenticated (false);
+
+        $this->getUser()->setAuthenticated(false);
         $this->redirect('project/login');
-        
+    }
+
+    public function executeViewUsers($request) {
+
+        $response = $this->getResponse();
+        $response->setTitle(__('Users'));
+
+        $this->message = $request->getParameter('msg');
+        $this->userForm = new sfForm();
+
+        $dao = new UserDao();
+        $pageNo = $this->getRequestParameter('page', 1);
+        $this->pager = $dao->getUsers(true, $pageNo);
+    }
+
+    public function executeAddUser($request) {
+
+        $this->userForm = new UserForm();
+        $response = $this->getResponse();
+        $response->setTitle(__('Add User'));
+
+        if ($request->isMethod('post')) {
+            $this->userForm->bind($request->getParameter('user'));
+            if ($this->userForm->isValid()) {
+                $dao = new UserDao();
+                $inputParameters = array(
+                    'firstName' => $this->userForm->getValue('firstName'),
+                    'lastName' => $this->userForm->getValue('lastName'),
+                    'email' => $this->userForm->getValue('email'),
+                    'username' => $this->userForm->getValue('username'),
+                    'userType' => $this->userForm->getValue('userType'),
+                    'password' => $this->userForm->getValue('password')
+                );
+
+                $dao->saveUser($inputParameters);
+
+                $this->redirect('project/viewUsers?msg=added');
+            }
+        }
+
+        $dao = new UserDao();
+        $pageNo = $this->getRequestParameter('page', 1);
+        $this->pager = $dao->getUsers(true, $pageNo);
+    }
+
+    public function executeDeleteUser($request) {
+
+        $dao = new UserDao();
+        $dao->deleteUser($request->getParameter('id'));
+        $this->redirect('project/viewUsers?');
+    }
+
+    public function executeEditUser($request) {
+
+        $userService = new UserService();
+
+        $userParameters = array(
+            'firstName' => $request->getParameter('firstName'),
+            'lastName' => $request->getParameter('lastName'),
+            'email' => $request->getParameter('email'),
+            'userType' => $request->getParameter('userType'),
+            'username' => $request->getParameter('username'),
+            'password' => $request->getParameter('password')
+        );
+
+        $userService->updateUser($userParameters, $request->getParameter('id'));
+        die;
     }
 
     public function executeViewProjects($request) {

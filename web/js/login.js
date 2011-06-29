@@ -21,7 +21,7 @@ $(document).ready(function() {
         },
         error: function(){
             userValid = false;
-            $('#login_form #result_username').text("* Please fill username field");
+            $('#login_form #result_username').text("Please fill username field");
         }
     });
 
