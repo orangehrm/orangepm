@@ -21,7 +21,7 @@ $(document).ready(function() {
         },
         error: function(){
             userValid = false;
-            $('#login_form #result_username').text("Please fill username field");
+            $('#login_form #result_username').text(lang_usernameRequired);
         }
     });
 
@@ -36,7 +36,7 @@ $(document).ready(function() {
         },
         error: function(){
             passValid = false;
-            $('#login_form #result_password').text("* Please fill password field");
+            $('#login_form #result_password').text(lang_passwordRequired);
         }
     });   
     
