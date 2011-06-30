@@ -1,11 +1,17 @@
 <?php
 
-/*
- * inplement logics for user
+/**
+ * Servise class for User
+ * Inplement logics for user
  */
 
 class UserService {
-    
+
+    /**
+	 * Update the user details
+	 * @param $userParameters(array), $id
+	 * @return none
+	 */
     public function updateUser($userParameters, $id) {
         
         $dao = new UserDao();
