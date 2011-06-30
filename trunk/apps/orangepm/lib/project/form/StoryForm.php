@@ -12,6 +12,10 @@
  */
 class storyForm extends sfForm {
 
+   /**
+	 * Configure story form
+	 *
+	 */
     public function configure() {
 
         $this->setWidgets(array(
@@ -43,6 +47,7 @@ class storyForm extends sfForm {
             'projectId' => new sfValidatorString(),
             'acceptedDate' => new sfValidatorDate(array('required' =>false)),
         ));
+
     }
 
 }

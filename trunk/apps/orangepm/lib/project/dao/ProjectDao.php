@@ -1,7 +1,13 @@
 <?php
-
+/**
+ * Dao class for retrive the data of Project table
+ */
 class ProjectDao {
 
+    /**
+	 * Save projects
+	 * @param $name
+	 */
     public function saveProject($name) {
 
         $project = new Project();
@@ -10,6 +16,11 @@ class ProjectDao {
         
     }
 
+    /**
+	 * Delete Projects
+	 * @param $id
+	 * @return none
+	 */
     public function deleteProject($id) {
 
         $project = Doctrine_Core::getTable('Project')->find($id);
@@ -21,6 +32,11 @@ class ProjectDao {
         
     }
 
+    /**
+	 * Get projects
+	 * @param $active, $pageNo
+	 * @return $pager or $allProjects
+	 */
     public function getProjects($active, $pageNo) {
 
         if ($active) {
@@ -35,7 +51,11 @@ class ProjectDao {
         }
         
     }
-
+    /**
+	 * Update projects
+	 * @param $id, $name
+	 * @return none
+	 */
     public function updateProject($id, $name) {
 
         $project = Doctrine_Core::getTable('Project')->find($id);

@@ -1,5 +1,10 @@
 <?php echo stylesheet_tag('login'); ?>
 
+<script type="text/javascript">
+    var lang_usernameRequired = "<?php echo __('Username is required');?>";
+    var lang_passwordRequired = "<?php echo __('Password is required');?>";
+</script>
+
 <div class="login">
     
     <div class="title"><?php echo __('Login') ; ?></div>

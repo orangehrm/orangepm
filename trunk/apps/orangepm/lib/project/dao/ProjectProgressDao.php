@@ -1,7 +1,14 @@
 <?php
-
+/**
+ * Dao class for retrive the data of ProjectProgress table
+ */
 class ProjectProgressDao {
 
+    /**
+	 * Add project progress
+	 * @param $projectID, $acceptedDate, $workCompleted, $unitOfWork
+     * return none
+	 */
     public function addProjectProgress($projectID, $acceptedDate, $workCompleted, $unitOfWork) {
 
         $projectProgress = new ProjectProgress();
@@ -14,6 +21,11 @@ class ProjectProgressDao {
         $projectProgress->save();
     }
 
+    /**
+	 * Get project progress
+	 * @param $projectID, $acceptedDate
+     * return Relevent data according to parameters(Doctrine object)
+	 */
     public function getProjectProgress($projectId, $acceptedDate) {
 
         $query = Doctrine_Core::getTable('ProjectProgress')
@@ -23,6 +35,11 @@ class ProjectProgressDao {
         return $query->execute();
     }
 
+    /**
+	 * Update project progress
+	 * @param $projectID, $acceptedDate, $workCompleted
+     * return none
+	 */
     public function updateProjectProgress($projectId, $acceptedDate, $workCompleted) {
 
 
@@ -35,6 +52,11 @@ class ProjectProgressDao {
         $query->execute();
     }
 
+    /**
+	 * Get Records
+	 * @param $projectID
+     * return Doctrine object
+	 */
     public function getRecords($projectId) {
 
         $query = Doctrine_Core::getTable('ProjectProgress')

@@ -5,6 +5,14 @@
 <?php echo javascript_include_tag('jquery/jquery.validator'); ?>
 <?php echo javascript_include_tag('addUser'); ?>
 
+<script type="text/javascript">
+    var lang_firstNameRequired = "<?php echo __('First name is required');?>";
+    var lang_lastNameRequired = "<?php echo __('Last name is required');?>";
+    var lang_emailRequired = "<?php echo __('Email is required');?>";
+    var lang_usernameRequired = "<?php echo __('Username is required');?>";
+    var lang_passwordRequired = "<?php echo __('Password is required');?>";
+</script>
+
 <div class="User">
 
     <div class="heading">

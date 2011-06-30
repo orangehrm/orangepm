@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * Dao class for retrive the data of user table
+ */
 class UserDao {
 
+    /**
+	 * Get users
+	 * @param $active, $pageNo
+	 * @return $pager or $allUsers
+	 */
     public function getUsers($active, $pageNo) {
 
         if ($active) {
@@ -17,6 +25,11 @@ class UserDao {
         }
     }
 
+    /**
+	 * Save users
+	 * @param $userParameters Array
+	 * @return $user
+	 */
     public function saveUser($userParameters) {
 
         $user = new User();
@@ -32,6 +45,11 @@ class UserDao {
         return $user;
     }
 
+    /**
+	 * Delete users
+	 * @param $id
+	 * @return none
+	 */
     public function deleteUser($id) {
 
         $user = Doctrine_Core::getTable('User')->find($id);
@@ -39,6 +57,11 @@ class UserDao {
         $user->save();
     }
 
+    /**
+	 * Update users
+	 * @param $userParameters Array, $id
+	 * @return none
+	 */
     public function updateUser($userParameters, $id) {
 
         $user = Doctrine_Core::getTable('User')->find($id);

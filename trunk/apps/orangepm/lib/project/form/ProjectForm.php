@@ -1,7 +1,16 @@
 <?php
+/**
+ * Description of Project form
+ *
+ * @author orangehrm
+ */
 
 class ProjectForm extends sfForm {
 
+    /**
+	 * ConfigureProject form
+	 *
+	 */
     public function configure() {
         
         $this->setWidgets(array(
@@ -16,6 +25,7 @@ class ProjectForm extends sfForm {
             'name' => new sfValidatorString(array('required' => true), array('required' => __('The Project Name is required'))),
             
         ));
+
     }
 
 }

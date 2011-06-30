@@ -8,8 +8,15 @@
  * @author     Your name here
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
+
+/**
+ * Actions class for orangepm
+ */
 class projectActions extends sfActions {
 
+    /**
+	 * Pre execute
+	 */
     public function preExecute() {
 
         if ((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
@@ -17,12 +24,20 @@ class projectActions extends sfActions {
         }
     }
 
+    /**
+	 * Set index action
+	 */
     public function executeIndex() {
 
         $response = $this->getResponse();
         $response->setTitle(__('Orange Project Management'));
     }
 
+    /**
+	 * Login
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeLogin($request) {
         
         $this->getResponse()->setTitle(__('Login'));
@@ -60,12 +75,21 @@ class projectActions extends sfActions {
         }
     }
 
+    /**
+	 * Logout
+	 * @return unknown_type
+	 */
     public function executeLogout() {
 
         $this->getUser()->setAuthenticated(false);
         $this->redirect('project/login');
     }
 
+    /**
+	 * View users
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeViewUsers($request) {
 
         $response = $this->getResponse();
@@ -79,6 +103,11 @@ class projectActions extends sfActions {
         $this->pager = $dao->getUsers(true, $pageNo);
     }
 
+    /**
+	 * Add users
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeAddUser($request) {
 
         $this->userForm = new UserForm();
@@ -109,6 +138,11 @@ class projectActions extends sfActions {
         $this->pager = $dao->getUsers(true, $pageNo);
     }
 
+    /**
+	 * Delete users
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeDeleteUser($request) {
 
         $dao = new UserDao();
@@ -116,6 +150,11 @@ class projectActions extends sfActions {
         $this->redirect('project/viewUsers?');
     }
 
+    /**
+	 * Edit users
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeEditUser($request) {
 
         $userService = new UserService();
@@ -133,6 +172,11 @@ class projectActions extends sfActions {
         die;
     }
 
+    /**
+	 * View projects
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeViewProjects($request) {
 
         $this->message = $request->getParameter('msg');
@@ -147,6 +191,11 @@ class projectActions extends sfActions {
         $response->setTitle(__('Projects'));
     }
 
+    /**
+	 * Save projects
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeSaveProject($request) {
 
         $dao = new ProjectDao();
@@ -154,6 +203,11 @@ class projectActions extends sfActions {
         $this->redirect('project/viewProjects?msg=added');
     }
 
+    /**
+	 * Add projects
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeAddProject($request) {
 
         $this->projectForm = new ProjectForm();
@@ -173,6 +227,11 @@ class projectActions extends sfActions {
         $this->pager = $dao->getProjects(true, $pageNo);
     }
 
+    /**
+	 * Delete projects
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeDeleteProject($request) {
 
         $dao = new projectDao();
@@ -180,6 +239,11 @@ class projectActions extends sfActions {
         $this->redirect('project/viewProjects');
     }
 
+    /**
+	 * Edit projects
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeEditProject($request) {
 
         $dao = new ProjectDao();
@@ -188,6 +252,11 @@ class projectActions extends sfActions {
         sfView::NONE;
     }
 
+    /**
+	 * Edit stories
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeEditStory($request) {
 
         $dao = new StoryDao();
@@ -215,6 +284,11 @@ class projectActions extends sfActions {
         die;
     }
 
+    /**
+	 * Add stories
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeAddStory($request) {
 
         $this->projectId = $request->getParameter('id');
@@ -250,6 +324,11 @@ class projectActions extends sfActions {
         $this->storyList = $viewStoryDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
     }
 
+    /**
+	 * Delete stories
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeDeleteStory($request) {
 
 
@@ -261,6 +340,11 @@ class projectActions extends sfActions {
         $this->redirect("project/viewStories?" . http_build_query(array('id' => $request->getParameter('projectId'), 'projectName' => $request->getParameter('projectName'))));
     }
 
+    /**
+	 * View stories
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeViewStories($request) {
 
         $this->message = $request->getParameter('msg');
@@ -276,6 +360,11 @@ class projectActions extends sfActions {
         $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
     }
 
+    /**
+	 * View weekly progress
+	 * @param sfWebRequest $request
+	 * @return unknown_type
+	 */
     public function executeViewWeeklyProgress($request) {
         $this->projectName = $request->getParameter('projectName');
         $this->projectId = $request->getParameter('projectId');

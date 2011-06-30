@@ -25,7 +25,7 @@ $(document).ready(function(){
         error: function(){
             thisInput = false;
             allValid = allValid && thisInput;
-            $('#addUser #result_firstName').text("* Please enter the first name");
+            $('#addUser #result_firstName').text(lang_firstNameRequired);
         }
     });   
     
@@ -43,7 +43,7 @@ $(document).ready(function(){
         error: function(){
             thisInput = false;
             allValid = allValid && thisInput;
-            $('#addUser #result_lastName').text("* Please enter the last name");
+            $('#addUser #result_lastName').text(lang_lastNameRequired);
         }
     });
     
@@ -61,7 +61,7 @@ $(document).ready(function(){
         error: function(){
             thisInput = false;
             allValid = allValid && thisInput;
-            $('#addUser #result_email').text("* Please enter valid email address");
+            $('#addUser #result_email').text(lang_emailRequired);
         }
     });
     
@@ -79,7 +79,7 @@ $(document).ready(function(){
         error: function(){
             thisInput = false;
             allValid = allValid && thisInput;
-            $('#addUser #result_username').text("* Please enter the username");
+            $('#addUser #result_username').text(lang_usernameRequired);
         }
     });
     
@@ -97,7 +97,7 @@ $(document).ready(function(){
         error: function(){
             thisInput = false;
             allValid = allValid && thisInput;
-            $('#addUser #result_password').text("* Please enter the password");
+            $('#addUser #result_password').text(lang_passwordRequired);
         }
     });
         
