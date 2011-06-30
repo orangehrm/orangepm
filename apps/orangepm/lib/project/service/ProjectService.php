@@ -1,7 +1,14 @@
 <?php
-
+/**
+ * Service class for Project Progress
+ */
 class ProjectService {
 
+    /**
+	 * Calculate the Project progress
+	 * @param $acceptedDate, $status, $storyId
+	 * @return none
+	 */
     public function trackProjectProgress($acceptedDate, $status, $storyId) {
 
         $storyDao = new StoryDao();
@@ -53,6 +60,11 @@ class ProjectService {
         }
     }
 
+    /**
+	 * Calculate the Project progress add story
+	 * @param $acceptedDate, $status, $projectId, $estimation
+	 * @return none
+	 */
     public function trackProjectProgressAddStory($acceptedDate, $status, $projectId, $estimation) {
 
         $projectProgressDao = new ProjectProgressDao();
@@ -70,6 +82,11 @@ class ProjectService {
         }
     }
 
+    /**
+	 * Calculate the Project progress delete story
+	 * @param $storyId
+	 * @return none
+	 */
     public function trackProjectProgressDeleteStory($storyId) {
 
         $storyDao = new StoryDao();
@@ -89,6 +106,11 @@ class ProjectService {
         }
     }
 
+    /**
+	 * View weekly progress
+	 * @param $storyList, $projectId
+	 * @return weeklyProgress table
+	 */
     public function viewWeeklyProgress($storyList, $projectId) {
         $ProjectProgressDaoObject = new ProjectProgressDao();
         $progressValues = $ProjectProgressDaoObject->getRecords($projectId);
@@ -161,6 +183,11 @@ class ProjectService {
         }
     }
 
+    /**
+	 * Calculate week start day
+	 * @param $date
+	 * @return $from
+	 */
     public function CalculateWeekStartDate($date) {
 
 
@@ -171,6 +198,11 @@ class ProjectService {
         return $from;
     }
 
+    /**
+	 * Calculate starting date of weeks
+	 * @param $startDate1, $endDate1
+	 * @return $weekStartingDates
+	 */
     public function calculateStartingDatesOfWeeks($startDate1, $endDate1) {
         $weekStartingDates = null;
 
@@ -182,12 +214,11 @@ class ProjectService {
 
         $timeBetween = $endDate - $startDate;
 
-//find the days
-        $dayCount = ceil($timeBetween / 24 / 60 / 60);
-//find the names/dates of the days
+        $dayCount = ceil($timeBetween / 24 / 60 / 60); //find the days
+        /*find the names/dates of the days*/
         for ($i = 0; $i <= $dayCount; $i++) {
             if ($i == 0 && date("l", $startDate) != "Monday") {
-//we're starting in the middle of a week.... show 1 earlier week than the code that follows
+        /*we're starting in the middle of a week.... show 1 earlier week than the code that follows*/
                 for ($s = 1; $s <= 6; $s++) {
                     $newtime = $startDate - ($s * 60 * 60 * 24);
                     if (date("l", $newtime) == "Monday") {
@@ -198,7 +229,7 @@ class ProjectService {
             } else {
                 $newtime = $startDate + ($i * 60 * 60 * 24);
                 if (date("l", $newtime) == "Monday") {
-//Beginning of a week... show it
+                /*Beginning of a week... show it*/
                     $end_of_week = $newtime + (6 * 60 * 60 * 24);
                     $weekStartingDates[$j] = date('Y-m-d', $newtime);
                     $j++;
@@ -208,6 +239,11 @@ class ProjectService {
         return $weekStartingDates;
     }
 
+    /**
+	 * Building the table
+	 * @param $weekStartings, $weeklyTotalEstimation, $weeklyVelocity, $workCompletedArray
+	 * @return array($weekStartings, $weeklyTotalEstimationArray, $weeklyVelocityArray, $workCompleted, $burnDownArray)
+	 */
     public function buildingTable($weekStartings, $weeklyTotalEstimation, $weeklyVelocity, $workCompletedArray) {
 
         $reversedWeeklyVelocity = array_reverse($weeklyVelocity);

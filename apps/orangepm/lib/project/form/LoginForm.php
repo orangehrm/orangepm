@@ -1,17 +1,15 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of loginForm
+ * sfForm for login
  *
  * @author orangehrm
  */
 class LoginForm extends sfForm {
 
+    /**
+	 * Configure LoginForm
+	 *
+	 */
     public function configure() {
 
         $this->setWidgets(array(
@@ -28,6 +26,7 @@ class LoginForm extends sfForm {
             'username' => new sfValidatorString(array(), array('required' => __('Enter Username'))),
             'password' => new sfValidatorString(array(), array('required' => __('Enter Password'))),
         ));
+
     }
 
 }

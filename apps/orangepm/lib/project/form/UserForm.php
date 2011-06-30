@@ -1,5 +1,13 @@
 <?php
+/**
+ * Form class for add user form
+ */
 class UserForm extends sfForm {
+
+    /**
+	 * Configure Userform
+	 *
+	 */
     public function configure() {
         $this->setWidgets(array(
             'firstName' => new sfWidgetFormInputText(array(), array('size'=>'20','maxlength' => 15)),
@@ -31,5 +39,6 @@ class UserForm extends sfForm {
             'password' => new sfValidatorString(array(),array('required' => __('Enter password'))),
 
         ));
+        
     }
 }

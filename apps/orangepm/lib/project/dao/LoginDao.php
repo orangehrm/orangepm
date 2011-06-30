@@ -1,12 +1,15 @@
 <?php
 
-/*
- * Dao class for retrive the data of admin table
+/**
+ * Dao class for retrive the data of user table
  */
-
 class LoginDao {
     
-    // function for get the Admin Type of the user
+    /**
+	 * Get the user type by using username adnd password
+	 * @param $username, $password
+	 * @return user
+	 */
     public function getUserByUsernameAndPassword($username, $password) {
         
         $query = Doctrine_Core::getTable('User')

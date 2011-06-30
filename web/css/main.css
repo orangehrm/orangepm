@@ -192,6 +192,13 @@ div.navigaiton {
     margin:0;
 }
 
+#menu div#logout {
+    position:relative;
+    float:right;
+    margin: 5px;
+  
+}
+
 #menu li a {
     display:block;
     height:36px;

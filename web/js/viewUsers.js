@@ -103,37 +103,55 @@ $(document).ready(function() {
             $('#saveBtn').click(function() {
                 
                 synchronizedVariable = true;
+                isValidEmail = true;
+
+                if(!($('.ajaxFirstName input').val()=='') && !($('.ajaxLastName input').val()=='')){
+                    var email=$('.ajaxEmail input').val();
+                    if(email == '') {
+                        isValidEmail = false;
+                    }
+                    var atpos=email.indexOf("@");
+                    var dotpos=email.lastIndexOf(".");
+                    if (isValidEmail && (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length)) {
+                        isValidEmail=false;
+                    }
+
+                    if(isValidEmail){
+                        if(!($('.ajaxUsername input').val()=='') && !($('.ajaxPassword input').val()=='')){
                 
-                $.ajax({
-                    type: "post",
-                    url: linkUrl,
+                            $.ajax({
+                                type: "post",
+                                url: linkUrl,
 
-                    data: "firstName="+$('.ajaxFirstName input').val()+"&lastName="+$('.ajaxLastName input').val()+"&email="+jQuery.trim($('.ajaxEmail input').val())+"&id="+classNameArray[2]+"&userType="+jQuery.trim($('.ajaxUserType select').val())+"&username="+jQuery.trim($('.ajaxUsername input').val()+"&password="+jQuery.trim($('.ajaxPassword input').val())),
+                                data: "firstName="+$('.ajaxFirstName input').val()+"&lastName="+$('.ajaxLastName input').val()+"&email="+jQuery.trim($('.ajaxEmail input').val())+"&id="+classNameArray[2]+"&userType="+jQuery.trim($('.ajaxUserType select').val())+"&username="+jQuery.trim($('.ajaxUsername input').val()+"&password="+jQuery.trim($('.ajaxPassword input').val())),
 
-                    success: function(){
-                        
-                        if($('.ajaxPassword input').val() == "double click to reset") {
-                            $('.ajaxPassword').html("hidden");
+                                success: function(){
+
+                                    if($('.ajaxPassword input').val() == "double click to reset") {
+                                        $('.ajaxPassword').html("hidden");
+                                    }
+
+                                /*$('.ajaxFirstName').html($('.ajaxFirstName input').val());
+                                    $('.ajaxLastName').html($('.ajaxLastName input').val());
+                                    $('.ajaxEmail').html($('.ajaxEmail input').val());
+                                    $('.ajaxUserType').html($('.ajaxUserType select').text());
+                                    $('.ajaxUsername').html($('.ajaxUsername input').val());
+                                    $('.ajaxPassword').html($('.ajaxPassword input').val());
+
+                                    $('.ajaxUserType').removeClass('ajaxUserType');*/
+
+                                }
+
+                            });
+
+                            dropdownToggleVariable = false;
+                            toggleVariable = "Edited";
+                            location.href="viewUsers";
                         }
-                        
-                        /*$('.ajaxFirstName').html($('.ajaxFirstName input').val());
-                        $('.ajaxLastName').html($('.ajaxLastName input').val());
-                        $('.ajaxEmail').html($('.ajaxEmail input').val());
-                        $('.ajaxUserType').html($('.ajaxUserType select').text());
-                        $('.ajaxUsername').html($('.ajaxUsername input').val());
-                        $('.ajaxPassword').html($('.ajaxPassword input').val());
-                                        
-                        $('.ajaxUserType').removeClass('ajaxUserType');*/
-                            
-                    }       
-                                        
-                });       
-                
-                dropdownToggleVariable = false;
-                toggleVariable = "Edited";
-                location.href="viewUsers";
+                    }
+                }
 
-            });            
+            });
 
         }
             

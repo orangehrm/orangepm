@@ -1,8 +1,14 @@
 <?php
-
+/**
+ * Dao class for retrive the data of Project table
+ */
 class StoryDao {
 
-
+    /**
+	 * Save stories
+	 * @param $storyParameters Array
+     * return $story
+	 */
     public function saveStory($storyParameters) {
 
 
@@ -20,6 +26,11 @@ class StoryDao {
         
     }
 
+    /**
+	 * Selete story
+	 * @param $id, $deletedDate
+	 * @return none
+	 */
     public function deleteStory($id, $deletedDate) {
 
         $story = Doctrine_Core::getTable('Story')->find($id);
@@ -29,6 +40,11 @@ class StoryDao {
         
     }
 
+   /**
+    * Delete story
+    * @param $id, $deletedDate
+    * @return none
+    */
    public function getRelatedProjectStories($active, $projectId, $pageNo) {
 
         if ($active) {
@@ -43,6 +59,11 @@ class StoryDao {
         
     }
 
+   /**
+    * Update story
+    * @param $storyParameters Array
+    * @return none
+    */
     public function updateStory($storyParameters) {
 
         $story = Doctrine_Core::getTable('Story')->find($storyParameters['id']);
@@ -57,12 +78,22 @@ class StoryDao {
         
     }
 
+   /**
+    * Get story
+    * @param $storyId
+    * @return Doctrine object
+    */
      public function getStory($storyId){
 
         return Doctrine_Core::getTable('Story')->find($storyId);
 
     }
 
+   /**
+    * Get stories for project progress
+    * @param $active, $projectId,$sortBy
+    * @return relevent Doctrine object
+    */
      public function getStoriesForProjectProgress($active, $projectId,$sortBy) {
 
         if ($active) {
