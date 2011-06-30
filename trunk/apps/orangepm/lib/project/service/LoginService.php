@@ -1,18 +1,28 @@
 <?php
 
-/*
- * Implement logics for login
+/**
+ * Service class for login
  */
 
 class LoginService {
-    
+
+    /**
+	 * Get the user type by using Username and Password
+	 * @param $username, $password
+	 * @return getUserByUsernameAndPassword
+	 */
     public function getUserByUsernameAndPassword($username, $password) {
         
         $loginDao = new LoginDao();     
         return $loginDao->getUserByUsernameAndPassword($username, $password); 
         
     }
-    
+
+    /**
+	 * Get the user role
+	 * @param $type
+	 * @return $userRole
+	 */
     public function getUserRole($type) {
         
         $userRole = null;
