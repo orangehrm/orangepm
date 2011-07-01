@@ -7,8 +7,6 @@
     var linkUrl = "<?php echo url_for('project/editUser') ?>";
 </script>
 
-<?php echo javascript_include_tag('viewUsers'); ?>
-
 <div class="User">
 
     <div class="heading">
@@ -71,3 +69,5 @@
 <div id="dialog" title="Confirmation Required">
     User Will Be Deleted?
 </div>
+
+<?php echo javascript_include_tag('viewUsers'); ?>

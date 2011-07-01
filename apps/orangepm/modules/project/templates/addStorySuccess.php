@@ -2,8 +2,7 @@
 <?php use_helper('Pagination'); ?>
 
 <script type="text/javascript">
-    var linkUrl = "<?php echo url_for('project/viewStories') ?>";
-   
+    var linkUrl = "<?php echo url_for('project/viewStories') ?>";   
 </script>
 
 

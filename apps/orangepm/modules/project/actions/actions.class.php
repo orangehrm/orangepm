@@ -51,7 +51,7 @@ class projectActions extends sfActions {
             if ($this->loginForm->isValid()) {
 
                 $user = $this->loginForm->getValue('username');
-                $pass = sha1($this->loginForm->getValue('password'));
+                $pass = $this->loginForm->getValue('password');
 
                 $loginService = new LoginService();
                 $loggedUser = $loginService->getUserByUsernameAndPassword($user, $pass);

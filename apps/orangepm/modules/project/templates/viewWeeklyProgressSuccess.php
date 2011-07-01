@@ -1,13 +1,8 @@
 <?php echo stylesheet_tag('viewWeeklyProgress') ?>
 
-
 <div class="heading">
     <h3> <?php echo link_to(__('Projects'), 'project/viewProjects'); ?> > <a class="storyLink" href="<?php echo url_for("project/viewStories?id={$projectId}&projectName={$projectName}"); ?>" ><?php echo $projectName; ?></a> > <?php echo __('Weekly Progress'); ?> </h3>
 </div>
-
-
-
-
 
 <table class="tableContent">
 
