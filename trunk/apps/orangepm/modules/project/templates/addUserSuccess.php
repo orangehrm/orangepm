@@ -1,10 +1,6 @@
 <?php echo stylesheet_tag('addUser') ?>
 <?php use_helper('Pagination'); ?>
 
-<?php echo javascript_include_tag('jquery/jquery.min'); ?>
-<?php echo javascript_include_tag('jquery/jquery.validator'); ?>
-<?php echo javascript_include_tag('addUser'); ?>
-
 <script type="text/javascript">
     var lang_firstNameRequired = "<?php echo __('First name is required');?>";
     var lang_lastNameRequired = "<?php echo __('Last name is required');?>";
@@ -68,3 +64,7 @@
 <?php endforeach; ?>
     </table>
 </div>
+
+<?php echo javascript_include_tag('jquery/jquery.min'); ?>
+<?php echo javascript_include_tag('jquery/jquery.validator'); ?>
+<?php echo javascript_include_tag('addUser'); ?>

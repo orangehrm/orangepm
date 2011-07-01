@@ -7,8 +7,6 @@
     var linkUrl = "<?php echo url_for('project/editProject') ?>";
 </script>
 
-<?php echo javascript_include_tag('viewProjects'); ?>
-
 <div class="Project">
 
     <div class="heading">
@@ -61,3 +59,5 @@
 <div id="dialog" title="Confirmation Required">
     Project Will Be Deleted?
 </div>
+
+<?php echo javascript_include_tag('viewProjects'); ?>

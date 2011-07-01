@@ -31,7 +31,7 @@ div.title {
 
 div.textFields {
     background-color: #efefef;
-    padding: 15px 30px 15px 20px;
+    padding: 15px 30px 0px 20px;
     font-weight: normal;
 }
 
@@ -40,16 +40,9 @@ form#login_form div label {
     width: 30%;
 }
 
-form#login_form div {
+form#login_form div.submit {
     clear: left;
-    margin: 0;
-    padding: 0;
-    padding-top: 0.6em;
-}
-
-form#login_form ul li {
-    list-style-type: none;
-    padding-left: 118px;
+    padding: 12px 0px 17px 0px;;
 }
 
 form#login_form div.flash_notice {
@@ -59,15 +52,8 @@ form#login_form div.flash_notice {
     color: #CC0033;
 }
 
-span.result {
-    margin-left:116px;
-    font-weight: normal;
-    font-size: 12px;
+div.error {
     color: #CC0033;
+    font-size: 12px;
+    margin-left: 118px;
 }
-
-.validator_error{
-    border-style: double;
-    border-color: #CC0033;
-}
-

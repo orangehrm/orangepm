@@ -7,8 +7,6 @@
     var linkUrl = "<?php echo url_for('project/editStory') ?>";
 </script>
 
-<?php echo javascript_include_tag('viewStories'); ?>
-
 <div class="Project">
     <div class="heading">
         <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> > <?php echo $projectName; ?> > <?php echo __('Stories'); ?> </h3>
@@ -62,5 +60,4 @@
 
 </div>
 
-
-
+<?php echo javascript_include_tag('viewStories'); ?>

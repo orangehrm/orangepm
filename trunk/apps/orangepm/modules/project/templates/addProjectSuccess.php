@@ -1,6 +1,5 @@
 <?php echo stylesheet_tag('addProject') ?>
 <?php use_helper('Pagination'); ?>
-<?php echo javascript_include_tag('addProject'); ?>
 
 <div class="Project">
 
@@ -41,3 +40,5 @@
         <?php endforeach; ?>
     </table>
 </div>
+
+<?php echo javascript_include_tag('addProject'); ?>

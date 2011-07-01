@@ -14,7 +14,7 @@ class LoginService {
     public function getUserByUsernameAndPassword($username, $password) {
         
         $loginDao = new LoginDao();     
-        return $loginDao->getUserByUsernameAndPassword($username, $password); 
+        return $loginDao->getUserByUsernameAndPassword($username, sha1($password)); 
         
     }
 
