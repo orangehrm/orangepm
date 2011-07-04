@@ -78,12 +78,13 @@ class ProjectDao {
 	 * @param $id, $name
 	 * @return none
 	 */
-    public function updateProject($id, $name) {
+    public function updateProject($id, $name, $statusId) {
 
         $project = Doctrine_Core::getTable('Project')->find($id);
 
         if ($project instanceof Project) {
             $project->setName($name);
+            $project->setProjectStatusId($statusId);
             $project->save();
         }
 

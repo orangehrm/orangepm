@@ -38,7 +38,7 @@
                 ?>
 <!--                <td class="<?php //echo "not id " . $project->getId(); ?>"><?php //echo $project->getId(); ?></td>-->
             <td class="<?php echo "changedName name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewStories?id={$project->getId()}&projectName={$project->getName()}"); ?>" > <?php echo $project->getName(); ?></a></td>
-            <td class="<?php echo "changedProjectStatus ProjectStatus " . $project->getId(); ?>" ><?php echo $project->getProjectStatus()->getProjectStatus(); ?></td>
+            <td class="<?php echo "changedProjectStatus projectStatus " . $project->getId(); ?>" ><?php echo $project->getProjectStatus()->getProjectStatus(); ?></td>
             <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
             <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
         </tr>

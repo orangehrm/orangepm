@@ -59,15 +59,15 @@ $(document).ready(function() {
             $(this).parent().children('td.changedProjectStatus').addClass('ajaxProjectStatus');
             if(dropdownToggleVariable){
 
-                var previousUserType = jQuery.trim($(this).parent().children('td.changedProjectStatus').text());
+                var previousProjectStatus = jQuery.trim($(this).parent().children('td.changedProjectStatus').text());
 
                 $(this).parent().children('td.changedProjectStatus').html('<select name="changedProjectStatus" id="changedProjectStatus">'+
-                    '<option value="1">Scheduled</option>'+
-                    '<option value="2">In progress</option>'+
-                    '<option value="3">Closed</option>'+
+                    '<option value="Inprogress">Inprogress</option>'+
+                    '<option value="Scheduled">Scheduled</option>'+
+                    '<option value="Closed">Closed</option>'+
                     '</select> ');
 
-                $("#changedProjectStatus").val(previousUserType);
+                $("#changedProjectStatus").val(previousProjectStatus);
 
                 dropdownToggleVariable = false;
             }
@@ -76,13 +76,23 @@ $(document).ready(function() {
 
                 synchronizedVariable = true;
                 isValidEmail = true;
+                var status;                
 
                 if(!($('.ajaxName input').val()=='')){
+                    
+                    if($('.ajaxProjectStatus select').val() == "Inprogress") {
+                        status = 1;
+                    } else if($('.ajaxProjectStatus select').val() == "Scheduled"){
+                        status = 2;
+                    } else if($('.ajaxProjectStatus select').val() == "Closed"){
+                        status = 3;
+                    } 
+                  
                     $.ajax({
                         type: "post",
                         url: linkUrl,
 
-                        data: "name="+$('.ajaxName input').val()+"&id="+classNameArray[2]+"&projectStatus="+jQuery.trim($('.ajaxProjectStatus select').val()),
+                        data: "name="+$('.ajaxName input').val().trim()+"&id="+classNameArray[2]+"&projectStatus="+status,
 
                         success: function(){
 
