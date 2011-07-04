@@ -12,9 +12,11 @@ class StatusForm extends sfForm {
 	 *
 	 */
     public function configure() {
-
+        $projectService = new ProjectService();
+        $status = $projectService->getAllStatusAsArray();
+        $status[0] = 'All';
         $this->setWidgets(array(
-            'searchByStatus' => new sfWidgetFormSelect(array('choices' => array( 0 => 'All', 1 => 'Sheduled', 2 => 'In progress', 3 => 'Closed'), 'default'   => 2)),
+            'searchByStatus' => new sfWidgetFormSelect(array('choices' => $status)),
 
         ));
 
