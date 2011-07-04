@@ -90,7 +90,7 @@ abstract class BaseUser extends sfDoctrineRecord
         parent::setUp();
         $this->hasMany('Project', array(
              'local' => 'id',
-             'foreign' => 'adminId',
+             'foreign' => 'userId',
              'onDelete' => 'set null'));
     }
 }
