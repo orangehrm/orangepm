@@ -7,23 +7,29 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property integer $projectStatusId
  * @property boolean $deleted
- * @property integer $adminId
+ * @property integer $userId
  * @property User $User
+ * @property ProjectStatus $ProjectStatus
  * @property Doctrine_Collection $Story
  * 
- * @method integer             getId()      Returns the current record's "id" value
- * @method string              getName()    Returns the current record's "name" value
- * @method boolean             getDeleted() Returns the current record's "deleted" value
- * @method integer             getAdminId() Returns the current record's "adminId" value
- * @method User                getUser()    Returns the current record's "User" value
- * @method Doctrine_Collection getStory()   Returns the current record's "Story" collection
- * @method Project             setId()      Sets the current record's "id" value
- * @method Project             setName()    Sets the current record's "name" value
- * @method Project             setDeleted() Sets the current record's "deleted" value
- * @method Project             setAdminId() Sets the current record's "adminId" value
- * @method Project             setUser()    Sets the current record's "User" value
- * @method Project             setStory()   Sets the current record's "Story" collection
+ * @method integer             getId()              Returns the current record's "id" value
+ * @method string              getName()            Returns the current record's "name" value
+ * @method integer             getProjectStatusId() Returns the current record's "projectStatusId" value
+ * @method boolean             getDeleted()         Returns the current record's "deleted" value
+ * @method integer             getUserId()          Returns the current record's "userId" value
+ * @method User                getUser()            Returns the current record's "User" value
+ * @method ProjectStatus       getProjectStatus()   Returns the current record's "ProjectStatus" value
+ * @method Doctrine_Collection getStory()           Returns the current record's "Story" collection
+ * @method Project             setId()              Sets the current record's "id" value
+ * @method Project             setName()            Sets the current record's "name" value
+ * @method Project             setProjectStatusId() Sets the current record's "projectStatusId" value
+ * @method Project             setDeleted()         Sets the current record's "deleted" value
+ * @method Project             setUserId()          Sets the current record's "userId" value
+ * @method Project             setUser()            Sets the current record's "User" value
+ * @method Project             setProjectStatus()   Sets the current record's "ProjectStatus" value
+ * @method Project             setStory()           Sets the current record's "Story" collection
  * 
  * @package    orangepm
  * @subpackage model
@@ -44,12 +50,16 @@ abstract class BaseProject extends sfDoctrineRecord
              'type' => 'string',
              'length' => 255,
              ));
+        $this->hasColumn('project_status_id as projectStatusId', 'integer', null, array(
+             'notnull' => true,
+             'type' => 'integer',
+             ));
         $this->hasColumn('deleted', 'boolean', null, array(
              'type' => 'boolean',
              'notnull' => true,
              'default' => 1,
              ));
-        $this->hasColumn('admin_id as adminId', 'integer', null, array(
+        $this->hasColumn('user_id as userId', 'integer', null, array(
              'type' => 'integer',
              ));
     }
@@ -58,7 +68,11 @@ abstract class BaseProject extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasOne('User', array(
-             'local' => 'adminId',
+             'local' => 'userId',
+             'foreign' => 'id'));
+
+        $this->hasOne('ProjectStatus', array(
+             'local' => 'projectStatusId',
              'foreign' => 'id'));
 
         $this->hasMany('Story', array(
