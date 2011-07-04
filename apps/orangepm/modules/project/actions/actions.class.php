@@ -265,7 +265,7 @@ class projectActions extends sfActions {
     public function executeEditProject($request) {
 
         $dao = new ProjectDao();
-        $dao->updateProject($request->getParameter('id'), $request->getParameter('name'));
+        $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $request->getParameter('projectStatus'));
         die;
         sfView::NONE;
     }
