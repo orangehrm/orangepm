@@ -8,10 +8,11 @@ class ProjectDao {
 	 * Save projects
 	 * @param $name
 	 */
-    public function saveProject($name) {
+    public function saveProject($name, $statusId) {
 
         $project = new Project();
         $project->setName($name);
+        $project->setProjectStatusId($statusId);
         $project->save();
         
     }
@@ -51,6 +52,7 @@ class ProjectDao {
         }
         
     }
+    
     /**
 	 * Update projects
 	 * @param $id, $name

@@ -15,3 +15,12 @@ root {
     display: block;
 }
 
+#form1 label {
+    float: left;
+    width: 65px;
+} 
+
+
+div.addForm {
+    width: 310px;
+}

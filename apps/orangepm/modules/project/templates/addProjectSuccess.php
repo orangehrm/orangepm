@@ -33,9 +33,9 @@
             <th><?php echo __('Project Name') ?></th>
 
             <?php foreach ($pager->getResults() as $project): ?>
-                    <tr>
-                        
+                    <tr>                        
                         <td> <?php echo $project->getName(); ?></td>
+                        <td> <?php echo $project->getProjectStatus()->getProjectStatus(); ?></td>
                     </tr>
         <?php endforeach; ?>
     </table>

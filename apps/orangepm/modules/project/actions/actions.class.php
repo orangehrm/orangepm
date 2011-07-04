@@ -199,7 +199,7 @@ class projectActions extends sfActions {
     public function executeSaveProject($request) {
 
         $dao = new ProjectDao();
-        $dao->saveProject($request->getParameter('name'));
+        $dao->saveProject($request->getParameter('name'), $request->getParameter('statusId'));
         $this->redirect('project/viewProjects?msg=added');
     }
 
@@ -217,8 +217,7 @@ class projectActions extends sfActions {
         if ($request->isMethod('post')) {
             $this->projectForm->bind($request->getParameter('project'));
             if ($this->projectForm->isValid()) {
-
-                $this->redirect('project/saveProject?' . http_build_query($this->projectForm->getValues()));
+                $this->redirect('project/saveProject?' . http_build_query(array('name' => $this->projectForm->getValue('name'), 'statusId' => $this->projectForm->getValue('status'))));
             }
         }
 
