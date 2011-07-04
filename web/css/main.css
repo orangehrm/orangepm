@@ -274,3 +274,10 @@ div.viewWeeklyProgressButton{
 #mainLogo:visited {
     color: white;
 }
+
+div.searchButton{
+    left: 160px;
+    position:absolute;
+    top: 230px;
+    margin: 0px;
+}

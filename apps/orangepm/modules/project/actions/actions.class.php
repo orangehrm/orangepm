@@ -184,13 +184,25 @@ class projectActions extends sfActions {
         $this->statusForm = new StatusForm();
 
         $dao = new ProjectDao();
+        $statusDao = new ProjectStatusDao();
+
         $pageNo = $this->getRequestParameter('page', 1);
-        $this->pager = $dao->getProjects(true, $pageNo);
+
+        $this->pager = $dao->getProjectsByStatus(true, $pageNo,1);
+        $this->status = $statusDao->getProjectStatusByProjectStatusId(1)->getProjectStatus();
         
         if ($request->isMethod('post')) {
             $this->statusForm->bind($request->getParameter('projectSearch'));
-            if ($this->statusForm->isValid()) {                
+            if ($this->statusForm->isValid()) {
+
+                if($this->statusForm->getValue('searchByStatus') == 0) {
+                    $this->pager = $dao->getProjects(true, $pageNo);
+                    $this->status = 'All';
+                }
+                else{
                 $this->pager = $dao->getProjectsByStatus(true, $pageNo,$this->statusForm->getValue('searchByStatus'));
+                $this->status = $statusDao->getProjectStatusByProjectStatusId($this->statusForm->getValue('searchByStatus'))->getProjectStatus();
+                }
             }
         }
 

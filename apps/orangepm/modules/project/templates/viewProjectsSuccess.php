@@ -10,8 +10,9 @@
 <div class="Project">
 
     <div class="heading">
-        <h3> 
-            <?php echo $statusForm->getValue('searchByStatus').__('Projects'); ?></h3>
+        <h3>
+            <?php echo $status.' '.__('Projects'); ?>
+        </h3>
         <span id="message"><?php if (isset($message))
                 echo __('The Project is added successfully') ?></span>
     </div>
@@ -45,24 +46,19 @@
     </table>
 
     <div class="addButton">
-        <form id="form1" action="<?php echo url_for('project/addProject') ?>" method="get">
-            <table>
-                <?php echo $projectForm ?>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
 
-                    </td>
-                </tr>
-            </table>
+        <form id="form1" action="<?php echo url_for('project/addProject') ?>" method="get">
+            <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
         </form>
-        <div id="search">
+    </div>
+
+    <div class="searchButton">
         <form id="form1" action="<?php echo url_for('project/viewProjects') ?>" method="post">
             <?php echo $statusForm ?>
             <input type="submit" value="<?php echo __('Search') ?>" id="searchProject" />
         </form>
-        </div>
     </div>
+
 </div>
 
 <div id="dialog" title="Confirmation Required">
