@@ -52,6 +52,26 @@ class ProjectDao {
         }
         
     }
+
+    /**
+	 * Get projects by status
+	 * @param $active, $pageNo, $statusId
+	 * @return $pager or $allProjects
+	 */
+    public function getProjectsByStatus($active, $pageNo, $statusId) {
+
+        if ($active) {
+            $pager = new sfDoctrinePager('Project', 10);
+
+            $pager->getQuery()->from('Project a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.projectStatusId = ?', $statusId);
+            $pager->setPage($pageNo);
+            $pager->init();
+            return $pager;
+        } else {
+            return $allProjects = Doctrine_Core::getTable('Project')->findAll();
+        }
+
+    }
     
     /**
 	 * Update projects

@@ -15,8 +15,8 @@
 class projectActions extends sfActions {
 
     /**
-	 * Pre execute
-	 */
+     * Pre execute
+     */
     public function preExecute() {
 
         if ((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
@@ -25,8 +25,8 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Set index action
-	 */
+     * Set index action
+     */
     public function executeIndex() {
 
         $response = $this->getResponse();
@@ -34,18 +34,18 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Login
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * Login
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeLogin($request) {
-        
+
         $this->getResponse()->setTitle(__('Login'));
 
         $this->loginForm = new LoginForm();
 
         if ($request->isMethod('post')) {
-            
+
             $this->loginForm->bind($request->getParameter('login'));
 
             if ($this->loginForm->isValid()) {
@@ -67,7 +67,7 @@ class projectActions extends sfActions {
                     }
 
                     $this->redirect('project/index');
-                    
+
                 } else {
                     $this->errorMessage = __('Username or Password is incorrect');
                 }
@@ -76,9 +76,9 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Logout
-	 * @return unknown_type
-	 */
+     * Logout
+     * @return unknown_type
+     */
     public function executeLogout() {
 
         $this->getUser()->setAuthenticated(false);
@@ -86,10 +86,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * View users
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * View users
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeViewUsers($request) {
 
         $response = $this->getResponse();
@@ -104,10 +104,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Add users
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * Add users
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeAddUser($request) {
 
         $this->userForm = new UserForm();
@@ -139,10 +139,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Delete users
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * Delete users
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeDeleteUser($request) {
 
         $dao = new UserDao();
@@ -151,10 +151,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Edit users
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * Edit users
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeEditUser($request) {
 
         $userService = new UserService();
@@ -173,29 +173,36 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * View projects
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * View projects
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeViewProjects($request) {
 
         $this->message = $request->getParameter('msg');
         $this->projectForm = new sfForm();
+        $this->statusForm = new StatusForm();
 
         $dao = new ProjectDao();
-
         $pageNo = $this->getRequestParameter('page', 1);
         $this->pager = $dao->getProjects(true, $pageNo);
+        
+        if ($request->isMethod('post')) {
+            $this->statusForm->bind($request->getParameter('projectSearch'));
+            if ($this->statusForm->isValid()) {                
+                $this->pager = $dao->getProjectsByStatus(true, $pageNo,$this->statusForm->getValue('searchByStatus'));
+            }
+        }
 
         $response = $this->getResponse();
         $response->setTitle(__('Projects'));
     }
 
     /**
-	 * Save projects
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * Save projects
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeSaveProject($request) {
 
         $dao = new ProjectDao();
@@ -204,10 +211,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Add projects
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * Add projects
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeAddProject($request) {
 
         $this->projectForm = new ProjectForm();
@@ -227,10 +234,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Delete projects
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * Delete projects
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeDeleteProject($request) {
 
         $dao = new projectDao();
@@ -239,10 +246,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Edit projects
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * Edit projects
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeEditProject($request) {
 
         $dao = new ProjectDao();
@@ -252,10 +259,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Edit stories
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * Edit stories
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeEditStory($request) {
 
         $dao = new StoryDao();
@@ -284,10 +291,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Add stories
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * Add stories
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeAddStory($request) {
 
         $this->projectId = $request->getParameter('id');
@@ -324,10 +331,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * Delete stories
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * Delete stories
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeDeleteStory($request) {
 
 
@@ -340,10 +347,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * View stories
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * View stories
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeViewStories($request) {
 
         $this->message = $request->getParameter('msg');
@@ -360,10 +367,10 @@ class projectActions extends sfActions {
     }
 
     /**
-	 * View weekly progress
-	 * @param sfWebRequest $request
-	 * @return unknown_type
-	 */
+     * View weekly progress
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
     public function executeViewWeeklyProgress($request) {
         $this->projectName = $request->getParameter('projectName');
         $this->projectId = $request->getParameter('projectId');

@@ -10,21 +10,23 @@
 <div class="Project">
 
     <div class="heading">
-        <h3> <?php echo __('Projects'); ?> </h3>
+        <h3> 
+            <?php echo $statusForm->getValue('searchByStatus').__('Projects'); ?></h3>
         <span id="message"><?php if (isset($message))
-    echo __('The Project is added successfully') ?></span>
+                echo __('The Project is added successfully') ?></span>
     </div>
     <table class="tableContent" >
-        <tr><td class="pageNav" colspan="3"><?php echo pager_navigation($pager, url_for('project/viewProjects')) ?></td></tr>
+      <!--   <tr><td class="pageNav" colspan="3"><?php// echo pager_navigation($pager, url_for('project/viewProjects')) ?></td></tr>-->
         <tr>
 <!--            <th> <?php //echo __('Id') ?></th>-->
             <th> <?php echo __('Project Name'); ?> </th>
+            <th> <?php echo __('Status'); ?> </th>
             <th colspan="2"><?php echo __('Actions') ?></th>
 
             <?php $alt = '1' ?>
 
             <?php foreach ($pager->getResults() as $project): ?>
-            <?php
+                <?php
                 if ($alt == 1) {
                     echo '<tr class="alt">';
                     $alt = 0;
@@ -32,27 +34,34 @@
                     echo '<tr>';
                     $alt = 1;
                 }
-            ?>
+                ?>
 <!--                <td class="<?php //echo "not id " . $project->getId(); ?>"><?php //echo $project->getId(); ?></td>-->
-                <td class="<?php echo "change name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewStories?id={$project->getId()}&projectName={$project->getName()}"); ?>" > <?php echo $project->getName(); ?></a></td>
-                <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
-                <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
-            </tr>
+            <td class="<?php echo "changedName name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewStories?id={$project->getId()}&projectName={$project->getName()}"); ?>" > <?php echo $project->getName(); ?></a></td>
+            <td class="<?php echo "changedProjectStatus ProjectStatus " . $project->getId(); ?>" ><?php echo $project->getProjectStatus()->getProjectStatus(); ?></td>
+            <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
+            <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
+        </tr>
         <?php endforeach; ?>
-            </table>
+    </table>
 
-            <div class="addButton">
-
-                <form id="form1" action="<?php echo url_for('project/addProject') ?>" method="get">
-                    <table>
+    <div class="addButton">
+        <form id="form1" action="<?php echo url_for('project/addProject') ?>" method="get">
+            <table>
                 <?php echo $projectForm ?>
                 <tr>
                     <td colspan="2">
                         <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
+
                     </td>
                 </tr>
             </table>
         </form>
+        <div id="search">
+        <form id="form1" action="<?php echo url_for('project/viewProjects') ?>" method="post">
+            <?php echo $statusForm ?>
+            <input type="submit" value="<?php echo __('Search') ?>" id="searchProject" />
+        </form>
+        </div>
     </div>
 </div>
 

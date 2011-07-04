@@ -16,7 +16,7 @@ root {
 }
 
 table.tableContent {
-    top: 30px;
+    top: 60px;
 }
 
 td.edit {
@@ -53,3 +53,9 @@ font-family: sans-serif;
 
 }
 
+div#search {
+
+    top: 230px;
+    left: 80px;
+
+}
