@@ -7,6 +7,10 @@ Project:
       primary: true
       autoincrement: true
     name: string(255)
+    project_status_id:
+      name: project_status_id as projectStatusId
+      notnull: true
+      type: integer
     deleted: { type: boolean, notnull: true, default: 1 }
     admin_id:
       name: admin_id as adminId
@@ -15,6 +19,9 @@ Project:
     User:
       local: adminId
       type: one
+      foreign: id
+    ProjectStatus:
+      local: projectStatusId
       foreign: id
        
 Story:
@@ -92,3 +99,19 @@ User:
       type: many
       foreign: adminId
       
+ProjectStatus:
+  tableName: orangepm_project_status
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    project_status:
+      name: project_status as projectStatus
+      type: string(255)
+      notnull: true
+  relations:
+    Project:
+      onDelete: cascade
+      local: id
+      foreign: projectStatusId
