@@ -12,12 +12,12 @@ Project:
       notnull: true
       type: integer
     deleted: { type: boolean, notnull: true, default: 1 }
-    admin_id:
-      name: admin_id as adminId
+    user_id:
+      name: user_id as userId
       type: integer
   relations:
     User:
-      local: adminId
+      local: userId
       type: one
       foreign: id
     ProjectStatus:
@@ -97,7 +97,7 @@ User:
       onDelete: set null
       local: id
       type: many
-      foreign: adminId
+      foreign: userId
       
 ProjectStatus:
   tableName: orangepm_project_status
