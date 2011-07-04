@@ -298,5 +298,23 @@ class ProjectService {
 
         return array($weekStartings, $weeklyTotalEstimationArray, $weeklyVelocityArray, $workCompleted, $burnDownArray);
     }
+    
+   /**
+	 * Get the all status to an array 
+	 * @return array
+	 */ 
+    public function getAllStatusAsArray() {
+        
+        $dao = new ProjectStatusDao();
+        
+        $allProjectStatus = $dao->getAllProjectStatus();
+        
+        foreach($allProjectStatus as $projectStatus) {
+            $projectStatusArray[$projectStatus->getId()] = $projectStatus->getProjectStatus(); 
+        }
+                
+        return $projectStatusArray;
+        
+    }
 
 }

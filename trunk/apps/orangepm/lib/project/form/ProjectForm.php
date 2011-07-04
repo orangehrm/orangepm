@@ -13,9 +13,12 @@ class ProjectForm extends sfForm {
 	 */
     public function configure() {
         
+        $projectService = new ProjectService();        
+        $statusChoices = $projectService->getAllStatusAsArray();        
+        
         $this->setWidgets(array(
             'name' => new sfWidgetFormInputText(),
-            
+            'status' => new sfWidgetFormSelect(array('choices' => $statusChoices)),
         ));
 
         $this->widgetSchema->setNameFormat('project[%s]');
@@ -23,7 +26,7 @@ class ProjectForm extends sfForm {
 
         $this->setValidators(array(
             'name' => new sfValidatorString(array('required' => true), array('required' => __('The Project Name is required'))),
-            
+            'status' => new sfValidatorPass(),
         ));
 
     }
