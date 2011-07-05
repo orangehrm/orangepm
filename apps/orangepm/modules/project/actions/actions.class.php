@@ -31,6 +31,7 @@ class projectActions extends sfActions {
 
         $response = $this->getResponse();
         $response->setTitle(__('Orange Project Management'));
+        $this->isEdited = false;
     }
 
     /**
@@ -187,22 +188,20 @@ class projectActions extends sfActions {
         $statusDao = new ProjectStatusDao();
 
         $pageNo = $this->getRequestParameter('page', 1);
-
-        $this->pager = $dao->getProjectsByStatus(true, $pageNo,1);
-        $this->status = $statusDao->getProjectStatusByProjectStatusId(1)->getProjectStatus();
+        if(!$this->isEdited) {
+           $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
+        }
+        $this->pager = $dao->getProjectsByStatus(true, $pageNo,$this->statusId);
+        
+        $this->status = $statusDao->getProjectStatusByProjectStatusId($this->statusId)->getProjectStatus();
         
         if ($request->isMethod('post')) {
             $this->statusForm->bind($request->getParameter('projectSearch'));
             if ($this->statusForm->isValid()) {
-
-                if($this->statusForm->getValue('searchByStatus') == 0) {
-                    $this->pager = $dao->getProjects(true, $pageNo);
-                    $this->status = 'All';
-                }
-                else{
-                $this->pager = $dao->getProjectsByStatus(true, $pageNo,$this->statusForm->getValue('searchByStatus'));
-                $this->status = $statusDao->getProjectStatusByProjectStatusId($this->statusForm->getValue('searchByStatus'))->getProjectStatus();
-                }
+                $this->isEdited = false;
+                $projectSevice = new ProjectService();
+                $this->status = $projectSevice->getAllProjectStatus($this->statusForm->getValue('searchByStatus'));
+                $this->pager = $projectSevice->getAllProjects($this->statusForm->getValue('searchByStatus'), $pageNo);
             }
         }
 
@@ -265,7 +264,9 @@ class projectActions extends sfActions {
     public function executeEditProject($request) {
 
         $dao = new ProjectDao();
-        $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $request->getParameter('projectStatus'));
+        $this->statusId = $request->getParameter('projectStatus');
+        $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $this->statusId);
+        $this->isEdited = true;
         die;
         sfView::NONE;
     }

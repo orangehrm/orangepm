@@ -19,6 +19,10 @@ class ProjectStatusDao {
         
     }
 
+    /**
+    * Get  project status by id
+    * @return relevent Doctrine objects
+    */
     public function getProjectStatusByProjectStatusId($id){
 
         return  Doctrine_Core::getTable('ProjectStatus')->find($id);

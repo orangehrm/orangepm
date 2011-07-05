@@ -317,4 +317,42 @@ class ProjectService {
         
     }
 
+    /**
+     * Get the all Projects according to status
+     * @param $id, $pageNo
+	 * @return $allProjects
+	 */
+    public function getAllProjects($id, $pageNo){
+
+        $projectStatusDao = new ProjectStatusDao();
+        $projectDao = new ProjectDao();
+
+        if($id == Project::PROJECT_STATUS_ALL_ID) {
+            $allProjects = $projectDao->getProjects(true, $pageNo);
+
+        }else {
+            $allProjects = $projectDao->getProjectsByStatus(true, $pageNo, $id);
+
+        }
+        return $allProjects;
+    }
+
+    /**
+     * Get the relevant Projects status according to id
+     * @param $id
+	 * @return $status
+	 */
+    public function getAllProjectStatus($id){
+
+        $projectStatusDao = new ProjectStatusDao();
+
+        if($id == Project::PROJECT_STATUS_ALL_ID) {
+            $status = Project::PROJECT_STATUS_ALL;
+
+        }else {
+            $status = $projectStatusDao->getProjectStatusByProjectStatusId($id)->getProjectStatus();
+
+        }
+        return $status;
+    }
 }
