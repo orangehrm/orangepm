@@ -31,7 +31,6 @@ class projectActions extends sfActions {
 
         $response = $this->getResponse();
         $response->setTitle(__('Orange Project Management'));
-        $this->isEdited = false;
     }
 
     /**
@@ -183,12 +182,13 @@ class projectActions extends sfActions {
         $this->message = $request->getParameter('msg');
         $this->projectForm = new sfForm();
         $this->statusForm = new StatusForm();
+        $this->statusId = $request->getParameter('statusId');
 
         $dao = new ProjectDao();
         $statusDao = new ProjectStatusDao();
 
         $pageNo = $this->getRequestParameter('page', 1);
-        if(!$this->isEdited) {
+        if($this->statusId == null) {
            $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
         }
         $this->pager = $dao->getProjectsByStatus(true, $pageNo,$this->statusId);
@@ -197,8 +197,7 @@ class projectActions extends sfActions {
         
         if ($request->isMethod('post')) {
             $this->statusForm->bind($request->getParameter('projectSearch'));
-            if ($this->statusForm->isValid()) {
-                $this->isEdited = false;
+            if ($this->statusForm->isValid()) {                
                 $projectSevice = new ProjectService();
                 $this->status = $projectSevice->getAllProjectStatus($this->statusForm->getValue('searchByStatus'));
                 $this->pager = $projectSevice->getAllProjects($this->statusForm->getValue('searchByStatus'), $pageNo);
@@ -262,11 +261,9 @@ class projectActions extends sfActions {
      * @return unknown_type
      */
     public function executeEditProject($request) {
-
         $dao = new ProjectDao();
         $this->statusId = $request->getParameter('projectStatus');
-        $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $this->statusId);
-        $this->isEdited = true;
+        $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $this->statusId);        
         die;
         sfView::NONE;
     }

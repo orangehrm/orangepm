@@ -26,6 +26,7 @@ table.tableContent {
     border: 0px;
     border-collapse: collapse;
     border-spacing: 0px;
+    margin-bottom: 30px;
 }
 
 table.tableContent td {
