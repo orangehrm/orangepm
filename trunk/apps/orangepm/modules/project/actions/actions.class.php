@@ -217,7 +217,7 @@ class projectActions extends sfActions {
 
         $dao = new ProjectDao();
         $dao->saveProject($request->getParameter('name'), $request->getParameter('statusId'));
-        $this->redirect('project/viewProjects?msg=added');
+        $this->redirect('project/viewProjects?msg=added&statusId=' . $request->getParameter('statusId'));
     }
 
     /**
