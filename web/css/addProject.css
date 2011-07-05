@@ -15,6 +15,10 @@ root {
     display: block;
 }
 
+table.tableContent {
+    width: 400px;
+}
+
 #form1 label {
     float: left;
     width: 65px;

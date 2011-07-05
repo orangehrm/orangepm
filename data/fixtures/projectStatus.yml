@@ -1,0 +1,12 @@
+## YAML Template.
+---
+ProjectStatus:
+  project_status_1:
+    id: 1
+    projectStatus: Inprogress
+  project_status_2:
+    id: 2
+    projectStatus: Scheduled
+  project_status_3:
+    id: 3
+    projectStatus: Closed

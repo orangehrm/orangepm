@@ -54,7 +54,7 @@ $(document).ready(function() {
             $('.ajaxProjectStatus').removeClass('ajaxProjectStatus');
 
             $(this).parent().children('td.changedName').addClass('ajaxName');
-            $(this).parent().children('td.changedName').html('<input id="editboxName" size="13" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
+            $(this).parent().children('td.changedName').html('<input id="editboxName" size="25" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
 
             $(this).parent().children('td.changedProjectStatus').addClass('ajaxProjectStatus');
             if(dropdownToggleVariable){
@@ -108,7 +108,7 @@ $(document).ready(function() {
 
                     dropdownToggleVariable = false;
                     toggleVariable = "Edited";
-                    location.href="viewProjects";
+                    location.href="viewProjects/statusId/" + status;
                 }
 
             });
