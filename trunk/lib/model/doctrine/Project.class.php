@@ -14,4 +14,8 @@ class Project extends BaseProject
 {
     const FLAG_DELETED = 0;
     const FLAG_ACTIVE = 1;
+
+    const PROJECT_STATUS_ALL = 'All';
+    const PROJECT_STATUS_DEFAULT_ID = 1;
+    const PROJECT_STATUS_ALL_ID = 0;
 }
