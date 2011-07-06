@@ -252,7 +252,7 @@ class projectActions extends sfActions {
 
         $dao = new projectDao();
         $dao->deleteProject($request->getParameter('id'));
-        $this->redirect('project/viewProjects');
+        $this->redirect('project/viewProjects?statusId=' . $dao->getProjectById($request->getParameter('id'))->getProjectStatusId());
     }
 
     /**

@@ -90,6 +90,17 @@ class ProjectDao {
 
     }
     
+   /**
+    * Get project
+    * @param $projectId
+    * @return Doctrine object
+    */
+     public function getProjectById($projectId){
+
+        return Doctrine_Core::getTable('Project')->find($projectId);
+
+    }
+    
 
 }
 
