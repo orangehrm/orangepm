@@ -17,7 +17,7 @@ class ProjectForm extends sfForm {
         $statusChoices = $projectService->getAllStatusAsArray();        
         
         $this->setWidgets(array(
-            'name' => new sfWidgetFormInputText(),
+            'name' => new sfWidgetFormInputText(array(), array('size'=>'27')),
             'status' => new sfWidgetFormSelect(array('choices' => $statusChoices)),
         ));
 

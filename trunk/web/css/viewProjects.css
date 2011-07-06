@@ -17,7 +17,11 @@ root {
 
 table.tableContent {
     top: 60px;
-    width: 500px;    
+    width: 650px;    
+}
+
+.changedName {
+    width: 380px;
 }
 
 td.edit {
