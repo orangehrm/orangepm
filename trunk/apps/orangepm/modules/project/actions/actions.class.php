@@ -94,8 +94,7 @@ class projectActions extends sfActions {
 
         $response = $this->getResponse();
         $response->setTitle(__('Users'));
-
-        $this->message = $request->getParameter('msg');
+        $this->message = $request->getParameter('message');
         $this->userForm = new sfForm();
 
         $dao = new UserDao();
@@ -128,8 +127,8 @@ class projectActions extends sfActions {
                 );
 
                 $dao->saveUser($inputParameters);
-
-                $this->redirect('project/viewUsers?msg=added');
+                $request->setParameter('message',  __('The User is added successfully'));
+                $this->forward('project', 'viewUsers');
             }
         }
 
@@ -179,45 +178,29 @@ class projectActions extends sfActions {
      */
     public function executeViewProjects($request) {
 
-        $this->message = $request->getParameter('msg');
         $this->projectForm = new sfForm();
         $this->statusForm = new StatusForm();
-        $this->statusId = $request->getParameter('statusId');
+
+        $this->statusId = $this->getUser()->getFlash('statusId');
 
         $dao = new ProjectDao();
-        $statusDao = new ProjectStatusDao();
 
         $pageNo = $this->getRequestParameter('page', 1);
         if($this->statusId == null) {
-           $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
+            $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
         }
         $this->pager = $dao->getProjectsByStatus(true, $pageNo,$this->statusId);
-        
-        $this->status = $statusDao->getProjectStatusByProjectStatusId($this->statusId)->getProjectStatus();
-        
+
+        $this->status = $dao->getProjectStatusById($this->statusId)->getName();
+
         if ($request->isMethod('post')) {
             $this->statusForm->bind($request->getParameter('projectSearch'));
-            if ($this->statusForm->isValid()) {                
+            if ($this->statusForm->isValid()) {
                 $projectSevice = new ProjectService();
                 $this->status = $projectSevice->getAllProjectStatus($this->statusForm->getValue('searchByStatus'));
-                $this->pager = $projectSevice->getAllProjects($this->statusForm->getValue('searchByStatus'), $pageNo);
+                $this->pager = $projectSevice->getAllProjects(true, $this->statusForm->getValue('searchByStatus'), $pageNo);
             }
         }
-
-        $response = $this->getResponse();
-        $response->setTitle(__('Projects'));
-    }
-
-    /**
-     * Save projects
-     * @param sfWebRequest $request
-     * @return unknown_type
-     */
-    public function executeSaveProject($request) {
-
-        $dao = new ProjectDao();
-        $dao->saveProject($request->getParameter('name'), $request->getParameter('statusId'));
-        $this->redirect('project/viewProjects?msg=added&statusId=' . $request->getParameter('statusId'));
     }
 
     /**
@@ -230,15 +213,18 @@ class projectActions extends sfActions {
         $this->projectForm = new ProjectForm();
         $response = $this->getResponse();
         $response->setTitle(__('Add Project'));
+        $dao = new ProjectDao();
 
         if ($request->isMethod('post')) {
             $this->projectForm->bind($request->getParameter('project'));
             if ($this->projectForm->isValid()) {
-                $this->redirect('project/saveProject?' . http_build_query(array('name' => $this->projectForm->getValue('name'), 'statusId' => $this->projectForm->getValue('status'))));
+                $dao->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'));
+                $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
+                $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
+                $this->redirect('project/viewProjects');
             }
         }
 
-        $dao = new ProjectDao();
         $pageNo = $this->getRequestParameter('page', 1);
         $this->pager = $dao->getProjects(true, $pageNo);
     }
@@ -252,7 +238,8 @@ class projectActions extends sfActions {
 
         $dao = new projectDao();
         $dao->deleteProject($request->getParameter('id'));
-        $this->redirect('project/viewProjects?statusId=' . $dao->getProjectById($request->getParameter('id'))->getProjectStatusId());
+        $this->getUser()->setFlash('statusId', $dao->getProjectById($request->getParameter('id'))->getProjectStatusId());
+        $this->redirect('project/viewProjects');
     }
 
     /**
@@ -263,8 +250,7 @@ class projectActions extends sfActions {
     public function executeEditProject($request) {
         $dao = new ProjectDao();
         $this->statusId = $request->getParameter('projectStatus');
-        $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $this->statusId);        
-        die;
+        $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $this->statusId);
         sfView::NONE;
     }
 
@@ -331,7 +317,8 @@ class projectActions extends sfActions {
                 $projectService = new ProjectService();
                 $projectService->trackProjectProgressAddStory($inputParameters['accepted date'], $inputParameters['status'], $inputParameters['project id'], $inputParameters['estimated effort']);
                 $dao->saveStory($inputParameters);
-                $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'), 'msg' => 'added', 'projectName' => $this->projectName)));
+                $this->getUser()->setFlash('addStory', __('The Story is added successfully'));
+                $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'), 'projectName' => $this->projectName)));
             }
         }
 
@@ -362,8 +349,6 @@ class projectActions extends sfActions {
      * @return unknown_type
      */
     public function executeViewStories($request) {
-
-        $this->message = $request->getParameter('msg');
 
         $response = $this->getResponse();
         $response->setTitle(__('Stories'));

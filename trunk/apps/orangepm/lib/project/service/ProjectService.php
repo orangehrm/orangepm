@@ -4,6 +4,8 @@
  */
 class ProjectService {
 
+    public $isEdited = false;
+    public $editedProjectId = Project::PROJECT_STATUS_DEFAULT_ID;
     /**
 	 * Calculate the Project progress
 	 * @param $acceptedDate, $status, $storyId
@@ -303,14 +305,14 @@ class ProjectService {
 	 * Get the all status to an array 
 	 * @return array
 	 */ 
-    public function getAllStatusAsArray() {
+    public function getAllProjectStatusesAsArray() {
         
-        $dao = new ProjectStatusDao();
+        $dao = new ProjectDao();
         
         $allProjectStatus = $dao->getAllProjectStatus();
         
         foreach($allProjectStatus as $projectStatus) {
-            $projectStatusArray[$projectStatus->getId()] = $projectStatus->getProjectStatus(); 
+            $projectStatusArray[$projectStatus->getId()] = $projectStatus->getName();
         }
                 
         return $projectStatusArray;
@@ -322,16 +324,15 @@ class ProjectService {
      * @param $id, $pageNo
 	 * @return $allProjects
 	 */
-    public function getAllProjects($id, $pageNo){
+    public function getAllProjects($active, $id, $pageNo){
 
-        $projectStatusDao = new ProjectStatusDao();
         $projectDao = new ProjectDao();
 
         if($id == Project::PROJECT_STATUS_ALL_ID) {
-            $allProjects = $projectDao->getProjects(true, $pageNo);
+            $allProjects = $projectDao->getProjects($active, $pageNo);
 
         }else {
-            $allProjects = $projectDao->getProjectsByStatus(true, $pageNo, $id);
+            $allProjects = $projectDao->getProjectsByStatus($active, $pageNo, $id);
 
         }
         return $allProjects;
@@ -344,13 +345,13 @@ class ProjectService {
 	 */
     public function getAllProjectStatus($id){
 
-        $projectStatusDao = new ProjectStatusDao();
+        $projectDao = new ProjectDao();
 
         if($id == Project::PROJECT_STATUS_ALL_ID) {
             $status = Project::PROJECT_STATUS_ALL;
 
         }else {
-            $status = $projectStatusDao->getProjectStatusByProjectStatusId($id)->getProjectStatus();
+            $status = $projectDao->getProjectStatusById($id)->getName();
 
         }
         return $status;

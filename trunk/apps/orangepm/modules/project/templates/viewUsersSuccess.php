@@ -11,8 +11,9 @@
 
     <div class="heading">
         <h3><?php echo __('Users'); ?></h3>
-        <span id="message"><?php if (isset($message))
-    echo __('The User is added successfully') ?></span>
+        <span id="message"><?php //echo $sf_user->getFlash('addUser')
+        if(isset($message))
+            echo $message;?></span>
     </div>
 
     <table class="tableContent">

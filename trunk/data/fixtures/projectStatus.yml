@@ -3,10 +3,10 @@
 ProjectStatus:
   project_status_1:
     id: 1
-    projectStatus: Inprogress
+    name: Inprogress
   project_status_2:
     id: 2
-    projectStatus: Scheduled
+    name: Scheduled
   project_status_3:
     id: 3
-    projectStatus: Closed
+    name: Closed

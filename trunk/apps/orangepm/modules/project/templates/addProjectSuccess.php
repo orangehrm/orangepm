@@ -10,7 +10,7 @@
     <div class="addForm">
         <div class="headlineField"><?php echo __('Add Project') ?></div>
         <div class="formField">
-            <form id="form1" action="<?php echo url_for('project/addProject') ?>" method="POST">
+            <form id="addProjetForm" action="<?php echo url_for('project/addProject') ?>" method="POST">
 
                 <table>
                     <?php echo $projectForm ?>
@@ -35,7 +35,7 @@
             <?php foreach ($pager->getResults() as $project): ?>
                     <tr>                        
                         <td> <?php echo $project->getName(); ?></td>
-                        <td> <?php echo $project->getProjectStatus()->getProjectStatus(); ?></td>
+                        <td> <?php echo $project->getProjectStatus()->getName(); ?></td>
                     </tr>
         <?php endforeach; ?>
     </table>
