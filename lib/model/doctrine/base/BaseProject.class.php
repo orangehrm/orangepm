@@ -73,7 +73,8 @@ abstract class BaseProject extends sfDoctrineRecord
 
         $this->hasOne('ProjectStatus', array(
              'local' => 'projectStatusId',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'set null'));
 
         $this->hasMany('Story', array(
              'local' => 'id',

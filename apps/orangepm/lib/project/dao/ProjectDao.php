@@ -41,7 +41,7 @@ class ProjectDao {
     public function getProjects($active, $pageNo) {
 
         if ($active) {
-            $pager = new sfDoctrinePager('Project', 50);
+            $pager = new sfDoctrinePager('Project', 5);
 
             $pager->getQuery()->from('Project a')->where('a.deleted = ?', Project::FLAG_ACTIVE);
             $pager->setPage($pageNo);
@@ -99,6 +99,28 @@ class ProjectDao {
 
         return Doctrine_Core::getTable('Project')->find($projectId);
 
+    }
+
+   /**
+    * Get all project status for show in dropdown
+    * @return relevent Doctrine objects
+    */
+    public function getAllProjectStatus() {
+
+        $query = Doctrine_Core::getTable('ProjectStatus')
+                            ->createQuery('c');
+
+        return $query->execute();
+
+    }
+
+   /**
+    * Get  project status by id
+    * @return relevent Doctrine objects
+    */
+    public function getProjectStatusById($id){
+
+        return  Doctrine_Core::getTable('ProjectStatus')->find($id);
     }
     
 

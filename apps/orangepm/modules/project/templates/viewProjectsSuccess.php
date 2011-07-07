@@ -13,8 +13,7 @@
         <h3>
             <?php echo $status.' '.__('Projects'); ?>
         </h3>
-        <span id="message"><?php if (isset($message))
-                echo __('The Project is added successfully') ?></span>
+        <span id="message"><?php echo $sf_user->getFlash('addProject') ?></span>
     </div>
     <table class="tableContent" >
       <!--   <tr><td class="pageNav" colspan="3"><?php// echo pager_navigation($pager, url_for('project/viewProjects')) ?></td></tr>-->
@@ -38,7 +37,7 @@
                 ?>
 <!--                <td class="<?php //echo "not id " . $project->getId(); ?>"><?php //echo $project->getId(); ?></td>-->
             <td class="<?php echo "changedName name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewStories?id={$project->getId()}&projectName={$project->getName()}"); ?>" > <?php echo $project->getName(); ?></a></td>
-            <td class="<?php echo "changedProjectStatus projectStatus " . $project->getId(); ?>" ><?php echo $project->getProjectStatus()->getProjectStatus(); ?></td>
+            <td class="<?php echo "changedProjectStatus projectStatus " . $project->getId(); ?>" ><?php echo $project->getProjectStatus()->getName(); ?></td>
             <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
             <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
         </tr>
@@ -47,13 +46,13 @@
 
     <div class="addButton">
 
-        <form id="form1" action="<?php echo url_for('project/addProject') ?>" method="get">
+        <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
             <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
         </form>
     </div>
 
     <div class="searchButton">
-        <form id="form1" action="<?php echo url_for('project/viewProjects') ?>" method="post">
+        <form id="searchForm" action="<?php echo url_for('project/viewProjects') ?>" method="post">
             <?php echo $statusForm ?>
             <input type="submit" value="<?php echo __('Search') ?>" id="searchProject" />
         </form>

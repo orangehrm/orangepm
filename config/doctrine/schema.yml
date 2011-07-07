@@ -21,6 +21,7 @@ Project:
       type: one
       foreign: id
     ProjectStatus:
+      onDelete: set null
       local: projectStatusId
       foreign: id
        
@@ -106,12 +107,10 @@ ProjectStatus:
       type: integer
       primary: true
       autoincrement: true
-    project_status:
-      name: project_status as projectStatus
+    name:
       type: string(255)
       notnull: true
   relations:
     Project:
-      onDelete: cascade
       local: id
       foreign: projectStatusId
