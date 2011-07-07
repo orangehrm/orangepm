@@ -309,7 +309,7 @@ class ProjectService {
         
         $dao = new ProjectDao();
         
-        $allProjectStatus = $dao->getAllProjectStatus();
+        $allProjectStatus = $dao->getAllProjectStatuses();
         
         foreach($allProjectStatus as $projectStatus) {
             $projectStatusArray[$projectStatus->getId()] = $projectStatus->getName();
@@ -321,21 +321,22 @@ class ProjectService {
 
     /**
      * Get the all Projects according to status
-     * @param $id, $pageNo
+     * @param $isActive, $statusId
 	 * @return $allProjects
 	 */
-    public function getAllProjects($active, $id, $pageNo){
+    public function getAllProjects($isActive, $statusId){
 
         $projectDao = new ProjectDao();
 
-        if($id == Project::PROJECT_STATUS_ALL_ID) {
-            $allProjects = $projectDao->getProjects($active, $pageNo);
-
+        if($statusId == Project::PROJECT_STATUS_ALL_ID) {
+            $allProjects = $projectDao->getAllProjects($isActive);
+            
         }else {
-            $allProjects = $projectDao->getProjectsByStatus($active, $pageNo, $id);
-
+            $allProjects = $projectDao->getProjectsByStatus($isActive, $statusId);
         }
+        
         return $allProjects;
+        
     }
 
     /**
@@ -356,4 +357,29 @@ class ProjectService {
         }
         return $status;
     }
+    
+   /**
+    * Get project status by id
+    * @param $statusId
+    * @return relevent Doctrine ProjectStatus objects
+    */
+    public function getProjectStatusById($statusId=Project::PROJECT_STATUS_DEFAULT_ID){
+        
+        $dao = new ProjectDao();        
+        return $dao->getProjectStatusById($statusId);
+
+    }
+    
+   /**
+    * save a project
+    * @param $name, $statusId
+    * @return none
+    */ 
+    public function saveProject($name, $statusId) {
+        
+        $dao = new ProjectDao();
+        $dao->saveProject($name, $statusId);
+        
+    }
+    
 }

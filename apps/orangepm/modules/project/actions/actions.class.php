@@ -179,28 +179,51 @@ class projectActions extends sfActions {
     public function executeViewProjects($request) {
 
         $this->projectForm = new sfForm();
-        $this->statusForm = new StatusForm();
-
+        $this->projectSearchForm = new ProjectSearchForm();
+         
         $this->statusId = $this->getUser()->getFlash('statusId');
 
         $dao = new ProjectDao();
 
-        $pageNo = $this->getRequestParameter('page', 1);
+        $projectSevice = new ProjectService();        
+               
         if($this->statusId == null) {
             $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
         }
-        $this->pager = $dao->getProjectsByStatus(true, $pageNo,$this->statusId);
 
+        $this->projects = $projectSevice->getAllProjects(true, $this->statusId);
+        
         $this->status = $dao->getProjectStatusById($this->statusId)->getName();
 
+        $this->statusName = $projectSevice->getProjectStatusById($this->statusId)->getName();
+        
         if ($request->isMethod('post')) {
-            $this->statusForm->bind($request->getParameter('projectSearch'));
-            if ($this->statusForm->isValid()) {
-                $projectSevice = new ProjectService();
-                $this->status = $projectSevice->getAllProjectStatus($this->statusForm->getValue('searchByStatus'));
-                $this->pager = $projectSevice->getAllProjects(true, $this->statusForm->getValue('searchByStatus'), $pageNo);
+            
+            $this->projectSearchForm->bind($request->getParameter('projectSearch'));
+            
+            if ($this->projectSearchForm->isValid()) {     
+                
+                $projectStatus = $projectSevice->getProjectStatusById($this->projectSearchForm->getValue('status'));
+                $this->statusName = ($projectStatus instanceof ProjectStatus) ? $projectStatus->getProjectStatus() : __(Project::PROJECT_STATUS_ALL);
+                $this->projects = $projectSevice->getAllProjects(true, $this->projectSearchForm->getValue('status'));
+                
             }
         }
+        
+        /*$pageNo = $this->getRequestParameter('page', 1);
+        $this->recordsLimit = 5;
+        $this->recordsCount = 5;
+        $this->offset = 0;
+        
+        $this->pager = new SimplePager('action', $this->recordsLimit);
+        $this->pager->setPage($pageNo);
+        $this->pager->setNbResults($this->recordsCount);
+        $this->pager->init();
+        $offset = $this->pager->getOffset();
+        $offset = empty($offset)?0:$offset;
+        $this->offset = $offset;*/
+        
+        
     }
 
     /**
@@ -213,20 +236,25 @@ class projectActions extends sfActions {
         $this->projectForm = new ProjectForm();
         $response = $this->getResponse();
         $response->setTitle(__('Add Project'));
-        $dao = new ProjectDao();
+        
+        $projectSevice = new ProjectService();
 
         if ($request->isMethod('post')) {
             $this->projectForm->bind($request->getParameter('project'));
+            
             if ($this->projectForm->isValid()) {
-                $dao->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'));
+
+                $projectSevice->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'));
+                
                 $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
                 $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
                 $this->redirect('project/viewProjects');
             }
         }
 
-        $pageNo = $this->getRequestParameter('page', 1);
-        $this->pager = $dao->getProjects(true, $pageNo);
+        
+        $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
+        
     }
 
     /**

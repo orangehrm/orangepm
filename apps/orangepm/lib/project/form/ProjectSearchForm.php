@@ -5,7 +5,7 @@
  * @author orangehrm
  */
 
-class StatusForm extends sfForm {
+class ProjectSearchForm extends sfForm {
 
     /**
 	 * ConfigureProject form
@@ -14,19 +14,19 @@ class StatusForm extends sfForm {
     public function configure() {
         $projectService = new ProjectService();
         $status = $projectService->getAllProjectStatusesAsArray();
-        $status[0] = 'All';
+        $status[0] = __('All');
         $this->setWidgets(array(
-            'searchByStatus' => new sfWidgetFormSelect(array('choices' => $status)),
+            'status' => new sfWidgetFormSelect(array('choices' => $status)),
 
         ));
 
         $this->widgetSchema->setNameFormat('projectSearch[%s]');
 
-        $this->widgetSchema->setLabel('searchByStatus', __('Search by status'));
+        $this->widgetSchema->setLabel('status', __('Search by status'));
 
 
         $this->setValidators(array(
-            'searchByStatus' => new sfValidatorString(array('required' =>false)),
+            'status' => new sfValidatorChoice(array('choices' => array_keys($status))),
 
         ));
 

@@ -11,7 +11,7 @@
 
     <div class="heading">
         <h3>
-            <?php echo $status.' '.__('Projects'); ?>
+            <?php echo $statusName.' '.__('Projects'); ?>
         </h3>
         <span id="message"><?php echo $sf_user->getFlash('addProject') ?></span>
     </div>
@@ -25,7 +25,7 @@
 
             <?php $alt = '1' ?>
 
-            <?php foreach ($pager->getResults() as $project): ?>
+            <?php foreach ($projects as $project): ?>
                 <?php
                 if ($alt == 1) {
                     echo '<tr class="alt">';
@@ -35,7 +35,7 @@
                     $alt = 1;
                 }
                 ?>
-<!--                <td class="<?php //echo "not id " . $project->getId(); ?>"><?php //echo $project->getId(); ?></td>-->
+
             <td class="<?php echo "changedName name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewStories?id={$project->getId()}&projectName={$project->getName()}"); ?>" > <?php echo $project->getName(); ?></a></td>
             <td class="<?php echo "changedProjectStatus projectStatus " . $project->getId(); ?>" ><?php echo $project->getProjectStatus()->getName(); ?></td>
             <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
@@ -53,7 +53,7 @@
 
     <div class="searchButton">
         <form id="searchForm" action="<?php echo url_for('project/viewProjects') ?>" method="post">
-            <?php echo $statusForm ?>
+            <?php echo $projectSearchForm ?>
             <input type="submit" value="<?php echo __('Search') ?>" id="searchProject" />
         </form>
     </div>

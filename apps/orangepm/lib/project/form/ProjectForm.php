@@ -26,7 +26,7 @@ class ProjectForm extends sfForm {
 
         $this->setValidators(array(
             'name' => new sfValidatorString(array('required' => true), array('required' => __('The Project Name is required'))),
-            'status' => new sfValidatorPass(),
+            'status' => new sfValidatorChoice(array('choices' => array_keys($statusChoices))),
         ));
 
     }
