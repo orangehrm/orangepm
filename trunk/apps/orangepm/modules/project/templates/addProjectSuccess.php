@@ -10,8 +10,7 @@
     <div class="addForm">
         <div class="headlineField"><?php echo __('Add Project') ?></div>
         <div class="formField">
-            <form id="addProjetForm" action="<?php echo url_for('project/addProject') ?>" method="POST">
-
+            <form id="addProjectForm" action="<?php echo url_for('project/addProject') ?>" method="POST">
                 <table>
                     <?php echo $projectForm ?>
 
@@ -28,11 +27,11 @@
 
 
     <table class="tableContent" >
-        <tr><td class="pageNav" colspan="4"><?php echo pager_navigation($pager, url_for('project/addProject')) ?></td></tr>
+        
         <tr>
             <th><?php echo __('Project Name') ?></th>
             <th><?php echo __('Status') ?></th>
-            <?php foreach ($pager->getResults() as $project): ?>
+            <?php foreach ($projects as $project): ?>
                     <tr>                        
                         <td> <?php echo $project->getName(); ?></td>
                         <td> <?php echo $project->getProjectStatus()->getName(); ?></td>
