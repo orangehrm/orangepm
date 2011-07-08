@@ -1,7 +1,8 @@
 1: Get the checkout (svn co https://orangepm.googlecode.com/svn/trunk [folder name]).
 2. Set proper permissions (sudo chmod -R 777 [folder name]).
 3. Build the model(php symfony doctrine:build-model).
-4. Create config/databases.yml (php symfony configure:database "mysql:host=localhost;dbname=[DB name]" [DB username] [DB password]).
-5. Build SQL (php symfony doctrine:build-sql).
-6. Insert SQL into the database (php symfony doctrine:insert-sql).
-7. Load initial data (php symfony doctrine:data-load).
+4. Create the Database (mysqladmin -uroot -p create [DB username]).
+5. Config/databases.yml (php symfony configure:database "mysql:host=localhost;dbname=[DB name]" [DB username] [DB password]).
+6. Build SQL (php symfony doctrine:build-sql).
+7. Insert SQL into the database (php symfony doctrine:insert-sql).
+8. Load initial data (php symfony doctrine:data-load).

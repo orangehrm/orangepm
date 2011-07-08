@@ -183,7 +183,7 @@ class projectActions extends sfActions {
         
         $this->projectForm = new sfForm();
         $this->projectSearchForm = new ProjectSearchForm();
-         
+
         $this->statusId = $this->getUser()->getFlash('statusId');
 
         $dao = new ProjectDao();
