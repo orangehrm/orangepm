@@ -69,8 +69,6 @@ form * {
     font-weight: normal;
 }
 
-
-
 .pageNav a:link {
     color: blue;
     text-decoration: underline;
@@ -274,6 +272,10 @@ div.viewWeeklyProgressButton{
 
 #mainLogo:visited {
     color: white;
+}
+
+#logo {
+    border: #fff;
 }
 
 div.searchButton{
