@@ -97,6 +97,7 @@ $(document).ready(function() {
             var el = document.getElementById('editboxPassword');
             el.ondblclick = function(){
                 this.removeAttribute('readonly');
+                this.type = 'password';
             };
  
              
