@@ -178,6 +178,9 @@ class projectActions extends sfActions {
      */
     public function executeViewProjects($request) {
 
+        $response = $this->getResponse();
+        $response->setTitle(__('Projects'));
+        
         $this->projectForm = new sfForm();
         $this->projectSearchForm = new ProjectSearchForm();
          
@@ -204,7 +207,7 @@ class projectActions extends sfActions {
             if ($this->projectSearchForm->isValid()) {     
                 
                 $projectStatus = $projectSevice->getProjectStatusById($this->projectSearchForm->getValue('status'));
-                $this->statusName = ($projectStatus instanceof ProjectStatus) ? $projectStatus->getProjectStatus() : __(Project::PROJECT_STATUS_ALL);
+                $this->statusName = ($projectStatus instanceof ProjectStatus) ? $projectStatus->getName() : __(Project::PROJECT_STATUS_ALL);
                 $this->projects = $projectSevice->getAllProjects(true, $this->projectSearchForm->getValue('status'));
                 
             }
