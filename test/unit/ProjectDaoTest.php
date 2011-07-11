@@ -14,10 +14,18 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /* Tests for getProjectsByUser() */
+    
     public function testGetProjectsByUserTestCount() {
         
         $result = $this->projectDao->getProjectsByUser(2, 2);
         $this->assertEquals(2, count($result));
+        
+        $result = $this->projectDao->getProjectsByUser(4, 1);
+        $this->assertEquals(1, count($result));
+        
+        $result = $this->projectDao->getProjectsByUser(1, 2);
+        $this->assertEquals(4, count($result));       
         
     }
     
@@ -29,6 +37,11 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
             $this->assertTrue($value instanceof Project);
         }
         
+        $result = $this->projectDao->getProjectsByUser(4, 1);
+
+        foreach ($result as $value) {
+            $this->assertTrue($value instanceof Project);
+        }
     }
     
     public function testGetProjectsByUserTestResultValues() {
@@ -38,7 +51,23 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(3, $result[0]->getId());
         $this->assertEquals(7, $result[1]->getId());
         
+        $result = $this->projectDao->getProjectsByUser(4, 1);
+        
+        $this->assertEquals(10, $result[0]->getId());
+
     }    
     
+    public function testGetProjectsByUserTestWrongInputs() {
+        
+        $result = $this->projectDao->getProjectsByUser(2, 4);
+        $this->assertNull($result);
+
+        $result = $this->projectDao->getProjectsByUser(1, 6);
+        $this->assertNull($result);
+ 
+    }
+
+
+    /* Tests for isActionAllowedForStory() */
     
 }
