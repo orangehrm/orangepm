@@ -25,6 +25,24 @@ class UserService {
         
         $dao->updateUser($userParameters, $id);
         
-    }   
+    }
+    
+    /**
+	 * Get all Users to an array 
+	 * @return array
+	 */ 
+    public function getAllUsersAsArray() {
+        
+        $dao = new UserDao();
+        
+        $allUser = $dao->getAllUsers();
+        
+        foreach($allUser as $user) {
+            $userArray[$user->getId()] = $user->getFirstName().' '.$user->getLastName();
+        }
+                
+        return $userArray;
+        
+    }
     
 }

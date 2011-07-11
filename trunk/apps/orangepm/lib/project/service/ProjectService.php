@@ -375,11 +375,11 @@ class ProjectService {
     * @param $name, $statusId
     * @return none
     */ 
-    public function saveProject($name, $statusId) {
+    public function saveProject($name, $statusId, $userId) {
         
         $dao = new ProjectDao();
-        $dao->saveProject($name, $statusId);
+        $dao->saveProject($name, $statusId, $userId);
         
     }
-    
+       
 }

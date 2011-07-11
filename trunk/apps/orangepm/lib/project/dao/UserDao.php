@@ -93,4 +93,16 @@ class UserDao {
        return Doctrine_Core::getTable('User')->find($userId);
     }
     
+    /**
+     * Get all users for show in dropdown
+     * @return relevent Doctrine objects
+     */
+    public function getAllUsers() {
+
+        $query = Doctrine_Core::getTable('User')
+                ->createQuery('c');
+
+        return $query->execute();
+    }
+    
 }
