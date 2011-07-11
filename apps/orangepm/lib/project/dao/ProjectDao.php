@@ -120,7 +120,7 @@ class ProjectDao {
      * @param $userId, $statusId, $isActive
      * @return relevent Doctrine Project objects
      */
-    public function getProjectsByUser($userId, $statusId=0, $isActive=true) {
+    public function getProjectsByUser($userId, $statusId=Project::PROJECT_STATUS_ALL_ID, $isActive=true) {
 
         $dao = new UserDao();
         $userType = $dao->getUserById($userId)->getUserType();
@@ -147,10 +147,10 @@ class ProjectDao {
 
     /**
      * Check whether the user has authentication to do the action
-     * @param $userId, $storyId
+     * @param $userId, $projectId
      * @return boolean
      */
-    public function isActionAllowedForStory($userId, $storyId) {
+    public function isActionAllowedForStory($userId, $projectId) {
 
         $dao = new StoryDao();
         $story = $dao->getStoryById($storyId);

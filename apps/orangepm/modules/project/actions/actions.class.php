@@ -57,7 +57,9 @@ class projectActions extends sfActions {
                 $loggedUser = $loginService->getUserByUsernameAndPassword($user, $pass);
 
                 if ($loggedUser instanceof User) {
-
+                    
+                    $this->getUser()->setAttribute($loggedUserObject, $loggedUser);
+                    
                     $this->getUser()->setAuthenticated(true);
 
                     $userRole = $loginService->getUserRole($loggedUser->getUserType());
@@ -187,18 +189,18 @@ class projectActions extends sfActions {
         $this->statusId = $this->getUser()->getFlash('statusId');
 
         $dao = new ProjectDao();
-
-        $projectSevice = new ProjectService();        
-               
+        $projectSevice = new ProjectService();       
+        $loginService = new LoginService();
+        
+        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+        
         if($this->statusId == null) {
             $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
         }
 
-        $this->projects = $projectSevice->getAllProjects(true, $this->statusId);
+        $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $this->statusId);
         
-        $this->status = $dao->getProjectStatusById($this->statusId)->getName();
-
-        $this->statusName = $projectSevice->getProjectStatusById($this->statusId)->getName();
+        //$this->statusName = $projectSevice->getProjectStatusById($this->statusId)->getName();
         
         if ($request->isMethod('post')) {
             
@@ -208,7 +210,7 @@ class projectActions extends sfActions {
                 
                 $projectStatus = $projectSevice->getProjectStatusById($this->projectSearchForm->getValue('status'));
                 $this->statusName = ($projectStatus instanceof ProjectStatus) ? $projectStatus->getName() : __(Project::PROJECT_STATUS_ALL);
-                $this->projects = $projectSevice->getAllProjects(true, $this->projectSearchForm->getValue('status'));
+                $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $this->projectSearchForm->getValue('status'));
                 
             }
         }
@@ -236,27 +238,33 @@ class projectActions extends sfActions {
      */
     public function executeAddProject($request) {
 
-        $this->projectForm = new ProjectForm();
-        $response = $this->getResponse();
-        $response->setTitle(__('Add Project'));
+        //if($sf_user->hasCredential('superAdmin')) {
         
-        $projectSevice = new ProjectService();
+            $this->projectForm = new ProjectForm();
+            $response = $this->getResponse();
+            $response->setTitle(__('Add Project'));
 
-        if ($request->isMethod('post')) {
-            $this->projectForm->bind($request->getParameter('project'));
-            
-            if ($this->projectForm->isValid()) {
+            $projectSevice = new ProjectService();
 
-                $projectSevice->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'), $this->projectForm->getValue('projectAdmin'));
-                
-                $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
-                $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
-                $this->redirect('project/viewProjects');
+            if ($request->isMethod('post')) {
+                $this->projectForm->bind($request->getParameter('project'));
+
+                if ($this->projectForm->isValid()) {
+
+                    $projectSevice->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'), $this->projectForm->getValue('projectAdmin'));
+
+                    $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
+                    $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
+                    $this->redirect('project/viewProjects');
+                }
             }
-        }
 
-        
-        $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
+
+            $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
+            
+//        } else {
+//            $this->redirect('project/viewProjects');
+//        }
         
     }
 
@@ -380,7 +388,7 @@ class projectActions extends sfActions {
      * @return unknown_type
      */
     public function executeViewStories($request) {
-
+      
         $response = $this->getResponse();
         $response->setTitle(__('Stories'));
 

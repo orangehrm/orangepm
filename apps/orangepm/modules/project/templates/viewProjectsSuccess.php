@@ -21,6 +21,9 @@
 <!--            <th> <?php //echo __('Id') ?></th>-->
             <th> <?php echo __('Project Name'); ?> </th>
             <th> <?php echo __('Status'); ?> </th>
+            <?php if($sf_user->hasCredential('superAdmin')): ?>
+                <th> <?php echo __('Project Admin'); ?> </th>
+            <?php endif; ?>
             <th colspan="2"><?php echo __('Actions') ?></th>
 
             <?php $alt = '1' ?>
@@ -38,19 +41,24 @@
 
             <td class="<?php echo "changedName name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewStories") . "?id={$project->getId()}&projectName={$project->getName()}"; ?>" > <?php echo $project->getName(); ?></a></td>
             <td class="<?php echo "changedProjectStatus projectStatus " . $project->getId(); ?>" ><?php echo $project->getProjectStatus()->getName(); ?></td>
+            <?php if($sf_user->hasCredential('superAdmin')): ?>
+                <td class="<?php echo "changedProjectAdmin projectAdmin " . $project->getUserId(); ?>" ><?php echo $project->getUser()->getFirstName()." ".$project->getUser()->getLastName(); ?></td>
+            <?php endif; ?>
             <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
             <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
         </tr>
         <?php endforeach; ?>
     </table>
 
+    <?php if($sf_user->hasCredential('superAdmin')): ?>
     <div class="addButton">
 
         <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
             <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
         </form>
     </div>
-
+    <?php endif; ?>
+    
     <div class="searchButton">
         <form id="searchForm" action="<?php echo url_for('project/viewProjects') ?>" method="post">
             <?php echo $projectSearchForm ?>
