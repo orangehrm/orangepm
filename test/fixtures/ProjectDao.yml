@@ -1,0 +1,32 @@
+Project:
+  0: {id: 1, name: 'GWT apps featured in Google IO videos', projectStatusId: 1, deleted: 1, userId: 1}
+  1: {id: 2, name: 'Google+ hangout', projectStatusId: 2, deleted: 1, userId: 1}
+  2: {id: 3, name: 'Google + stream', projectStatusId: 1, deleted: 0, userId: 2}
+  3: {id: 4, name: 'Google Summer of Code: Part 5', projectStatusId: 2, deleted: 0, userId: 3}
+  5: {id: 6, name: 'Alfresco-phase1-CR2', projectStatusId: 2, deleted: 1, userId: 3}
+  6: {id: 7, name: 'University of Alabama-phase1', projectStatusId: 2, deleted: 1, userId: 2}
+  7: {id: 8, name: 'UB-Phase1-CR7', projectStatusId: 3, deleted: 1, userId: 4}
+  8: {id: 9, name: 'Duke-NUS People Manager SAP Synchronization', projectStatusId: 3, deleted: 1, userId: 5}
+  9: {id: 10, name: 'Google Art project', projectStatusId: 1, deleted: 1, userId: 4}
+
+User:
+  0: {id: 1, firstName: 'Thilina', lastName: 'Buddika', email: 'thilina@xample.com', isActive: 1, username: thilina, userType: 1, password: '99d7c10873a1ba8ab23684a861e0fc80b6e9b126' }
+  2: {id: 2, firstName: 'Chanaka', lastName: 'Darmarathna', email: 'chanaka@xample.com', isActive: 1, username: cahanaka, userType: 2, password: '8467b4b1c0f7d3d16f2bed67f98311414b719097'}
+  3: {id: 3, firstName: 'Madhura', lastName: 'Priyadarshana', email: 'priyadarashana@xample.com', isActive: 1, username: madhura, userType: 2, password: 'f1ed56c80a1461ad73ab8942634bf11a28b43808'}
+  4: {id: 4, firstName: 'Warna', lastName: 'Udayanaga', email: 'hroshan@xample.com', isActive: 1, username: harith, userType: 2, password: 'f5efdd2442072948d5e43080601c0ae66e7b0607'}
+  5: {id: 5, firstName: 'Sameera', lastName: 'Bandara', email: 'sameera@xample.com', isActive: 1, username: sameera, userType: 1, password: '64873782838f0c49d8aa661bc09347d7be550840'}
+  
+  #combination for function getProjectsByUserIdAndStatusId($userId, $isActive, $statusId)
+  
+  #i)    (3, true, 1)  = null
+  #ii)   (2, true, 2)  = 7
+  #iii)  (5, true, 2)  = null
+  #iv)   (1, false, 2) = 2
+  #v)    (3, true, 3)  = null
+  #vi)   (4, true, 1)  = 10
+  #vi)   (3, false, 3) = null
+  #viii) (2, true, 1)  = null
+  #ix)   (1, false, 1) = 1
+  #x)    (5, true, 3)  = 9
+  #xi)   (4, true, 3)  = 8
+  #xii)  (2, true, 3)  = null
