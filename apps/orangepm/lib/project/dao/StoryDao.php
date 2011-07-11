@@ -111,5 +111,15 @@ class StoryDao {
             return $query->execute();
         }
     }
+    
+    /**
+     * Get story by id
+     * @param $id
+     * @return Doctrine Story object
+     */
+    public function getStoryById($id) {
+
+        return Doctrine_Core::getTable('Story')->find($id);
+    }
 
 }

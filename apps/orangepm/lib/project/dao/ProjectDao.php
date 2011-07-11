@@ -47,7 +47,6 @@ class ProjectDao {
         }
 
         return $query->execute();
-        
     }
 
     /**
@@ -94,32 +93,36 @@ class ProjectDao {
         return Doctrine_Core::getTable('Project')->find($projectId);
     }
 
-   /**
-    * Get all project status for show in dropdown
-    * @return relevent Doctrine objects
-    */
+    /**
+     * Get all project status for show in dropdown
+     * @return relevent Doctrine objects
+     */
     public function getAllProjectStatuses() {
 
         $query = Doctrine_Core::getTable('ProjectStatus')
-                            ->createQuery('c');
+                ->createQuery('c');
 
         return $query->execute();
-
     }
 
-   /**
-    * Get  project status by id
-    * @return relevent Doctrine objects
-    */
-    public function getProjectStatusById($id){
+    /**
+     * Get  project status by id
+     * @return relevent Doctrine objects
+     */
+    public function getProjectStatusById($id) {
 
-        return  Doctrine_Core::getTable('ProjectStatus')->find($id);
+        return Doctrine_Core::getTable('ProjectStatus')->find($id);
     }
-    
+
+    /**
+     * Get all projects considering user type and status 
+     * @param $userId, $statusId, $isActive
+     * @return relevent Doctrine Project objects
+     */
     public function getProjectsByUser($userId, $statusId=0, $isActive=true) {
-        
+
         $dao = new UserDao();
-		$userType = $dao->getUserById($userId)->getUserType();
+        $userType = $dao->getUserById($userId)->getUserType();
 
         $query = Doctrine_Query::create()
                 ->from('Project a');
@@ -128,25 +131,41 @@ class ProjectDao {
             $query->addWhere('a.deleted = ?', Project::FLAG_ACTIVE);
         }
 
-		if ($userType != User::USER_TYPE_SUPER_ADMIN) {
+        if ($userType != User::USER_TYPE_SUPER_ADMIN) {
             $query->addWhere('a.userId = ?', $userId);
         }
 
-		if ($statusId != null) {
+        if ($statusId != null) {
             $query->addWhere('a.projectStatusId = ?', $statusId);
         }
 
         $result = $query->execute();
-        
-        return count($result)==0 ? null : $result;
-        
+
+        return count($result) == 0 ? null : $result;
     }
-    
+
+    /**
+     * Check whether the user has authentication to do the action
+     * @param $userId, $storyId
+     * @return boolean
+     */
     public function isActionAllowedForStory($userId, $storyId) {
+
+        $dao = new StoryDao();
+        $story = $dao->getStoryById($storyId);
+                
+        $actualStoryOwnerUserId = $story->getProject()->getUserId();
+        $userType = $story->getProject()->getUser()->getUserType();
         
-        
-        
+        if(($userId == $actualStoryOwnerUserId) || ($userType == User::USER_TYPE_PROJECT_ADMIN)) {
+
+            return true;
+            
+        } else {    
+            
+            return false;
+        }
     }
-    
+
 }
 
