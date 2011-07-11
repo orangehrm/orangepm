@@ -4,7 +4,7 @@
 <div class="Project">
 
     <div class="heading">
-        <h3> <?php echo link_to(__('Projects'),'project/viewProjects')?> > <?php echo __('Add Project'); ?> </h3>
+        <h3> <?php echo link_to(__('Projects'), 'project/viewProjects') ?> > <?php echo __('Add Project'); ?> </h3>
     </div>
 
     <div class="addForm">
@@ -27,15 +27,17 @@
 
 
     <table class="tableContent" >
-        
+
         <tr>
             <th><?php echo __('Project Name') ?></th>
             <th><?php echo __('Status') ?></th>
+            <th><?php echo __('Project Admin') ?></th>
             <?php foreach ($projects as $project): ?>
-                    <tr>                        
-                        <td> <?php echo $project->getName(); ?></td>
-                        <td> <?php echo $project->getProjectStatus()->getName(); ?></td>
-                    </tr>
+            <tr>                        
+                <td> <?php echo $project->getName(); ?></td>
+                <td> <?php echo $project->getProjectStatus()->getName(); ?></td>
+                <td> <?php echo $project->getUser()->getFirstName() . ' ' . $project->getUser()->getLastName(); ?></td>
+            </tr>
         <?php endforeach; ?>
     </table>
 </div>

@@ -9,11 +9,12 @@ class ProjectDao {
      * Save projects
      * @param $name
      */
-    public function saveProject($name, $statusId) {
+    public function saveProject($name, $statusId, $userId) {
 
         $project = new Project();
         $project->setName($name);
         $project->setProjectStatusId($statusId);
+        $project->setUserId($userId);
         $project->save();
     }
 

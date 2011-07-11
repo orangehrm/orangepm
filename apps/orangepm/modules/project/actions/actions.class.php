@@ -247,7 +247,7 @@ class projectActions extends sfActions {
             
             if ($this->projectForm->isValid()) {
 
-                $projectSevice->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'));
+                $projectSevice->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'), $this->projectForm->getValue('projectAdmin'));
                 
                 $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
                 $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
