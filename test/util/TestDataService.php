@@ -47,10 +47,6 @@ class TestDataService {
 
             }
 
-            if ($count > 0) {
-                self::adjustUniqueId($tableName, $count, true);
-            }
-
         }
 
         self::_enableConstraints();
@@ -113,7 +109,6 @@ class TestDataService {
 
         foreach (self::$tableNames as $tableName) {
             $db->query("DELETE FROM $tableName");
-            self::adjustUniqueId($tableName, 0);
         }
 
         self::_enableConstraints();
