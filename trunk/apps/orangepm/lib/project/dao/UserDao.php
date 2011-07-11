@@ -83,4 +83,14 @@ class UserDao {
         }
     }
     
+    /**
+	 * Get user object by user id 
+	 * @param $userId
+	 * @return doctrine User object
+	 */
+    public function getUserById($userId) {
+
+       return Doctrine_Core::getTable('User')->find($userId);
+    }
+    
 }

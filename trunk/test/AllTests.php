@@ -39,6 +39,9 @@ class AllTests {
 
         $suite->addTestFile(dirname(__FILE__) . '/ProjectProgressTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/ProjectServiceTest.php');
+        
+        /* DAO tests */
+        $suite->addTestFile(dirname(__FILE__) . '/unit/ProjectDaoTest.php');
 
         //$suite->addTestFile(dirname(__FILE__) . '/StoryDaoTest.php');
 
