@@ -106,8 +106,10 @@ class TestDataService {
         $db = self::_getDbConnection();
 
         self::_disableConstraints();
+        
+        $tableNames = array_reverse(self::$tableNames);
 
-        foreach (self::$tableNames as $tableName) {
+        foreach ($tableNames as $tableName) {
             $db->query("DELETE FROM $tableName");
         }
 
