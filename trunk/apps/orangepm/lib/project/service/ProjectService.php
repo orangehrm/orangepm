@@ -382,4 +382,37 @@ class ProjectService {
         
     }
        
+    /**
+     * Get all projects considering user type and status 
+     * @param $userId, $statusId, $isActive
+     * @return relevent Doctrine Project objects
+     */
+    public function getProjectsByUser($userId, $statusId=Project::PROJECT_STATUS_ALL_ID, $isActive=true) {
+        
+        $dao = new ProjectDao();
+        
+        if($statusId == Project::PROJECT_STATUS_ALL_ID) {
+            
+            return $dao->getProjectsByUser($userId);
+            
+        } else {
+            
+            return $dao->getProjectsByUser($userId, $statusId, $isActive);
+            
+        }
+    }
+    
+    /**
+     * Check whether the user has authentication to do the action
+     * @param $userId, $storyId
+     * @return boolean
+     */
+    public function isActionAllowedForStory($userId, $storyId) {
+        
+        $dao = new ProjectDao();
+        
+        return $dao->isActionAllowedForStory($userId, $storyId);
+        
+    }
+    
 }
