@@ -116,5 +116,29 @@ class ProjectDao {
         return  Doctrine_Core::getTable('ProjectStatus')->find($id);
     }
     
+    public function getProjectsByUser($userId, $statusId=0, $isActive=true) {
+        
+        $dao = new UserDao();
+		$userType = $dao->getUserById($userId)->getUserType();
+
+        $query = Doctrine_Query::create()
+                ->from('Project a');
+
+        if ($isActive) {
+            $query->addWhere('a.deleted = ?', Project::FLAG_ACTIVE);
+        }
+
+		if ($userType == User::USER_TYPE_PROJECT_ADMIN) {
+            $query->addWhere('a.userId = ?', $userId);
+        }
+
+		if ($statusId != null) {
+            $query->addWhere('a.projectStatusId = ?', $statusId);
+        }
+
+        return $query->execute();
+        
+    }
+    
 }
 
