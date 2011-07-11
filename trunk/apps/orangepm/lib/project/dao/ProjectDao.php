@@ -128,7 +128,7 @@ class ProjectDao {
             $query->addWhere('a.deleted = ?', Project::FLAG_ACTIVE);
         }
 
-		if ($userType == User::USER_TYPE_PROJECT_ADMIN) {
+		if ($userType != User::USER_TYPE_SUPER_ADMIN) {
             $query->addWhere('a.userId = ?', $userId);
         }
 
@@ -136,7 +136,15 @@ class ProjectDao {
             $query->addWhere('a.projectStatusId = ?', $statusId);
         }
 
-        return $query->execute();
+        $result = $query->execute();
+        
+        return count($result)==0 ? null : $result;
+        
+    }
+    
+    public function isActionAllowedForStory($userId, $storyId) {
+        
+        
         
     }
     
