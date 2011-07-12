@@ -228,8 +228,12 @@ class projectActions extends sfActions {
             if ($this->projectSearchForm->isValid()) {
 
                 $projectStatus = $projectSevice->getProjectStatusById($this->projectSearchForm->getValue('status'));
-                $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $this->projectSearchForm->getValue('status'));
+                $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $this->projectSearchForm->getValue('status'));                              
             }
+        }
+        
+        if(count($this->projects) == 0) {
+            $this->noRecordMessage =  __("No Matching Projects Found");
         }
 
         /* $pageNo = $this->getRequestParameter('page', 1);
@@ -291,7 +295,8 @@ class projectActions extends sfActions {
 
         $projectService = new ProjectService();
         
-        if($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $request->getParameter('id'))) {
+        //if($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $request->getParameter('id'))) {
+        if($this->getUser()->hasCredential('superAdmin')) {
         
             $dao = new projectDao();
             $dao->deleteProject($request->getParameter('id'));

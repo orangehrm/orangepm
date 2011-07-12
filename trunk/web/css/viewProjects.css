@@ -15,9 +15,13 @@ root {
     display: block;
 }
 
+.heading span#noRecordMessage {
+    color: darksalmon;
+}
+
 table.tableContent {
     top: 60px;
-    width: 650px;    
+    width: 900px;    
 }
 
 .changedName {
@@ -26,6 +30,10 @@ table.tableContent {
 
 td.edit {
     cursor:pointer;
+}
+
+td.changedName {
+    width: 550px;
 }
 
 .tip {
