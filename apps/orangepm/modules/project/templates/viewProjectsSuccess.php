@@ -11,7 +11,7 @@
 
     <div class="heading">
         <h3>
-            <?php echo $statusName.' '.__('Projects'); ?>
+            <?php echo __('Projects'); ?>
         </h3>
         <span id="message"><?php echo $sf_user->getFlash('addProject') ?></span>
     </div>
