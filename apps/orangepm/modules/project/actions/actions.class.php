@@ -57,9 +57,9 @@ class projectActions extends sfActions {
                 $loggedUser = $loginService->getUserByUsernameAndPassword($user, $pass);
 
                 if ($loggedUser instanceof User) {
-                    
+
                     $this->getUser()->setAttribute($loggedUserObject, $loggedUser);
-                    
+
                     $this->getUser()->setAuthenticated(true);
 
                     $userRole = $loginService->getUserRole($loggedUser->getUserType());
@@ -69,7 +69,6 @@ class projectActions extends sfActions {
                     }
 
                     $this->redirect('project/index');
-
                 } else {
                     $this->errorMessage = __('Username or Password is incorrect');
                 }
@@ -129,7 +128,7 @@ class projectActions extends sfActions {
                 );
 
                 $dao->saveUser($inputParameters);
-                $request->setParameter('message',  __('The User is added successfully'));
+                $request->setParameter('message', __('The User is added successfully'));
                 $this->forward('project', 'viewUsers');
             }
         }
@@ -182,53 +181,48 @@ class projectActions extends sfActions {
 
         $response = $this->getResponse();
         $response->setTitle(__('Projects'));
-        
+
         $this->projectForm = new sfForm();
         $this->projectSearchForm = new ProjectSearchForm();
 
         $this->statusId = $this->getUser()->getFlash('statusId');
 
         $dao = new ProjectDao();
-        $projectSevice = new ProjectService();       
+        $projectSevice = new ProjectService();
         $loginService = new LoginService();
-        
+
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
-        
-        if($this->statusId == null) {
+
+        if ($this->statusId == null) {
             $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
         }
 
         $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $this->statusId);
-        
-        //$this->statusName = $projectSevice->getProjectStatusById($this->statusId)->getName();
-        
+
+
         if ($request->isMethod('post')) {
-            
+
             $this->projectSearchForm->bind($request->getParameter('projectSearch'));
-            
-            if ($this->projectSearchForm->isValid()) {     
-                
+
+            if ($this->projectSearchForm->isValid()) {
+
                 $projectStatus = $projectSevice->getProjectStatusById($this->projectSearchForm->getValue('status'));
-                $this->statusName = ($projectStatus instanceof ProjectStatus) ? $projectStatus->getName() : __(Project::PROJECT_STATUS_ALL);
                 $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $this->projectSearchForm->getValue('status'));
-                
             }
         }
-        
-        /*$pageNo = $this->getRequestParameter('page', 1);
-        $this->recordsLimit = 5;
-        $this->recordsCount = 5;
-        $this->offset = 0;
-        
-        $this->pager = new SimplePager('action', $this->recordsLimit);
-        $this->pager->setPage($pageNo);
-        $this->pager->setNbResults($this->recordsCount);
-        $this->pager->init();
-        $offset = $this->pager->getOffset();
-        $offset = empty($offset)?0:$offset;
-        $this->offset = $offset;*/
-        
-        
+
+        /* $pageNo = $this->getRequestParameter('page', 1);
+          $this->recordsLimit = 5;
+          $this->recordsCount = 5;
+          $this->offset = 0;
+
+          $this->pager = new SimplePager('action', $this->recordsLimit);
+          $this->pager->setPage($pageNo);
+          $this->pager->setNbResults($this->recordsCount);
+          $this->pager->init();
+          $offset = $this->pager->getOffset();
+          $offset = empty($offset)?0:$offset;
+          $this->offset = $offset; */
     }
 
     /**
@@ -239,33 +233,32 @@ class projectActions extends sfActions {
     public function executeAddProject($request) {
 
         //if($sf_user->hasCredential('superAdmin')) {
-        
-            $this->projectForm = new ProjectForm();
-            $response = $this->getResponse();
-            $response->setTitle(__('Add Project'));
 
-            $projectSevice = new ProjectService();
+        $this->projectForm = new ProjectForm();
+        $response = $this->getResponse();
+        $response->setTitle(__('Add Project'));
 
-            if ($request->isMethod('post')) {
-                $this->projectForm->bind($request->getParameter('project'));
+        $projectSevice = new ProjectService();
 
-                if ($this->projectForm->isValid()) {
+        if ($request->isMethod('post')) {
+            $this->projectForm->bind($request->getParameter('project'));
 
-                    $projectSevice->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'), $this->projectForm->getValue('projectAdmin'));
+            if ($this->projectForm->isValid()) {
 
-                    $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
-                    $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
-                    $this->redirect('project/viewProjects');
-                }
+                $projectSevice->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'), $this->projectForm->getValue('projectAdmin'));
+
+                $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
+                $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
+                $this->redirect('project/viewProjects');
             }
+        }
 
 
-            $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
-            
+        $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
+
 //        } else {
 //            $this->redirect('project/viewProjects');
 //        }
-        
     }
 
     /**
@@ -333,37 +326,45 @@ class projectActions extends sfActions {
     public function executeAddStory($request) {
 
         $this->projectId = $request->getParameter('id');
-        $this->projectName = $request->getParameter('projectName');
-        $this->storyForm = new StoryForm();
-        $this->storyForm->setDefault('projectId', $this->projectId);
+        $projectService = new ProjectService();
 
-        $response = $this->getResponse();
-        $response->setTitle(__('Add Story'));
+        if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
+            $this->projectName = $request->getParameter('projectName');
+            $this->storyForm = new StoryForm();
+            $this->storyForm->setDefault('projectId', $this->projectId);
 
-        if ($request->isMethod('post')) {
-            $this->storyForm->bind($request->getParameter('project'));
-            if ($this->storyForm->isValid()) {
-                $dao = new StoryDao();
-                $storyStatus = array(0 => 'Pending', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing', 5 => 'Rework', 6 => 'Accepted');
-                $inputParameters = array(
-                    'name' => $this->storyForm->getValue('storyName'),
-                    'added date' => $this->storyForm->getValue('dateAdded'),
-                    'estimated effort' => $this->storyForm->getValue('estimatedEffort'),
-                    'project id' => $this->storyForm->getValue('projectId'),
-                    'status' => $storyStatus[$this->storyForm->getValue('status')],
-                    'accepted date' => $this->storyForm->getValue('acceptedDate')
-                );
-                $projectService = new ProjectService();
-                $projectService->trackProjectProgressAddStory($inputParameters['accepted date'], $inputParameters['status'], $inputParameters['project id'], $inputParameters['estimated effort']);
-                $dao->saveStory($inputParameters);
-                $this->getUser()->setFlash('addStory', __('The Story is added successfully'));
-                $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'), 'projectName' => $this->projectName)));
+            $response = $this->getResponse();
+            $response->setTitle(__('Add Story'));
+            
+
+
+            if ($request->isMethod('post')) {
+                $this->storyForm->bind($request->getParameter('project'));
+                if ($this->storyForm->isValid()) {
+                    $dao = new StoryDao();
+                    $storyStatus = array(0 => 'Pending', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing', 5 => 'Rework', 6 => 'Accepted');
+                    $inputParameters = array(
+                        'name' => $this->storyForm->getValue('storyName'),
+                        'added date' => $this->storyForm->getValue('dateAdded'),
+                        'estimated effort' => $this->storyForm->getValue('estimatedEffort'),
+                        'project id' => $this->storyForm->getValue('projectId'),
+                        'status' => $storyStatus[$this->storyForm->getValue('status')],
+                        'accepted date' => $this->storyForm->getValue('acceptedDate')
+                    );
+                    $projectService->trackProjectProgressAddStory($inputParameters['accepted date'], $inputParameters['status'], $inputParameters['project id'], $inputParameters['estimated effort']);
+                    $dao->saveStory($inputParameters);
+                    $this->getUser()->setFlash('addStory', __('The Story is added successfully'));
+                    $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'), 'projectName' => $this->projectName)));
+                }
             }
-        }
 
-        $pageNo = $this->getRequestParameter('page', 1);
-        $viewStoryDao = new StoryDao();
-        $this->storyList = $viewStoryDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
+
+            $pageNo = $this->getRequestParameter('page', 1);
+            $viewStoryDao = new StoryDao();
+            $this->storyList = $viewStoryDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
+        } else {
+            $this->redirect("project/viewProjects");
+        }
     }
 
     /**
@@ -388,26 +389,24 @@ class projectActions extends sfActions {
      * @return unknown_type
      */
     public function executeViewStories($request) {
-      
+
         $response = $this->getResponse();
         $response->setTitle(__('Stories'));
 
         $this->projectId = $request->getParameter('id');
-        
+
         $projectService = new ProjectService();
-        
-        if($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
-        
+
+        if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
+
             $this->projectName = $request->getParameter('projectName');
             $viewStoriesDao = new StoryDao();
 
             $pageNo = $this->getRequestParameter('page', 1);
             $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
-            
         } else {
             $this->redirect("project/viewProjects");
         }
-        
     }
 
     /**
