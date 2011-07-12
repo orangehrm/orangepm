@@ -5,10 +5,15 @@
     var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
     var editImgUrl = '<?php echo image_tag('b_edit.png', 'id=editBtn') ?>';
     var linkUrl = "<?php echo url_for('project/editProject') ?>";
+    var projectAdmins = new Array;
+    
+    <?php for($i=1;$i<count($projectAdmins); $i++): ?>
+        projectAdmins[<?php echo $i; ?>] = "<?php echo $projectAdmins[$i]; ?>";
+    <?php endfor; ?>
 </script>
 
 <div class="Project">
-
+    
     <div class="heading">
         <h3>
             <?php echo __('Projects'); ?>

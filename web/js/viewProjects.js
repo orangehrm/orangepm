@@ -49,16 +49,18 @@ $(document).ready(function() {
 
             $('.ajaxName').html($('.ajaxName input').val());
             $('.ajaxProjectStatus').html($('.ajaxProjectStatus select').val());
+            $('.ajaxProjectAdmin').html($('#changedProjectAdmin option:selected').text());
 
             $('.ajaxName').removeClass('ajaxName');
             $('.ajaxProjectStatus').removeClass('ajaxProjectStatus');
+            $('.ajaxProjectAdmin').removeClass('ajaxProjectAdmin');
 
             $(this).parent().children('td.changedName').addClass('ajaxName');
             $(this).parent().children('td.changedName').html('<input id="editboxName" size="13" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
 
-            $(this).parent().children('td.changedProjectStatus').addClass('ajaxProjectStatus');
             if(dropdownToggleVariable){
-
+                
+                $(this).parent().children('td.changedProjectStatus').addClass('ajaxProjectStatus');
                 var previousProjectStatus = jQuery.trim($(this).parent().children('td.changedProjectStatus').text());
 
                 $(this).parent().children('td.changedProjectStatus').html('<select name="changedProjectStatus" id="changedProjectStatus">'+
@@ -66,8 +68,24 @@ $(document).ready(function() {
                     '<option value="Scheduled">Scheduled</option>'+
                     '<option value="Closed">Closed</option>'+
                     '</select> ');
-
                 $("#changedProjectStatus").val(previousProjectStatus);
+                
+                
+                $(this).parent().children('td.changedProjectAdmin').addClass('ajaxProjectAdmin');
+                var previousProjectAdmin = jQuery.trim($(this).parent().children('td.changedProjectAdmin').text());
+                var previousProjectAdminOptionValue;
+                
+                var projectAdminOptions = "";
+                for(i=1; i<projectAdmins.length; i++) {
+                    projectAdminOptions = projectAdminOptions + "<option value="+i+">"+projectAdmins[i]+"</option>";
+                    if(projectAdmins[i] == previousProjectAdmin) {
+                        previousProjectAdminOptionValue = i;
+                    }
+                }
+                
+                $(this).parent().children('td.changedProjectAdmin').html('<select name="changedProjectAdmin" id="changedProjectAdmin">'+ projectAdminOptions + '</select> ');
+                $("#changedProjectAdmin").val(previousProjectAdminOptionValue);
+                
 
                 dropdownToggleVariable = false;
             }
@@ -86,20 +104,18 @@ $(document).ready(function() {
                     } else if($('.ajaxProjectStatus select').val() == "Closed"){
                         status = 3;
                     } 
-                  
+                    
                     $.ajax({
                         type: "post",
                         url: linkUrl,
 
-                        data: "name="+$('.ajaxName input').val().trim()+"&id="+classNameArray[2]+"&projectStatus="+status,
+                        data: "name="+$('.ajaxName input').val().trim()+"&id="+classNameArray[2]+"&projectStatus="+status + "&projectAdminId=" + $('#changedProjectAdmin option:selected').val(),
 
                         success: function(){
 
                             var hstring = '<a href='+'viewStories?'+'id='+classNameArray[2]+' > '+$('.ajaxName input').val().trim()+'</a>';
-                            $('.ajaxName').html(hstring);
-                            $('.ajaxProjectStatus').html($('.ajaxProjectStatus select').val());
-                            $('.ajaxName').removeClass('ajaxName');
-                            $('.ajaxProjectStatus').removeClass('ajaxProjectStatus');
+                            $('.ajaxName').html(hstring);                            
+                            $('.ajaxName').removeClass('ajaxName');                           
 
                         }
 
