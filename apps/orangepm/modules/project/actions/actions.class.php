@@ -93,14 +93,20 @@ class projectActions extends sfActions {
      */
     public function executeViewUsers($request) {
 
-        $response = $this->getResponse();
-        $response->setTitle(__('Users'));
-        $this->message = $request->getParameter('message');
-        $this->userForm = new sfForm();
+        if($this->getUser()->hasCredential('superAdmin')) {
+        
+            $response = $this->getResponse();
+            $response->setTitle(__('Users'));
+            $this->message = $request->getParameter('message');
+            $this->userForm = new sfForm();
 
-        $dao = new UserDao();
-        $pageNo = $this->getRequestParameter('page', 1);
-        $this->pager = $dao->getUsers(true, $pageNo);
+            $dao = new UserDao();
+            $pageNo = $this->getRequestParameter('page', 1);
+            $this->pager = $dao->getUsers(true, $pageNo);
+            
+        } else {
+            $this->redirect("project/viewProjects");
+        }
     }
 
     /**
@@ -110,32 +116,40 @@ class projectActions extends sfActions {
      */
     public function executeAddUser($request) {
 
-        $this->userForm = new UserForm();
-        $response = $this->getResponse();
-        $response->setTitle(__('Add User'));
+        if($this->getUser()->hasCredential('superAdmin')) {
+        
+            $this->userForm = new UserForm();
+            $response = $this->getResponse();
+            $response->setTitle(__('Add User'));
 
-        if ($request->isMethod('post')) {
-            $this->userForm->bind($request->getParameter('user'));
-            if ($this->userForm->isValid()) {
-                $dao = new UserDao();
-                $inputParameters = array(
-                    'firstName' => $this->userForm->getValue('firstName'),
-                    'lastName' => $this->userForm->getValue('lastName'),
-                    'email' => $this->userForm->getValue('email'),
-                    'username' => $this->userForm->getValue('username'),
-                    'userType' => $this->userForm->getValue('userType'),
-                    'password' => $this->userForm->getValue('password')
-                );
+            if ($request->isMethod('post')) {
+                $this->userForm->bind($request->getParameter('user'));
+                if ($this->userForm->isValid()) {
+                    $dao = new UserDao();
+                    $inputParameters = array(
+                        'firstName' => $this->userForm->getValue('firstName'),
+                        'lastName' => $this->userForm->getValue('lastName'),
+                        'email' => $this->userForm->getValue('email'),
+                        'username' => $this->userForm->getValue('username'),
+                        'userType' => $this->userForm->getValue('userType'),
+                        'password' => $this->userForm->getValue('password')
+                    );
 
-                $dao->saveUser($inputParameters);
-                $request->setParameter('message', __('The User is added successfully'));
-                $this->forward('project', 'viewUsers');
+                    $dao->saveUser($inputParameters);
+                    $request->setParameter('message',  __('The User is added successfully'));
+                    $this->forward('project', 'viewUsers');
+                }
+
             }
-        }
 
-        $dao = new UserDao();
-        $pageNo = $this->getRequestParameter('page', 1);
-        $this->pager = $dao->getUsers(true, $pageNo);
+            $dao = new UserDao();
+            $pageNo = $this->getRequestParameter('page', 1);
+            $this->pager = $dao->getUsers(true, $pageNo);
+            
+        } else {
+            $this->redirect("project/viewProjects");
+        }
+        
     }
 
     /**
@@ -232,7 +246,7 @@ class projectActions extends sfActions {
      */
     public function executeAddProject($request) {
 
-        //if($sf_user->hasCredential('superAdmin')) {
+        if($this->getUser()->hasCredential('superAdmin')) {
 
         $this->projectForm = new ProjectForm();
         $response = $this->getResponse();
@@ -256,9 +270,9 @@ class projectActions extends sfActions {
 
         $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
 
-//        } else {
-//            $this->redirect('project/viewProjects');
-//        }
+        } else {
+            $this->redirect('project/viewProjects');
+        }
     }
 
     /**
@@ -268,10 +282,19 @@ class projectActions extends sfActions {
      */
     public function executeDeleteProject($request) {
 
-        $dao = new projectDao();
-        $dao->deleteProject($request->getParameter('id'));
-        $this->getUser()->setFlash('statusId', $dao->getProjectById($request->getParameter('id'))->getProjectStatusId());
-        $this->redirect('project/viewProjects');
+        $projectService = new ProjectService();
+        
+        if($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $request->getParameter('id'))) {
+        
+            $dao = new projectDao();
+            $dao->deleteProject($request->getParameter('id'));
+            $this->getUser()->setFlash('statusId', $dao->getProjectById($request->getParameter('id'))->getProjectStatusId());
+            $this->redirect('project/viewProjects');
+            
+        } else {
+            $this->redirect("project/viewProjects");
+        }
+        
     }
 
     /**
