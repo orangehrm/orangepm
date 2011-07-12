@@ -150,22 +150,23 @@ class ProjectDao {
      * @param $userId, $projectId
      * @return boolean
      */
-    public function isActionAllowedForStory($userId, $projectId) {
+    public function isActionAllowedForUser($userId, $projectId) {
 
-        $dao = new StoryDao();
-        $story = $dao->getStoryById($storyId);
-                
-        $actualStoryOwnerUserId = $story->getProject()->getUserId();
-        $userType = $story->getProject()->getUser()->getUserType();
+        $project = $this->getProjectById($projectId);
         
-        if(($userId == $actualStoryOwnerUserId) || ($userType == User::USER_TYPE_PROJECT_ADMIN)) {
+        if((count($project)) && ($project instanceof Project)) {  
+            
+            $actualProjectOwnerUserId = $project->getUserId();
+            $userType = $project->getUser()->getUserType();
+            
+            if(($userId == $actualProjectOwnerUserId) || ($userType == User::USER_TYPE_SUPER_ADMIN)) {
 
-            return true;
-            
-        } else {    
-            
-            return false;
-        }
+                return true;
+            }
+        }        
+        
+        return false;
+        
     }
 
 }

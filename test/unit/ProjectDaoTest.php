@@ -71,23 +71,26 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     /* Tests for isActionAllowedForStory() */
     public function testIsActionAllowedForStoryTestCorrectInputs() {
         
-        $result = $this->projectDao->isActionAllowedForStory(4, 7);
-        $this->assertEquals(true, $result);
-        
-        $result = $this->projectDao->isActionAllowedForStory(1, 6);
-        $this->assertEquals(true, $result);
-        
-        $result = $this->projectDao->isActionAllowedForStory(3, 8);
+        $result = $this->projectDao->isActionAllowedForUser(4, 7);
         $this->assertEquals(false, $result);
+        
+        $result = $this->projectDao->isActionAllowedForUser(1, 6);
+        //$this->assertEquals(true, $result);
+        
+        $result = $this->projectDao->isActionAllowedForUser(3, 6);
+        $this->assertEquals(true, $result);
         
     }
     
     public function testIsActionAllowedForStoryTestWrongInputs() {
         
-        $result = $this->projectDao->isActionAllowedForStory(4, 14);
+        $result = $this->projectDao->isActionAllowedForUser(4, 14);
         $this->assertEquals(false, $result);
         
-        $result = $this->projectDao->isActionAllowedForStory(1, 5);
+        $result = $this->projectDao->isActionAllowedForUser(7, 3);
+        $this->assertEquals(false, $result);
+        
+        $result = $this->projectDao->isActionAllowedForUser(7, 14);
         $this->assertEquals(false, $result);
         
     }

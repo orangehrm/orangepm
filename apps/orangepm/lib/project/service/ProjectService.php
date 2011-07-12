@@ -404,14 +404,14 @@ class ProjectService {
     
     /**
      * Check whether the user has authentication to do the action
-     * @param $userId, $storyId
+     * @param $userId, $projectId
      * @return boolean
      */
-    public function isActionAllowedForStory($userId, $storyId) {
+    public function isActionAllowedForUser($userId, $projectId) {
         
         $dao = new ProjectDao();
         
-        return $dao->isActionAllowedForStory($userId, $storyId);
+        return $dao->isActionAllowedForUser($userId, $projectId);
         
     }
     
