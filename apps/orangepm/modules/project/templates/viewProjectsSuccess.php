@@ -19,12 +19,13 @@
             <?php echo __('Projects'); ?>
         </h3>
         <span id="message"><?php echo $sf_user->getFlash('addProject') ?></span>
+        <span id="noRecordMessage"><?php if(isset($noRecordMessage)) echo $noRecordMessage; ?></span>
     </div>
     <table class="tableContent" >
       <!--   <tr><td class="pageNav" colspan="3"><?php// echo pager_navigation($pager, url_for('project/viewProjects')) ?></td></tr>-->
         <tr>
 <!--            <th> <?php //echo __('Id') ?></th>-->
-            <th> <?php echo __('Project Name'); ?> </th>
+            <th class="projectHeader"> <?php echo __('Project Name'); ?> </th>
             <th> <?php echo __('Status'); ?> </th>
             <?php if($sf_user->hasCredential('superAdmin')): ?>
                 <th> <?php echo __('Project Admin'); ?> </th>
@@ -32,7 +33,7 @@
             <th colspan="2"><?php echo __('Actions') ?></th>
 
             <?php $alt = '1' ?>
-
+            <?php if(count($projects) != 0): ?>
             <?php foreach ($projects as $project): ?>
                 <?php
                 if ($alt == 1) {
@@ -53,6 +54,10 @@
             <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
         </tr>
         <?php endforeach; ?>
+        <?php else: ?>
+            <!-- do not delete the space between <td> tags -->
+        <tr><td> </td><td></td><td></td><?php if($sf_user->hasCredential('superAdmin')): ?><td></td><?php endif; ?></tr>
+        <?php endif; ?>
     </table>
 
     <?php if($sf_user->hasCredential('superAdmin')): ?>

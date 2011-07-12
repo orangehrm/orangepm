@@ -16,7 +16,7 @@ root {
 }
 
 table.tableContent {
-    width: 550px;
+    width: 850px;
 }
 
 #addProjectForm label {
@@ -25,5 +25,5 @@ table.tableContent {
 } 
 
 div.addForm {
-    width: 400px;
+    width: 570px;
 }

@@ -56,7 +56,7 @@ $(document).ready(function() {
             $('.ajaxProjectAdmin').removeClass('ajaxProjectAdmin');
 
             $(this).parent().children('td.changedName').addClass('ajaxName');
-            $(this).parent().children('td.changedName').html('<input id="editboxName" size="13" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
+            $(this).parent().children('td.changedName').html('<input id="editboxName" size="55" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
 
             if(dropdownToggleVariable){
                 
@@ -108,7 +108,7 @@ $(document).ready(function() {
                     $.ajax({
                         type: "post",
                         url: linkUrl,
-
+                        
                         data: "name="+$('.ajaxName input').val().trim()+"&id="+classNameArray[2]+"&projectStatus="+status + "&projectAdminId=" + $('#changedProjectAdmin option:selected').val(),
 
                         success: function(){
