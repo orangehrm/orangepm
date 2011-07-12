@@ -204,6 +204,9 @@ class projectActions extends sfActions {
         $this->projectSearchForm = new ProjectSearchForm();
 
         $this->statusId = $this->getUser()->getFlash('statusId');
+        
+        $userService = new UserService();        
+        $this->projectAdmins = $userService->getAllUsersAsArray();
 
         $dao = new ProjectDao();
         $projectSevice = new ProjectService();
@@ -309,8 +312,12 @@ class projectActions extends sfActions {
     public function executeEditProject($request) {
         $dao = new ProjectDao();
         $this->statusId = $request->getParameter('projectStatus');
-        $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $this->statusId);
-        die;
+        $this->projectAdminId = $request->getParameter('projectAdminId');
+        if(!isset($this->projectAdminId)) {
+            $this->projectAdminId = 0;
+        }
+        $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $this->statusId, $this->projectAdminId);
+        die;        
     }
 
     /**

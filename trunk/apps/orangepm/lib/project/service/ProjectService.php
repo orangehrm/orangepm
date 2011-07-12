@@ -398,7 +398,7 @@ class ProjectService {
         } else {
             
             return $dao->getProjectsByUser($userId, $statusId, $isActive);
-            
+       
         }
     }
     
