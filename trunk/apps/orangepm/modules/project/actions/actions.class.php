@@ -393,11 +393,20 @@ class projectActions extends sfActions {
         $response->setTitle(__('Stories'));
 
         $this->projectId = $request->getParameter('id');
-        $this->projectName = $request->getParameter('projectName');
-        $viewStoriesDao = new StoryDao();
+        
+        $projectService = new ProjectService();
+        
+        if($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
+        
+            $this->projectName = $request->getParameter('projectName');
+            $viewStoriesDao = new StoryDao();
 
-        $pageNo = $this->getRequestParameter('page', 1);
-        $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
+            $pageNo = $this->getRequestParameter('page', 1);
+            $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
+            $this->redirect("project/viewStories");
+        } else {
+            $this->redirect("project/viewProjects");
+        }
     }
 
     /**
