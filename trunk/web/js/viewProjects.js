@@ -54,7 +54,7 @@ $(document).ready(function() {
             $('.ajaxProjectStatus').removeClass('ajaxProjectStatus');
 
             $(this).parent().children('td.changedName').addClass('ajaxName');
-            $(this).parent().children('td.changedName').html('<input id="editboxName" size="40" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
+            $(this).parent().children('td.changedName').html('<input id="editboxName" size="13" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
 
             $(this).parent().children('td.changedProjectStatus').addClass('ajaxProjectStatus');
             if(dropdownToggleVariable){
@@ -75,7 +75,6 @@ $(document).ready(function() {
             $('#saveBtn').click(function() {
 
                 synchronizedVariable = true;
-                isValidEmail = true;
                 var status;                
 
                 if(!($('.ajaxName input').val()=='')){
@@ -96,19 +95,17 @@ $(document).ready(function() {
 
                         success: function(){
 
-
-                            $('.ajaxName').html($('.ajaxName input').val());
-                            $('.ajaxProjectStatus').html($('.ajaxProjectStatus select').text());
-
+                            var hstring = '<a href='+'viewStories?'+'id='+classNameArray[2]+' > '+$('.ajaxName input').val().trim()+'</a>';
+                            $('.ajaxName').html(hstring);
+                            $('.ajaxProjectStatus').html($('.ajaxProjectStatus select').val());
+                            $('.ajaxName').removeClass('ajaxName');
                             $('.ajaxProjectStatus').removeClass('ajaxProjectStatus');
 
                         }
 
                     });
 
-                    dropdownToggleVariable = false;
                     toggleVariable = "Edited";
-                    location.href="viewProjects/statusId/" + status;
                 }
 
             });

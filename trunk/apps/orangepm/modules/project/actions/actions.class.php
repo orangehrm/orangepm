@@ -159,9 +159,13 @@ class projectActions extends sfActions {
      */
     public function executeDeleteUser($request) {
 
-        $dao = new UserDao();
-        $dao->deleteUser($request->getParameter('id'));
-        $this->redirect('project/viewUsers?');
+        if ($this->getUser()->hasCredential('superAdmin')) {
+            $dao = new UserDao();
+            $dao->deleteUser($request->getParameter('id'));
+            $this->redirect('project/viewUsers?');
+        } else {
+            $this->redirect('project/viewProjects');
+        }
     }
 
     /**
@@ -306,7 +310,7 @@ class projectActions extends sfActions {
         $dao = new ProjectDao();
         $this->statusId = $request->getParameter('projectStatus');
         $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $this->statusId);
-        sfView::NONE;
+        die;
     }
 
     /**
@@ -358,7 +362,7 @@ class projectActions extends sfActions {
 
             $response = $this->getResponse();
             $response->setTitle(__('Add Story'));
-            
+
 
 
             if ($request->isMethod('post')) {
@@ -422,7 +426,9 @@ class projectActions extends sfActions {
 
         if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
 
-            $this->projectName = $request->getParameter('projectName');
+            $this->id = $request->getParameter('id');
+            $projectDao = new ProjectDao();
+            $this->projectName = $projectDao->getProjectById($this->id)->getName();
             $viewStoriesDao = new StoryDao();
 
             $pageNo = $this->getRequestParameter('page', 1);

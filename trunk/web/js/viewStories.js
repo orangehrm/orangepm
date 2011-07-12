@@ -148,7 +148,7 @@ $(document).ready(function() {
                         }
                     }
                 }
-                else
+                else    
                     alert("Please Input a Valid Number for Estimation Effort");
 
             });
