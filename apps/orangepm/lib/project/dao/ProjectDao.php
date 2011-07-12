@@ -154,12 +154,15 @@ class ProjectDao {
 
         $project = $this->getProjectById($projectId);
         
-        if((count($project)) && ($project instanceof Project)) {  
+        $user = new UserDao();
+        $actualUser = $user->getUserById($userId);
+        
+        if(((count($project)) && ($project instanceof Project)) &&  ((count($actualUser)) && ($actualUser instanceof User))) {  
             
-            $actualProjectOwnerUserId = $project->getUserId();
-            $userType = $project->getUser()->getUserType();
+            $actualProjectOwnerUserId = $project->getUserId();            
+            $actualUserType = $actualUser->getUserType();
             
-            if(($userId == $actualProjectOwnerUserId) || ($userType == User::USER_TYPE_SUPER_ADMIN)) {
+            if(($userId == $actualProjectOwnerUserId) || ($actualUserType == User::USER_TYPE_SUPER_ADMIN)) {
 
                 return true;
             }
