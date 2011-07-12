@@ -403,10 +403,11 @@ class projectActions extends sfActions {
 
             $pageNo = $this->getRequestParameter('page', 1);
             $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
-            $this->redirect("project/viewStories");
+            
         } else {
             $this->redirect("project/viewProjects");
         }
+        
     }
 
     /**
