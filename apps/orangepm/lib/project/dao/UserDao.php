@@ -53,6 +53,7 @@ class UserDao {
     public function deleteUser($id) {
 
         $user = Doctrine_Core::getTable('User')->find($id);
+        $user->getUserType();
         $user->setIsActive(User::FLAG_DELETED);
         $user->save();
     }

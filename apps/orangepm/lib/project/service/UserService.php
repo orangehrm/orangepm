@@ -45,4 +45,18 @@ class UserService {
         
     }
     
+        public function getAllUsernamesAsArray() {
+        
+        $dao = new UserDao();
+        
+        $allUser = $dao->getAllUsers();
+        
+        foreach($allUser as $user) {
+            $usernameArray[] = $user->getUsername();
+        }
+                
+        return $usernameArray;
+        
+    }
+    
 }
