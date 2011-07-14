@@ -99,6 +99,7 @@ class projectActions extends sfActions {
             $response->setTitle(__('Users'));
             $this->message = $request->getParameter('message');
             $this->userForm = new sfForm();
+            $this->cannotDeleteMessage = $this->getUser()->getFlash('cannotDeleteMessage');
 
             $dao = new UserDao();
             $pageNo = $this->getRequestParameter('page', 1);
@@ -164,10 +165,10 @@ class projectActions extends sfActions {
             $this->id = $request->getParameter('id');
             if ($this->getUser()->getAttribute($loggedUserObject)->getId() != $this->id) {
                 $dao->deleteUser($this->id);
-                $this->redirect('project/viewUsers?');
             } else {
-                $this->redirect('project/viewUsers?');
+                $this->getUser()->setFlash('cannotDeleteMessage', __('You cannot delete your own account !'));                               
             }
+            $this->redirect('project/viewUsers');
         } else {
             $this->redirect('project/viewProjects');
         }
