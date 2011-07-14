@@ -24,10 +24,6 @@ table.tableContent {
     width: 900px;    
 }
 
-.changedName {
-    width: 380px;
-}
-
 td.edit {
     cursor:pointer;
 }

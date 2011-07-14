@@ -32,13 +32,19 @@
             <th><?php echo __('Project Name') ?></th>
             <th><?php echo __('Status') ?></th>
             <th><?php echo __('Project Admin') ?></th>
-            <?php foreach ($projects as $project): ?>
+        </tr>
+        <?php if(count($projects) != 0): ?>
+        <?php foreach ($projects as $project): ?>
             <tr>                        
                 <td> <?php echo $project->getName(); ?></td>
                 <td> <?php echo $project->getProjectStatus()->getName(); ?></td>
                 <td> <?php echo $project->getUser()->getFirstName() . ' ' . $project->getUser()->getLastName(); ?></td>
             </tr>
         <?php endforeach; ?>
+        <?php else: ?>
+            <!-- do not delete the space between <td> tags -->
+        <tr><td> </td><td></td><?php if($sf_user->hasCredential('superAdmin')): ?><td></td><?php endif; ?></tr>
+        <?php endif; ?>
     </table>
 </div>
 

@@ -2,6 +2,7 @@
 
 <div class="heading">
     <h3> <?php echo link_to(__('Projects'), 'project/viewProjects'); ?> > <a class="storyLink" href="<?php echo url_for("project/viewStories?id={$projectId}&projectName={$projectName}"); ?>" ><?php echo $projectName; ?></a> > <?php echo __('Weekly Progress'); ?> </h3>
+    <span id="noRecordMessage"><?php if(isset($noRecordMessage)) echo $noRecordMessage; ?></span>
 </div>
 
 <table class="tableContent">
@@ -16,8 +17,13 @@
         <th colspan="2"><?php echo __('Burn Down') ?></th>
     </tr>
     
+    <?php if(count($weekStartingDate) != 0): ?>
     <?php foreach ($weekStartingDate as $array1): ?>
             <tr><td> <?php echo $array1 ?></td> <td> <?php echo $totalEstimation[$array1] ?></td><td> <?php echo $weeklyVelocity[$array1] ?></td><td><?php echo $workCompleted[$array1] ?></td><td><?php echo $burnDownArray[$array1] ?></td></tr>
     <?php endforeach; ?>
+    <?php else: ?>
+        <!-- do not delete the space between <td> tags -->
+        <tr><td> </td><td></td><td></td><td></td><td></td></tr>
+    <?php endif; ?>
     
 </table>

@@ -23,8 +23,12 @@ div.addForm {
 
 table.tableContent {
     top: 0px;
+    width: 1350px;
 }
 
+td.change {
+    width: 740px;
+}
 
 span.mandatoryStar {
     color: #fb0000;

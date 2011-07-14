@@ -54,7 +54,7 @@
         <th><?php echo 'Status' ?></th>
         <th><?php echo 'Accepted Date' ?></th>
     </tr>
-
+    <?php if(count($storyList) != 0): ?>
     <?php foreach ($storyList->getResults() as $story): ?>
                     <tr>
                         
@@ -67,6 +67,10 @@
 
                     </tr>
     <?php endforeach; ?>
+    <?php else: ?>
+        <!-- do not delete the space between <td> tags -->
+        <tr><td> </td><td></td><td></td><td></td><td></td></tr>
+    <?php endif; ?>
                 </table>
 <?php echo javascript_include_tag("addStory?id={$projectId}&projectName={$projectName}"); ?>
 <script type="text/javascript">
