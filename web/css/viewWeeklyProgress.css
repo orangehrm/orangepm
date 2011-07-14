@@ -21,6 +21,11 @@ h1{
      height: 2px;
 }
 
+.heading span#noRecordMessage {
+    color: darksalmon;
+    margin-left: 450px;
+}
+
 table.tableContent {
     top: 0px;
 }

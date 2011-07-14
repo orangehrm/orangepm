@@ -59,7 +59,7 @@ class projectActions extends sfActions {
                 if ($loggedUser instanceof User) {
 
                     $this->getUser()->setAttribute($loggedUserObject, $loggedUser);
-
+                    
                     $this->getUser()->setAuthenticated(true);
 
                     $userRole = $loginService->getUserRole($loggedUser->getUserType());
@@ -297,11 +297,9 @@ class projectActions extends sfActions {
      */
     public function executeDeleteProject($request) {
 
-        $projectService = new ProjectService();
-
-
-        if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $request->getParameter('id'))) {     
+        //$projectService = new ProjectService();
         //if($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $request->getParameter('id'))) {
+        
         if($this->getUser()->hasCredential('superAdmin')) {
         
 
@@ -450,6 +448,11 @@ class projectActions extends sfActions {
 
             $pageNo = $this->getRequestParameter('page', 1);
             $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
+            
+            if(count($this->storyList) == 0) {
+                $this->noRecordMessage =  __("No Matching Stories Found");
+            }
+            
         } else {
             $this->redirect("project/viewProjects");
         }
@@ -477,6 +480,11 @@ class projectActions extends sfActions {
         $this->weeklyVelocity = $allArray[2];
         $this->workCompleted = $allArray[3];
         $this->burnDownArray = $allArray[4];
+        
+        if(count($allArray) == 0) {
+            $this->noRecordMessage =  __("No Records to Show");
+        }
+        
     }
 
 }

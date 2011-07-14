@@ -11,6 +11,7 @@
     <div class="heading">
         <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> > <?php echo $projectName; ?> > <?php echo __('Stories'); ?> </h3>
         <span id="message"><?php echo $sf_user->getFlash('addStory') ?></span>
+        <span id="noRecordMessage"><?php if(isset($noRecordMessage)) echo $noRecordMessage; ?></span>
     </div>
 
 
@@ -24,7 +25,7 @@
             <th><?php echo 'Accepted Date' ?></th>
             <th colspan="2"><?php echo __('Actions') ?></th>
         </tr>
-
+        <?php if(count($storyList) != 0): ?>
         <?php foreach ($storyList->getResults() as $story): ?>
             <tr id="row">
                 <td class="<?php echo "changedName name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>
@@ -38,6 +39,10 @@
             </tr>
            
         <?php endforeach; ?>
+        <?php else: ?>
+            <!-- do not delete the space between <td> tags -->
+            <tr><td> </td><td></td><td></td><td></td><td></td><td></td></tr>
+        <?php endif; ?>
         </table>
         <div class="addButton">
             <form action="<?php echo url_for("project/addStory?id={$projectId}&projectName={$projectName}"); ?>" method="GET">
