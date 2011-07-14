@@ -10,17 +10,17 @@ $(document).ready(function() {
         modal: true
 
     });
-
+    
 
     $(".confirmLink").click(function(e) {
 
         e.preventDefault();
         var targetUrl = $(this).attr("href");
-
+        
         $("#dialog").dialog({
             buttons : {
                 "OK" : function() {
-                    window.location.href = targetUrl;
+                    window.location.href = targetUrl;                    
                 },
                 "Cancel" : function() {
                     $(this).dialog("close");
@@ -31,7 +31,7 @@ $(document).ready(function() {
         $("#dialog").dialog("open");
     });
     
-    
+        
     synchronizedVariable = true;
     toggleVariable = "Saved";
     dropdownToggleVariable = true;
@@ -68,11 +68,11 @@ $(document).ready(function() {
             $('.ajaxPassword').removeClass('ajaxPassword');
             
             $(this).parent().children('td.changedFirstName').addClass('ajaxFirstName');
-            $(this).parent().children('td.changedFirstName').html('<input id="editboxFirstName" size="13" type="text" maxlength="15" value="'+$(this).parent().children('td.changedFirstName').text()+'">');
+            $(this).parent().children('td.changedFirstName').html('<input id="editboxFirstName" size="15" type="text" maxlength="15" value="'+$(this).parent().children('td.changedFirstName').text()+'">');
             $(this).parent().children('td.changedLastName').addClass('ajaxLastName');
-            $(this).parent().children('td.changedLastName').html('<input id="editboxLastName" size="13" type="text" maxlength="15" value="'+$(this).parent().children('td.changedLastName').text()+'">');
+            $(this).parent().children('td.changedLastName').html('<input id="editboxLastName" size="15" type="text" maxlength="15" value="'+$(this).parent().children('td.changedLastName').text()+'">');
             $(this).parent().children('td.changedEmail').addClass('ajaxEmail');
-            $(this).parent().children('td.changedEmail').html('<input id="editboxEmail" size="24" type="text" maxlength="30" value="'+$(this).parent().children('td.changedEmail').text()+ '">');            
+            $(this).parent().children('td.changedEmail').html('<input id="editboxEmail" size="30" type="text" maxlength="30" value="'+$(this).parent().children('td.changedEmail').text()+ '">');            
             
             $(this).parent().children('td.changedUserType').addClass('ajaxUserType');
             if(dropdownToggleVariable){
@@ -159,4 +159,9 @@ $(document).ready(function() {
     });
         
 });
+
+function delayer(){
+    window.location = "../javascriptredirect.php"
+}
+
 

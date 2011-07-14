@@ -11,9 +11,8 @@
 
     <div class="heading">
         <h3><?php echo __('Users'); ?></h3>
-        <span id="message"><?php //echo $sf_user->getFlash('addUser')
-        if(isset($message))
-            echo $message;?></span>
+        <span id="message"><?php if(isset($message)) echo $message;?></span>
+        <span id="cannotDeleteMessage"><?php if(isset($cannotDeleteMessage)) echo $cannotDeleteMessage;?></span>
     </div>
 
     <table class="tableContent">
@@ -68,7 +67,7 @@
 </div>
 
 <div id="dialog" title="Confirmation Required">
-    User Will Be Deleted?
+    <?php echo __('User Will Be Deleted?'); ?>
 </div>
 
 <?php echo javascript_include_tag('viewUsers'); ?>

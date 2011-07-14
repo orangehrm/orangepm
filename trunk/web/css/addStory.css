@@ -17,13 +17,21 @@ root {
 
 
 div.addForm {
-    width: 785px;
+    width: 1000px;
     top: 28px;
+}
+
+table {
+    width: 950px;
+}
+
+div.formField {
+    padding-top: 0;
 }
 
 table.tableContent {
     top: 0px;
-    width: 1350px;
+    width: 1300px;
 }
 
 td.change {
