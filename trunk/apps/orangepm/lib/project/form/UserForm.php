@@ -41,6 +41,16 @@ class UserForm extends sfForm {
         ));
         
         $this->validatorSchema->setPostValidator(new sfValidatorCallback(array('callback' => array($this, 'postValidation'))));
+        
+        if($this->getOption('userFormType') == 'editUserForm') {
+            
+            $this->setDefault('firstName', $this->getOption('firstName'));
+            $this->setDefault('lastName', $this->getOption('lastName'));
+            $this->setDefault('email', $this->getOption('email'));
+            $this->setDefault('password', $this->getOption('password'));
+            
+        }
+        
     }
 
     public function postValidation($validator, $values) {

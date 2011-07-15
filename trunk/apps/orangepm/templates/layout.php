@@ -17,7 +17,10 @@
                 <ul id="menu">
                     <li> <?php echo link_to(__('Projects'), 'project/viewProjects', array('id' => 'projects')); ?></li>
                     <?php if($sf_user->hasCredential('superAdmin')): ?>
-                    <li> <?php echo link_to(__('Users'), 'project/viewUsers', array()); ?></li>
+                        <li> <?php echo link_to(__('Users'), 'project/viewUsers', array()); ?></li>
+                    <?php endif; ?>
+                    <?php if($sf_user->hasCredential('projectAdmin')): ?>
+                        <li> <?php echo link_to(__('Profile'), 'project/viewProfile', array()); ?></li>
                     <?php endif; ?>
                     <li> <a href="#" id="issueTracker" ><?php echo __('Issue Tracker') ?></a></li>
                     <?php if($sf_user->isAuthenticated()): ?>
