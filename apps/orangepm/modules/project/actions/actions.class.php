@@ -59,7 +59,7 @@ class projectActions extends sfActions {
                 if ($loggedUser instanceof User) {
 
                     $this->getUser()->setAttribute($loggedUserObject, $loggedUser);
-                    
+
                     $this->getUser()->setAuthenticated(true);
 
                     $userRole = $loginService->getUserRole($loggedUser->getUserType());
@@ -137,11 +137,9 @@ class projectActions extends sfActions {
                         'userType' => $this->userForm->getValue('userType'),
                         'password' => $this->userForm->getValue('password')
                     );
-                        $dao->saveUser($inputParameters);
-                        $request->setParameter('message', __('The User is added successfully'));
-                        $this->forward('project', 'viewUsers');
-
-                    
+                    $dao->saveUser($inputParameters);
+                    $request->setParameter('message', __('The User is added successfully'));
+                    $this->forward('project', 'viewUsers');
                 }
             }
 
@@ -166,7 +164,7 @@ class projectActions extends sfActions {
             if ($this->getUser()->getAttribute($loggedUserObject)->getId() != $this->id) {
                 $dao->deleteUser($this->id);
             } else {
-                $this->getUser()->setFlash('cannotDeleteMessage', __('You cannot delete your own account !'));                               
+                $this->getUser()->setFlash('cannotDeleteMessage', __('You cannot delete your own account !'));
             }
             $this->redirect('project/viewUsers');
         } else {
@@ -210,8 +208,8 @@ class projectActions extends sfActions {
         $this->projectSearchForm = new ProjectSearchForm();
 
         $this->statusId = $this->getUser()->getFlash('statusId');
-        
-        $userService = new UserService();        
+
+        $userService = new UserService();
         $this->projectAdmins = $userService->getAllUsersAsArray();
 
         $dao = new ProjectDao();
@@ -234,12 +232,12 @@ class projectActions extends sfActions {
             if ($this->projectSearchForm->isValid()) {
 
                 $projectStatus = $projectSevice->getProjectStatusById($this->projectSearchForm->getValue('status'));
-                $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $this->projectSearchForm->getValue('status'));                              
+                $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $this->projectSearchForm->getValue('status'));
             }
         }
-        
-        if(count($this->projects) == 0) {
-            $this->noRecordMessage =  __("No Matching Projects Found");
+
+        if (count($this->projects) == 0) {
+            $this->noRecordMessage = __("No Matching Projects Found");
         }
 
         /* $pageNo = $this->getRequestParameter('page', 1);
@@ -300,10 +298,8 @@ class projectActions extends sfActions {
 
         //$projectService = new ProjectService();
         //if($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $request->getParameter('id'))) {
-        
-        if($this->getUser()->hasCredential('superAdmin')) {
-        
 
+        if ($this->getUser()->hasCredential('superAdmin')) {
             $dao = new projectDao();
             $dao->deleteProject($request->getParameter('id'));
             $this->getUser()->setFlash('statusId', $dao->getProjectById($request->getParameter('id'))->getProjectStatusId());
@@ -322,11 +318,11 @@ class projectActions extends sfActions {
         $dao = new ProjectDao();
         $this->statusId = $request->getParameter('projectStatus');
         $this->projectAdminId = $request->getParameter('projectAdminId');
-        if(!isset($this->projectAdminId)) {
+        if (!isset($this->projectAdminId)) {
             $this->projectAdminId = 0;
         }
         $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $this->statusId, $this->projectAdminId);
-        die;        
+        die;
     }
 
     /**
@@ -449,11 +445,10 @@ class projectActions extends sfActions {
 
             $pageNo = $this->getRequestParameter('page', 1);
             $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
-            
-            if(count($this->storyList) == 0) {
-                $this->noRecordMessage =  __("No Matching Stories Found");
+
+            if (count($this->storyList) == 0) {
+                $this->noRecordMessage = __("No Matching Stories Found");
             }
-            
         } else {
             $this->redirect("project/viewProjects");
         }
@@ -481,11 +476,10 @@ class projectActions extends sfActions {
         $this->weeklyVelocity = $allArray[2];
         $this->workCompleted = $allArray[3];
         $this->burnDownArray = $allArray[4];
-        
-        if(count($allArray) == 0) {
-            $this->noRecordMessage =  __("No Records to Show");
+
+        if (count($allArray) == 0) {
+            $this->noRecordMessage = __("No Records to Show");
         }
-        
     }
 
 }
