@@ -35,7 +35,7 @@ $(document).ready(function() {
     synchronizedVariable = true;
     toggleVariable = "Saved";
     dropdownToggleVariable = true;
-       
+    
     
     $('td.edit').click(function() {
         
@@ -105,7 +105,7 @@ $(document).ready(function() {
                 
                 synchronizedVariable = true;
                 isValidEmail = true;
-
+                
                 if(!($('.ajaxFirstName input').val()=='') && !($('.ajaxLastName input').val()=='')){
                     var email=$('.ajaxEmail input').val();
                     if(email == '') {
@@ -114,9 +114,9 @@ $(document).ready(function() {
                     var atpos=email.indexOf("@");
                     var dotpos=email.lastIndexOf(".");
                     if (isValidEmail && (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length)) {
-                        isValidEmail=false;
+                        isValidEmail=false;                       
                     }
-
+                    
                     if(isValidEmail){
                         if(!($('.ajaxUsername input').val()=='') && !($('.ajaxPassword input').val()=='')){
                 
@@ -159,9 +159,3 @@ $(document).ready(function() {
     });
         
 });
-
-function delayer(){
-    window.location = "../javascriptredirect.php"
-}
-
-
