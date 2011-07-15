@@ -193,6 +193,30 @@ class projectActions extends sfActions {
         $userService->updateUser($userParameters, $request->getParameter('id'));
         die;
     }
+    
+    /**
+     * View profile of a project admin
+     * @param sfWebRequest $request
+     * @return unknown_type
+     */
+    public function executeViewProfile($request) {
+        
+        $response = $this->getResponse();
+        $response->setTitle(__('Profile'));
+        
+        $this->loggedUser = $this->getUser()->getAttribute($loggedUserObject);
+        
+        $userProfileDetails = array('userFormType'=>'editUserForm', 'firstName'=>$this->loggedUser->getFirstName(),
+                                    'lastName'=>$this->loggedUser->getLastName(), 'email'=>$this->loggedUser->getEmail(),
+                                    'password'=>$this->loggedUser->getPassword());
+        
+        $this->userForm = new UserForm(array(), $userProfileDetails);
+        
+        
+        
+        
+    }
+
 
     /**
      * View projects

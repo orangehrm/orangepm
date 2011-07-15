@@ -1,0 +1,64 @@
+/* 
+    Document   : viewProfile
+    Created on : Jul 15, 2011, 6:39:13 PM
+    Author     : orangehrm
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+div.editProfileForm {
+    width: 500px;
+    top: 28px;
+    border: 2px double #666666;
+    margin-left: 50px;
+}
+
+span.mandatoryStar {
+    color: #fb0000;
+}
+
+div.editProfileForm div.formField form#editProfile div#form div label {
+    float: left;
+    width: 20%;
+}
+
+html body div.Profile div.editProfileForm div.formField form#editProfile div#form div label.projectAdmin {
+    width: 60%;
+}
+
+div.formField {
+    padding-top: 20px;
+}
+
+div#requiredField {
+    font-size: 10px;
+    padding-left: 12px;
+}
+
+form#editProfile div#form div li{
+    list-style-type: none;
+    padding-left: 120px;
+}
+
+table.tableContent {
+    width: 1000px;
+}
+
+form * {
+    line-height: 30px;
+}
+
+div.error {
+    color: #CC0033;
+    font-size: 12px;
+    margin-left: 118px;
+}
