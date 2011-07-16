@@ -31,8 +31,16 @@ div.editProfileForm div.formField form#editProfile div#form div label {
     width: 20%;
 }
 
-html body div.Profile div.editProfileForm div.formField form#editProfile div#form div label.projectAdmin {
+form#editProfile div label.projectAdmin {
+
+    font-size: small;
     width: 60%;
+}
+
+form#editProfile div label.username {
+    font-size: small;
+    width: 60%;
+    
 }
 
 div.formField {
@@ -44,21 +52,28 @@ div#requiredField {
     padding-left: 12px;
 }
 
-form#editProfile div#form div li{
+form#editProfile div li{
     list-style-type: none;
-    padding-left: 120px;
+    padding-left: 135px;
 }
 
 table.tableContent {
     width: 1000px;
 }
 
-form * {
-    line-height: 30px;
-}
-
 div.error {
     color: #CC0033;
     font-size: 12px;
     margin-left: 118px;
+}
+form div {
+    clear: left;
+    margin: 0;
+    padding: 0;
+    padding-top: 0.6em;
+}
+
+form#editProfile label {
+    float: left;
+    width: 125px;
 }

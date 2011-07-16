@@ -34,7 +34,7 @@
                 </ul>               
             </div>
         </div>
-
+        <span id="message"><?php $sf_user->getFlash('editProfile');?></span>
         <?php echo $sf_content ?>
     </body>
 

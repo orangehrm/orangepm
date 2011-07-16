@@ -71,6 +71,7 @@
         <form id="searchForm" action="<?php echo url_for('project/viewProjects') ?>" method="post">
             <?php echo $projectSearchForm ?>
             <input type="submit" value="<?php echo __('Search') ?>" id="searchProject" />
+            
         </form>
     </div>
 
