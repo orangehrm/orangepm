@@ -60,14 +60,12 @@
         <?php endif; ?>
     </table>
 
-    <?php if($sf_user->hasCredential('superAdmin')): ?>
     <div class="addButton">
 
         <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
             <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
         </form>
     </div>
-    <?php endif; ?>
     
     <div class="searchButton">
         <form id="searchForm" action="<?php echo url_for('project/viewProjects') ?>" method="post">

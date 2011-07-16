@@ -11,16 +11,19 @@
         <div class="headlineField"><?php echo __('Add Project') ?></div>
         <div class="formField">
             <form id="addProjectForm" action="<?php echo url_for('project/addProject') ?>" method="POST">
-                <table>
-                    <?php echo $projectForm ?>
-
-                    <tr>
-                        <td colspan="2">
-                            <input class="formButton" type="submit" value="<?php echo __('Save') ?>" id="saveButton" />
-                            <input class="formButton" type="button" id="cancel" value="<?php echo __('Cancel') ?>" />
-                        </td>
-                    </tr>
-                </table>
+                <div><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render() ?><?php echo $projectForm['name']->renderError() ?></div>
+                <div><?php echo $projectForm['status']->renderLabel() ?><?php echo $projectForm['status']->render() ?><?php echo $projectForm['status']->renderError() ?></div>
+                
+                <?php if($sf_user->hasCredential('superAdmin')): ?>
+                <div><?php echo $projectForm['projectAdmin']->renderLabel() ?><?php echo $projectForm['projectAdmin']->render() ?><?php echo $projectForm['projectAdmin']->renderError() ?></div>
+                <?php endif; ?>
+                
+                <div>
+                    <input class="formButton" type="submit" value="<?php echo __('Save') ?>" id="saveButton" />
+                    &nbsp;&nbsp;&nbsp;
+                    <input class="formButton" type="button" id="cancel" value="<?php echo __('Cancel') ?>" />
+                </div>
+                <?php echo $projectForm->renderHiddenFields(); ?>
             </form>
         </div>
     </div>
@@ -31,19 +34,23 @@
         <tr>
             <th><?php echo __('Project Name') ?></th>
             <th><?php echo __('Status') ?></th>
-            <th><?php echo __('Project Admin') ?></th>
+            <?php if($sf_user->hasCredential('superAdmin')): ?>
+                <th> <?php echo __('Project Admin'); ?> </th>
+            <?php endif; ?>
         </tr>
-        <?php if(count($projects) != 0): ?>
-        <?php foreach ($projects as $project): ?>
-            <tr>                        
-                <td> <?php echo $project->getName(); ?></td>
-                <td> <?php echo $project->getProjectStatus()->getName(); ?></td>
-                <td> <?php echo $project->getUser()->getFirstName() . ' ' . $project->getUser()->getLastName(); ?></td>
-            </tr>
-        <?php endforeach; ?>
+        <?php if (count($projects) != 0): ?>
+            <?php foreach ($projects as $project): ?>
+                <tr>                        
+                    <td> <?php echo $project->getName(); ?></td>
+                    <td> <?php echo $project->getProjectStatus()->getName(); ?></td>
+                    <?php if($sf_user->hasCredential('superAdmin')): ?>
+                        <td> <?php echo $project->getUser()->getFirstName() . ' ' . $project->getUser()->getLastName(); ?></td>
+                    <?php endif; ?>
+                </tr>
+            <?php endforeach; ?>
         <?php else: ?>
-            <!-- do not delete the space between <td> tags -->
-        <tr><td> </td><td></td><?php if($sf_user->hasCredential('superAdmin')): ?><td></td><?php endif; ?></tr>
+        <!-- do not delete the space between <td> tags -->
+            <tr><td> </td><td></td><?php if ($sf_user->hasCredential('superAdmin')): ?><td></td><?php endif; ?></tr>
         <?php endif; ?>
     </table>
 </div>

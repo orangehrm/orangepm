@@ -21,9 +21,16 @@ table.tableContent {
 
 #addProjectForm label {
     float: left;
-    width: 120px;
+    width: 125px;
 } 
 
 div.addForm {
     width: 570px;
 }
+form div {
+    clear: left;
+    margin: 0;
+    padding: 0;
+    padding-top: 0.6em;
+}
+    
