@@ -31,6 +31,16 @@ class UserForm extends sfForm {
         $this->widgetSchema->setLabel('username', 'Username');
         $this->widgetSchema->setLabel('password', 'Password');
 
+        if ($this->getOption('userFormType') == 'editUserForm') {
+
+            $this->setDefault('firstName', $this->getOption('firstName'));
+            $this->setDefault('lastName', $this->getOption('lastName'));
+            $this->setDefault('email', $this->getOption('email'));
+            $this->setDefault('password', $this->getOption('password'));
+            $this->widgetSchema['firstName']->setAttribute('readonly', 'readonly');
+            $this->widgetSchema['lastName']->setAttribute('readonly', 'readonly');
+        }
+
         $this->setValidators(array(
             'firstName' => new sfValidatorString(array(), array('required' => __('Enter First Name'))),
             'lastName' => new sfValidatorString(array(), array('required' => __('Enter Last Name'))),
@@ -39,34 +49,25 @@ class UserForm extends sfForm {
             'username' => new sfValidatorString(array(), array('required' => __('Enter username'))),
             'password' => new sfValidatorString(array(), array('required' => __('Enter password'))),
         ));
-        
+if ($this->getOption('isSuperAdmin')) {
         $this->validatorSchema->setPostValidator(new sfValidatorCallback(array('callback' => array($this, 'postValidation'))));
-        
-        if($this->getOption('userFormType') == 'editUserForm') {
-            
-            $this->setDefault('firstName', $this->getOption('firstName'));
-            $this->setDefault('lastName', $this->getOption('lastName'));
-            $this->setDefault('email', $this->getOption('email'));
-            $this->setDefault('password', $this->getOption('password'));
-            
-        }
-        
+}
     }
 
     public function postValidation($validator, $values) {
-
-        $userService = new UserService();
-        $usernames = $userService->getAllUsernamesAsArray();
-
-        if (in_array($values['username'], $usernames)) {
-            $errorList['username'] = new sfValidatorError($validator, 'Username is already added');
-        }
-        if (count($errorList) > 0) {
-
-            throw new sfValidatorErrorSchema($validator, $errorList);
-        }
         
-        return $values;
+            $userService = new UserService();
+            $usernames = $userService->getAllUsernamesAsArray();
+            $errorList = array();
+            if (in_array($values['username'], $usernames)) {
+                $errorList['username'] = new sfValidatorError($validator, 'Username is already added');
+            }
+            if (count($errorList) > 0) {
+
+                throw new sfValidatorErrorSchema($validator, $errorList);
+            }
+
+            return $values;
         
     }
 

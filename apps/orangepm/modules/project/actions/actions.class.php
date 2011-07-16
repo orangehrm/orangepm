@@ -41,7 +41,7 @@ class projectActions extends sfActions {
     public function executeLogin($request) {
 
         $this->getResponse()->setTitle(__('Login'));
-
+$loggedUserObject = null;
         $this->loginForm = new LoginForm();
 
         if ($request->isMethod('post')) {
@@ -55,7 +55,7 @@ class projectActions extends sfActions {
 
                 $loginService = new LoginService();
                 $loggedUser = $loginService->getUserByUsernameAndPassword($user, $pass);
-
+                
                 if ($loggedUser instanceof User) {
 
                     $this->getUser()->setAttribute($loggedUserObject, $loggedUser);
@@ -193,30 +193,48 @@ class projectActions extends sfActions {
         $userService->updateUser($userParameters, $request->getParameter('id'));
         die;
     }
-    
+
     /**
      * View profile of a project admin
      * @param sfWebRequest $request
      * @return unknown_type
      */
     public function executeViewProfile($request) {
-        
+        $loggedUserObject = null;
         $response = $this->getResponse();
         $response->setTitle(__('Profile'));
-        
+        $userDao = new UserDao();
         $this->loggedUser = $this->getUser()->getAttribute($loggedUserObject);
-        
-        $userProfileDetails = array('userFormType'=>'editUserForm', 'firstName'=>$this->loggedUser->getFirstName(),
-                                    'lastName'=>$this->loggedUser->getLastName(), 'email'=>$this->loggedUser->getEmail(),
-                                    'password'=>$this->loggedUser->getPassword());
-        
-        $this->userForm = new UserForm(array(), $userProfileDetails);
-        
-        
-        
-        
-    }
 
+        $isSuperAdmin = false;
+        if ($this->getUser()->hasCredential('superAdmin')) {
+            $isSuperAdmin = true;
+        }
+        
+        $userProfileDetails = array('userFormType' => 'editUserForm', 'firstName' => $this->loggedUser->getFirstName(),
+            'lastName' => $this->loggedUser->getLastName(), 'email' => $this->loggedUser->getEmail(),
+            'password' => $this->loggedUser->getPassword(), 'isSuperAdmin' => $isSuperAdmin);
+
+        $this->userForm = new UserForm(array(), $userProfileDetails);
+        if ($request->isMethod('post')) {   
+            $this->userForm->bind($request->getParameter('user'));
+            if ($this->userForm->isValid()) {
+                $userParameters = array(
+                    'firstName' => $this->loggedUser->getFirstName(),
+                    'lastName' =>$this->loggedUser->getLastName(),
+                    'email' => $this->userForm->getValue('email'),
+                    'userType' => $this->loggedUser->getUserType(),
+                    'username' => $this->loggedUser->getUsername(),
+                    'password' => $this->userForm->getValue('password')
+                );
+                $userDao->updateUser($userParameters, $this->loggedUser->getId());
+                $this->getUser()->setFlash('editProfile', __('The profile edit successfully'));
+                $this->forward('project', 'index');
+            }
+        }
+         
+       
+    }
 
     /**
      * View projects
@@ -227,7 +245,7 @@ class projectActions extends sfActions {
 
         $response = $this->getResponse();
         $response->setTitle(__('Projects'));
-
+        $loggedUserObject = null;
         $this->projectForm = new sfForm();
         $this->projectSearchForm = new ProjectSearchForm();
 
@@ -285,8 +303,8 @@ class projectActions extends sfActions {
      */
     public function executeAddProject($request) {
 
-        $isAdmin = false;
-        if($this->getUser()->hasCredential('superAdmin')){
+        $isSuperAdmin = false;
+        if ($this->getUser()->hasCredential('superAdmin')) {
             $isSuperAdmin = true;
         }
         $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin));
@@ -294,7 +312,6 @@ class projectActions extends sfActions {
         $response->setTitle(__('Add Project'));
 
         $projectSevice = new ProjectService();
-        $loginService = new LoginService();
 
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
 
@@ -313,7 +330,7 @@ class projectActions extends sfActions {
                 $this->redirect('project/viewProjects');
             }
         }
-        if($isSuperAdmin) {
+        if ($isSuperAdmin) {
             $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
         } else {
             $this->projects = $projectSevice->getProjectsByUser($loggedUserId);
