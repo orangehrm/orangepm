@@ -101,7 +101,8 @@ class UserDao {
     public function getAllUsers() {
 
         $query = Doctrine_Core::getTable('User')
-                ->createQuery('c');
+                ->createQuery('c')
+                ->where('c.isActive = ?', User::FLAG_ACTIVE);
 
         return $query->execute();
     }
