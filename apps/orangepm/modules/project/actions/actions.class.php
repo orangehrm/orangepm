@@ -285,31 +285,38 @@ class projectActions extends sfActions {
      */
     public function executeAddProject($request) {
 
-        if ($this->getUser()->hasCredential('superAdmin')) {
+        $isAdmin = false;
+        if($this->getUser()->hasCredential('superAdmin')){
+            $isSuperAdmin = true;
+        }
+        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin));
+        $response = $this->getResponse();
+        $response->setTitle(__('Add Project'));
 
-            $this->projectForm = new ProjectForm();
-            $response = $this->getResponse();
-            $response->setTitle(__('Add Project'));
+        $projectSevice = new ProjectService();
+        $loginService = new LoginService();
 
-            $projectSevice = new ProjectService();
+        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
 
-            if ($request->isMethod('post')) {
-                $this->projectForm->bind($request->getParameter('project'));
+        if ($request->isMethod('post')) {
+            $this->projectForm->bind($request->getParameter('project'));
 
-                if ($this->projectForm->isValid()) {
+            if ($this->projectForm->isValid()) {
 
+                if ($isSuperAdmin) {
                     $projectSevice->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'), $this->projectForm->getValue('projectAdmin'));
-
-                    $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
-                    $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
-                    $this->redirect('project/viewProjects');
+                } else {
+                    $projectSevice->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'), $loggedUserId);
                 }
+                $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
+                $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
+                $this->redirect('project/viewProjects');
             }
-
-
+        }
+        if($isSuperAdmin) {
             $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
         } else {
-            $this->redirect('project/viewProjects');
+            $this->projects = $projectSevice->getProjectsByUser($loggedUserId);
         }
     }
 
