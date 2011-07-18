@@ -310,7 +310,7 @@ $loggedUserObject = null;
         $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin));
         $response = $this->getResponse();
         $response->setTitle(__('Add Project'));
-
+        $loggedUserObject = null;
         $projectSevice = new ProjectService();
 
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();

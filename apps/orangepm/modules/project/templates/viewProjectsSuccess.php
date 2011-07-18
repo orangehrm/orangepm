@@ -7,9 +7,15 @@
     var linkUrl = "<?php echo url_for('project/editProject') ?>";
     var projectAdmins = new Array;
     
-    <?php for($i=1;$i<count($projectAdmins); $i++): ?>
-        projectAdmins[<?php echo $i; ?>] = "<?php echo $projectAdmins[$i]; ?>";
-    <?php endfor; ?>
+    <?php
+    
+        $i = 0;
+        foreach ($projectAdmins as $key => $value) {
+            echo "projectAdmins[$i] = '$value';\n";
+            $i++;
+        }  
+    
+    ?>       
 </script>
 
 <div class="Project">

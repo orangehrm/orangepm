@@ -14,27 +14,28 @@
         <div class="header">
             <a href="<?php echo url_for("project/index"); ?>" id="mainLogo"><?php echo image_tag('orangepmlogo.png', 'id=logo'); ?></a>
             <div class="navigaiton">
-                <ul id="menu">
-                    <li> <?php echo link_to(__('Projects'), 'project/viewProjects', array('id' => 'projects')); ?></li>
-                    <?php if($sf_user->hasCredential('superAdmin')): ?>
-                        <li> <?php echo link_to(__('Users'), 'project/viewUsers', array()); ?></li>
-                    <?php endif; ?>
-                    <?php if($sf_user->hasCredential('projectAdmin')): ?>
-                        <li> <?php echo link_to(__('Profile'), 'project/viewProfile', array()); ?></li>
-                    <?php endif; ?>
-                    <li> <a href="#" id="issueTracker" ><?php echo __('Issue Tracker') ?></a></li>
-                    <?php if($sf_user->isAuthenticated()): ?>
-                    <div class="logoutClass" id="logout">
-                        <form action="<?php echo url_for("project/logout"); ?>" name="logoutForm" method="post">
-                            <input type="submit" name="logoutBotton" value="Logout" />
-                        </form>
-                    </div>
 
-                    <?php endif; ?>
-                </ul>               
+                <ul id="menu">
+                    <?php if ($sf_user->isAuthenticated()): ?>
+                        <li> <?php echo link_to(__('Projects'), 'project/viewProjects', array('id' => 'projects')); ?></li>
+                        <?php if ($sf_user->hasCredential('superAdmin')): ?>
+                            <li> <?php echo link_to(__('Users'), 'project/viewUsers', array()); ?></li>
+                        <?php endif; ?>
+                        <?php if ($sf_user->hasCredential('projectAdmin')): ?>
+                            <li> <?php echo link_to(__('Profile'), 'project/viewProfile', array()); ?></li>
+                        <?php endif; ?>
+                        <li> <a href="#" id="issueTracker" ><?php echo __('Issue Tracker') ?></a></li>
+
+                        <div class="logoutClass" id="logout">
+                            <form action="<?php echo url_for("project/logout"); ?>" name="logoutForm" method="post">
+                                <input type="submit" name="logoutBotton" value="Logout" />
+                            </form>
+                        </div>
+                     <?php endif; ?>
+                </ul> 
+
             </div>
         </div>
-        <span id="message"><?php $sf_user->getFlash('editProfile');?></span>
         <?php echo $sf_content ?>
     </body>
 
