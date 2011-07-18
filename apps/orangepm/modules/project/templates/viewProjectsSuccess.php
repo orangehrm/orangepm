@@ -8,8 +8,10 @@
     var projectAdmins = new Array;
     
     <?php
-    
-        $i = 0;
+            echo "projectAdmins[0] = new Array(2);\n";
+            echo "projectAdmins[0][0] = 0;\n";
+            echo "projectAdmins[0][1] = '--Select--';\n";
+        $i = 1;
         foreach ($projectAdmins as $key => $value) {
             echo "projectAdmins[$i] = new Array(2);\n";
             echo "projectAdmins[$i][0] = $key;\n";

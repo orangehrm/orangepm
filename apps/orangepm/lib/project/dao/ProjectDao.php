@@ -14,7 +14,11 @@ class ProjectDao {
         $project = new Project();
         $project->setName($name);
         $project->setProjectStatusId($statusId);
-        $project->setUserId($userId);
+        
+        if (!empty($userId)) {
+            $project->setUserId($userId);
+        }        
+        
         $project->save();
     }
 
@@ -80,8 +84,11 @@ class ProjectDao {
         if ($project instanceof Project) {
             $project->setName($name);
             $project->setProjectStatusId($statusId);
-            if($projectAdminId != 0) {
+            if(!empty($projectAdminId)) {
                 $project->setUserId($projectAdminId);
+            } else {
+                $project->setUserId(null);
+
             }
             $project->save();
         }

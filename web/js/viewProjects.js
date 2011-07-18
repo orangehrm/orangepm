@@ -49,8 +49,11 @@ $(document).ready(function() {
 
             $('.ajaxName').html($('.ajaxName input').val());
             $('.ajaxProjectStatus').html($('.ajaxProjectStatus select').val());
-            $('.ajaxProjectAdmin').html($('#changedProjectAdmin option:selected').text());
-
+            if($('#changedProjectAdmin').val()==0){
+                $('.ajaxProjectAdmin').html("");
+            }else{
+                $('.ajaxProjectAdmin').html($('#changedProjectAdmin option:selected').text());
+            }
             $('.ajaxName').removeClass('ajaxName');
             $('.ajaxProjectStatus').removeClass('ajaxProjectStatus');
             $('.ajaxProjectAdmin').removeClass('ajaxProjectAdmin');
