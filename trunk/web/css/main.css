@@ -284,3 +284,9 @@ div.searchButton{
     top: 230px;
     margin: 0px;
 }
+
+#mainErrorDiv {
+    text-align: center;
+    font-weight: bold;
+    color: #CC0033;
+}

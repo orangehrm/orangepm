@@ -64,7 +64,7 @@ $(document).ready(function() {
                 var previousProjectStatus = jQuery.trim($(this).parent().children('td.changedProjectStatus').text());
 
                 $(this).parent().children('td.changedProjectStatus').html('<select name="changedProjectStatus" id="changedProjectStatus">'+
-                    '<option value="Inprogress">Inprogress</option>'+
+                    '<option value="In-progress">In-progress</option>'+
                     '<option value="Scheduled">Scheduled</option>'+
                     '<option value="Closed">Closed</option>'+
                     '</select> ');
@@ -76,10 +76,10 @@ $(document).ready(function() {
                 var previousProjectAdminOptionValue;
                 
                 var projectAdminOptions = "";
-                for(i=1; i<projectAdmins.length; i++) {
-                    projectAdminOptions = projectAdminOptions + "<option value="+i+">"+projectAdmins[i]+"</option>";
-                    if(projectAdmins[i] == previousProjectAdmin) {
-                        previousProjectAdminOptionValue = i;
+                for(i=0; i<projectAdmins.length; i++) {
+                    projectAdminOptions = projectAdminOptions + "<option value="+projectAdmins[i][0]+">"+projectAdmins[i][1]+"</option>";
+                    if(projectAdmins[i][1] == previousProjectAdmin) {
+                        previousProjectAdminOptionValue = projectAdmins[i][0];
                     }
                 }
                 
@@ -95,15 +95,17 @@ $(document).ready(function() {
                 synchronizedVariable = true;
                 var status;                
 
-                if(!($('.ajaxName input').val()=='')){
+                if(!($('.ajaxName input').val()=='')) {
                     
-                    if($('.ajaxProjectStatus select').val() == "Inprogress") {
+                    if($('.ajaxProjectStatus select').val() == "In-progress") {
                         status = 1;
                     } else if($('.ajaxProjectStatus select').val() == "Scheduled"){
                         status = 2;
                     } else if($('.ajaxProjectStatus select').val() == "Closed"){
                         status = 3;
-                    } 
+                    }
+                    
+                    removeMainErrorMessage();
                     
                     $.ajax({
                         type: "post",
@@ -122,6 +124,9 @@ $(document).ready(function() {
                     });
 
                     toggleVariable = "Edited";
+                    
+                } else {
+                    setMainErrorMessage('Project Name is empty');
                 }
 
             });
@@ -131,3 +136,13 @@ $(document).ready(function() {
     });
 
 });
+
+
+function setMainErrorMessage(message) {
+    $('#mainErrorDiv').empty();
+    $('#mainErrorDiv').append(message);
+}
+
+function removeMainErrorMessage() {
+    $('#mainErrorDiv').empty();
+}

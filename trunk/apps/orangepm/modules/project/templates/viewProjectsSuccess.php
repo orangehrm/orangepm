@@ -11,7 +11,9 @@
     
         $i = 0;
         foreach ($projectAdmins as $key => $value) {
-            echo "projectAdmins[$i] = '$value';\n";
+            echo "projectAdmins[$i] = new Array(2);\n";
+            echo "projectAdmins[$i][0] = $key;\n";
+            echo "projectAdmins[$i][1] = '$value';\n";
             $i++;
         }  
     
@@ -27,6 +29,9 @@
         <span id="message"><?php echo $sf_user->getFlash('addProject') ?></span>
         <span id="noRecordMessage"><?php if(isset($noRecordMessage)) echo $noRecordMessage; ?></span>
     </div>
+    
+    <div id="mainErrorDiv"></div>
+    
     <table class="tableContent" >
       <!--   <tr><td class="pageNav" colspan="3"><?php// echo pager_navigation($pager, url_for('project/viewProjects')) ?></td></tr>-->
         <tr>

@@ -17,6 +17,7 @@ root {
 
 span#cannotDeleteMessage {
     color: #CC0033;
+    font-weight: bold;
 }
 
 td.close a:link {
