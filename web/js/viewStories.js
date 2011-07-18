@@ -110,47 +110,60 @@ $(document).ready(function() {
               
             $('#saveBtn').click(function(){
                 synchronizedVariable = true;
-                if(!isNaN($('.ajaxEstimation input').val())){
-                    if(ValidateForm($('.ajaxDate input').val())){
-                        if($('.ajaxStatus select').val()==" Accepted" && $('.ajaxAcceptedDate input').val()==''){
-                            alert("Please enter the Accepted Date");
-                        }
+                
+                if($('.ajaxName input').val() != '') {                    
+                    
+                    if($('.ajaxEstimation input').val() != '') {
+                        
+                        if(!isNaN($('.ajaxEstimation input').val())) {
+                    
+                            if(ValidateForm($('.ajaxDate input').val())) {
+                        
+                                if($('.ajaxStatus select').val()==" Accepted" && $('.ajaxAcceptedDate input').val()=='') {
+                                    setMainErrorMessage('Accepted Date is empty');
+                                }
                               
 
-                        else{
-                            if(($('.ajaxStatus select').val()==" Accepted" && ValidateForm($('.ajaxAcceptedDate input').val()))||$('.ajaxStatus select').val()!=" Accepted"){
-                                $.ajax({
-                                    type: "post",
-                                    url: linkUrl,
+                                else{
+                                    
+                                    removeMainErrorMessage();
+                                    
+                                    if(($('.ajaxStatus select').val()==" Accepted" && ValidateForm($('.ajaxAcceptedDate input').val()))||$('.ajaxStatus select').val()!=" Accepted") {
+                                        $.ajax({
+                                            type: "post",
+                                            url: linkUrl,
 
 
-                                    data: "name="+$('.ajaxName input').val()+"&date="+$('.ajaxDate input').val()+"&estimation="+jQuery.trim($('.ajaxEstimation input').val())+"&id="+classNameArray[2]+"&status="+jQuery.trim($('.ajaxStatus select').val())+"&acceptedDate="+jQuery.trim($('.ajaxAcceptedDate input').val()),
+                                            data: "name="+$('.ajaxName input').val()+"&date="+$('.ajaxDate input').val()+"&estimation="+jQuery.trim($('.ajaxEstimation input').val())+"&id="+classNameArray[2]+"&status="+jQuery.trim($('.ajaxStatus select').val())+"&acceptedDate="+jQuery.trim($('.ajaxAcceptedDate input').val()),
 
-                                    success: function(){
+                                            success: function(){
                         
-                                        $('.ajaxName').html($('.ajaxName input').val());
-                                        $('.ajaxDate').html($('.ajaxDate input').val());
-                                        $('.ajaxEstimation').html($('.ajaxEstimation input').val());
+                                                $('.ajaxName').html($('.ajaxName input').val());
+                                                $('.ajaxDate').html($('.ajaxDate input').val());
+                                                $('.ajaxEstimation').html($('.ajaxEstimation input').val());
 
-                                        $('.ajaxAcceptedDate').html($('.ajaxAcceptedDate input').val());
-                                        $('.ajaxStatus').html($('.ajaxStatus select').val());
-                                        $('.ajaxStatus').removeClass('ajaxStatus');
+                                                $('.ajaxAcceptedDate').html($('.ajaxAcceptedDate input').val());
+                                                $('.ajaxStatus').html($('.ajaxStatus select').val());
+                                                $('.ajaxStatus').removeClass('ajaxStatus');
                             
+                                            }
+                                        });
+
+                                        toggleVariable = "Edited";
+
                                     }
-                                });
-
-                                toggleVariable = "Edited";
-
-
-
-
+                                }
                             }
                         }
+                        else { 
+                            setMainErrorMessage('Estimation Effort is not valid');
+                        }
+                    } else {
+                        setMainErrorMessage('Estimation Effort is empty');
                     }
+                } else {
+                    setMainErrorMessage('Story Name is empty');
                 }
-                else    
-                    alert("Please Input a Valid Number for Estimation Effort");
-
             });
 
             $( "#editboxDate, #editboxAcceptedDate" ).datepicker(
@@ -231,23 +244,23 @@ $(document).ready(function() {
                 day=parseInt(strDay)
                 year=parseInt(strYr)
                 if (pos1==-1 || pos2==-1){
-                    alert("The date format should be : yyyy-mm-dd")
+                    setMainErrorMessage('The date format should be : yyyy-mm-dd');
                     return false
                 }
                 if (strMonth.length<1 || month<1 || month>12){
-                    alert("Please enter a valid month")
+                    setMainErrorMessage('Please enter a valid month');
                     return false
                 }
                 if (strDay.length<1 || day<1 || day>31 || (month==2 && day>daysInFebruary(year)) || day > daysInMonth[month]){
-                    alert("Please enter a valid day")
+                    setMainErrorMessage('Please enter a valid day');
                     return false
                 }
                 if (strYear.length != 4 || year==0 || year<minYear || year>maxYear){
-                    alert("Please enter a valid 4 digit year between "+minYear+" and "+maxYear)
+                    setMainErrorMessage('Please enter a valid 4 digit year between "+minYear+" and "+maxYear');
                     return false
                 }
                 if (dtStr.indexOf(dtCh,pos2+1)!=-1 || isInteger(stripCharsInBag(dtStr, dtCh))==false){
-                    alert("Please enter a valid date")
+                    setMainErrorMessage('Please enter a valid date');
                     return false
                 }
                 return true
@@ -267,7 +280,7 @@ $(document).ready(function() {
 
             
     });
-    //document.getElementById('#deletedDate').focus= false;
+//document.getElementById('#deletedDate').focus= false;
     
    
 });
@@ -302,4 +315,13 @@ function datepicker(){
             changeYear: true,
             showAnim: "slideDown"
         });
+}
+
+function setMainErrorMessage(message) {
+    $('#mainErrorDiv').empty();
+    $('#mainErrorDiv').append(message);
+}
+
+function removeMainErrorMessage() {
+    $('#mainErrorDiv').empty();
 }

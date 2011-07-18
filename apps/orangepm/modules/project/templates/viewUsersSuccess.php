@@ -14,6 +14,8 @@
         <span id="message"><?php if(isset($message)) echo $message;?></span>
         <span id="cannotDeleteMessage"><?php if(isset($cannotDeleteMessage)) echo $cannotDeleteMessage;?></span>
     </div>
+    
+    <div id="mainErrorDiv"></div>
 
     <table class="tableContent">
 

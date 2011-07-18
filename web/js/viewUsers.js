@@ -106,33 +106,43 @@ $(document).ready(function() {
                 synchronizedVariable = true;
                 isValidEmail = true;
                 
-                if(!($('.ajaxFirstName input').val()=='') && !($('.ajaxLastName input').val()=='')){
-                    var email=$('.ajaxEmail input').val();
-                    if(email == '') {
-                        isValidEmail = false;
-                    }
-                    var atpos=email.indexOf("@");
-                    var dotpos=email.lastIndexOf(".");
-                    if (isValidEmail && (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length)) {
-                        isValidEmail=false;
-                    }
+                if(!($('.ajaxFirstName input').val()=='')) {
+                    
+                    if(!($('.ajaxLastName input').val()=='')) {    
 
-                    if(isValidEmail){
-                        if(!($('.ajaxUsername input').val()=='') && !($('.ajaxPassword input').val()=='')){
+                        var email=$('.ajaxEmail input').val();
+                        if(email == '') {
+                            setMainErrorMessage('Email is empty');
+                            isValidEmail = false;
+                        }
+                        var atpos=email.indexOf("@");
+                        var dotpos=email.lastIndexOf(".");
+                        if (isValidEmail && (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length)) {
+                            setMainErrorMessage('Email is not valid');
+                            isValidEmail=false;
+                        }
 
-                            $.ajax({
-                                type: "post",
-                                url: linkUrl,
+                        if(isValidEmail) {
+                            
+                            if(!($('.ajaxUsername input').val()=='')) {
+                                    
+                                if(!($('.ajaxPassword input').val()=='')) {
+                                    
+                                    removeMainErrorMessage();
 
-                                data: "firstName="+$('.ajaxFirstName input').val()+"&lastName="+$('.ajaxLastName input').val()+"&email="+jQuery.trim($('.ajaxEmail input').val())+"&id="+classNameArray[2]+"&userType="+jQuery.trim($('.ajaxUserType select').val())+"&username="+jQuery.trim($('.ajaxUsername input').val()+"&password="+jQuery.trim($('.ajaxPassword input').val())),
+                                    $.ajax({
+                                        type: "post",
+                                        url: linkUrl,
 
-                                success: function(){
+                                        data: "firstName="+$('.ajaxFirstName input').val()+"&lastName="+$('.ajaxLastName input').val()+"&email="+jQuery.trim($('.ajaxEmail input').val())+"&id="+classNameArray[2]+"&userType="+jQuery.trim($('.ajaxUserType select').val())+"&username="+jQuery.trim($('.ajaxUsername input').val()+"&password="+jQuery.trim($('.ajaxPassword input').val())),
 
-                                    if($('.ajaxPassword input').val() == "double click to reset") {
-                                        $('.ajaxPassword').html("hidden");
-                                    }
+                                        success: function(){
 
-                                /*$('.ajaxFirstName').html($('.ajaxFirstName input').val());
+                                            if($('.ajaxPassword input').val() == "double click to reset") {
+                                                $('.ajaxPassword').html("hidden");
+                                            }
+
+                                            /*$('.ajaxFirstName').html($('.ajaxFirstName input').val());
                                         $('.ajaxLastName').html($('.ajaxLastName input').val());
                                         $('.ajaxEmail').html($('.ajaxEmail input').val());
                                         $('.ajaxUserType').html($('.ajaxUserType select').text());
@@ -141,15 +151,27 @@ $(document).ready(function() {
 
                                         $('.ajaxUserType').removeClass('ajaxUserType');*/
 
+                                        }
+
+                                    });
+
+                                    dropdownToggleVariable = false;
+                                    toggleVariable = "Edited";
+                                    location.href="viewUsers";
+                                } else {
+                                    setMainErrorMessage('Password is empty');
                                 }
-
-                            });
-
-                            dropdownToggleVariable = false;
-                            toggleVariable = "Edited";
-                            location.href="viewUsers";
+                            } else {
+                                setMainErrorMessage('Username is empty');
+                            }
                         }
+                        
+                    } else {
+                        setMainErrorMessage('Last Name is empty');
                     }
+                    
+                } else {
+                    setMainErrorMessage('First Name is empty');
                 }
 
             });
@@ -159,3 +181,12 @@ $(document).ready(function() {
     });
         
 });
+
+function setMainErrorMessage(message) {
+    $('#mainErrorDiv').empty();
+    $('#mainErrorDiv').append(message);
+}
+
+function removeMainErrorMessage() {
+    $('#mainErrorDiv').empty();
+}

@@ -17,6 +17,7 @@ root {
 
 .heading span#noRecordMessage {
     color: darksalmon;
+    font-weight: bold;
 }
 
 table.tableContent {
