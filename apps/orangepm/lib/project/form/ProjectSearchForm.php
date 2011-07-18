@@ -19,6 +19,10 @@ class ProjectSearchForm extends sfForm {
             'status' => new sfWidgetFormSelect(array('choices' => $status)),
 
         ));
+        
+        if ($this->getOption('selectedProjectStatusId') != '') {
+            $this->setDefault('status', $this->getOption('selectedProjectStatusId'));
+        }
 
         $this->widgetSchema->setNameFormat('projectSearch[%s]');
 

@@ -247,7 +247,12 @@ $loggedUserObject = null;
         $response->setTitle(__('Projects'));
         $loggedUserObject = null;
         $this->projectForm = new sfForm();
-        $this->projectSearchForm = new ProjectSearchForm();
+        
+        $this->selectedStatusId = $request->getParameter('selectedStatusId');
+        
+        $selectedStatusDetails = array('selectedProjectStatusId' => $this->selectedStatusId);
+        
+        $this->projectSearchForm = new ProjectSearchForm(array(), $selectedStatusDetails);
 
         $this->statusId = $this->getUser()->getFlash('statusId');
 
@@ -266,16 +271,10 @@ $loggedUserObject = null;
 
         $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $this->statusId);
 
-
-        if ($request->isMethod('post')) {
-
-            $this->projectSearchForm->bind($request->getParameter('projectSearch'));
-
-            if ($this->projectSearchForm->isValid()) {
-
-                $projectStatus = $projectSevice->getProjectStatusById($this->projectSearchForm->getValue('status'));
-                $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $this->projectSearchForm->getValue('status'));
-            }
+        if($this->selectedStatusId != "") {
+            
+            $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $request->getParameter('selectedStatusId'));
+            
         }
 
         if (count($this->projects) == 0) {
