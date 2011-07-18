@@ -25,6 +25,12 @@ $(document).ready(function() {
 
         $("#dialog").dialog("open");
     });
+    
+    
+    $("#projectSearch_status").change(function(){
+        location.href="viewProjects?selectedStatusId=" + $("#projectSearch_status").val();
+    });
+    
 
     synchronizedVariable = true;
     toggleVariable = "Saved";
