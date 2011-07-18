@@ -3,5 +3,7 @@ $(document).ready(function(){
         location.href="viewProjects";
     
     });
-  
+    
+    $("#project_projectAdmin option[value='0']").attr('selected', 'selected');
+
 });

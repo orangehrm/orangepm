@@ -33,4 +33,12 @@ form div {
     padding: 0;
     padding-top: 0.6em;
 }
-    
+
+span.mandatoryStar {
+    color: #fb0000;
+}
+
+#addProjectForm div li{
+    list-style-type: none;
+    padding-left: 125px;
+}

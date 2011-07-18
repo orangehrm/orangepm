@@ -26,7 +26,7 @@ class ProjectForm extends sfForm {
         $this->setValidators($this->formValidators);
 
         $this->widgetSchema->setNameFormat('project[%s]');
-
+        
     }
     
     private function _setNameWidgets() {
@@ -49,6 +49,7 @@ class ProjectForm extends sfForm {
         
         $userService = new UserService();        
         $projectAdmins = $userService->getAllUsersAsArray();
+        $projectAdmins[0] = __('--Select--');
         
         $this->formWidgets['projectAdmin'] = new sfWidgetFormSelect(array('choices' => $projectAdmins), array('label' => 'Project Admin'));
         $this->formValidators['projectAdmin'] = new sfValidatorChoice(array('choices' => array_keys($projectAdmins)));

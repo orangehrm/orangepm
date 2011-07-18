@@ -11,8 +11,8 @@
         <div class="headlineField"><?php echo __('Add Project') ?></div>
         <div class="formField">
             <form id="addProjectForm" action="<?php echo url_for('project/addProject') ?>" method="POST">
-                <div><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render() ?><?php echo $projectForm['name']->renderError() ?></div>
-                <div><?php echo $projectForm['status']->renderLabel() ?><?php echo $projectForm['status']->render() ?><?php echo $projectForm['status']->renderError() ?></div>
+                <div><span class="mandatoryStar">*</span><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render() ?><?php echo $projectForm['name']->renderError() ?></div>
+                <div><span class="mandatoryStar">*</span><?php echo $projectForm['status']->renderLabel() ?><?php echo $projectForm['status']->render() ?><?php echo $projectForm['status']->renderError() ?></div>
                 
                 <?php if($sf_user->hasCredential('superAdmin')): ?>
                 <div><?php echo $projectForm['projectAdmin']->renderLabel() ?><?php echo $projectForm['projectAdmin']->render() ?><?php echo $projectForm['projectAdmin']->renderError() ?></div>
