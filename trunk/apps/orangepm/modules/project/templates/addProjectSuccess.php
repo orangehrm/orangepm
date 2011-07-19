@@ -44,7 +44,7 @@
                     <td> <?php echo $project->getName(); ?></td>
                     <td> <?php echo $project->getProjectStatus()->getName(); ?></td>
                     <?php if($sf_user->hasCredential('superAdmin')): ?>
-                        <td> <?php echo $project->getUser()->getFirstName() . ' ' . $project->getUser()->getLastName(); ?></td>
+                        <td> <?php if($project->getUser()->getIsActive() != 0) { echo $project->getUser()->getFirstName() . ' ' . $project->getUser()->getLastName();} ?></td>
                     <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
