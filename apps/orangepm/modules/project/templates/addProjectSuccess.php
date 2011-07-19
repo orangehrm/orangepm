@@ -1,6 +1,10 @@
 <?php echo stylesheet_tag('addProject') ?>
 <?php use_helper('Pagination'); ?>
 
+<script type="text/javascript">
+    var lang_nameRequired = "<?php echo __('Project name is required');?>";
+</script>
+
 <div class="Project">
 
     <div class="heading">
@@ -11,11 +15,11 @@
         <div class="headlineField"><?php echo __('Add Project') ?></div>
         <div class="formField">
             <form id="addProjectForm" action="<?php echo url_for('project/addProject') ?>" method="POST">
-                <div><span class="mandatoryStar">*</span><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render() ?><?php echo $projectForm['name']->renderError() ?></div>
-                <div><span class="mandatoryStar">*</span><?php echo $projectForm['status']->renderLabel() ?><?php echo $projectForm['status']->render() ?><?php echo $projectForm['status']->renderError() ?></div>
+                <div><span class="mandatoryStar">*</span><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render() ?><?php echo $projectForm['name']->renderError() ?><br class="clear" /></div>
+                <div>&nbsp;<?php echo $projectForm['status']->renderLabel() ?><?php echo $projectForm['status']->render() ?><?php echo $projectForm['status']->renderError() ?></div>
                 
                 <?php if($sf_user->hasCredential('superAdmin')): ?>
-                <div><?php echo $projectForm['projectAdmin']->renderLabel() ?><?php echo $projectForm['projectAdmin']->render() ?><?php echo $projectForm['projectAdmin']->renderError() ?></div>
+                <div>&nbsp;<?php echo $projectForm['projectAdmin']->renderLabel() ?><?php echo $projectForm['projectAdmin']->render() ?><?php echo $projectForm['projectAdmin']->renderError() ?></div>
                 <?php endif; ?>
                 
                 <div>
@@ -26,6 +30,7 @@
                 <?php echo $projectForm->renderHiddenFields(); ?>
             </form>
         </div>
+        <div id="requiredField">Field marked with an asterisk <span class="mandatoryStar">*</span> is required.</div>
     </div>
 
 

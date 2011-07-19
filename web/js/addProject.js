@@ -5,5 +5,22 @@ $(document).ready(function(){
     });
     
     $("#project_projectAdmin option[value='0']").attr('selected', 'selected');
+    
+    $("#addProjectForm").validate({
+        
+        rules: {
+            'project[name]': { required: true }
+        },
+        
+        messages: {
+            'project[name]': { required: lang_nameRequired }
+            },        
+        errorElement : 'div',
+        errorPlacement: function(error, element) {
+            error.insertAfter(element.next(".clear"));            
+
+        }
+        
+    });
 
 });
