@@ -42,3 +42,14 @@ span.mandatoryStar {
     list-style-type: none;
     padding-left: 125px;
 }
+
+div.error {
+    color: #CC0033;
+    font-size: 12px;
+    margin-left: 135px;
+}
+
+div#requiredField {
+    font-size: 10px;
+    padding-left: 12px;
+}
