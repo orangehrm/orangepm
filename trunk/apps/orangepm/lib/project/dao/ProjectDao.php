@@ -83,13 +83,14 @@ class ProjectDao {
 
         if ($project instanceof Project) {
             $project->setName($name);
-            $project->setProjectStatusId($statusId);
+            $project->setProjectStatusId($statusId);  
+            
             if(!empty($projectAdminId)) {
                 $project->setUserId($projectAdminId);
             } else {
                 $project->setUserId(null);
-
             }
+            
             $project->save();
         }
     }
