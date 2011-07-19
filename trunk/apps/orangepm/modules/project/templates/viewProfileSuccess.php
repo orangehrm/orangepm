@@ -1,5 +1,14 @@
 <?php echo stylesheet_tag('viewProfile'); ?>
 
+<script type="text/javascript">
+    //<![CDATA[
+    //we write javascript related stuff here, but if the logic gets lengthy should use a seperate js file
+    var lang_emailRequired = "<?php echo __("E-mail is required"); ?>";
+    var lang_validEmailRequired = "<?php echo __("Valid email required"); ?>";
+    var lang_passwordRequired = "<?php echo __("Password is required"); ?>";    
+    //]]>
+</script>
+
 <div class="Profile">
     
     <div class="heading">
