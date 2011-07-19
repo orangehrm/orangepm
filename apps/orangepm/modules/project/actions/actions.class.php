@@ -41,7 +41,7 @@ class projectActions extends sfActions {
     public function executeLogin($request) {
 
         $this->getResponse()->setTitle(__('Login'));
-$loggedUserObject = null;
+        $loggedUserObject = null;
         $this->loginForm = new LoginForm();
 
         if ($request->isMethod('post')) {
@@ -366,8 +366,11 @@ $loggedUserObject = null;
         $dao = new ProjectDao();
         $this->statusId = $request->getParameter('projectStatus');
         $this->projectAdminId = $request->getParameter('projectAdminId');
-        if (!isset($this->projectAdminId)) {
+        if(!isset($this->projectAdminId)) {
             $this->projectAdminId = 0;
+        }
+        if($this->getUser()->hasCredential('projectAdmin')) {
+            $this->projectAdminId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         }
         $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $this->statusId, $this->projectAdminId);
         die;
