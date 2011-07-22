@@ -3,7 +3,7 @@
 ProjectStatus:
   project_status_1:
     id: 1
-    name: Inprogress
+    name: In-progress
   project_status_2:
     id: 2
     name: Scheduled
