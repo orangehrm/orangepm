@@ -6,3 +6,4 @@
 6. Build SQL (php symfony doctrine:build-sql).
 7. Insert SQL into the database (php symfony doctrine:insert-sql).
 8. Load initial data (php symfony doctrine:data-load).
+9. http://localhost/orangepm/web/index.php/project/login
