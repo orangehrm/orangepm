@@ -14,15 +14,32 @@ Project:
     user_id:
       name: user_id as userId
       type: integer
+    description:
+      type: clob
+    start_date:
+      name: start_date as startDate
+      type: date
+      notnull: true
+    end_date:
+      name: end_date as endDate
+      type: date
   relations:
-    User:
-      local: userId
-      type: one
-      foreign: id
     ProjectStatus:
       onDelete: set null
       local: projectStatusId
       foreign: id
+    Story:
+      onDelete: set null
+      local: id
+      foreign: project_id
+    User:
+      onDelete: set null
+      local: userId
+      foreign: id
+      class: User
+      type: one
+      foreignAlias: Project
+      foreignType: many
        
 Story:
   actAs: [Timestampable]
@@ -43,8 +60,10 @@ Story:
   relations:
     Project:
       onDelete: CASCADE
-      local: project_id	
+      local: project_id
       foreign: id
+      type: many
+
 
 ProjectProgress:
   actAs: [Timestampable]
@@ -92,12 +111,6 @@ User:
     password:
       type: string(255)
       notnull: true
-  relations:
-    Project:
-      onDelete: set null
-      local: id
-      type: many
-      foreign: userId     
 
 ProjectStatus:
   tableName: orangepm_project_status
@@ -114,4 +127,40 @@ ProjectStatus:
       local: id
       foreign: projectStatusId
 
- 
+ProjectLog:
+  tableName: orangepm_project_log
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    project_id:
+      name: project_id as projectId
+      type: integer(20)
+      notnull: true
+    added_by:
+      name: added_by as addedBy
+      type: integer(20)
+    description:
+      type: clob
+    logged_date:
+      name: logged_date as loggedDate
+      type: date
+      notnull: true
+  relations:
+    Project:
+      class: Project
+      onDelete: CASCADE
+      local: project_id
+      foreign: id
+      type: one
+      foreignAlias: ProjectLogs
+      foreignType: many
+    User:
+      onDelete: set null
+      local: added_by
+      foreign: id
+      class: User
+      type: one
+      foreignAlias: ProjectLogs
+      foreignType: many
