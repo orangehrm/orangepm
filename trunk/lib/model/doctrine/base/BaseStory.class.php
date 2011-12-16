@@ -14,28 +14,28 @@
  * @property date $accepted_date
  * @property date $deleted_date
  * @property boolean $deleted
- * @property Project $Project
+ * @property Doctrine_Collection $Project
  * 
- * @method integer getId()            Returns the current record's "id" value
- * @method integer getProjectId()     Returns the current record's "project_id" value
- * @method integer getEstimation()    Returns the current record's "estimation" value
- * @method string  getName()          Returns the current record's "name" value
- * @method date    getDateAdded()     Returns the current record's "date_added" value
- * @method string  getStatus()        Returns the current record's "status" value
- * @method date    getAcceptedDate()  Returns the current record's "accepted_date" value
- * @method date    getDeletedDate()   Returns the current record's "deleted_date" value
- * @method boolean getDeleted()       Returns the current record's "deleted" value
- * @method Project getProject()       Returns the current record's "Project" value
- * @method Story   setId()            Sets the current record's "id" value
- * @method Story   setProjectId()     Sets the current record's "project_id" value
- * @method Story   setEstimation()    Sets the current record's "estimation" value
- * @method Story   setName()          Sets the current record's "name" value
- * @method Story   setDateAdded()     Sets the current record's "date_added" value
- * @method Story   setStatus()        Sets the current record's "status" value
- * @method Story   setAcceptedDate()  Sets the current record's "accepted_date" value
- * @method Story   setDeletedDate()   Sets the current record's "deleted_date" value
- * @method Story   setDeleted()       Sets the current record's "deleted" value
- * @method Story   setProject()       Sets the current record's "Project" value
+ * @method integer             getId()            Returns the current record's "id" value
+ * @method integer             getProjectId()     Returns the current record's "project_id" value
+ * @method integer             getEstimation()    Returns the current record's "estimation" value
+ * @method string              getName()          Returns the current record's "name" value
+ * @method date                getDateAdded()     Returns the current record's "date_added" value
+ * @method string              getStatus()        Returns the current record's "status" value
+ * @method date                getAcceptedDate()  Returns the current record's "accepted_date" value
+ * @method date                getDeletedDate()   Returns the current record's "deleted_date" value
+ * @method boolean             getDeleted()       Returns the current record's "deleted" value
+ * @method Doctrine_Collection getProject()       Returns the current record's "Project" collection
+ * @method Story               setId()            Sets the current record's "id" value
+ * @method Story               setProjectId()     Sets the current record's "project_id" value
+ * @method Story               setEstimation()    Sets the current record's "estimation" value
+ * @method Story               setName()          Sets the current record's "name" value
+ * @method Story               setDateAdded()     Sets the current record's "date_added" value
+ * @method Story               setStatus()        Sets the current record's "status" value
+ * @method Story               setAcceptedDate()  Sets the current record's "accepted_date" value
+ * @method Story               setDeletedDate()   Sets the current record's "deleted_date" value
+ * @method Story               setDeleted()       Sets the current record's "deleted" value
+ * @method Story               setProject()       Sets the current record's "Project" collection
  * 
  * @package    orangepm
  * @subpackage model
@@ -87,7 +87,7 @@ abstract class BaseStory extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Project', array(
+        $this->hasMany('Project', array(
              'local' => 'project_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));

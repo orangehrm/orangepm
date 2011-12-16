@@ -14,25 +14,28 @@
  * @property integer $userType
  * @property string $password
  * @property Doctrine_Collection $Project
+ * @property Doctrine_Collection $ProjectLogs
  * 
- * @method integer             getId()        Returns the current record's "id" value
- * @method string              getFirstName() Returns the current record's "firstName" value
- * @method string              getLastName()  Returns the current record's "lastName" value
- * @method string              getEmail()     Returns the current record's "email" value
- * @method boolean             getIsActive()  Returns the current record's "isActive" value
- * @method string              getUsername()  Returns the current record's "username" value
- * @method integer             getUserType()  Returns the current record's "userType" value
- * @method string              getPassword()  Returns the current record's "password" value
- * @method Doctrine_Collection getProject()   Returns the current record's "Project" collection
- * @method User                setId()        Sets the current record's "id" value
- * @method User                setFirstName() Sets the current record's "firstName" value
- * @method User                setLastName()  Sets the current record's "lastName" value
- * @method User                setEmail()     Sets the current record's "email" value
- * @method User                setIsActive()  Sets the current record's "isActive" value
- * @method User                setUsername()  Sets the current record's "username" value
- * @method User                setUserType()  Sets the current record's "userType" value
- * @method User                setPassword()  Sets the current record's "password" value
- * @method User                setProject()   Sets the current record's "Project" collection
+ * @method integer             getId()          Returns the current record's "id" value
+ * @method string              getFirstName()   Returns the current record's "firstName" value
+ * @method string              getLastName()    Returns the current record's "lastName" value
+ * @method string              getEmail()       Returns the current record's "email" value
+ * @method boolean             getIsActive()    Returns the current record's "isActive" value
+ * @method string              getUsername()    Returns the current record's "username" value
+ * @method integer             getUserType()    Returns the current record's "userType" value
+ * @method string              getPassword()    Returns the current record's "password" value
+ * @method Doctrine_Collection getProject()     Returns the current record's "Project" collection
+ * @method Doctrine_Collection getProjectLogs() Returns the current record's "ProjectLogs" collection
+ * @method User                setId()          Sets the current record's "id" value
+ * @method User                setFirstName()   Sets the current record's "firstName" value
+ * @method User                setLastName()    Sets the current record's "lastName" value
+ * @method User                setEmail()       Sets the current record's "email" value
+ * @method User                setIsActive()    Sets the current record's "isActive" value
+ * @method User                setUsername()    Sets the current record's "username" value
+ * @method User                setUserType()    Sets the current record's "userType" value
+ * @method User                setPassword()    Sets the current record's "password" value
+ * @method User                setProject()     Sets the current record's "Project" collection
+ * @method User                setProjectLogs() Sets the current record's "ProjectLogs" collection
  * 
  * @package    orangepm
  * @subpackage model
@@ -90,7 +93,10 @@ abstract class BaseUser extends sfDoctrineRecord
         parent::setUp();
         $this->hasMany('Project', array(
              'local' => 'id',
-             'foreign' => 'userId',
-             'onDelete' => 'set null'));
+             'foreign' => 'userId'));
+
+        $this->hasMany('ProjectLog as ProjectLogs', array(
+             'local' => 'id',
+             'foreign' => 'added_by'));
     }
 }

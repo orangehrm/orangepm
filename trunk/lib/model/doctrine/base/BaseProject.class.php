@@ -10,26 +10,38 @@
  * @property integer $projectStatusId
  * @property boolean $deleted
  * @property integer $userId
- * @property User $User
+ * @property clob $description
+ * @property date $startDate
+ * @property date $endDate
  * @property ProjectStatus $ProjectStatus
- * @property Doctrine_Collection $Story
+ * @property Story $Story
+ * @property User $User
+ * @property Doctrine_Collection $ProjectLogs
  * 
  * @method integer             getId()              Returns the current record's "id" value
  * @method string              getName()            Returns the current record's "name" value
  * @method integer             getProjectStatusId() Returns the current record's "projectStatusId" value
  * @method boolean             getDeleted()         Returns the current record's "deleted" value
  * @method integer             getUserId()          Returns the current record's "userId" value
- * @method User                getUser()            Returns the current record's "User" value
+ * @method clob                getDescription()     Returns the current record's "description" value
+ * @method date                getStartDate()       Returns the current record's "startDate" value
+ * @method date                getEndDate()         Returns the current record's "endDate" value
  * @method ProjectStatus       getProjectStatus()   Returns the current record's "ProjectStatus" value
- * @method Doctrine_Collection getStory()           Returns the current record's "Story" collection
+ * @method Story               getStory()           Returns the current record's "Story" value
+ * @method User                getUser()            Returns the current record's "User" value
+ * @method Doctrine_Collection getProjectLogs()     Returns the current record's "ProjectLogs" collection
  * @method Project             setId()              Sets the current record's "id" value
  * @method Project             setName()            Sets the current record's "name" value
  * @method Project             setProjectStatusId() Sets the current record's "projectStatusId" value
  * @method Project             setDeleted()         Sets the current record's "deleted" value
  * @method Project             setUserId()          Sets the current record's "userId" value
- * @method Project             setUser()            Sets the current record's "User" value
+ * @method Project             setDescription()     Sets the current record's "description" value
+ * @method Project             setStartDate()       Sets the current record's "startDate" value
+ * @method Project             setEndDate()         Sets the current record's "endDate" value
  * @method Project             setProjectStatus()   Sets the current record's "ProjectStatus" value
- * @method Project             setStory()           Sets the current record's "Story" collection
+ * @method Project             setStory()           Sets the current record's "Story" value
+ * @method Project             setUser()            Sets the current record's "User" value
+ * @method Project             setProjectLogs()     Sets the current record's "ProjectLogs" collection
  * 
  * @package    orangepm
  * @subpackage model
@@ -51,7 +63,6 @@ abstract class BaseProject extends sfDoctrineRecord
              'length' => 255,
              ));
         $this->hasColumn('project_status_id as projectStatusId', 'integer', null, array(
-             'notnull' => true,
              'type' => 'integer',
              ));
         $this->hasColumn('deleted', 'boolean', null, array(
@@ -62,21 +73,37 @@ abstract class BaseProject extends sfDoctrineRecord
         $this->hasColumn('user_id as userId', 'integer', null, array(
              'type' => 'integer',
              ));
+        $this->hasColumn('description', 'clob', null, array(
+             'type' => 'clob',
+             ));
+        $this->hasColumn('start_date as startDate', 'date', null, array(
+             'type' => 'date',
+             'notnull' => true,
+             ));
+        $this->hasColumn('end_date as endDate', 'date', null, array(
+             'type' => 'date',
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('User', array(
-             'local' => 'userId',
-             'foreign' => 'id'));
-
         $this->hasOne('ProjectStatus', array(
              'local' => 'projectStatusId',
              'foreign' => 'id',
              'onDelete' => 'set null'));
 
-        $this->hasMany('Story', array(
+        $this->hasOne('Story', array(
+             'local' => 'id',
+             'foreign' => 'project_id',
+             'onDelete' => 'set null'));
+
+        $this->hasOne('User', array(
+             'local' => 'userId',
+             'foreign' => 'id',
+             'onDelete' => 'set null'));
+
+        $this->hasMany('ProjectLog as ProjectLogs', array(
              'local' => 'id',
              'foreign' => 'project_id'));
 
