@@ -6,11 +6,34 @@ class ProjectService {
 
     public $isEdited = false;
     public $editedProjectId = Project::PROJECT_STATUS_DEFAULT_ID;
+    private $projectDao = null;
     /**
 	 * Calculate the Project progress
 	 * @param $acceptedDate, $status, $storyId
 	 * @return none
 	 */
+    
+    function __construct() {
+        $this->projectDao = new ProjectDao();
+    }
+    
+    /**
+     * Set project dao
+     * @param ProjectDao $projectDao
+     * @return null
+     */
+    public function setProjectDao(ProjectDao $projectDao) {
+        $this->projectDao = $projectDao;
+    }
+    
+    /**
+     * Get project dao
+     * @return ProjectDao
+     */
+    public function getProjectDao() {
+        return $this->projectDao;
+    }
+    
     public function trackProjectProgress($acceptedDate, $status, $storyId) {
 
         $storyDao = new StoryDao();
@@ -389,7 +412,7 @@ class ProjectService {
      */
     public function getProjectsByUser($userId, $statusId=Project::PROJECT_STATUS_ALL_ID, $isActive=true) {
         
-        $dao = new ProjectDao();
+        $dao = $this->projectDao;
         
         if($statusId == Project::PROJECT_STATUS_ALL_ID) {
             
