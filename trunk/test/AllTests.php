@@ -38,10 +38,14 @@ class AllTests {
         $suite = new PHPUnit_Framework_TestSuite('PHPUnit');
 
         $suite->addTestFile(dirname(__FILE__) . '/ProjectProgressTest.php');
-        $suite->addTestFile(dirname(__FILE__) . '/ProjectServiceTest.php');
+        
+        /* Service tests*/
+        $suite->addTestFile(dirname(__FILE__) . '/lib/service/ProjectServiceTest.php');
+        $suite->addTestFile(dirname(__FILE__) . '/lib/service/ProjectLogServiceTest.php');
         
         /* DAO tests */
-        $suite->addTestFile(dirname(__FILE__) . '/unit/ProjectDaoTest.php');
+        $suite->addTestFile(dirname(__FILE__) . '/lib/dao/ProjectDaoTest.php');
+        $suite->addTestFile(dirname(__FILE__) . '/lib/dao/ProjectLogDaoTest.php');
 
         //$suite->addTestFile(dirname(__FILE__) . '/StoryDaoTest.php');
 
