@@ -18,10 +18,12 @@ class ProjectForm extends sfForm {
         
         $this->_setNameWidgets();
         $this->_setStatusWidgets();
-        
+        $this->_setStartDateWidgets();
+        $this->_setEndDateWidgets();
         if($this->getOption('user')) {
             $this->_setProjectAdminWidgets();
         }
+        $this->_setDescriptionWidgets();
         $this->setWidgets($this->formWidgets);
         $this->setValidators($this->formValidators);
 
@@ -31,9 +33,22 @@ class ProjectForm extends sfForm {
     
     private function _setNameWidgets() {
         
-        $this->formWidgets['name'] = new sfWidgetFormInputText(array('label' => 'Name'), array('size'=>'40'));
+        $this->formWidgets['name'] = new sfWidgetFormInputText(array(), array('size'=>'85'));
         $this->formValidators['name'] = new sfValidatorString(array('required' => true), array('required' => __('The Project Name is required')));
+        $this->formWidgets['name']->setLabel(__("Name")."<span class='mandatoryStar'>*</span>");
+    }
+    private function _setEndDateWidgets() {
         
+        $this->formWidgets['endDate'] = new sfWidgetFormInputText(array('label' => 'Commited End Date'), array('size'=>'20'));
+        $this->formValidators['endDate'] = new sfValidatorString(array('required' => false), array('required' => __('Commited End Date is required')));
+        
+    }
+    
+    private function _setStartDateWidgets() {
+        
+        $this->formWidgets['startDate'] = new sfWidgetFormInputText(array(), array('size'=>'20'));
+        $this->formValidators['startDate'] = new sfValidatorString(array('required' => true), array('required' => __('Development Start Date is required')));
+        $this->formWidgets['startDate']->setLabel(__("Development Start Date")."<span class='mandatoryStar'>*</span>");
     }
     
     private function _setStatusWidgets() {
@@ -53,6 +68,13 @@ class ProjectForm extends sfForm {
         
         $this->formWidgets['projectAdmin'] = new sfWidgetFormSelect(array('choices' => $projectAdmins), array('label' => 'Project Admin'));
         $this->formValidators['projectAdmin'] = new sfValidatorChoice(array('choices' => array_keys($projectAdmins)));
+    }
+    
+    private function _setDescriptionWidgets() {
+        
+        $this->formWidgets['description'] = new sfWidgetFormTextarea(array('label' => 'Description'));
+        $this->formValidators['description'] = new sfValidatorString(array('required' => false));
+        
     }
     
 }
