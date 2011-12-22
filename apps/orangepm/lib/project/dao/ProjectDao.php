@@ -6,19 +6,10 @@
 class ProjectDao {
 
     /**
-     * Save projects
-     * @param $name
+     * Save project
+     * @param $project
      */
-    public function saveProject($name, $statusId, $userId) {
-
-        $project = new Project();
-        $project->setName($name);
-        $project->setProjectStatusId($statusId);
-        
-        if (!empty($userId)) {
-            $project->setUserId($userId);
-        }        
-        
+    public function saveProject($project) {
         $project->save();
     }
 
@@ -72,28 +63,26 @@ class ProjectDao {
         return $query->execute();
     }
 
-    /**
-     * Update projects
-     * @param $id, $name, $statusId, $projectAdminId
+        /**
+     * Update projects function 
+     * @param $project
      * @return none
      */
-    public function updateProject($id, $name, $statusId, $projectAdminId) {
+    public function updateProject(Project $tempProject) {
 
-        $project = Doctrine_Core::getTable('Project')->find($id);
+        $project = Doctrine_Core::getTable('Project')->find($tempProject->getId());
 
         if ($project instanceof Project) {
-            $project->setName($name);
-            $project->setProjectStatusId($statusId);  
-            
-            if(!empty($projectAdminId)) {
-                $project->setUserId($projectAdminId);
-            } else {
-                $project->setUserId(null);
-            }
-            
+            $project->setName($tempProject->getName());
+            $project->setProjectStatusId($tempProject->getProjectStatusId());
+            $project->setUserId($tempProject->getUserId());
+            $project->setDescription($tempProject->getDescription());
+            $project->setStartDate($tempProject->getStartDate());
+            $project->setEndDate($tempProject->getEndDate());
             $project->save();
         }
     }
+    
 
     /**
      * Get project
