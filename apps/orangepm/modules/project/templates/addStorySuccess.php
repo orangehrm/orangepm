@@ -7,7 +7,7 @@
 
 
 <div class="heading">
-    <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> ><a class="storyLink" href="<?php echo url_for("project/viewStories?id={$projectId}&projectName={$projectName}"); ?>" > <?php echo $projectName; ?></a> > <?php echo __('Add Story'); ?> </h3>
+    <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> ><a class="storyLink" href="<?php echo url_for("project/viewProjectDetails?projectId={$projectId}&projectName={$projectName}"); ?>" > <?php echo $projectName; ?></a> > <?php echo __('Add Story'); ?> </h3>
 </div>
 
 <div class="addForm">
@@ -18,7 +18,7 @@
 
 
 <!--                <tr><td class="labelfield"><?php //echo $storyForm['storyName']->renderLabel() ?></td><td colspan="2"><?php //echo $storyForm['storyName']->renderError() ?><?php //echo $storyForm['storyName']->render() ?></td></tr>-->
-                <tr><td  valign="top"><span class="mandatoryStar">*</span> <?php echo $storyForm['storyName']->renderLabel() ?> </td><td colspan="2" class="labelfield" ><?php echo $storyForm['storyName']->render() ?><?php echo $storyForm['storyName']->renderError() ?></td></tr>
+                <tr><td  valign="top"><?php echo $storyForm['storyName']->renderLabel() ?> </td><td colspan="2" class="labelfield" ><?php echo $storyForm['storyName']->render() ?><?php echo $storyForm['storyName']->renderError() ?></td></tr>
                 <tr><td><?php echo $storyForm['dateAdded']->renderLabel() ?></td><td><?php echo $storyForm['dateAdded']->renderError() ?><?php echo $storyForm['dateAdded']->render() ?></td></tr>
                 <tr><td><?php echo $storyForm['estimatedEffort']->renderLabel() ?>&nbsp;&nbsp; </td><td><?php echo $storyForm['estimatedEffort']->renderError() ?><?php echo $storyForm['estimatedEffort']->render() ?></td>&nbsp;<td><?php echo __("(Engineering Hours)") ?></td></tr>
                 <tr><td><?php echo $storyForm['status']->renderLabel() ?></td><td><?php echo $storyForm['status']->render(array('onchange' => 'clicked(project_status)'))?></td>

@@ -35,10 +35,12 @@
     <div id="mainErrorDiv"></div>
     
     <table class="tableContent" >
-      <!--   <tr><td class="pageNav" colspan="3"><?php// echo pager_navigation($pager, url_for('project/viewProjects')) ?></td></tr>-->
+      <!--   <tr><td class="pageNav" colspan="3"><?php // echo pager_navigation($pager, url_for('project/viewProjects')) ?></td></tr>-->
         <tr>
 <!--            <th> <?php //echo __('Id') ?></th>-->
             <th class="projectHeader"> <?php echo __('Project Name'); ?> </th>
+            <th> <?php echo __('Started<br>Date'); ?> </th>
+            <th> <?php echo __('End Date'); ?> </th>
             <th> <?php echo __('Status'); ?> </th>
             <?php if($sf_user->hasCredential('superAdmin')): ?>
                 <th> <?php echo __('Project Admin'); ?> </th>
@@ -58,7 +60,9 @@
                 }
                 ?>
 
-            <td class="<?php echo "changedName name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewStories") . "?id={$project->getId()}&projectName={$project->getName()}"; ?>" > <?php echo $project->getName(); ?></a></td>
+            <td class="<?php echo "changedName name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewProjectDetails") . "?projectId={$project->getId()}"; ?>" > <?php echo $project->getName(); ?></a></td>
+            <td class="<?php echo "changedStartDate startDate " . $project->getId(); ?>" ><?php echo $project->getStartDate(); ?></td>
+            <td class="<?php echo "changedEndDate endDate " . $project->getId(); ?>" ><?php echo $project->getEndDate(); ?></td>
             <td class="<?php echo "changedProjectStatus projectStatus " . $project->getId(); ?>" ><?php echo $project->getProjectStatus()->getName(); ?></td>
             <?php if($sf_user->hasCredential('superAdmin')): ?>
                 <td class="<?php echo "changedProjectAdmin projectAdmin " . $project->getUserId(); ?>" ><?php if($project->getUser()->getIsActive() != 0) {echo $project->getUser()->getFirstName()." ".$project->getUser()->getLastName();} ?></td>
@@ -69,7 +73,7 @@
         <?php endforeach; ?>
         <?php else: ?>
             <!-- do not delete the space between <td> tags -->
-        <tr><td> </td><td></td><td></td><?php if($sf_user->hasCredential('superAdmin')): ?><td></td><?php endif; ?></tr>
+        <tr><td> </td><td></td><td></td><td></td><td></td><?php if($sf_user->hasCredential('superAdmin')): ?><td></td><?php endif; ?></tr>
         <?php endif; ?>
     </table>
 
