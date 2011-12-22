@@ -9,7 +9,7 @@
  * @property integer $projectId
  * @property integer $addedBy
  * @property clob $description
- * @property date $loggedDate
+ * @property timestamp $loggedDate
  * @property Project $Project
  * @property User $User
  * 
@@ -17,7 +17,7 @@
  * @method integer    getProjectId()   Returns the current record's "projectId" value
  * @method integer    getAddedBy()     Returns the current record's "addedBy" value
  * @method clob       getDescription() Returns the current record's "description" value
- * @method date       getLoggedDate()  Returns the current record's "loggedDate" value
+ * @method timestamp  getLoggedDate()  Returns the current record's "loggedDate" value
  * @method Project    getProject()     Returns the current record's "Project" value
  * @method User       getUser()        Returns the current record's "User" value
  * @method ProjectLog setId()          Sets the current record's "id" value
@@ -55,8 +55,8 @@ abstract class BaseProjectLog extends sfDoctrineRecord
         $this->hasColumn('description', 'clob', null, array(
              'type' => 'clob',
              ));
-        $this->hasColumn('logged_date as loggedDate', 'date', null, array(
-             'type' => 'date',
+        $this->hasColumn('logged_date as loggedDate', 'timestamp', null, array(
+             'type' => 'timestamp',
              'notnull' => true,
              ));
     }
