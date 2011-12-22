@@ -30,7 +30,6 @@ table.tableContent {
 }
 
 table.tableContent td {
-    white-space: pre;
     background-color: #CCC;
     color: #000;
     padding: 4px;
@@ -61,7 +60,7 @@ table.tableContent td.edit {
 }
 
 form * {
-    line-height:  30px;
+    line-height:  20px;
     margin:0;
     padding:0;
     text-align: left;
@@ -124,7 +123,7 @@ div.addButton {
 
 
 
-div.addForm {
+div.addForm, div.showForm {
     position: relative;
     top: 20px;
     left: 50px;
