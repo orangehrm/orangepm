@@ -33,7 +33,7 @@ class storyForm extends sfForm {
 
         $this->widgetSchema->setNameFormat('project[%s]');
         $this->widgetSchema['storyName']->setAttribute('size' , 60);
-        $this->widgetSchema->setLabel('storyName', 'Story Name');
+        $this->widgetSchema->setLabel('storyName', 'Story Name'."<span class='mandatoryStar'>*</span>");
         $this->widgetSchema->setLabel('dateAdded', 'Date Added');
         $this->widgetSchema->setLabel('estimatedEffort', 'Estimated Effort');
         $this->widgetSchema->setLabel('status', 'Status');
