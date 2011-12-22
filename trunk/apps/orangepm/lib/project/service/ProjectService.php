@@ -343,6 +343,15 @@ class ProjectService {
     }
 
     /**
+     * Get Project by id
+     * @param $projectId
+     * @return Collection
+     */
+    public function getProjectById($projectId){
+        return $this->projectDao->getProjectById($projectId);
+    }
+    
+    /**
      * Get the all Projects according to status
      * @param $isActive, $statusId
 	 * @return $allProjects
@@ -394,14 +403,13 @@ class ProjectService {
     }
     
    /**
-    * save a project
-    * @param $name, $statusId
-    * @return none
+    * save project
+    * @param $project
     */ 
-    public function saveProject($name, $statusId, $userId) {
+    public function saveProject($project) {
         
         $dao = new ProjectDao();
-        $dao->saveProject($name, $statusId, $userId);
+        $dao->saveProject($project);
         
     }
        
