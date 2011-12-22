@@ -56,6 +56,9 @@ $(document).ready(function() {
             $('.ajaxName').html($('.ajaxName input').val());
             $('.ajaxProjectStatus').html($('.ajaxProjectStatus select').val());
             
+            $('.ajaxStartDate').html($('.ajaxStartDate input').val());
+            $('.ajaxEndDate').html($('.ajaxEndDate input').val());
+            
             if($('#changedProjectAdmin').val() == 0) {
                 $('.ajaxProjectAdmin').html("");
             } else {
@@ -63,12 +66,28 @@ $(document).ready(function() {
             }
             
             $('.ajaxName').removeClass('ajaxName');
+            $('.ajaxStartDate').removeClass('ajaxStartDate');
+            $('.ajaxEndDate').removeClass('ajaxEndDate');
             $('.ajaxProjectStatus').removeClass('ajaxProjectStatus');
             $('.ajaxProjectAdmin').removeClass('ajaxProjectAdmin');
 
             $(this).parent().children('td.changedName').addClass('ajaxName');
             $(this).parent().children('td.changedName').html('<input id="editboxName" size="55" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
 
+            $(this).parent().children('td.changedStartDate').addClass('ajaxStartDate');
+            $(this).parent().children('td.changedStartDate').html('<input id="editboxStartDate" size="9" type="text" value="'+$(this).parent().children('td.changedStartDate').text()+'">');
+            
+            $(this).parent().children('td.changedEndDate').addClass('ajaxEndDate');
+            $(this).parent().children('td.changedEndDate').html('<input id="editboxEndDate" size="9" type="text" value="'+$(this).parent().children('td.changedEndDate').text()+'">');
+            
+            $("#editboxStartDate, #editboxEndDate").datepicker(
+                    {
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                        changeYear: true,
+                        showAnim: "slideDown"
+             });
+            
             if(dropdownToggleVariable){
                 
                 $(this).parent().children('td.changedProjectStatus').addClass('ajaxProjectStatus');
@@ -122,14 +141,16 @@ $(document).ready(function() {
                         type: "post",
                         url: linkUrl,
                         
-                        data: "name="+$('.ajaxName input').val().trim()+"&id="+classNameArray[2]+"&projectStatus="+status + "&projectAdminId=" + $('#changedProjectAdmin option:selected').val(),
+                        data: "name="+$('.ajaxName input').val().trim()+"&startDate="+$('.ajaxStartDate input').val().trim()+"&endDate="+$('.ajaxEndDate input').val().trim()+"&id="+classNameArray[2]+"&projectStatus="+status + "&projectAdminId=" + $('#changedProjectAdmin option:selected').val(),
 
                         success: function(){
-
-                            var hstring = '<a href='+'viewStories?'+'id='+classNameArray[2]+' > '+$('.ajaxName input').val().trim()+'</a>';
+                            var hstring = '<a href='+'viewProjectDetails?'+'projectId='+classNameArray[2]+' > '+$('.ajaxName input').val().trim()+'</a>';
                             $('.ajaxName').html(hstring);                            
                             $('.ajaxName').removeClass('ajaxName');                           
-
+                            $('.ajaxStartDate').html($('.ajaxStartDate input').val().trim());
+                            $('.ajaxEndDate').html($('.ajaxEndDate input').val().trim());
+                            $('.ajaxStartDate').removeClass('ajaxStartDate');
+                            $('.ajaxEndDate').removeClass('ajaxEndDate');
                         }
 
                     });
@@ -145,7 +166,7 @@ $(document).ready(function() {
         }
 
     });
-
+    
 });
 
 

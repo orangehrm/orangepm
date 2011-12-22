@@ -22,5 +22,13 @@ $(document).ready(function(){
         }
         
     });
-
+    
+    $("#project_startDate, #project_endDate").datepicker(
+        {
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            showAnim: "slideDown"
+     });
+    
 });

@@ -71,7 +71,7 @@ $(document).ready(function() {
             $('.ajaxStatus').removeClass('ajaxStatus');
             
             $(this).parent().children('td.changedName').addClass('ajaxName');
-            $(this).parent().children('td.changedName').html('<input id="editboxName" size="55" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
+            $(this).parent().children('td.changedName').html('<input id="editboxName" size="37" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
             $(this).parent().children('td.changedDate').addClass('ajaxDate');
             $(this).parent().children('td.changedDate').html('<input id="editboxDate" size="9" type="text" value="'+$(this).parent().children('td.changedDate').text()+'">');
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
@@ -110,7 +110,7 @@ $(document).ready(function() {
               
             $('#saveBtn').click(function(){
                 synchronizedVariable = true;
-                
+                $currentRow = $('#saveBtn').closest('tr');
                 if($('.ajaxName input').val() != '') {                    
                     
                     if($('.ajaxEstimation input').val() != '') {
@@ -145,7 +145,9 @@ $(document).ready(function() {
                                                 $('.ajaxAcceptedDate').html($('.ajaxAcceptedDate input').val());
                                                 $('.ajaxStatus').html($('.ajaxStatus select').val());
                                                 $('.ajaxStatus').removeClass('ajaxStatus');
-                            
+                                                if((projectViewUrl != null) && (statusChanged)) {
+                                                    window.location.reload();
+                                                }
                                             }
                                         });
 
