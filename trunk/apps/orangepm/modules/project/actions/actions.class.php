@@ -318,15 +318,26 @@ class projectActions extends sfActions {
             $this->projectForm->bind($request->getParameter('project'));
 
             if ($this->projectForm->isValid()) {
-
-                if ($isSuperAdmin) {
-                    $projectSevice->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'), $this->projectForm->getValue('projectAdmin'));
-                } else {
-                    $projectSevice->saveProject($this->projectForm->getValue('name'), $this->projectForm->getValue('status'), $loggedUserId);
+                $project = new Project();
+                $project->setName($this->projectForm->getValue('name'));
+                $project->setProjectStatusId($this->projectForm->getValue('status'));
+                $project->setStartDate($this->projectForm->getValue('startDate'));
+                if($this->projectForm->getValue('endDate') != '') {
+                    $project->setEndDate($this->projectForm->getValue('endDate'));
                 }
+                $project->setDescription($this->projectForm->getValue('description'));
+                if ($isSuperAdmin) {
+                    if($this->projectForm->getValue('projectAdmin') != 0) {
+                        $project->setUserId($this->projectForm->getValue('projectAdmin'));
+                    }
+                } else {
+                    $project->setUserId($loggedUserId);
+                }
+                $projectSevice->saveProject($project);
+                $projectId = $project->getId();
                 $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
                 $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
-                $this->redirect('project/viewProjects');
+                $this->redirect("project/viewProjectDetails?projectId=$projectId");
             }
         }
         if ($isSuperAdmin) {
@@ -364,15 +375,30 @@ class projectActions extends sfActions {
      */
     public function executeEditProject($request) {
         $dao = new ProjectDao();
-        $this->statusId = $request->getParameter('projectStatus');
+        $project = new Project();
+        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $this->projectAdminId = $request->getParameter('projectAdminId');
-        if(!isset($this->projectAdminId)) {
-            $this->projectAdminId = 0;
+        $project->setId($request->getParameter('id'));
+        $project->setName($request->getParameter('name'));
+        $project->setProjectStatusId($request->getParameter('projectStatus'));
+        $project->setStartDate($request->getParameter('startDate'));
+        if ($request->getParameter('endDate') != '') {
+            $project->setEndDate($request->getParameter('endDate'));
         }
-        if($this->getUser()->hasCredential('projectAdmin')) {
-            $this->projectAdminId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+/*        if($this->getUser()->hasCredential('projectAdmin')) {
+            $project->setUserId($this->getUser()->getAttribute($loggedUserObject)->getId());
+        } else {
+            if ($request->getParameter('endDate') == )
+        }*/
+        if ($this->getUser()->hasCredential('superAdmin')) {
+            if($request->getParameter('projectAdminId') != 0) {
+                $project->setUserId($request->getParameter('projectAdminId'));
+            }
+        } else {
+            $project->setUserId($loggedUserId);
         }
-        $dao->updateProject($request->getParameter('id'), $request->getParameter('name'), $this->statusId, $this->projectAdminId);
+        //$project->setUserId($this->projectAdminId);
+        $dao->updateProject($project);
         die;
     }
 
@@ -470,7 +496,11 @@ class projectActions extends sfActions {
 
         $dao = new StoryDao();
         $dao->deleteStory($request->getParameter('id'), $request->getParameter('deletedDate'));
-        $this->redirect("project/viewStories?" . http_build_query(array('id' => $request->getParameter('projectId'), 'projectName' => $request->getParameter('projectName'))));
+        if($request->getParameter('fromViewProjectDetails')) {
+            $this->redirect("project/viewProjectDetails?" . http_build_query(array('projectId' => $request->getParameter('projectId')))."#stories");
+        } else {
+            $this->redirect("project/viewStories?" . http_build_query(array('id' => $request->getParameter('projectId'), 'projectName' => $request->getParameter('projectName'))));
+        }
     }
 
     /**
