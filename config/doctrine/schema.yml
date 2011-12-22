@@ -145,7 +145,7 @@ ProjectLog:
       type: clob
     logged_date:
       name: logged_date as loggedDate
-      type: date
+      type: timestamp
       notnull: true
   relations:
     Project:
