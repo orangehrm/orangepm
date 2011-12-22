@@ -31,7 +31,7 @@ div.formField {
 
 table.tableContent {
     top: 0px;
-    width: 1300px;
+    width: 1000px;
 }
 
 td.change {
@@ -39,5 +39,8 @@ td.change {
 }
 
 span.mandatoryStar {
+    position: relative;
     color: #fb0000;
+    top: 3px;
+    left: 3px;
 }

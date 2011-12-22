@@ -22,7 +22,7 @@ root {
 
 table.tableContent {
     top: 30px;
-    width: 1350px;
+    width: 1000px;
 }
 
 td.changedName {
@@ -55,3 +55,16 @@ a img {
     font-weight: bold;
 }
 
+.moreStar{
+    position: relative;
+    top: 3px;
+    left: 5px;
+}
+
+div#moreField {
+    position: relative;
+    left: 38px;
+    top: 5px;
+    font-size: 10px;
+    padding-left: 12px;
+}
