@@ -39,7 +39,7 @@ class ProjectForm extends sfForm {
     }
     private function _setEndDateWidgets() {
         
-        $this->formWidgets['endDate'] = new sfWidgetFormInputText(array('label' => 'Commited End Date'), array('size'=>'20'));
+        $this->formWidgets['endDate'] = new sfWidgetFormInputText(array('label' => 'Committed End Date'), array('size'=>'20'));
         $this->formValidators['endDate'] = new sfValidatorString(array('required' => false), array('required' => __('Commited End Date is required')));
         
     }
