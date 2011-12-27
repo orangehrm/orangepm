@@ -32,5 +32,13 @@ $(document).ready(function(){
     $(".changedStatus").change(function() {
         statusChanged = true;
     }); 
-        
+
+    $(".progressbar").each(function() {
+        var val = parseInt($(this).attr('value'));
+        $(this).progressbar({
+            value: val
+        });
+        $(this).find('div').html(val + '%');
+    });
+
 });

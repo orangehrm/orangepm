@@ -104,7 +104,7 @@ table.showTable {
 }
 
 .percentageColumn{
-    width: 40%;
+    width: 60%;
 }
 
 table.showTable td {
@@ -154,4 +154,14 @@ textarea.description{
     cursor:pointer;
     position: relative;
     left: 30%;
+}
+
+.progressbar{
+    height: 20px;
+    color: #666;
+}
+
+.progressbar div{
+    background: #7AE346;
+    text-align: center;
 }
