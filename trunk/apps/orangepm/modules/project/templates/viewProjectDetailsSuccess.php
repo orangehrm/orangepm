@@ -61,7 +61,7 @@
                         <?php foreach ($statusCountArray  as $status => $percentage): ?>
                         <tr>
                            <td><?php echo __($status);?></td>
-                           <td><?php echo "$percentage%"?></td>
+                           <td><div id="progressbar_<?php echo strtolower($status);?>"class="progressbar" value="<?php echo "$percentage"?>"></div></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
