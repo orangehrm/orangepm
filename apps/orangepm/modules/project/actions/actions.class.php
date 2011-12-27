@@ -28,9 +28,9 @@ class projectActions extends sfActions {
      * Set index action
      */
     public function executeIndex() {
-
         $response = $this->getResponse();
         $response->setTitle(__('Orange Project Management'));
+        $this->redirect('project/viewProjects');
     }
 
     /**
