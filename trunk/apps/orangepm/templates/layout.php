@@ -24,7 +24,7 @@
                         <?php if ($sf_user->hasCredential('projectAdmin')): ?>
                             <li> <?php echo link_to(__('Profile'), 'project/viewProfile', array()); ?></li>
                         <?php endif; ?>
-                        <li> <a href="#" id="issueTracker" ><?php echo __('Issue Tracker') ?></a></li>
+                        <li> <a href="http://code.google.com/p/orangepm/issues/list" id="issueTracker" ><?php echo __('Issue Tracker') ?></a></li>
 
                         <div class="logoutClass" id="logout">
                             <form action="<?php echo url_for("project/logout"); ?>" name="logoutForm" method="post">
