@@ -70,14 +70,14 @@ class viewProjectDetailsAction extends sfAction {
         $statusCountArray = array('Design' => 0, 'Development' => 0, 'Development Completed' => 0, 'Testing' => 0, 'Rework' => 0, 'Accepted' => 0);
         
         if(count($storyList) != 0) {
-            $storyCount = 0;
+            $storyEstimationCount = 0;
             foreach ($storyList->getResults() as $story) {
-                $storyCount++; 
+                $storyEstimationCount+=$story->getEstimation(); 
                 $key = $story->getStatus();
-                $statusCountArray["$key"]++;
+                $statusCountArray["$key"]+= $story->getEstimation();
             }
             foreach($statusCountArray as $key => $value) {
-                $statusCountArray["$key"] = round(($value/$storyCount)*100);
+                $statusCountArray["$key"] = round(($value/$storyEstimationCount)*100);
             }
         }
         return $statusCountArray;
