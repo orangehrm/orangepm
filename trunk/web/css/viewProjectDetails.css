@@ -165,3 +165,7 @@ textarea.description{
     background: #7AE346;
     text-align: center;
 }
+
+#showProjectForm input[type=text], textarea{
+    background: #FFF;
+}
