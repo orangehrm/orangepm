@@ -58,26 +58,44 @@ $(document).ready(function(){
     });
     
     $('#addButton').click(function() {
-        var currentTime = new Date();
-        var month = currentTime.getMonth() + 1;
-        var day = currentTime.getDate();
-        var year = currentTime.getFullYear();
-        var date = year + "-" + month + "-" + day;
-        $("table.showTable tbody").append('<tr><td id="ajaxLoggedDate">'+date+'</td><td id="ajaxUserName" value="'+userId+'" >'+userName+"</td><td><textarea id='ajaxDescription'></textarea></td>"+
+        $("table.showTable tbody").append('<tr><td id="ajaxLoggedDate">'+getCurrentTime(true)+'</td><td id="ajaxUserName" value="'+userId+'" >'+userName+"</td><td><textarea id='ajaxDescription'></textarea></td>"+
             '<td class="logSave" colspan="2"><img id="logSaveBtn" src="/orangepm/web/images/b_save.gif"></td></tr>');
     });
     
     $('#logSaveBtn').live('click', function() {
         var addedBy = $('#ajaxUserName').attr('value');
-        var loggedDate = $('#ajaxLoggedDate').html().trim();
         var description = $('#ajaxDescription').val();
         $.ajax({
             type: "post",
             url: addLinkUrl,
-            data: "projectId="+projectId+"&projectName="+projectName+"&loggedDate="+loggedDate+"&addedBy="+addedBy+"&description="+description,
+            data: "projectId="+projectId+"&projectName="+projectName+"&loggedDate="+getCurrentTime(false)+"&addedBy="+addedBy+"&description="+description,
             success: function(){
                 window.location.href = addLinkUrl+"/projectId/"+projectId+"/projectName/"+projectName;
             },
         });
     });
+    
+    function getCurrentTime(dateOnly) {
+        var currentTime = new Date();
+        var month = formatTimeValues(currentTime.getMonth() + 1);
+        var day = formatTimeValues(currentTime.getDate());
+        var year = formatTimeValues(currentTime.getFullYear());
+        var date = null;
+        if(dateOnly == true) {
+            date = year + "-" + month + "-" + day;
+        } else if(dateOnly == false) {
+            var hours = formatTimeValues(currentTime.getHours());
+            var minute = formatTimeValues(currentTime.getMinutes());
+            var seconds = formatTimeValues(currentTime.getSeconds());
+            date = year + "-" + month + "-" + day + " " + hours + ":" + minute + ":" + seconds;
+        }
+        return date;
+    }
+    
+    function formatTimeValues(value) {
+        if (value < 10){
+            value = "0" + value;
+        }
+        return value;
+    }
 });

@@ -14,7 +14,7 @@ class addLogAction extends sfAction {
             $projectLog->setProjectId($request->getParameter('projectId'));
             $projectLog->setAddedBy($request->getParameter('addedBy'));
             $projectLog->setDescription($request->getParameter('description'));
-            $projectLog->setLoggedDate(date('Y-m-d H:i:s'));
+            $projectLog->setLoggedDate($request->getParameter('loggedDate'));
             $this->projectLogService->saveLogItem($projectLog);
         }
         $this->projectId = $request->getParameter('projectId');
