@@ -56,7 +56,7 @@
                     <tbody>
                         <tr>
                             <th>Project Status</th>
-                            <th class="percentageColumn">Percentage of Completion</th>
+                            <th class="percentageColumn">Percentage</th>
                         </tr>
                         <?php foreach ($statusCountArray  as $status => $percentage): ?>
                         <tr>
