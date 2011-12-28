@@ -35,10 +35,10 @@
                 <div><?php echo $projectForm['endDate']->renderLabel() ?><?php echo $projectForm['endDate']->render(array('value' => $project->getEndDate())) ?><?php echo $projectForm['endDate']->renderError() ?><br class="clear" /></div>
                 
                 <?php if($sf_user->hasCredential('superAdmin')): ?>
-                <div>&nbsp;<?php echo $projectForm['projectAdmin']->renderLabel() ?><?php echo $projectForm['projectAdmin']->render() ?><?php echo $projectForm['projectAdmin']->renderError() ?></div>
+                <div><?php echo $projectForm['projectAdmin']->renderLabel() ?><?php echo $projectForm['projectAdmin']->render() ?><?php echo $projectForm['projectAdmin']->renderError() ?></div>
                 <?php endif; ?>
-                <div>&nbsp;<?php echo $projectForm['status']->renderLabel() ?><?php echo $projectForm['status']->render() ?><?php echo $projectForm['status']->renderError() ?></div>
-                <div>&nbsp;<?php echo $projectForm['description']->renderLabel() ?><?php echo $projectForm['description']->render() ?></div>
+                <div><?php echo $projectForm['status']->renderLabel() ?><?php echo $projectForm['status']->render() ?><?php echo $projectForm['status']->renderError() ?></div>
+                <div><?php echo $projectForm['description']->renderLabel() ?><?php echo $projectForm['description']->render() ?></div>
                 <div>
                     <input class="formButton" type="submit" value="<?php echo __('Edit') ?>" id="saveButton" name="saveButton" />
                     &nbsp;&nbsp;&nbsp;
