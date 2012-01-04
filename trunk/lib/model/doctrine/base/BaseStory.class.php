@@ -11,31 +11,37 @@
  * @property string $name
  * @property date $date_added
  * @property string $status
+ * @property date $statusChangedDate
  * @property date $accepted_date
  * @property date $deleted_date
  * @property boolean $deleted
  * @property Doctrine_Collection $Project
+ * @property Doctrine_Collection $StoryStatusChange
  * 
- * @method integer             getId()            Returns the current record's "id" value
- * @method integer             getProjectId()     Returns the current record's "project_id" value
- * @method integer             getEstimation()    Returns the current record's "estimation" value
- * @method string              getName()          Returns the current record's "name" value
- * @method date                getDateAdded()     Returns the current record's "date_added" value
- * @method string              getStatus()        Returns the current record's "status" value
- * @method date                getAcceptedDate()  Returns the current record's "accepted_date" value
- * @method date                getDeletedDate()   Returns the current record's "deleted_date" value
- * @method boolean             getDeleted()       Returns the current record's "deleted" value
- * @method Doctrine_Collection getProject()       Returns the current record's "Project" collection
- * @method Story               setId()            Sets the current record's "id" value
- * @method Story               setProjectId()     Sets the current record's "project_id" value
- * @method Story               setEstimation()    Sets the current record's "estimation" value
- * @method Story               setName()          Sets the current record's "name" value
- * @method Story               setDateAdded()     Sets the current record's "date_added" value
- * @method Story               setStatus()        Sets the current record's "status" value
- * @method Story               setAcceptedDate()  Sets the current record's "accepted_date" value
- * @method Story               setDeletedDate()   Sets the current record's "deleted_date" value
- * @method Story               setDeleted()       Sets the current record's "deleted" value
- * @method Story               setProject()       Sets the current record's "Project" collection
+ * @method integer             getId()                Returns the current record's "id" value
+ * @method integer             getProjectId()         Returns the current record's "project_id" value
+ * @method integer             getEstimation()        Returns the current record's "estimation" value
+ * @method string              getName()              Returns the current record's "name" value
+ * @method date                getDateAdded()         Returns the current record's "date_added" value
+ * @method string              getStatus()            Returns the current record's "status" value
+ * @method date                getStatusChangedDate() Returns the current record's "statusChangedDate" value
+ * @method date                getAcceptedDate()      Returns the current record's "accepted_date" value
+ * @method date                getDeletedDate()       Returns the current record's "deleted_date" value
+ * @method boolean             getDeleted()           Returns the current record's "deleted" value
+ * @method Doctrine_Collection getProject()           Returns the current record's "Project" collection
+ * @method Doctrine_Collection getStoryStatusChange() Returns the current record's "StoryStatusChange" collection
+ * @method Story               setId()                Sets the current record's "id" value
+ * @method Story               setProjectId()         Sets the current record's "project_id" value
+ * @method Story               setEstimation()        Sets the current record's "estimation" value
+ * @method Story               setName()              Sets the current record's "name" value
+ * @method Story               setDateAdded()         Sets the current record's "date_added" value
+ * @method Story               setStatus()            Sets the current record's "status" value
+ * @method Story               setStatusChangedDate() Sets the current record's "statusChangedDate" value
+ * @method Story               setAcceptedDate()      Sets the current record's "accepted_date" value
+ * @method Story               setDeletedDate()       Sets the current record's "deleted_date" value
+ * @method Story               setDeleted()           Sets the current record's "deleted" value
+ * @method Story               setProject()           Sets the current record's "Project" collection
+ * @method Story               setStoryStatusChange() Sets the current record's "StoryStatusChange" collection
  * 
  * @package    orangepm
  * @subpackage model
@@ -70,6 +76,10 @@ abstract class BaseStory extends sfDoctrineRecord
              'type' => 'string',
              'length' => 255,
              ));
+        $this->hasColumn('status_changed_date as statusChangedDate', 'date', null, array(
+             'type' => 'date',
+             'notnull' => false,
+             ));
         $this->hasColumn('accepted_date', 'date', null, array(
              'type' => 'date',
              'notnull' => false,
@@ -91,6 +101,10 @@ abstract class BaseStory extends sfDoctrineRecord
              'local' => 'project_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
+
+        $this->hasMany('StoryStatusChange', array(
+             'local' => 'id',
+             'foreign' => 'story_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable(array(
              ));

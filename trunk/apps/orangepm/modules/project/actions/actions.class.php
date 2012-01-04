@@ -410,26 +410,27 @@ class projectActions extends sfActions {
     public function executeEditStory($request) {
 
         $dao = new StoryDao();
+        $service = new StoryStatusChangeService();
+        $status = $request->getParameter('status');
+        if($status == "Backlog") {
+            $status = "Pending";
+        }
         $inputParameters = array(
             'name' => $request->getParameter('name'),
             'added date' => $request->getParameter('date'),
             'id' => $request->getParameter('id'),
-            'status' => $request->getParameter('status')
+            'status' => $status
         );
         if ($request->getParameter('estimation') == '')
             $inputParameters['estimated effort'] = null;
         else
             $inputParameters['estimated effort'] = $request->getParameter('estimation');
 
-
-        if ($request->getParameter('acceptedDate') == '')
-            $inputParameters['accepted date'] = null;
-        else
-            $inputParameters['accepted date'] = $request->getParameter('acceptedDate');
+        $inputParameters['status_changed_date'] = $request->getParameter('statusChangedDate');
 
 
         $projectService = new ProjectService();
-        $projectService->trackProjectProgress($request->getParameter('acceptedDate'), $request->getParameter('status'), $request->getParameter('id'));
+        $service->trackStoryStatusChange($request->getParameter('id'), $status, $request->getParameter('statusChangedDate'), $request->getParameter('estimation'));
         $dao->updateStory($inputParameters);
         die;
     }
@@ -443,6 +444,7 @@ class projectActions extends sfActions {
 
         $this->projectId = $request->getParameter('id');
         $projectService = new ProjectService();
+        $StoryStatusChangeService = new StoryStatusChangeService();
 
         if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
             $this->projectName = $request->getParameter('projectName');
@@ -459,16 +461,17 @@ class projectActions extends sfActions {
                 if ($this->storyForm->isValid()) {
                     $dao = new StoryDao();
                     $storyStatus = array(0 => 'Pending', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing', 5 => 'Rework', 6 => 'Accepted');
-                    $inputParameters = array(
-                        'name' => $this->storyForm->getValue('storyName'),
-                        'added date' => $this->storyForm->getValue('dateAdded'),
-                        'estimated effort' => $this->storyForm->getValue('estimatedEffort'),
-                        'project id' => $this->storyForm->getValue('projectId'),
-                        'status' => $storyStatus[$this->storyForm->getValue('status')],
-                        'accepted date' => $this->storyForm->getValue('acceptedDate')
-                    );
-                    $projectService->trackProjectProgressAddStory($inputParameters['accepted date'], $inputParameters['status'], $inputParameters['project id'], $inputParameters['estimated effort']);
-                    $dao->saveStory($inputParameters);
+
+                    $story = new Story();
+                    $story->setName($this->storyForm->getValue('storyName'));
+                    $story->setDateAdded($this->storyForm->getValue('dateAdded'));
+                    $story->setEstimation($this->storyForm->getValue('estimatedEffort'));
+                    $story->setProjectId($this->storyForm->getValue('projectId'));
+                    $story->setStatus($storyStatus[$this->storyForm->getValue('status')]);
+                    $story->setStatusChangedDate($this->storyForm->getValue('statusChangedDate'));
+                    $dao->saveStory($story);
+                    
+                    $StoryStatusChangeService->saveStoryStatusChange($story);
                     $this->getUser()->setFlash('addStory', __('The Story is added successfully'));
                     $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'), 'projectName' => $this->projectName)));
                 }
@@ -489,13 +492,12 @@ class projectActions extends sfActions {
      * @return unknown_type
      */
     public function executeDeleteStory($request) {
-
-
+        $storyStatusChangeDao = new StoryStatusChangeDao();
         $projectService = new ProjectService();
-        $projectService->trackProjectProgressDeleteStory($request->getParameter('id'));
 
         $dao = new StoryDao();
         $dao->deleteStory($request->getParameter('id'), $request->getParameter('deletedDate'));
+        $storyStatusChangeDao->deleteStoryStatusChangeByStoryId($request->getParameter('id'));
         if($request->getParameter('fromViewProjectDetails')) {
             $this->redirect("project/viewProjectDetails?" . http_build_query(array('projectId' => $request->getParameter('projectId')))."#stories");
         } else {
@@ -554,7 +556,7 @@ class projectActions extends sfActions {
         $allArray = $progressServiceObject->viewWeeklyProgress($this->storyList, $this->projectId);
         $this->weekStartingDate = $allArray[0];
         $this->totalEstimation = $allArray[1];
-        $this->weeklyVelocity = $allArray[2];
+        $this->statusChangeArray = $allArray[2];
         $this->workCompleted = $allArray[3];
         $this->burnDownArray = $allArray[4];
 

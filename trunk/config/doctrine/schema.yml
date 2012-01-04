@@ -54,6 +54,10 @@ Story:
     name: string(255)
     date_added: date
     status: string(255)
+    status_changed_date:
+      name: status_changed_date as statusChangedDate
+      type: date
+      notnull: false
     accepted_date: { type: date, notnull: false }
     deleted_date: {type: date }
     deleted: { type: boolean, notnull: true, default: 1 }
@@ -163,4 +167,32 @@ ProjectLog:
       class: User
       type: one
       foreignAlias: ProjectLogs
+      foreignType: many
+
+StoryStatusChange: 
+  tableName: orangepm_story_status_change
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    story_id:
+      name: story_id as storyId
+      type: integer
+      notnull: true
+    status:
+      type: string(255)
+      notnull: true
+    action_date:
+      name: action_date as actionDate
+      type: date
+      notnull: true
+  relations: 
+    Story:
+      onDelete: CASCADE
+      local: story_id
+      foreign: id
+      class: Story
+      type: one
+      foreignAlias: StoryStatusChange
       foreignType: many

@@ -60,7 +60,7 @@
                         </tr>
                         <?php foreach ($statusCountArray  as $status => $percentage): ?>
                         <tr>
-                           <td><?php echo __($status);?></td>
+                           <td><?php echo $status == 'Pending' ? __("Backlog") : __($status);?></td>
                            <td><div id="progressbar_<?php echo strtolower($status);?>"class="progressbar" value="<?php echo "$percentage"?>"></div></td>
                         </tr>
                         <?php endforeach; ?>
@@ -82,7 +82,7 @@
                             <th class="effortColumn">Effort <span class="moreStar">*</span></th>
                             <th class='dateColumn'>Date<br>Added</th>
                             <th class='statusColumn'>Status</th>
-                            <th class='acceptedColumn'>Accepted<br>Date</th>
+                            <th class='statusColumn'>Status<br>Changed<br>Date</th>
                             <th class="actionColumn" colspan="2">Actions</th>
                         </tr>
                         <?php if(count($storyList) != 0): ?>
@@ -91,8 +91,8 @@
                                 <td class="<?php echo "changedName name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>
                                 <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
                                 <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
-                                <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $story->getStatus(); ?></td>
-                                <td class="<?php echo "changedAcceptedDate acceptedDate " . $story->getId(); ?>"> <?php echo $story->getAcceptedDate(); ?></td>
+                                <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $story->getStatus() == "Pending" ? "Backlog" : $story->getStatus(); ?></td>
+                                <td class="<?php echo "changedStatusChangedDate statusChangedDate " . $story->getId(); ?>"> <?php echo $story->getStatusChangedDate(); ?></td>
                                 <td class="<?php echo "edit edit " . $story->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn') ?></td>
                                 <td class="close"><a class="confirmLink" href="<?php echo url_for("project/deleteStory?fromViewProjectDetails=true&id={$story->getId()}&projectId={$projectId}&projectName={$projectName}"); ?>"><?php echo image_tag('b_drop.png'); ?></a></td>
                             </tr>
