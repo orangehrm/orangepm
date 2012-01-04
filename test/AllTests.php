@@ -46,7 +46,7 @@ class AllTests {
         /* DAO tests */
         $suite->addTestFile(dirname(__FILE__) . '/lib/dao/ProjectDaoTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/lib/dao/ProjectLogDaoTest.php');
-        $suite->addTestFile(dirname(__FILE__) . '/lib/dao/StoryStatusChangeDaoTest.php');
+
         //$suite->addTestFile(dirname(__FILE__) . '/StoryDaoTest.php');
 
 

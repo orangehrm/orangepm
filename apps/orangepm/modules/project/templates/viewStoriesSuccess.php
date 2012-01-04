@@ -17,13 +17,13 @@
     <div id="mainErrorDiv"></div>
     <div class="StoryShowForm">
         <table class="tableContent">
-            <tr><td class="pageNav" colspan="8"><?php echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
+            <tr><td class="pageNav" colspan="7"><?php echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
             <tr>
                 <th><?php echo __('Story Name') ?></th>
                 <th><?php echo __('Effort');?><?php echo "<span class='moreStar'>*</span>"?></th>
                 <th><?php echo __('Date Added') ?></th>
                 <th><?php echo 'Status' ?></th>
-                <th><?php echo 'Status<br>Changed Date' ?></th>
+                <th><?php echo 'Accepted Date' ?></th>
                 <th colspan="2"><?php echo __('Actions') ?></th>
             </tr>
             <?php if(count($storyList) != 0): ?>
@@ -32,8 +32,8 @@
                     <td class="<?php echo "changedName name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>
                     <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
                     <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
-                    <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $story->getStatus() == 'Pending' ? 'Backlog' : $story->getStatus(); ?></td>
-                    <td class="<?php echo "changedStatusChangedDate statusChangedDate " . $story->getId(); ?>"> <?php echo $story->getStatusChangedDate(); ?></td>
+                    <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $story->getStatus(); ?></td>
+                    <td class="<?php echo "changedAcceptedDate acceptedDate " . $story->getId(); ?>"> <?php echo $story->getAcceptedDate(); ?></td>
                     <td class="<?php echo "edit edit " . $story->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn') ?></td>
                     <td class="close"><a class="confirmLink" href="<?php echo url_for("project/deleteStory?id={$story->getId()}&projectId={$projectId}&projectName={$projectName}"); ?>"><?php echo image_tag('b_drop.png'); ?></a></td>
     

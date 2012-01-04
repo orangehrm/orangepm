@@ -1,36 +1,35 @@
 $(document).ready(
     function() {
+        document.getElementById('project_acceptedDate').disabled=true;
         document.getElementById('project_dateAdded').value = getCurrentDate();
         $( "#project_dateAdded" ).datepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true,
-            showAnim: "slideDown",
-            onSelect: function() {
-                addedDate = $('#project_dateAdded').val();
-                $("#project_statusChangedDate").datepicker('destroy');
-                $("#project_statusChangedDate").datepicker(
-                        {
-                            dateFormat: 'yy-mm-dd',
-                            changeMonth: true,
-                            changeYear: true,
-                            showAnim: "slideDown",
-                            minDate: addedDate
-                });
-            }
-        });
-        
-        var addedDate = $("#project_dateAdded").val();
-        document.getElementById('project_statusChangedDate').value = getCurrentDate();
-        $( "#project_statusChangedDate" ).datepicker({
-            dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true,
-            showAnim: "slideDown",
-            minDate: addedDate
+            showAnim: "slideDown"
         });
     }
 );
+
+function clicked(dropdown){
+    if(dropdown.selectedIndex==6){
+       document.getElementById('project_acceptedDate').disabled=false;
+
+
+       document.getElementById('project_acceptedDate').value = getCurrentDate();
+       $( " #project_acceptedDate" ).datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                showAnim: "slideDown"
+               
+       });
+    }
+    else {
+       document.getElementById('project_acceptedDate').value = '';
+       document.getElementById('project_acceptedDate').disabled=true;
+    }
+}
 
 function passProjectId($projectId, $projectName){
     location.href=linkUrl+"?id="+$projectId+"&projectName="+$projectName
@@ -38,15 +37,8 @@ function passProjectId($projectId, $projectName){
 
 function getCurrentDate() {
     var currentTime = new Date()
-    var month = formatTimeValues(currentTime.getMonth() + 1)
-    var day = formatTimeValues(currentTime.getDate())
-    var year = formatTimeValues(currentTime.getFullYear())
+    var month = currentTime.getMonth() + 1
+    var day = currentTime.getDate()
+    var year = currentTime.getFullYear()
     return year+"-"+month+"-"+day;
-}
-
-function formatTimeValues(value) {
-    if (value < 10){
-        value = "0" + value;
-    }
-    return value;
 }
