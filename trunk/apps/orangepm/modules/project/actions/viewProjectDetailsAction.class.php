@@ -67,7 +67,7 @@ class viewProjectDetailsAction extends sfAction {
     public function getPercentageList($projectId) {
         $viewStoriesDao = new StoryDao();
         $storyList = $viewStoriesDao->getRelatedProjectStories(true, $projectId , 1);
-        $statusCountArray = array('Pending' => 0, 'Design' => 0, 'Development' => 0, 'Development Completed' => 0, 'Testing' => 0, 'Rework' => 0, 'Accepted' => 0);
+        $statusCountArray = array('Design' => 0, 'Development' => 0, 'Development Completed' => 0, 'Testing' => 0, 'Rework' => 0, 'Accepted' => 0);
         
         if(count($storyList) != 0) {
             $storyEstimationCount = 0;

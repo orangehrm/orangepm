@@ -24,7 +24,6 @@ class storyForm extends sfForm {
             'estimatedEffort' => new sfWidgetFormInputText(),
             'projectId' => new sfWidgetFormInputHidden(),
             'status' => new sfWidgetFormSelect(array('choices' => array(0 => 'Backlog', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing',  5 => 'Rework', 6 => 'Accepted'))),
-            'statusChangedDate' => new sfWidgetFormInputText(),
             'acceptedDate' => new sfWidgetFormInputText(),
         ));
 
@@ -38,7 +37,6 @@ class storyForm extends sfForm {
         $this->widgetSchema->setLabel('dateAdded', 'Date Added');
         $this->widgetSchema->setLabel('estimatedEffort', 'Estimated Effort');
         $this->widgetSchema->setLabel('status', 'Status');
-        $this->widgetSchema->setLabel('statusChangedDate', 'Status Changed Date');
         $this->widgetSchema->setLabel('acceptedDate', 'Accepted Date');
 
         $this->setValidators(array(
@@ -47,7 +45,6 @@ class storyForm extends sfForm {
             'estimatedEffort' => new sfValidatorNumber(array('required' =>false)),
             'status' => new sfValidatorString(array('required' =>false)),
             'projectId' => new sfValidatorString(),
-            'statusChangedDate' => new sfValidatorDate(array('required' =>false)),
             'acceptedDate' => new sfValidatorDate(array('required' =>false)),
         ));
 

@@ -61,13 +61,13 @@ $(document).ready(function() {
             $('.ajaxName').html($('.ajaxName input').val());
             $('.ajaxDate').html($('.ajaxDate input').val());
             $('.ajaxEstimation').html($('.ajaxEstimation input').val());
-            $('.ajaxStatusChangedDate').html($('.ajaxStatusChangedDate input').val());
+            $('.ajaxAcceptedDate').html($('.ajaxAcceptedDate input').val());
             $('.ajaxStatus').html($('.ajaxStatus select').val());
             
             $('.ajaxName').removeClass('ajaxName');
             $('.ajaxDate').removeClass('ajaxDate');
             $('.ajaxEstimation').removeClass('ajaxEstimation');
-            $('.ajaxStatusChangedDate').removeClass('ajaxStatusChangedDate');
+            $('.ajaxAcceptedDate').removeClass('ajaxAcceptedDate');
             $('.ajaxStatus').removeClass('ajaxStatus');
             
             $(this).parent().children('td.changedName').addClass('ajaxName');
@@ -77,8 +77,10 @@ $(document).ready(function() {
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
             $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
             
-            $(this).parent().children('td.changedStatusChangedDate').addClass('ajaxStatusChangedDate');
-            $(this).parent().children('td.changedStatusChangedDate').html('<input id="editboxStatusChangedDate" size="9" type="text" value="'+$(this).parent().children('td.changedStatusChangedDate').text()+ '">');
+
+            $(this).parent().children('td.changedAcceptedDate').addClass('ajaxAcceptedDate');
+            $(this).parent().children('td.changedAcceptedDate').html('<input id="editboxAcceptedDate" size="9" type="text" value="'+$(this).parent().children('td.changedAcceptedDate').text()+ '">');
+            document.getElementById('editboxAcceptedDate').disabled = true;
 
                 
 
@@ -98,6 +100,7 @@ $(document).ready(function() {
 
                 document.getElementById('changedStatus').selectedIndex = selectionArray[previousStatus];
                 if(previousStatus=="Accepted"){
+                    document.getElementById('editboxAcceptedDate').disabled=false;
                     document.getElementById('editboxEstimation').disabled=true;
                 }
             
@@ -115,17 +118,23 @@ $(document).ready(function() {
                         if(!isNaN($('.ajaxEstimation input').val())) {
                     
                             if(ValidateForm($('.ajaxDate input').val())) {
+                        
+                                if($('.ajaxStatus select').val()==" Accepted" && $('.ajaxAcceptedDate input').val()=='') {
+                                    setMainErrorMessage('Accepted Date is empty');
+                                }
+                              
 
-                                removeMainErrorMessage();
+                                else{
                                     
-                                    if(($('.ajaxStatus select').val()==" Accepted" && ValidateForm($('.ajaxStatusChangedDate input').val()))||$('.ajaxStatus select').val()!=" Accepted") {
+                                    removeMainErrorMessage();
+                                    
+                                    if(($('.ajaxStatus select').val()==" Accepted" && ValidateForm($('.ajaxAcceptedDate input').val()))||$('.ajaxStatus select').val()!=" Accepted") {
                                         $.ajax({
                                             type: "post",
                                             url: linkUrl,
 
 
-                                            data: "name="+$('.ajaxName input').val()+"&date="+$('.ajaxDate input').val()+"&estimation="+jQuery.trim($('.ajaxEstimation input').val())+"&id="+classNameArray[2]+"&status="+jQuery.trim($('.ajaxStatus select').val())+
-                                                      "&statusChangedDate="+jQuery.trim($('.ajaxStatusChangedDate input').val()),
+                                            data: "name="+$('.ajaxName input').val()+"&date="+$('.ajaxDate input').val()+"&estimation="+jQuery.trim($('.ajaxEstimation input').val())+"&id="+classNameArray[2]+"&status="+jQuery.trim($('.ajaxStatus select').val())+"&acceptedDate="+jQuery.trim($('.ajaxAcceptedDate input').val()),
 
                                             success: function(){
                         
@@ -133,7 +142,7 @@ $(document).ready(function() {
                                                 $('.ajaxDate').html($('.ajaxDate input').val());
                                                 $('.ajaxEstimation').html($('.ajaxEstimation input').val());
 
-                                                $('.ajaxStatusChangedDate').html($('.ajaxStatusChangedDate input').val());
+                                                $('.ajaxAcceptedDate').html($('.ajaxAcceptedDate input').val());
                                                 $('.ajaxStatus').html($('.ajaxStatus select').val());
                                                 $('.ajaxStatus').removeClass('ajaxStatus');
                                                 if((projectViewUrl != null) && (statusChanged)) {
@@ -145,6 +154,7 @@ $(document).ready(function() {
                                         toggleVariable = "Edited";
 
                                     }
+                                }
                             }
                         }
                         else { 
@@ -157,36 +167,19 @@ $(document).ready(function() {
                     setMainErrorMessage('Story Name is empty');
                 }
             });
-            
-            $("#editboxDate").datepicker(
+
+            $( "#editboxDate, #editboxAcceptedDate" ).datepicker(
+
             {
                     dateFormat: ' yy-mm-dd',
                     changeMonth: true,
                     changeYear: true,
-                    showAnim: "slideDown",
-                    onSelect: function() {
-                        addedDate = $('.ajaxDate input').val();
-                        $("#editboxStatusChangedDate").datepicker('destroy');
-	                    $("#editboxStatusChangedDate").datepicker(
-	                            {
-	                                dateFormat: ' yy-mm-dd',
-	                                changeMonth: true,
-	                                changeYear: true,
-	                                showAnim: "slideDown",
-	                                minDate: addedDate
-	                    });
-                    }
-            });
+                    showAnim: "slideDown"
+                });
+
+
+
             
-            var addedDate = $("#editboxDate").val();
-            $("#editboxStatusChangedDate").datepicker(
-            {
-                dateFormat: ' yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                showAnim: "slideDown",
-                minDate: addedDate
-            });
 
             var dtCh= "-";
             var minYear=1900;
@@ -298,11 +291,17 @@ function findSelected(){
     
     var changedStatus = document.getElementById('changedStatus');
     var changedEstimation = document.getElementById('editboxEstimation');
+    var editboxAcceptedDate = document.getElementById('editboxAcceptedDate');
     if(changedStatus.value == " Accepted"){
+
         changedEstimation.disabled = true;
+        editboxAcceptedDate.disabled=false;
+        
     }
     else{
+        editboxAcceptedDate.value= '';
         changedEstimation.disabled = false;
+        editboxAcceptedDate.disabled=true;
     }
 
     

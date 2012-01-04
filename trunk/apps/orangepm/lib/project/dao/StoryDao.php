@@ -9,7 +9,18 @@ class StoryDao {
 	 * @param $storyParameters Array
      * return $story
 	 */
-    public function saveStory(Story $story) {
+    public function saveStory($storyParameters) {
+
+
+        $story = new Story();
+
+        $story->setName($storyParameters['name']);
+        $story->setDateAdded($storyParameters['added date']);
+        $story->setEstimation($storyParameters['estimated effort']);
+        $story->setProjectId($storyParameters['project id']);
+        $story->setStatus($storyParameters['status']);
+        $story->setAcceptedDate($storyParameters['accepted date']);
+
         $story->save();
         return $story;
         
@@ -61,7 +72,6 @@ class StoryDao {
             $story->setEstimation($storyParameters['estimated effort']);
             $story->setDateAdded($storyParameters['added date']);
             $story->setStatus($storyParameters['status']);
-            $story->setStatusChangedDate($storyParameters['status_changed_date']);
             $story->setAcceptedDate($storyParameters['accepted date']);
             $story->save();
         }
