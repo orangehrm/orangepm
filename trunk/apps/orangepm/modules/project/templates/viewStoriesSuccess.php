@@ -5,6 +5,7 @@
     var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
     var editImgUrl = '<?php echo image_tag('b_edit.png', 'id=editBtn') ?>';
     var linkUrl = "<?php echo url_for('project/editStory') ?>";
+    var viewTaskUrl = "<?php echo url_for('project/viewTasks') ?>";
 </script>
 
 <div class="Project">
@@ -29,7 +30,7 @@
             <?php if(count($storyList) != 0): ?>
             <?php foreach ($storyList->getResults() as $story): ?>
                 <tr id="row">
-                    <td class="<?php echo "changedName name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>
+                    <td class="<?php echo "changedName name " . $story->getId(); ?>"><a href="<?php echo url_for("project/viewTasks?storyId={$story->getId()}")?>"><?php echo $story->getName(); ?></a></td>
                     <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
                     <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
                     <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $story->getStatus(); ?></td>
