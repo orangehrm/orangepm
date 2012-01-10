@@ -70,4 +70,15 @@ class ProjectLogService {
     public function updateLogItem(ProjectLog $projectLog) {
         return $this->projectLogDao->updateLogItem($projectLog);
     }
+    
+    /**
+     * Get the User Name
+     * @param integer $userId
+     * @return String Name
+     */
+    public function getUserName($userId) {
+        $userDao = new UserDao();
+        $user= $userDao->getUserById($userId);
+        return $user->getFirstName().' '.$user->getLastName();
+    }
 }
