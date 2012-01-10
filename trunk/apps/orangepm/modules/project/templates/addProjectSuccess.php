@@ -3,6 +3,7 @@
 
 <script type="text/javascript">
     var lang_nameRequired = "<?php echo __('Project name is required');?>";
+    var lang_startDateRequired = "<?php echo __('Development Start date is required');?>";
 </script>
 
 <div class="Project">

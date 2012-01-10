@@ -71,7 +71,9 @@
         <div class="break_line"></div>
         <div class='formField'>
             <a name="stories"></a>
-            <div class="form_devision_heading">Stories</div>
+            <div class="form_devision_heading">Stories
+                <span id="noStoriesMessage"><?php if(isset($noStoryMessage)) echo $noStoryMessage; ?></span>
+            </div>
             <div id="mainErrorDiv"></div>
             <div class='division_content'>
             <?php $urlParm = "project/viewStories?". http_build_query(array('id' => $projectId , 'projectName' => $project->getName()))?>
@@ -107,7 +109,9 @@
         <div class="break_line"></div>
         <div class='formField'>
             <a name="log"></a>
-            <div class="form_devision_heading">Log</div>
+            <div class="form_devision_heading">Log
+                <span id="noLogsMessage"><?php if(isset($noLogsMessage)) echo $noLogsMessage; ?></span>
+            </div>
             <div class='division_content'>
                 <table class='showTable'>
                     <tbody>
@@ -121,7 +125,7 @@
                         <tr>
                             <?php $loggedDate = explode(" ", $projectLog->getLoggedDate());?>
                             <td class="loggedDate <?php echo $projectLog->getId();?>"><?php echo $loggedDate[0];?></td>
-                            <td class="addedBy <?php echo $projectLog->getId();?>" value="<?php echo $projectLog->getAddedBy()?>"><?php echo viewProjectDetailsAction::getUserName($projectLog->getAddedBy());?></td>
+                            <td class="addedBy <?php echo $projectLog->getId();?>" value="<?php echo $projectLog->getAddedBy()?>"><?php echo $projectLogService->getUserName($projectLog->getAddedBy());?></td>
                             <td class="description <?php echo $projectLog->getId();?>"><?php echo $projectLog->getDescription();?></td>
                             <td class="logEdit <?php echo $projectLog->getId();?>">
                                 <img class="editBtn" src="/orangepm/web/images/b_edit.png">
