@@ -60,7 +60,13 @@ span.mandatoryStar {
 div.error {
     color: #CC0033;
     font-size: 12px;
-    margin-left: 135px;
+    margin-left: 190px;
+}
+
+.error_list {
+    color: #CC0033;
+    font-size: 12px;
+    margin-left: 190px;
 }
 
 div#requiredField {

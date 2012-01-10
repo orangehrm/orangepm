@@ -19,6 +19,18 @@ table.tableContent {
     width: 950px;
 }
 
+span#noStoriesMessage {
+    color: darksalmon;
+    margin-left: 275px;
+    font-weight: bold;
+}
+
+span#noLogsMessage {
+    color: darksalmon;
+    margin-left: 293px;
+    font-weight: bold;
+}
+
 #showProjectForm label {
     position: relative;
     float: left;

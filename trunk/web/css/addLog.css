@@ -12,6 +12,12 @@ table.showTable {
     border-spacing: 0px;
     margin-bottom: 30px;
 }
+
+.heading span#noRecordMessage {
+    color: darksalmon;
+    font-weight: bold;
+}
+
 .descriptionColumn{
     width: 50%;
 }
