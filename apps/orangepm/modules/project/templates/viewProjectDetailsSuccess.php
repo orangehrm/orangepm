@@ -17,6 +17,7 @@
     var addLinkUrl = "<?php echo url_for('project/viewProjectDetails') ?>";
     var updateLinkUrl = "<?php echo url_for('project/updateLog') ?>";
     var deleteLinkUrl = "<?php echo url_for("project/deleteLog?projectId=$projectId&projectName={$project->getName()}&from=viewDetails"); ?>";
+    var viewTaskUrl = "<?php echo url_for('project/viewTasks') ?>";
 </script>
 
 <div class="Project">
@@ -89,11 +90,12 @@
                         </tr>
                         <?php if(count($storyList) != 0): ?>
                         <?php foreach ($storyList->getResults() as $story): ?>
+                        <?php $status = $story->getStatus() == 'Pending' ? 'Backlog' : $story->getStatus();?>
                             <tr id="row">
-                                <td class="<?php echo "changedName name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>
+                                <td class="<?php echo "changedName name " . $story->getId(); ?>"><a href="<?php echo url_for("project/viewTasks?storyId={$story->getId()}")?>"><?php echo $story->getName(); ?></a></td>
                                 <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
                                 <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
-                                <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $story->getStatus(); ?></td>
+                                <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $status; ?></td>
                                 <td class="<?php echo "changedAcceptedDate acceptedDate " . $story->getId(); ?>"> <?php echo $story->getAcceptedDate(); ?></td>
                                 <td class="<?php echo "edit edit " . $story->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn') ?></td>
                                 <td class="close"><a class="confirmLink" href="<?php echo url_for("project/deleteStory?fromViewProjectDetails=true&id={$story->getId()}&projectId={$projectId}&projectName={$projectName}"); ?>"><?php echo image_tag('b_drop.png'); ?></a></td>

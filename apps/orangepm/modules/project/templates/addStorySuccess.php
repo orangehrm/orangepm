@@ -56,12 +56,13 @@
     </tr>
     <?php if(count($storyList) != 0): ?>
     <?php foreach ($storyList->getResults() as $story): ?>
+    <?php $status = $story->getStatus() == 'Pending' ? 'Backlog' : $story->getStatus();?>
                     <tr>
                         
                         <td class="<?php echo "change name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>
                         <td> <?php echo $story->getEstimation(); ?></td>
                         <td> <?php echo $story->getDateAdded(); ?></td>
-                        <td><?php echo $story->getStatus(); ?></td>
+                        <td><?php echo $status ?></td>
                         <td><?php echo $story->getAcceptedDate(); ?></td>
 
 
