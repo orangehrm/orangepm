@@ -15,6 +15,7 @@
  * @property date $deleted_date
  * @property boolean $deleted
  * @property Doctrine_Collection $Project
+ * @property Doctrine_Collection $Task
  * 
  * @method integer             getId()            Returns the current record's "id" value
  * @method integer             getProjectId()     Returns the current record's "project_id" value
@@ -26,6 +27,7 @@
  * @method date                getDeletedDate()   Returns the current record's "deleted_date" value
  * @method boolean             getDeleted()       Returns the current record's "deleted" value
  * @method Doctrine_Collection getProject()       Returns the current record's "Project" collection
+ * @method Doctrine_Collection getTask()          Returns the current record's "Task" collection
  * @method Story               setId()            Sets the current record's "id" value
  * @method Story               setProjectId()     Sets the current record's "project_id" value
  * @method Story               setEstimation()    Sets the current record's "estimation" value
@@ -36,6 +38,7 @@
  * @method Story               setDeletedDate()   Sets the current record's "deleted_date" value
  * @method Story               setDeleted()       Sets the current record's "deleted" value
  * @method Story               setProject()       Sets the current record's "Project" collection
+ * @method Story               setTask()          Sets the current record's "Task" collection
  * 
  * @package    orangepm
  * @subpackage model
@@ -91,6 +94,10 @@ abstract class BaseStory extends sfDoctrineRecord
              'local' => 'project_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
+
+        $this->hasMany('Task', array(
+             'local' => 'id',
+             'foreign' => 'story_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable(array(
              ));
