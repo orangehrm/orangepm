@@ -9,11 +9,13 @@ $(document).ready(function(){
     $("#addProjectForm").validate({
         
         rules: {
-            'project[name]': { required: true }
+            'project[name]': { required: true },
+            'project[startDate]' : { required: true }
         },
         
         messages: {
-            'project[name]': { required: lang_nameRequired }
+            'project[name]': { required: lang_nameRequired },
+            'project[startDate]' : { required: lang_startDateRequired }
             },        
         errorElement : 'div',
         errorPlacement: function(error, element) {
