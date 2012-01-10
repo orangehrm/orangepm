@@ -1,0 +1,9 @@
+## YAML Template.
+---
+TaskStatus:
+  task_status_1:
+    id: 1
+    name: Open
+  task_status_2:
+    id: 2
+    name: Complete
