@@ -2,9 +2,7 @@
 
 class addLogAction extends sfAction {
     
-    private $projectLogService = null;
-    
-    public function preExecute($request) {
+    public function preExecute() {
         $this->projectLogService = new ProjectLogService();
     }
     
@@ -19,17 +17,16 @@ class addLogAction extends sfAction {
         }
         $this->projectId = $request->getParameter('projectId');
         $this->projectName = $request->getParameter('projectName');
+        $loggedUserObject = null;
         $this->userId = $this->getUser()->getAttribute($loggedUserObject)->getId();
-        $this->userName = $this->getUserName($this->userId);
+        $this->userName = $this->projectLogService->getUserName($this->userId);
         $projectService = new ProjectService();
         if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
             $this->projectLogList = $this->projectLogService->getLogItemListByProjectId($this->projectId);
+            if (count($this->projectLogList) == 0) {
+                $this->noRecordMessage = __("No Matching Log Items Found");
+            }
         }
     }
     
-    public function getUserName($userId) {
-        $userDao = new UserDao();
-        $user= $userDao->getUserById($userId);
-        return $user->getFirstName().' '.$user->getLastName();
-    }
 }

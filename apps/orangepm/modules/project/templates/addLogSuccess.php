@@ -12,6 +12,9 @@
 </script>
 <div class="heading">
     <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> ><a class="storyLink" href="<?php echo url_for("project/viewProjectDetails?projectId={$projectId}&projectName={$projectName}"); ?>" > <?php echo $projectName; ?></a> > <?php echo __('Add Log'); ?> </h3>
+    <span id="message"><?php echo $sf_user->getFlash('addStory') ?></span>
+    <span id="noRecordMessage"><?php if(isset($noRecordMessage)) echo $noRecordMessage; ?></span>
+    
 </div>
 <div class='logList'>
     <input type="button" id="addButton" value="Add">
@@ -27,7 +30,7 @@
             <tr>
                 <?php $loggedDate = explode(" ", $projectLog->getLoggedDate());?>
                 <td class="loggedDate <?php echo $projectLog->getId();?>"><?php echo $loggedDate[0];?></td>
-                <td class="addedBy <?php echo $projectLog->getId();?>" value="<?php echo $projectLog->getAddedBy()?>"><?php echo addLogAction::getUserName($projectLog->getAddedBy());?></td>
+                <td class="addedBy <?php echo $projectLog->getId();?>" value="<?php echo $projectLog->getAddedBy()?>"><?php echo $projectLogService->getUserName($projectLog->getAddedBy());?></td>
                 <td class="description <?php echo $projectLog->getId();?>"><?php echo $projectLog->getDescription();?></td>
                 <td class="logEdit <?php echo $projectLog->getId();?>">
                     <img class="editBtn" src="/orangepm/web/images/b_edit.png">
