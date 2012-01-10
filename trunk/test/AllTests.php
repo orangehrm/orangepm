@@ -37,16 +37,16 @@ class AllTests {
     public static function suite() {
         $suite = new PHPUnit_Framework_TestSuite('PHPUnit');
 
-        $suite->addTestFile(dirname(__FILE__) . '/ProjectProgressTest.php');
-        
         /* Service tests*/
         $suite->addTestFile(dirname(__FILE__) . '/lib/service/ProjectServiceTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/lib/service/ProjectLogServiceTest.php');
+        $suite->addTestFile(dirname(__FILE__) . '/lib/service/TaskServiceTest.php');
         
         /* DAO tests */
         $suite->addTestFile(dirname(__FILE__) . '/lib/dao/ProjectDaoTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/lib/dao/ProjectLogDaoTest.php');
-
+        $suite->addTestFile(dirname(__FILE__) . '/lib/dao/TaskDaoTest.php');
+        $suite->addTestFile(dirname(__FILE__) . '/lib/dao/ProjectProgressTest.php');
         //$suite->addTestFile(dirname(__FILE__) . '/StoryDaoTest.php');
 
 
