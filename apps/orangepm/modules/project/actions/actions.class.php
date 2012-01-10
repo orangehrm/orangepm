@@ -443,7 +443,7 @@ class projectActions extends sfActions {
 
         $this->projectId = $request->getParameter('id');
         $projectService = new ProjectService();
-
+        $loggedUserObject = null;
         if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
             $this->projectName = $request->getParameter('projectName');
             $this->storyForm = new StoryForm();
@@ -516,7 +516,7 @@ class projectActions extends sfActions {
         $this->projectId = $request->getParameter('id');
 
         $projectService = new ProjectService();
-
+        $loggedUserObject = null;
         if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
 
             $this->id = $request->getParameter('id');
