@@ -1,9 +1,6 @@
 <?php
 class viewProjectDetailsAction extends sfAction {
-    
-    protected $projectService = null;
-    protected $projectLogService = null;
-    
+
     public function preExecute() {
         $this->projectService = new ProjectService();
         $this->projectLogService = new ProjectLogService();
@@ -26,7 +23,7 @@ class viewProjectDetailsAction extends sfAction {
                 }
             } 
             $this->userId = $this->getUser()->getAttribute($loggedUserObject)->getId();
-            $this->userName = $this->getUserName($this->userId);
+            $this->userName = $this->projectLogService->getUserName($this->userId);
             $this->project = $this->projectService->getProjectById($projectId);
             $this->projectId = $projectId;
             $this->projectForm->setDefault('projectAdmin', array('choices' => $this->project->getUserId()));
@@ -35,17 +32,17 @@ class viewProjectDetailsAction extends sfAction {
             
             $viewStoriesDao = new StoryDao();
             $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $projectId , 1);
+            if (count($this->storyList) == 0) {
+                $this->noStoryMessage = __("No Matching Stories Found");
+            }
             $this->statusCountArray = $this->getPercentageList($projectId);
             $this->projectLogList = $this->projectLogService->getLogItemListByProjectId($this->projectId);
+            if (count($this->projectLogList) == 0) {
+                $this->noLogsMessage = __("No Matching Log Items Found");
+            }
         } else {die;}
     }
-    
-    public function getUserName($userId) {
-        $userDao = new UserDao();
-        $user= $userDao->getUserById($userId);
-        return $user->getFirstName().' '.$user->getLastName();
-    }
-    
+
     public function updateProject($projectId) {
         $project = new Project();
         $projectDao = new ProjectDao();
