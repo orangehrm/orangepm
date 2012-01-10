@@ -164,3 +164,53 @@ ProjectLog:
       type: one
       foreignAlias: ProjectLogs
       foreignType: many
+
+Task:
+  tableName: orangepm_task
+  columns:
+    id: 
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+    story_id:
+      name: story_id as storyId
+      type: integer
+    effort:
+      type: integer
+    description: 
+      type: clob
+    owned_by:
+      name: owned_by as ownedBy
+      type: string(255)
+    status:
+      type: integer
+  relations:
+    Story:
+      onDelete: CASCADE
+      local: story_id
+      foreign: id
+      class: Story
+      type: one
+      foreignAlias: Task
+      foreignType: many
+    TaskStatus:
+      onDelete: set null
+      local: status
+      foreign: id
+      class: TaskStatus
+      type: one
+      foreignAlias: Task
+      foreignType: many
+
+TaskStatus:
+  tableName: orangepm_task_status
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+      notnull: true
