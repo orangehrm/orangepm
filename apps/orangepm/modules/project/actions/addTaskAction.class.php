@@ -3,6 +3,9 @@
 class addTaskAction extends sfAction {
 
     public function preExecute() {
+        if ((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
+            $this->redirect('project/login');
+        }
         $this->storyDao = new StoryDao();
         $this->projectService =  new ProjectService();
         $this->taskService =  new TaskService();

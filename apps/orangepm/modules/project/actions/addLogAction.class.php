@@ -3,6 +3,9 @@
 class addLogAction extends sfAction {
     
     public function preExecute() {
+        if ((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
+            $this->redirect('project/login');
+        }
         $this->projectLogService = new ProjectLogService();
     }
     
