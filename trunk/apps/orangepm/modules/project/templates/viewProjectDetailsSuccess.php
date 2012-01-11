@@ -58,11 +58,13 @@
                         <tr>
                             <th>Project Status</th>
                             <th class="percentageColumn">Percentage</th>
+                            <th class="effortColumn"> Effort (<?php echo $storyEstimationCount?>)</th>
                         </tr>
-                        <?php foreach ($statusCountArray  as $status => $percentage): ?>
+                        <?php foreach ($statusCountArray  as $status => $effort): ?>
                         <tr>
                            <td><?php echo __($status);?></td>
-                           <td><div id="progressbar_<?php echo strtolower($status);?>"class="progressbar" value="<?php echo "$percentage"?>"></div></td>
+                           <td><div id="progressbar_<?php echo str_replace(" ","_",strtolower($status));?>"class="progressbar" value="<?php echo $projectService->getPecentage($effort, $storyEstimationCount)?>"></div></td>
+                           <td><?php echo $effort?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

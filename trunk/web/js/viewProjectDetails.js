@@ -38,7 +38,7 @@ $(document).ready(function(){
     });
     
     $(".progressbar").each(function() {
-        var val = parseInt($(this).attr('value'));
+        var val = parseFloat($(this).attr('value'));
         $(this).progressbar({
             value: val
         });
