@@ -74,12 +74,13 @@
         <div class="break_line"></div>
         <div class='formField'>
             <a name="stories"></a>
-            <div class="form_devision_heading">Stories
+            <?php $urlParm = "project/viewStories?". http_build_query(array('id' => $projectId , 'projectName' => $project->getName()))?>
+            <div class="form_devision_heading"><a href="<?php echo url_for($urlParm)?>">Stories</a>
                 <span id="noStoriesMessage"><?php if(isset($noStoryMessage)) echo $noStoryMessage; ?></span>
             </div>
             <div id="mainErrorDiv"></div>
-            <div class='division_content'>
-            <?php $urlParm = "project/viewStories?". http_build_query(array('id' => $projectId , 'projectName' => $project->getName()))?>
+            <div><a class="divisionExpandColaps show" id="storyExpandColaps" href=""> ▼ Story List</a></div>
+            <div class='division_content' id="storyDivisionContent">
                 <table class='showTable'>
                     <tbody>
                         <tr>
@@ -106,17 +107,19 @@
                         <?php endif;?>
                     </tbody>
                 </table>
-                <div id="moreFieldProject">Estimated Effort (Engineering Hours) <span class="moreStar">*</span></div>
             </div>
-            <div><a href="<?php echo url_for($urlParm)?>">View all Stories</a></div>
+            <div id="moreFieldProject">Estimated Effort (Engineering Hours) <span class="moreStar">*</span></div>
+            <div class="info">Go to Story page by clicking on "Stories"</div>
         </div>
         <div class="break_line"></div>
         <div class='formField'>
             <a name="log"></a>
-            <div class="form_devision_heading">Log
+             <?php $urlParm = "project/addLog?". http_build_query(array('projectId' => $projectId , 'projectName' => $project->getName()))?>
+            <div class="form_devision_heading"><a href="<?php echo url_for($urlParm)?>">Log</a>
                 <span id="noLogsMessage"><?php if(isset($noLogsMessage)) echo $noLogsMessage; ?></span>
             </div>
-            <div class='division_content'>
+            <div><a class="divisionExpandColaps show" id="logExpandColaps" href=""> ▼ Log List</a></div>
+            <div class='division_content' id="logDivisionContent">
                 <table class='showTable'>
                     <tbody>
                         <tr>
@@ -139,9 +142,7 @@
                     </tbody>
                 </table>
             </div>
-            <?php $urlParm = "project/addLog?". http_build_query(array('projectId' => $projectId , 'projectName' => $project->getName()))?>
-                <div><a href="<?php echo url_for($urlParm)?>">View all Logs</a></div> 
-            
+            <div class="info">Go to Log page by clicking on "Log"</div>
         </div>
     </div>
 </div>

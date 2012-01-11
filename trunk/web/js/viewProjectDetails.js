@@ -44,5 +44,32 @@ $(document).ready(function(){
         });
         $(this).find('div').html(val + '%');
     });
+    
+    $("#logExpandColaps").click(function(event){
+        event.preventDefault();
+        $("#logDivisionContent").slideToggle("slow");
+        if ($("#logExpandColaps").hasClass('show')) {
+            $("#logExpandColaps").addClass('hide');
+            $("#logExpandColaps").removeClass('show');
+            $("#logExpandColaps").html(" ► Log List");
+        } else if ($("#logExpandColaps").hasClass('hide')) {
+            $("#logExpandColaps").addClass('show');
+            $("#logExpandColaps").removeClass('hide');
+            $("#logExpandColaps").html(" ▼ Log List");
+        } 
+    });
 
+    $("#storyExpandColaps").click(function(event){
+        event.preventDefault();
+        $("#storyDivisionContent").slideToggle("slow");
+        if ($("#storyExpandColaps").hasClass('show')) {
+            $("#storyExpandColaps").addClass('hide');
+            $("#storyExpandColaps").removeClass('show');
+            $("#storyExpandColaps").html(" ► Story List");
+        } else if ($("#storyExpandColaps").hasClass('hide')) {
+            $("#storyExpandColaps").addClass('show');
+            $("#storyExpandColaps").removeClass('hide');
+            $("#storyExpandColaps").html(" ▼ Story List");
+        } 
+    });
 });

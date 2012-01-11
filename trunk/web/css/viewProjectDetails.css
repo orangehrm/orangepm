@@ -143,10 +143,9 @@ table.showTable th {
 
 div#moreFieldProject {
     position: relative;
-    bottom: 10px;
     right: 5px;
     font-size: 10px;
-    padding-left: 12px;
+    padding-left: 37px;
 }
 
 .listAction{
@@ -207,4 +206,23 @@ textarea.description{
 
 #showProjectForm input[type=text], textarea{
     background: #FFF;
+}
+
+.Project{
+    margin-bottom: 50px;
+}
+
+.divisionExpandColaps{
+    font-size: 15px;
+    position: relative;
+    left: 28px;
+}
+
+.info{
+    position: relative;
+    top: 3px;
+    bottom: 10px;
+    right: 5px;
+    font-size: 10px;
+    padding-left: 37px;
 }
