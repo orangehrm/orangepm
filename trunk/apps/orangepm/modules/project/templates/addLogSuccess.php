@@ -2,6 +2,7 @@
 <script type="text/javascript">
     var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
     var editImgUrl = '<?php echo image_tag('b_edit.png', 'id=editBtn') ?>';
+    var logSaveImgUrl = '<?php echo image_tag('b_save.gif', 'id=logSaveBtn') ?>';
     var userId = "<?php echo $userId;?>";
     var userName = "<?php echo $userName;?>";
     var projectId = "<?php echo $projectId;?>";
@@ -32,12 +33,8 @@
                 <td class="loggedDate <?php echo $projectLog->getId();?>"><?php echo $loggedDate[0];?></td>
                 <td class="addedBy <?php echo $projectLog->getId();?>" value="<?php echo $projectLog->getAddedBy()?>"><?php echo $projectLogService->getUserName($projectLog->getAddedBy());?></td>
                 <td class="description <?php echo $projectLog->getId();?>"><?php echo $projectLog->getDescription();?></td>
-                <td class="logEdit <?php echo $projectLog->getId();?>">
-                    <img class="editBtn" src="/orangepm/web/images/b_edit.png">
-                </td>
-                <td class="logDelete <?php echo $projectLog->getId();?>">
-                    <img class="deleteBtn" src="/orangepm/web/images/b_drop.png">
-                </td>
+                <td class="logEdit <?php echo $projectLog->getId();?>"><?php echo image_tag('b_edit.png', 'class=editBtn') ?></td>
+                <td class="logDelete <?php echo $projectLog->getId();?>"><?php echo image_tag('b_drop.png', 'class=deleteBtn'); ?></td>
             </tr>
             <?php }?>
             <tr>

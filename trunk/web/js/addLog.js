@@ -59,7 +59,7 @@ $(document).ready(function(){
     
     $('#addButton').click(function() {
         $("table.showTable tbody").append('<tr><td id="ajaxLoggedDate">'+getCurrentTime(true)+'</td><td id="ajaxUserName" value="'+userId+'" >'+userName+"</td><td><textarea id='ajaxDescription'></textarea></td>"+
-            '<td class="logSave" colspan="2"><img id="logSaveBtn" src="/orangepm/web/images/b_save.gif"></td></tr>');
+            '<td class="logSave" colspan="2">'+logSaveImgUrl+'</td></tr>');
     });
     
     $('#logSaveBtn').live('click', function() {
