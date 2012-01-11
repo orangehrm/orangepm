@@ -2,6 +2,9 @@
 class viewProjectDetailsAction extends sfAction {
 
     public function preExecute() {
+        if ((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
+            $this->redirect('project/login');
+        }
         $this->projectService = new ProjectService();
         $this->projectLogService = new ProjectLogService();
     }

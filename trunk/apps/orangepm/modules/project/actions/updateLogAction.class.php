@@ -1,6 +1,12 @@
 <?php
 class updateLogAction extends sfAction {
     
+    public function preExecute() {
+        if ((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
+            $this->redirect('project/login');
+        }
+    }
+    
     public function execute($request) {
         $projectId = $request->getParameter('projectId');
         $projectService = new ProjectService();
