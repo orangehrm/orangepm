@@ -100,7 +100,7 @@
                                 <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $status; ?></td>
                                 <td class="<?php echo "changedAcceptedDate acceptedDate " . $story->getId(); ?>"> <?php echo $story->getAcceptedDate(); ?></td>
                                 <td class="<?php echo "edit edit " . $story->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn') ?></td>
-                                <td class="close"><a class="confirmLink" href="<?php echo url_for("project/deleteStory?fromViewProjectDetails=true&id={$story->getId()}&projectId={$projectId}&projectName={$projectName}"); ?>"><?php echo image_tag('b_drop.png'); ?></a></td>
+                                <td class="close"><a class="confirmLink" href="<?php echo url_for("project/deleteStory?fromViewProjectDetails=true&id={$story->getId()}&projectId={$projectId}&projectName={$project->getName()}"); ?>"><?php echo image_tag('b_drop.png'); ?></a></td>
                             </tr>
                         <?php endforeach; ?>
                         <?php endif;?>
@@ -108,7 +108,7 @@
                 </table>
                 <div id="moreFieldProject">Estimated Effort (Engineering Hours) <span class="moreStar">*</span></div>
             </div>
-            <div><a href="<?php echo url_for($urlParm)?>">View all stories</a></div>
+            <div><a href="<?php echo url_for($urlParm)?>">View all Stories</a></div>
         </div>
         <div class="break_line"></div>
         <div class='formField'>
@@ -131,12 +131,8 @@
                             <td class="loggedDate <?php echo $projectLog->getId();?>"><?php echo $loggedDate[0];?></td>
                             <td class="addedBy <?php echo $projectLog->getId();?>" value="<?php echo $projectLog->getAddedBy()?>"><?php echo $projectLogService->getUserName($projectLog->getAddedBy());?></td>
                             <td class="description <?php echo $projectLog->getId();?>"><?php echo $projectLog->getDescription();?></td>
-                            <td class="logEdit <?php echo $projectLog->getId();?>">
-                                <img class="editBtn" src="/orangepm/web/images/b_edit.png">
-                            </td>
-                            <td class="logDelete <?php echo $projectLog->getId();?>">
-                                <img class="deleteBtn" src="/orangepm/web/images/b_drop.png">
-                            </td>
+                            <td class="logEdit <?php echo $projectLog->getId();?>"><?php echo image_tag('b_edit.png', 'id=editBtn') ?></td>
+                            <td class="logDelete <?php echo $projectLog->getId();?>"><?php echo image_tag('b_drop.png', 'class=deleteBtn'); ?></td>
                         </tr>
                         <?php }?>
                         <tr>
