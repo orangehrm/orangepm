@@ -174,8 +174,35 @@ textarea.description{
 }
 
 .progressbar div{
-    background: #7AE346;
     text-align: center;
+}
+
+#progressbar_accepted div{
+    background: #228B22;
+}
+
+#progressbar_backlog div{
+    background: #0EBFE9;
+}
+
+#progressbar_design div{
+    background: #FBEC5D;
+}
+
+#progressbar_development div{
+    background: #FBEC5D;
+}
+
+#progressbar_development_completed div{
+    background: #7AE346;
+}
+
+#progressbar_testing div{
+    background: orange;
+}
+
+#progressbar_rework div{
+    background: #FF0033;
 }
 
 #showProjectForm input[type=text], textarea{

@@ -446,4 +446,13 @@ class ProjectService {
         
     }
     
+    /**
+     * Get the percentage
+     * @param $value
+     * @param $total
+     * @return Integer
+     */
+    public function getPecentage($value, $total) {
+        return round(($value/$total)*100, 2);
+    }
 }

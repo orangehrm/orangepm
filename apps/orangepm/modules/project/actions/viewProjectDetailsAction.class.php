@@ -73,9 +73,7 @@ class viewProjectDetailsAction extends sfAction {
                 $key = $story->getStatus() == 'Pending' ? 'Backlog' : $story->getStatus();
                 $statusCountArray["$key"]+= $story->getEstimation();
             }
-            foreach($statusCountArray as $key => $value) {
-                $statusCountArray["$key"] = round(($value/$storyEstimationCount)*100);
-            }
+            $this->storyEstimationCount = $storyEstimationCount;
         }
         return $statusCountArray;
     }
