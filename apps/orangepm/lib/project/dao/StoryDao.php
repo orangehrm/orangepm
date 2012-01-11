@@ -49,7 +49,7 @@ class StoryDao {
 
         if ($active) {
             $pager = new sfDoctrinePager('Story', 50);
-            $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId)->orderBy('date_added');
+            $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId)->orderBy('date_added, name');
             $pager->setPage($pageNo);
             $pager->init();
             return $pager;
