@@ -8,7 +8,7 @@
  * @property integer $id
  * @property string $name
  * @property integer $storyId
- * @property integer $effort
+ * @property decimal $effort
  * @property clob $description
  * @property string $ownedBy
  * @property integer $status
@@ -18,7 +18,7 @@
  * @method integer    getId()          Returns the current record's "id" value
  * @method string     getName()        Returns the current record's "name" value
  * @method integer    getStoryId()     Returns the current record's "storyId" value
- * @method integer    getEffort()      Returns the current record's "effort" value
+ * @method decimal    getEffort()      Returns the current record's "effort" value
  * @method clob       getDescription() Returns the current record's "description" value
  * @method string     getOwnedBy()     Returns the current record's "ownedBy" value
  * @method integer    getStatus()      Returns the current record's "status" value
@@ -56,8 +56,8 @@ abstract class BaseTask extends sfDoctrineRecord
         $this->hasColumn('story_id as storyId', 'integer', null, array(
              'type' => 'integer',
              ));
-        $this->hasColumn('effort', 'integer', null, array(
-             'type' => 'integer',
+        $this->hasColumn('effort', 'decimal', null, array(
+             'type' => 'decimal',
              ));
         $this->hasColumn('description', 'clob', null, array(
              'type' => 'clob',

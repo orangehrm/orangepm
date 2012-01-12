@@ -178,7 +178,7 @@ Task:
       name: story_id as storyId
       type: integer
     effort:
-      type: integer
+      type: decimal
     description: 
       type: clob
     owned_by:
