@@ -60,11 +60,16 @@ class TaskDao {
             if($task->getName()) {
                 $query->set('t.name', '?', $task->getName());
             }
+            if($task->getEffort() == 'NULL') {
                 $query->set('t.effort', $task->getEffort());
-                $query->set('t.description', '?', $task->getDescription());
-                $query->set('t.ownedBy', '?', $task->getOwnedBy());
-                $query->set('t.status', '?', $task->getStatus());
-                $query->where('t.id = ?', $task->getId());
+            } else {
+                $query->set('t.effort', '?', $task->getEffort());
+            }
+            $query->set('t.description', '?', $task->getDescription());
+            $query->set('t.ownedBy', '?', $task->getOwnedBy());
+            $query->set('t.status', '?', $task->getStatus());
+            $query->where('t.id = ?', $task->getId());
+                
             return $query->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage(), $e->getCode(), $e);
