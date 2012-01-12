@@ -7,6 +7,7 @@ class viewProjectDetailsAction extends sfAction {
         }
         $this->projectService = new ProjectService();
         $this->projectLogService = new ProjectLogService();
+        $this->storyEstimationCount = 0;
     }
     
     public function execute($request) {

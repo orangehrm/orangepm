@@ -453,6 +453,10 @@ class ProjectService {
      * @return Integer
      */
     public function getPecentage($value, $total) {
-        return round(($value/$total)*100, 2);
+        if ($value != 0) {
+            return round(($value/$total)*100, 2);
+        } else {
+            return 0;
+        }
     }
 }
