@@ -174,6 +174,8 @@ class ProjectService {
             $totalEstimatedEffort = 0;
 
             $storeWeeklyEstimation = 0;
+            $weeklyVelocity = array();
+            $workCompletedArray = array();
 
             foreach ($storyList as $story) {
 
@@ -211,16 +213,10 @@ class ProjectService {
     /**
 	 * Calculate week start day
 	 * @param $date
-	 * @return $from
+	 * @return week starting date
 	 */
     public function CalculateWeekStartDate($date) {
-
-
-        $week = date('W', strtotime($date));
-        $year = date('Y', strtotime($date));
-        $from = date("Y-m-d", strtotime("{$year}-W{$week}-1"));
-
-        return $from;
+        return date('Y-m-d', strtotime('Last Monday', strtotime($date." 00:00")));
     }
 
     /**
