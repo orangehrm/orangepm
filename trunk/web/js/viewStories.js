@@ -137,6 +137,7 @@ $(document).ready(function() {
                                             data: "name="+$('.ajaxName input').val()+"&date="+$('.ajaxDate input').val()+"&estimation="+jQuery.trim($('.ajaxEstimation input').val())+"&id="+classNameArray[2]+"&status="+jQuery.trim($('.ajaxStatus select').val())+"&acceptedDate="+jQuery.trim($('.ajaxAcceptedDate input').val()),
 
                                             success: function(){
+                                                $('#message').html('The Story was updated successfully');
                                                 var stroyClass = $('.ajaxName').attr('class').split(' ');
                                                 $('.ajaxName').html("<a href="+viewTaskUrl+"?storyId="+stroyClass[2]+">"+$('.ajaxName input').val()+"</a>");
                                                 $('.ajaxDate').html($('.ajaxDate input').val());
