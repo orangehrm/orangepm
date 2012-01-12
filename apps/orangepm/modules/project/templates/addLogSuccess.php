@@ -1,7 +1,7 @@
 <?php echo stylesheet_tag('addLog') ?>
 <script type="text/javascript">
-    var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
-    var editImgUrl = '<?php echo image_tag('b_edit.png', 'id=editBtn') ?>';
+    var saveImgUrl = '<?php echo image_tag('b_save.gif', 'class=saveBtn') ?>';
+    var editImgUrl = '<?php echo image_tag('b_edit.png', 'class=editBtn') ?>';
     var logSaveImgUrl = '<?php echo image_tag('b_save.gif', 'id=logSaveBtn') ?>';
     var userId = "<?php echo $userId;?>";
     var userName = "<?php echo $userName;?>";
