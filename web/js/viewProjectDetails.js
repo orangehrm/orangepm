@@ -51,11 +51,11 @@ $(document).ready(function(){
         if ($("#logExpandColaps").hasClass('show')) {
             $("#logExpandColaps").addClass('hide');
             $("#logExpandColaps").removeClass('show');
-            $("#logExpandColaps").html(" ► Log List");
+            $("#logExpandColaps").html("[+]");
         } else if ($("#logExpandColaps").hasClass('hide')) {
             $("#logExpandColaps").addClass('show');
             $("#logExpandColaps").removeClass('hide');
-            $("#logExpandColaps").html(" ▼ Log List");
+            $("#logExpandColaps").html("[-]");
         } 
     });
 
@@ -65,11 +65,11 @@ $(document).ready(function(){
         if ($("#storyExpandColaps").hasClass('show')) {
             $("#storyExpandColaps").addClass('hide');
             $("#storyExpandColaps").removeClass('show');
-            $("#storyExpandColaps").html(" ► Story List");
+            $("#storyExpandColaps").html("[+]");
         } else if ($("#storyExpandColaps").hasClass('hide')) {
             $("#storyExpandColaps").addClass('show');
             $("#storyExpandColaps").removeClass('hide');
-            $("#storyExpandColaps").html(" ▼ Story List");
+            $("#storyExpandColaps").html("[-]");
         } 
     });
 });
