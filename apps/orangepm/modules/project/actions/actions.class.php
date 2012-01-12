@@ -469,7 +469,7 @@ class projectActions extends sfActions {
                     );
                     $projectService->trackProjectProgressAddStory($inputParameters['accepted date'], $inputParameters['status'], $inputParameters['project id'], $inputParameters['estimated effort']);
                     $dao->saveStory($inputParameters);
-                    $this->getUser()->setFlash('addStory', __('The Story is added successfully'));
+                    $this->getUser()->setFlash('addStory', __('The Story was added successfully'));
                     $this->redirect("project/viewStories?" . http_build_query(array('id' => $this->storyForm->getValue('projectId'), 'projectName' => $this->projectName)));
                 }
             }
