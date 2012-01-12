@@ -49,7 +49,7 @@ textarea.description{
     height: 40px;
 }
 
-td.edit, td.delete {
+.editBtn, .deleteBtn, .saveBtn {
     cursor:pointer;
 }
 
@@ -76,7 +76,7 @@ table.showTable th {
     font-weight: bold;
 }
 
-.editBtn, .deleteBtn, #saveBtn, #editBtn, #deleteBtn{
+.editBtn, .deleteBtn, .saveBtn, .editBtn, .deleteBtn{
     position: relative;
     left: 30%;
 }
