@@ -75,11 +75,10 @@
         <div class='formField'>
             <a name="stories"></a>
             <?php $urlParm = "project/viewStories?". http_build_query(array('id' => $projectId , 'projectName' => $project->getName()))?>
-            <div class="form_devision_heading"><a href="<?php echo url_for($urlParm)?>">Stories</a>
+            <div class="form_devision_heading"><a href="<?php echo url_for($urlParm)?>">Stories</a><a class="divisionExpandColaps show" id="storyExpandColaps" href="">[-]</a>
                 <span id="noStoriesMessage"><?php if(isset($noStoryMessage)) echo $noStoryMessage; ?></span>
             </div>
             <div id="mainErrorDiv"></div>
-            <div><a class="divisionExpandColaps show" id="storyExpandColaps" href=""> ▼ Story List</a></div>
             <div class='division_content' id="storyDivisionContent">
                 <table class='showTable'>
                     <tbody>
@@ -115,10 +114,9 @@
         <div class='formField'>
             <a name="log"></a>
              <?php $urlParm = "project/addLog?". http_build_query(array('projectId' => $projectId , 'projectName' => $project->getName()))?>
-            <div class="form_devision_heading"><a href="<?php echo url_for($urlParm)?>">Log</a>
+            <div class="form_devision_heading"><a href="<?php echo url_for($urlParm)?>">Log</a><a class="divisionExpandColaps show" id="logExpandColaps" href="">[-]</a>
                 <span id="noLogsMessage"><?php if(isset($noLogsMessage)) echo $noLogsMessage; ?></span>
             </div>
-            <div><a class="divisionExpandColaps show" id="logExpandColaps" href=""> ▼ Log List</a></div>
             <div class='division_content' id="logDivisionContent">
                 <table class='showTable'>
                     <tbody>
