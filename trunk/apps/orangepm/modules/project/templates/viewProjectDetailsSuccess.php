@@ -106,8 +106,8 @@
                         <?php endif;?>
                     </tbody>
                 </table>
+                <div id="moreFieldProject">Estimated Effort (Engineering Hours) <span class="moreStar">*</span></div>
             </div>
-            <div id="moreFieldProject">Estimated Effort (Engineering Hours) <span class="moreStar">*</span></div>
             <div class="info">Go to Story page by clicking on "Stories"</div>
         </div>
         <div class="break_line"></div>
