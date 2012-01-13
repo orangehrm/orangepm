@@ -10,6 +10,7 @@ class updateLogAction extends sfAction {
     public function execute($request) {
         $projectId = $request->getParameter('projectId');
         $projectService = new ProjectService();
+        $loggedUserObject = null;
         if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId)) {
             $logId = $request->getParameter('logId');
             $loggedDate = $request->getParameter('loggedDate');
@@ -19,8 +20,6 @@ class updateLogAction extends sfAction {
             $logService = new ProjectLogService();
             
             $projectLog->setId($logId);
-            $projectLog->setLoggedDate($loggedDate);
-            $projectLog->setAddedBy($addedBy);
             $projectLog->setDescription($description);
             
             $logService->updateLogItem($projectLog);

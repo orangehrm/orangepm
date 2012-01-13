@@ -77,9 +77,17 @@ class ProjectLogDao {
     public function updateLogItem(ProjectLog $projectLog) {
         try {
             $query = Doctrine_Query::create()
-                ->update('ProjectLog l')
-                ->set('l.description', '?', $projectLog->description)
-                ->where('l.id = ?', $projectLog->id );
+                ->update('ProjectLog l');
+                if ($projectLog->getDescription()) {
+                    $query->set('l.description', '?', $projectLog->getDescription());
+                }
+                if($projectLog->getLoggedDate()) {
+                    $query->set('l.loggedDate', '?', $projectLog->getLoggedDate());
+                }
+                if($projectLog->getAddedBy()) {
+                    $query->set('l.addedBy', '?', $projectLog->getAddedBy());
+                }
+                $query->where('l.id = ?', $projectLog->id );
             return $query->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage(), $e->getCode(), $e);
