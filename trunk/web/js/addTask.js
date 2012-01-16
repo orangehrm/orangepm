@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+    $('#cancel').click(function(){  
+        location.href=storyUrl;
+    
+    });
+	
     $("#addTaskForm").validate({
         
         rules: {
