@@ -4,6 +4,7 @@
 <script type="text/javascript">
     var lang_nameRequired = "<?php echo __('Task name is required');?>";
     var lang_effortValid = "<?php echo __('Task effort is inValid');?>";
+    var storyUrl = "<?php echo url_for("project/viewTasks?storyId={$story->getId()}")?>";
 </script>
 
 <div class="Task">
