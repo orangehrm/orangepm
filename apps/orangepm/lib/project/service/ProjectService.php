@@ -216,7 +216,11 @@ class ProjectService {
 	 * @return week starting date
 	 */
     public function CalculateWeekStartDate($date) {
-        return date('Y-m-d', strtotime('Last Monday', strtotime($date." 00:00")));
+        if(date("N", strtotime($date)) != 1) {
+            return date('Y-m-d', strtotime('Last Monday', strtotime($date." 00:00")));
+        } else {
+            return date('Y-m-d', strtotime($date." 00:00"));
+        }
     }
 
     /**
