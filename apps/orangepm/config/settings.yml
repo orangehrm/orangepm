@@ -36,4 +36,6 @@ all:
 
     default_culture: en_US
     i18n: on
-
+    
+    login_module:           project
+    login_action:           login   
