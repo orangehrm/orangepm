@@ -59,4 +59,14 @@ class TaskDaoTest extends PHPUnit_Framework_TestCase {
         $result = TestDataService::fetchObject('Task', 1);
         $this->assertFalse($result instanceof Task);
     }
+    
+    public function testGetTaskTotalEffortByStoryId() {
+        $result = $this->taskDao->getTaskTotalEffortByStoryId(1);
+        $this->assertEquals(30, $result->getTotalEffort());
+    }
+    
+    public function testGetTaskTotalEffortByStoryIdWithNullId() {
+        $result = $this->taskDao->getTaskTotalEffortByStoryId(NUll);
+        $this->assertNull($result->getTotalEffort());
+    }
 }

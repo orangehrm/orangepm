@@ -18,10 +18,11 @@
     <div id="mainErrorDiv"></div>
     <div class="StoryShowForm">
         <table class="tableContent">
-            <tr><td class="pageNav" colspan="7"><?php echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
+            <tr><td class="pageNav" colspan="8"><?php echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
             <tr>
                 <th><?php echo __('Story Name') ?></th>
-                <th><?php echo __('Effort');?><?php echo "<span class='moreStar'>*</span>"?></th>
+                <th><?php echo __('Effort');?></th>
+                <th><?php echo __('Tasks Total');?></th>
                 <th><?php echo __('Date Added') ?></th>
                 <th><?php echo 'Status' ?></th>
                 <th><?php echo 'Accepted Date' ?></th>
@@ -33,6 +34,7 @@
                 <tr id="row">
                     <td class="<?php echo "changedName name " . $story->getId(); ?>"><a href="<?php echo url_for("project/viewTasks?storyId={$story->getId()}")?>"><?php echo $story->getName(); ?></a></td>
                     <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
+                    <td class="<?php echo "changedTasksTotal taskTotal " . $story->getId(); ?>"> <?php echo $taskService->getTaskTotalEffortByStoryId($story->getId()) ?></td>
                     <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
                     <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $status ?></td>
                     <td class="<?php echo "changedAcceptedDate acceptedDate " . $story->getId(); ?>"> <?php echo $story->getAcceptedDate(); ?></td>
@@ -58,7 +60,7 @@
                 <input type="submit" value="<?php echo "View Weekly Progress" ?>"/>
         </form>
     </div>
-    <div id="moreField">Estimated Effort (Engineering Hours) <span class="moreStar">*</span></div>
+    <div id="moreField">"Effort" and "Task Total" are in Engineering Hours</div>
 </div>
 
 

@@ -83,12 +83,13 @@
                 <table class='showTable'>
                     <tbody>
                         <tr>
-                            <th class='nameColumn'>Story Name</th>
-                            <th class="effortColumn">Effort <span class="moreStar">*</span></th>
-                            <th class='dateColumn'>Date<br>Added</th>
-                            <th class='statusColumn'>Status</th>
-                            <th class='acceptedColumn'>Accepted<br>Date</th>
-                            <th class="actionColumn" colspan="2">Actions</th>
+                            <th><?php echo __('Story Name') ?></th>
+                            <th><?php echo __('Effort');?></th>
+                            <th><?php echo __('Tasks Total');?></th>
+                            <th><?php echo __('Date Added') ?></th>
+                            <th><?php echo 'Status' ?></th>
+                            <th><?php echo 'Accepted Date' ?></th>
+                            <th colspan="2"><?php echo __('Actions') ?></th>
                         </tr>
                         <?php if(count($storyList) != 0): ?>
                         <?php foreach ($storyList->getResults() as $story): ?>
@@ -96,6 +97,7 @@
                             <tr id="row">
                                 <td class="<?php echo "changedName name " . $story->getId(); ?>"><a href="<?php echo url_for("project/viewTasks?storyId={$story->getId()}")?>"><?php echo $story->getName(); ?></a></td>
                                 <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
+                                <td class="<?php echo "changedTasksTotal taskTotal " . $story->getId(); ?>"> <?php echo $taskService->getTaskTotalEffortByStoryId($story->getId()) ?></td>
                                 <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
                                 <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $status; ?></td>
                                 <td class="<?php echo "changedAcceptedDate acceptedDate " . $story->getId(); ?>"> <?php echo $story->getAcceptedDate(); ?></td>
@@ -106,7 +108,7 @@
                         <?php endif;?>
                     </tbody>
                 </table>
-                <div id="moreFieldProject">Estimated Effort (Engineering Hours) <span class="moreStar">*</span></div>
+                <div id="moreFieldProject">"Effort" and "Task Total" are in Engineering Hours</div>
             </div>
             <div class="info">Go to Story page by clicking on "Stories"</div>
         </div>

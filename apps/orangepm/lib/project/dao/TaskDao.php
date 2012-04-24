@@ -108,4 +108,21 @@ class TaskDao {
             throw new DaoException($e->getMessage(), $e->getCode(), $e);
         }
     }
+    
+    /**
+     * Get tasks total effort of a story
+     * @param $storyId
+     * @return Doctrine collection
+     */
+    public function getTaskTotalEffortByStoryId($storyId) {
+        try {
+            $query = Doctrine_Query::create()
+                        ->select('SUM(t.effort) as total_effort')
+                        ->from('Task t')
+                        ->where('t.storyId = ?', $storyId);
+            return $query->fetchOne();
+        } catch (Exception $e) {
+            throw new DaoException($e->getMessage(), $e->getCode(), $e);
+        }
+    } 
 }

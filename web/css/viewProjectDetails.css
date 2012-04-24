@@ -16,7 +16,7 @@ root {
 }
 
 table.tableContent {
-    width: 950px;
+    width: 1150px;
 }
 
 span#noStoriesMessage {
@@ -38,7 +38,7 @@ span#noLogsMessage {
 } 
 
 div.showForm {
-    width: 950px;
+    width: 1150px;
 }
 
 form div {
@@ -65,7 +65,7 @@ span.mandatoryStar {
 }
 
 #project_description{
-    width: 687px;
+    width: 700px;
 }
 
 .division_content{
@@ -74,7 +74,7 @@ span.mandatoryStar {
 }
 
 .break_line{
-    width: 910px;
+    width: 1080px;
     border: 1px solid #666;
     position: relative;
     left: 15px;
@@ -92,7 +92,7 @@ div.error {
 
 div#requiredField {
     font-size: 10px;
-    padding-left: 12px;
+    padding-left: 38px;
 }
 
 table.showTable {
@@ -102,7 +102,7 @@ table.showTable {
     text-align: center;
     font-weight: normal;
     color: #fff;
-    width: 885px;
+    width: 1055px;
     background-color: #666;
     border: 0px;
     border-collapse: collapse;
@@ -126,6 +126,7 @@ table.showTable td {
     font-size: 14px;
     text-align: left;
     border: 1px #fff solid;
+    vertical-align: top;
 }
 
 table.showTable th {
@@ -225,4 +226,24 @@ textarea.description{
     right: 5px;
     font-size: 10px;
     padding-left: 37px;
+}
+
+#showProjectForm #project_name {
+    width: 700px;
+}
+
+#showProjectForm #project_startDate {
+    width: 150px;
+}
+
+#showProjectForm #project_endDate {
+    width: 150px;
+}
+
+#showProjectForm #project_projectAdmin {
+    width: 150px;
+}
+
+#showProjectForm #project_status {
+    width: 150px;
 }
