@@ -33,20 +33,20 @@ class ProjectForm extends sfForm {
     
     private function _setNameWidgets() {
         
-        $this->formWidgets['name'] = new sfWidgetFormInputText(array(), array('size'=>'85'));
+        $this->formWidgets['name'] = new sfWidgetFormInputText(array(), array());
         $this->formValidators['name'] = new sfValidatorString(array('required' => true), array('required' => __('The Project Name is required')));
         $this->formWidgets['name']->setLabel(__("Name")."<span class='mandatoryStar'>*</span>");
     }
     private function _setEndDateWidgets() {
         
-        $this->formWidgets['endDate'] = new sfWidgetFormInputText(array('label' => 'Committed End Date'), array('size'=>'20'));
+        $this->formWidgets['endDate'] = new sfWidgetFormInputText(array('label' => 'Committed End Date'), array());
         $this->formValidators['endDate'] = new sfValidatorString(array('required' => false), array('required' => __('Commited End Date is required')));
         
     }
     
     private function _setStartDateWidgets() {
         
-        $this->formWidgets['startDate'] = new sfWidgetFormInputText(array(), array('size'=>'20'));
+        $this->formWidgets['startDate'] = new sfWidgetFormInputText(array(), array());
         $this->formValidators['startDate'] = new sfValidatorString(array('required' => true), array('required' => __('Development Start Date is required')));
         $this->formWidgets['startDate']->setLabel(__("Development Start Date")."<span class='mandatoryStar'>*</span>");
     }

@@ -61,6 +61,7 @@ table.showTable td {
     border: 1px #fff solid;
     align: left;
     text-align: left;
+    vertical-align: top;
 }
 
 table.showTable th {

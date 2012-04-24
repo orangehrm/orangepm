@@ -516,6 +516,7 @@ class projectActions extends sfActions {
         $this->projectId = $request->getParameter('id');
 
         $projectService = new ProjectService();
+        $this->taskService = new TaskService();
         $loggedUserObject = null;
         if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
 

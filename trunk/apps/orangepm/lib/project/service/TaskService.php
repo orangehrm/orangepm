@@ -101,4 +101,9 @@ class TaskService {
             }
         }
     }
+    
+    public function getTaskTotalEffortByStoryId($storyId) {
+       $taskTotalObject = $this->taskDao->getTaskTotalEffortByStoryId($storyId);
+       return $taskTotalObject->getTotalEffort();
+    }
 }
