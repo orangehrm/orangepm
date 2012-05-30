@@ -3,7 +3,7 @@
 require_once 'PHPUnit/Framework.php';
 define('SF_APP_NAME', 'orangepm');
 define('SF_ENV', 'test');
-define('SF_CONN', 'doctrine');
+define('SF_CONN', 'doctrine');  
 
 
 if (!defined('TEST_ENV_CONFIGURED')) {
