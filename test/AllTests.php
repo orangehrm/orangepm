@@ -15,6 +15,9 @@ if (!defined('TEST_ENV_CONFIGURED')) {
     define('TEST_ENV_CONFIGURED', TRUE);
 }
 
+/**
+ * 
+ */
 class AllTests {
 
     public static $configuration = null;
