@@ -49,13 +49,14 @@ $(document).ready(function() {
                            type: "post",
                            url: updateTaskUrl,
                            data: "id="+id+"&name="+nameText+"&effort="+effortText+"&status="+statusSelect+"&ownedBy="+ownedByText+"&description="+descriptionText+"&projectId="+projectId,
-                           success: function(){
+                           success: function(responce){
+                               alert(responce);
                                $parentRow.children('td.changedName').html(nameText);
                                $parentRow.children('td.changedEffort').html(effortText);
                                $parentRow.children('td.changedStatus').html(statusArray[statusSelect]);
                                $parentRow.children('td.changedStatus').addClass(statusArray[statusSelect].toLowerCase());
                                $parentRow.children('td.changedOwnedBy').html(ownedByText);
-                               $parentRow.children('td.changedDescription').html(descriptionText);
+                               $parentRow.children('td.changedDescription').html(descriptionText);                                                                  
                            },
                            fail: function() {
                                $parentRow.children('td.changedName').html(name);
@@ -83,7 +84,7 @@ $(document).ready(function() {
                 status = $.trim($(this).parent().children('td.changedStatus').text());
                 
                 $(this).parent().children('td.changedName').addClass('ajaxName');
-                $(this).parent().children('td.changedName').html("<input type='text' id='ajaxNameInput' value='"+name+"'></input>");
+                $(this).parent().children('td.changedName').html("<input type='text' id='ajaxNameInput' value='"+escapeQuotes(name)+"'></input>");
                 $(this).parent().children('td.changedEffort').addClass('ajaxEffort');
                 $(this).parent().children('td.changedEffort').html("<input type='text' id='ajaxEffortInput' value='"+effort+"'></input>");
                 
@@ -97,7 +98,7 @@ $(document).ready(function() {
                 var statusId = getStatusId(status);
                 $('#ajaxStatus').find("option[value='"+statusId+"']").attr('selected',true);
                 $(this).parent().children('td.changedOwnedBy').addClass('ajaxOwnedBy');
-                $(this).parent().children('td.changedOwnedBy').html("<input type='text' id='ajaxOwnedByInput' value='"+ownedBy+"'></input>");
+                $(this).parent().children('td.changedOwnedBy').html("<input type='text' id='ajaxOwnedByInput' value='"+escapeQuotes(ownedBy)+"'></input>");
                 $(this).parent().children('td.changedDescription').addClass('ajaxDescription');
                 $(this).parent().children('td.changedDescription').html("<textarea id='ajaxDescriptionInput'>"+description+"</textarea>");
                 $(this).html(saveImgUrl);
@@ -117,5 +118,11 @@ $(document).ready(function() {
 
     function removeMainErrorMessage() {
         $('#mainErrorDiv').empty();
+    }
+    function escapeQuotes(words){
+        var partitions=words.split("'");
+        var singleEscaped=partitions.join("&#39;")
+        partitions=singleEscaped.split('"');
+        return partitions.join("&#34;");
     }
 });

@@ -14,7 +14,7 @@ class UserForm extends sfForm {
             'firstName' => new sfWidgetFormInputText(array(), array('size' => '20', 'maxlength' => 15)),
             'lastName' => new sfWidgetFormInputText(array(), array('size' => '20', 'maxlength' => 15)),
             'email' => new sfWidgetFormInputText(array(), array('size' => '20', 'maxlength' => 30)),
-            'userType' => new sfWidgetFormSelect(array('choices' => array(1 => 'System Admin', 2 => 'Project Admin'))),
+            'userType' => new sfWidgetFormSelect(array('choices' => array(1 => 'System Admin', 2 => 'Project Admin',3=>'Project Member'))),
             'username' => new sfWidgetFormInputText(array(), array('size' => '20', 'maxlength' => 15)),
             'password' => new sfWidgetFormInputPassword(array(), array('size' => '20', 'maxlength' => 15)),
         ));

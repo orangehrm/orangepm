@@ -9,8 +9,7 @@ class viewProjectDetailsAction extends sfAction {
         $this->projectLogService = new ProjectLogService();
         $this->taskService = new TaskService();
         $this->storyEstimationCount = 0;
-    }
-    
+    }    
     public function execute($request) {
         
         $isSuperAdmin = false;
