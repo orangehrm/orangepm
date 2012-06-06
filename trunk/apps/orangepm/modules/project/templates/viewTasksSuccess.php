@@ -5,6 +5,7 @@
     var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
     var editImgUrl = '<?php echo image_tag('b_edit.png', 'id=editBtn') ?>';
     var updateTaskUrl = '<?php echo url_for('project/editTask')?>';
+    var loginPageUrl = '<?php echo url_for('project/login')?>';
     var projectId = '<?php echo $project->getId()?>';
     var statusArray = new Array();
     <?php 

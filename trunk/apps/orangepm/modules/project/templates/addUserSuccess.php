@@ -58,6 +58,8 @@
             echo 'Super admin';
         elseif ($user->getUserType() == 2)
             echo 'Project admin';
+        elseif ($user->getUserType() == 3)
+            echo 'Project member';
         ?></td>
                 <td> <?php echo $user->getEmail(); ?></td>
                 <td> <?php echo $user->getUsername(); ?></td>

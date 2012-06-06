@@ -76,13 +76,13 @@
         <tr><td> </td><td></td><td></td><td></td><td></td><?php if($sf_user->hasCredential('superAdmin')): ?><td></td><?php endif; ?></tr>
         <?php endif; ?>
     </table>
-
-    <div class="addButton">
-
-        <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
-            <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
-        </form>
-    </div>
+    <?php if (!$sf_user->hasCredential('projectMember')): ?>
+        <div class="addButton">        
+                <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
+                    <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
+                </form>               
+        </div>
+    <?php endif; ?>
     
     <div class="searchButton">        
         <?php echo $projectSearchForm ?>

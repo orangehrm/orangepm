@@ -77,7 +77,22 @@ ProjectProgress:
       primary: true
     work_completed: integer
     unit_of_work: integer
-
+    
+ProjectMember:
+  tableName: orangepm_project_member
+  columns: 
+    user_id:
+      type: integer
+    project_id:
+      type: integer
+  relations:
+       User:
+         local: user_id
+         foreign: id
+       Project:
+         local: project_id
+         foreign: id
+ 
 User:
   tableName: orangepm_user
   columns:
