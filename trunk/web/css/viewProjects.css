@@ -20,9 +20,14 @@ root {
     font-weight: bold;
 }
 
+div.add_search_row{
+    position: relative;
+    top: 10px;
+}
+
 table.tableContent {
-    top: 60px;
-    width: 1000px;    
+/*    top: 60px;
+    width: 1000px;    */
 }
 
 td.edit {
@@ -67,6 +72,6 @@ div#search {
     left: 80px;
 }
 
-div.searchButton {
+/*div.searchButton {
     top: 225px;
-}
+}*/

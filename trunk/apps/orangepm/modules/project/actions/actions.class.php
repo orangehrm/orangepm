@@ -356,16 +356,16 @@ class projectActions extends sfActions {
 
         //$projectService = new ProjectService();
         //if($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $request->getParameter('id'))) {
-
-        if ($this->getUser()->hasCredential('superAdmin')) {
+        
+//        if ($this->getUser()->hasCredential('superAdmin')) {
 
             $dao = new projectDao();
             $dao->deleteProject($request->getParameter('id'));
             $this->getUser()->setFlash('statusId', $dao->getProjectById($request->getParameter('id'))->getProjectStatusId());
             $this->redirect('project/viewProjects');
-        } else {
-            $this->redirect("project/viewProjects");
-        }
+//        } else {
+//            $this->redirect("project/viewProjects");
+//        }
     }
 
     /**

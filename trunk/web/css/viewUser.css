@@ -46,3 +46,8 @@ table.tableContent {
 table.tableContent td img {
     border: #CCCCCC none;
 }
+
+div.user_addButton{
+    position: relative;
+    top: 10px;
+}
