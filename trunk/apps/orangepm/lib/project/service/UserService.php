@@ -21,6 +21,8 @@ class UserService {
         }
         elseif($userParameters['userType'] == "Project Admin"){
             $userParameters['userType'] = User::USER_TYPE_PROJECT_ADMIN;
+        }elseif($userParameters['userType'] == "Project Member"){
+            $userParameters['userType'] = User::USER_TYPE_PROJECT_MEMBER;
         }
         
         $dao->updateUser($userParameters, $id);

@@ -6,7 +6,13 @@
  * @package    OrangePM
  * @subpackage project
  * @author     Your name here
+<<<<<<< .mine
+ * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $ test  
+ * 
+ * 
+=======
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $test
+>>>>>>> .r221
  */
 
 /**
