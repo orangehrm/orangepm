@@ -35,12 +35,17 @@
     <div id="mainErrorDiv"></div>
     
     <div class="add_search_row"> 
-        <div class="addButton">
+        <!--  If the user is a project member , don't allow to add a new project -->
+     <?php if(!$sf_user->hasCredential('projectMember')): ?>
+    <div class="addButton">
 
-            <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
-                <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
-            </form>
-        </div>
+        <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
+            <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
+        </form>
+    </div>
+     
+     
+    <?php endif; ?>
 
         <div class="searchButton">        
             <?php echo $projectSearchForm ?>
@@ -101,17 +106,7 @@
         <?php endif; ?>
     </table>
 
-     <!--  If the user is a project member , don't allow to add a new project -->
-     <?php if(!$sf_user->hasCredential('projectMember')): ?>
-    <div class="addButton">
-
-        <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
-            <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
-        </form>
-    </div>
      
-     
-    <?php endif; ?>
 
 </div>
 
