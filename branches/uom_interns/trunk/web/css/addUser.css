@@ -1,0 +1,58 @@
+/* 
+    Document   : addUser
+    Created on : Jun 27, 2011, 9:34:03 AM
+    Author     : orangehrm
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+div.addForm {
+    width: 500px;
+    top: 28px;
+}
+
+span.mandatoryStar {
+    color: #fb0000;
+}
+
+form#addUser div#form label {
+    float: left;
+    width: 20%;
+}
+
+div.formField {
+    padding-top: 20px;
+}
+
+div#requiredField {
+    font-size: 10px;
+    padding-left: 12px;
+}
+
+form#addUser div#form div li{
+    list-style-type: none;
+    padding-left: 120px;
+}
+
+table.tableContent {
+    width: 1000px;
+}
+
+form * {
+    line-height: 30px;
+}
+
+div.error {
+    color: #CC0033;
+    font-size: 12px;
+    margin-left: 118px;
+}

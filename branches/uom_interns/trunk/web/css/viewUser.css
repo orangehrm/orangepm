@@ -1,0 +1,48 @@
+/* 
+    Document   : viewUser
+    Created on : Jun 27, 2011, 12:29:21 PM
+    Author     : orangehrm
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+span#cannotDeleteMessage {
+    color: #CC0033;
+    font-weight: bold;
+}
+
+td.close a:link {
+    color: #CCCCCC;
+}
+
+td#pass {
+    font-style: italic;
+    color: gray;
+    text-align: center;
+}
+
+td.edit {
+    cursor: pointer;
+}
+
+td.changedEmail {
+    width: 300px;
+}
+
+table.tableContent {
+    top: 60px;
+    width: 1300px;
+}
+
+table.tableContent td img {
+    border: #CCCCCC none;
+}

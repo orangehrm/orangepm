@@ -1,0 +1,21 @@
+User:
+  0: {id: 1, firstName: 'Thilina', lastName: 'Buddika', email: 'thilina@xample.com', isActive: 1, username: thilina, userType: 1, password: '99d7c10873a1ba8ab23684a861e0fc80b6e9b126' }
+  2: {id: 2, firstName: 'Chanaka', lastName: 'Darmarathna', email: 'chanaka@xample.com', isActive: 1, username: chanaka, userType: 2, password: '8467b4b1c0f7d3d16f2bed67f98311414b719097'}
+
+Project:
+  0: {id: 6, name: 'Alfresco-phase1-CR2', projectStatusId: 2, deleted: 1, userId: 1, startDate: '2011-01-01'}
+  1: {id: 7, name: 'University of Alabama-phase1', projectStatusId: 2, deleted: 1, userId: 2, startDate: '2011-01-01'}
+  2: {id: 8, name: 'UB-Phase1-CR7', projectStatusId: 3, deleted: 1, userId: 2, startDate: '2011-01-01'}
+
+Story:
+  0: {id: 1, project_id: 6, estimation: 11, name: 'Add Task', date_added: '2011-01-14', status: 'Accepted', accepted_date: '2011-01-15', deleted_date: NULL, deleted: 1}
+  1: {id: 2, project_id: 7, estimation: 2, name: 'Add Employee For Define Roster', date_added: '2011-01-14', status: 'Backlog', accepted_date: NULL, deleted_date: NULL, deleted: 1}
+  2: {id: 3, project_id: 6, estimation: 5, name: 'Supervisor recommend employee leave', date_added: '2011-01-15', status: 'Accepted', accepted_date: '2011-01-17', deleted_date: NULL, deleted: 1}
+
+TaskStatus:
+  0: {id: 1, name: 'Open'}
+  1: {id: 2, name: 'Close'}
+Task:
+  0: {id: 1, story_id: 1, name: 'Changed the schema', effort: 10, description: 'Changed the schema to add Task entity', ownedBy: "Saman", status: 1}
+  1: {id: 2, story_id: 1, name: 'Add Dao and service classes', effort: 20, description: 'Add dao and service classes for Task entity', ownedBy: "Saman", status: 1}
+  2: {id: 3, story_id: 2, name: 'Changed the schema', effort: 30, description: 'Changed the schema to add Employee entity', ownedBy: "Sunil", status: 2}

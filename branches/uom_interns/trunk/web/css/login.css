@@ -1,0 +1,59 @@
+/* 
+    Document   : login
+    Created on : Jun 23, 2011, 11:25:10 AM
+    Author     : orangehrm
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+div.login {
+    position: absolute;    
+    border: 1px solid #999;
+    width: 400px;
+    margin: 10% 0% 30% 35%;
+}
+
+div.title {
+    background-color: #aaa;	
+    padding: 10px 10px 10px 20px;
+    font-weight: bold;
+    font-size: 20px
+}
+
+div.textFields {
+    background-color: #efefef;
+    padding: 15px 30px 0px 20px;
+    font-weight: normal;
+}
+
+form#login_form div label {
+    float: left;
+    width: 30%;
+}
+
+form#login_form div.submit {
+    clear: left;
+    padding: 12px 0px 17px 0px;;
+}
+
+form#login_form div.flash_notice {
+    margin-left:60px;
+    font-weight: bold;
+    font-size: 12px;
+    color: #CC0033;
+}
+
+div.error {
+    color: #CC0033;
+    font-size: 12px;
+    margin-left: 118px;
+}

@@ -1,0 +1,34 @@
+/* 
+    Document   : viewWeeklyProgress
+    Created on : Mar 30, 2011, 2:17:36 PM
+    Author     : orangehrm
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+h1{
+    position: relative;
+    left:280px;
+    height: 2px;
+}
+
+.heading span#noRecordMessage {
+    color: darksalmon;
+    margin-left: 450px;
+    font-weight: bold;
+}
+
+table.tableContent {
+    top: 0px;
+}
+
+

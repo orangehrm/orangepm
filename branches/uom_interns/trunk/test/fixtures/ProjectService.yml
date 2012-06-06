@@ -1,0 +1,49 @@
+set1:
+  0: {id: 1, name: 'GWT apps featured in Google IO videos', projectStatusId: 1, deleted: 1, userId: 2}
+  1: {id: 3, name: 'Google + stream', projectStatusId: 1, deleted: 1, userId: 2}
+  2: {id: 7, name: 'University of Alabama-phase1', projectStatusId: 1, deleted: 1, userId: 2}
+  
+set2:
+  0: {id: 2, name: 'Google+ hangout', projectStatusId: 2, deleted: 1, userId: 1}
+  1: {id: 4, name: 'Google Summer of Code: Part 5', projectStatusId: 2, deleted: 0, userId: 3}
+  2: {id: 6, name: 'Alfresco-phase1-CR2', projectStatusId: 2, deleted: 1, userId: 3}
+  3: {id: 8, name: 'UB-Phase1-CR7', projectStatusId: 3, deleted: 1, userId: 4}
+  4: {id: 9, name: 'Duke-NUS People Manager SAP Synchronization', projectStatusId: 3, deleted: 1, userId: 5}
+  5: {id: 10, name: 'Google Art project', projectStatusId: 1, deleted: 1, userId: 4}  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  #combination for function getProjectsByUserIdAndStatusId($userId, $isActive, $statusId)
+  
+  #i)    (3, true, 1)  = null
+  #ii)   (2, true, 2)  = 7
+  #iii)  (5, true, 2)  = null
+  #iv)   (1, false, 2) = 2
+  #v)    (3, true, 3)  = null
+  #vi)   (4, true, 1)  = 10
+  #vi)   (3, false, 3) = null
+  #viii) (2, true, 1)  = null
+  #ix)   (1, false, 1) = 1
+  #x)    (5, true, 3)  = 9
+  #xi)   (4, true, 3)  = 8
+  #xii)  (2, true, 3)  = null
