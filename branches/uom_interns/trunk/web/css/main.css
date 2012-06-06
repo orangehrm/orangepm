@@ -16,7 +16,7 @@ td.labelfield {
 
 table.tableContent {
     position: relative;
-    top: 60px;
+    top: 20px;
     left: 50px;
     text-align: center;
     font-weight: normal;
@@ -117,7 +117,7 @@ input.formButton {
 
 div.addButton {
     position: absolute;
-    top: 230px;
+/*    top: 10px;*/
     left: 60px;
     margin: 0px;
 }
@@ -164,7 +164,7 @@ table.tableContent td.pageNav {
 
 div.header {
 
-    height: 160px;
+    height: 110px;
 }
 
 div.navigaiton {
@@ -255,13 +255,15 @@ span#message {
 }
 
 div.heading {
+    position: relative;
+    top: 10px;
     margin-left: 50px;
 }
 
 div.viewWeeklyProgressButton{
     left: 150px;
     position:absolute;
-    top: 230px;
+/*    top: 230px;*/
     margin: 0px;
 }
 
@@ -271,17 +273,19 @@ div.viewWeeklyProgressButton{
 }
 
 #mainLogo:visited {
+/*    height: 60px;*/
     color: white;
 }
 
 #logo {
+    height: 60px;
     border: #fff;
 }
 
 div.searchButton{
-    left: 160px;
-    position:absolute;
-    top: 230px;
+    left: 170px;
+    position:relative;
+/*    top: 0px;*/
     margin: 0px;
 }
 

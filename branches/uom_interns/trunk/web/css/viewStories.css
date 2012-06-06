@@ -68,3 +68,8 @@ div#moreField {
     font-size: 10px;
     padding-left: 12px;
 }
+
+div.add_weeklyprogressButton{
+    position: relative;
+    top: 10px;
+}

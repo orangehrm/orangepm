@@ -25,7 +25,6 @@ table.tableContent {
     width: 1030px;
     margin-bottom: 100px;
 }
-}
 
 
 td.edit {
@@ -100,4 +99,12 @@ table.tableContent td.open{
 }
 table.tableContent td.complete{
     background-color: #7AE346;
+}
+div.TaskShowForm{
+    position: relative;
+    top: 10px;
+}
+div.tasksAddButton{
+    position: relative;
+    top: 10px;
 }

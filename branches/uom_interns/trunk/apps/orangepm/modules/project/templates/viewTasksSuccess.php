@@ -24,6 +24,12 @@
 
     <div id="mainErrorDiv"></div>
     <div class="TaskShowForm">
+        <div class="addButton">
+            <form action="<?php echo url_for("project/addTask?storyId={$story->getId()}"); ?>" method="GET">
+                <input type="submit" value="<?php echo __('Add') ?>" />
+            </form>
+        </div>
+        
         <table class="tableContent">
             <tr>
                 <th class="taskName"><?php echo __('Task Name') ?></th>
@@ -52,11 +58,11 @@
             <?php endif; ?>
             </table>
         </div>
-        <div class="addButton">
+<!--        <div class="addButton">
             <form action="<?php echo url_for("project/addTask?storyId={$story->getId()}"); ?>" method="GET">
                 <input type="submit" value="<?php echo __('Add') ?>" />
             </form>
-        </div>
+        </div>-->
 </div>
 
 

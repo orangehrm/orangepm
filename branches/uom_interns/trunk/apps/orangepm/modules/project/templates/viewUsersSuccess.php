@@ -17,6 +17,20 @@
     
     <div id="mainErrorDiv"></div>
 
+    <div class="user_addButton">
+        <div class="addButton">
+        <form id="formAddBotton" action="<?php echo url_for('project/addUser') ?>" method="get">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    </div>
+    
     <table class="tableContent">
 
         <tr>
@@ -56,17 +70,7 @@
 
     </table>
 
-    <div class="addButton">
-        <form id="formAddBotton" action="<?php echo url_for('project/addUser') ?>" method="get">
-            <table>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
+    
 
 </div>
 

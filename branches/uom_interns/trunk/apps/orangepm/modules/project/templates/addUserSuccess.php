@@ -37,7 +37,7 @@
         </div>
         <div id="requiredField">Fields marked with an asterisk <span class="mandatoryStar">*</span> are required.</div>
     </div>
-
+    <div class="formSeperator"> </div>
 
 
     <table class="tableContent" >
