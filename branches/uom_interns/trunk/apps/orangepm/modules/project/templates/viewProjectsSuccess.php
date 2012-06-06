@@ -59,8 +59,12 @@
             <?php if($sf_user->hasCredential('superAdmin')): ?>
                 <th> <?php echo __('Project Admin'); ?> </th>
             <?php endif; ?>
-            <th colspan="2"><?php echo __('Actions') ?></th>
+                
+            <?php if(!$sf_user->hasCredential('projectMember')): ?>
+                <th colspan="2"><?php echo __('Actions') ?></th>
+            <?php endif; ?>
 
+            
             <?php $alt = '1' ?>
             <?php if(count($projects) != 0): ?>
             <?php foreach ($projects as $project): ?>
@@ -73,7 +77,9 @@
                     $alt = 1;
                 }
                 ?>
+            
 
+            
             <td class="<?php echo "changedName name " . $project->getId(); ?>" ><a class="storyLink" href="<?php echo url_for("project/viewProjectDetails") . "?projectId={$project->getId()}"; ?>" > <?php echo $project->getName(); ?></a></td>
             <td class="<?php echo "changedStartDate startDate " . $project->getId(); ?>" ><?php echo $project->getStartDate(); ?></td>
             <td class="<?php echo "changedEndDate endDate " . $project->getId(); ?>" ><?php echo $project->getEndDate(); ?></td>
@@ -81,8 +87,12 @@
             <?php if($sf_user->hasCredential('superAdmin')): ?>
                 <td class="<?php echo "changedProjectAdmin projectAdmin " . $project->getUserId(); ?>" ><?php if($project->getUser()->getIsActive() != 0) {echo $project->getUser()->getFirstName()." ".$project->getUser()->getLastName();} ?></td>
             <?php endif; ?>
-            <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
-            <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
+                
+            <?php if(!$sf_user->hasCredential('projectMember')): ?>
+                <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
+                <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
+            <?php endif; ?>
+        
         </tr>
         <?php endforeach; ?>
         <?php else: ?>
@@ -91,7 +101,17 @@
         <?php endif; ?>
     </table>
 
-    
+     <!--  If the user is a project member , don't allow to add a new project -->
+     <?php if(!$sf_user->hasCredential('projectMember')): ?>
+    <div class="addButton">
+
+        <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
+            <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
+        </form>
+    </div>
+     
+     
+    <?php endif; ?>
 
 </div>
 
