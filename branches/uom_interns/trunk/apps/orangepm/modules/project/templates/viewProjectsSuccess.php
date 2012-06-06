@@ -34,6 +34,20 @@
     
     <div id="mainErrorDiv"></div>
     
+    <div class="add_search_row"> 
+        <div class="addButton">
+
+            <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
+                <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
+            </form>
+        </div>
+
+        <div class="searchButton">        
+            <?php echo $projectSearchForm ?>
+        </div>    
+    </div>
+    
+    
     <table class="tableContent" >
       <!--   <tr><td class="pageNav" colspan="3"><?php // echo pager_navigation($pager, url_for('project/viewProjects')) ?></td></tr>-->
         <tr>
@@ -76,17 +90,8 @@
         <tr><td> </td><td></td><td></td><td></td><td></td><?php if($sf_user->hasCredential('superAdmin')): ?><td></td><?php endif; ?></tr>
         <?php endif; ?>
     </table>
-    <?php if (!$sf_user->hasCredential('projectMember')): ?>
-        <div class="addButton">        
-                <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
-                    <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
-                </form>               
-        </div>
-    <?php endif; ?>
+
     
-    <div class="searchButton">        
-        <?php echo $projectSearchForm ?>
-    </div>
 
 </div>
 
