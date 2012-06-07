@@ -46,9 +46,13 @@ ProjectUser:
   columns:
     project_id:
       type: integer
+      notnull: true
     user_id:
       type: integer
-    user_type: string(255)
+      notnull: true
+    user_type:
+      type: integer
+      notnull: true
   relations:
     Project:
       local: project_id
