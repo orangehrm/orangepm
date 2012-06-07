@@ -40,6 +40,22 @@ Project:
       type: one
       foreignAlias: Project
       foreignType: many
+      
+ProjectUser:
+  tableName: orangepm_project_user
+  columns:
+    project_id:
+      type: integer
+    user_id:
+      type: integer
+    user_type: string(255)
+  relations:
+    Project:
+      local: project_id
+      foreign: id
+    User:
+      local: user_id
+      foreign: id
        
 Story:
   actAs: [Timestampable]
