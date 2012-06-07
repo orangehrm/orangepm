@@ -41,6 +41,11 @@ ProjectLog:
   7: {id: 8, project_id: 3, added_by: 2, description: null, logged_date: '2011-01-3'}
   8: {id: 9, project_id: 2, added_by: 2, description: null, logged_date: '2011-01-24'}
   9: {id: 10, project_id: 3, added_by: 2, description: null, logged_date: '2011-01-15'}
+  
+ProjectUser:
+  0: {id: 1, project_id: 2, user_id: 4, user_type: 'member'}
+  1: {id: 2, project_id: 3, user_id: 4, user_type: 'member'}
+  2: {id: 3, project_id: 6, user_id: 1, user_type: 'member'}
 
 
   
