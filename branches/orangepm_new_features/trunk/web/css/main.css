@@ -1,0 +1,292 @@
+body {
+    font-family: sans-serif;
+    font-style: normal;
+}
+
+/* Standard margin and padding reset, normally done on the body */
+
+
+td.labelfield {
+    /*    vertical-align:bottom;
+        font-size: 14px;*/
+    padding-top: 5px;
+
+}
+
+
+table.tableContent {
+    position: relative;
+    top: 60px;
+    left: 50px;
+    text-align: center;
+    font-weight: normal;
+    color: #fff;
+    width: 280px;
+    background-color: #666;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    margin-bottom: 30px;
+}
+
+table.tableContent td {
+    background-color: #CCC;
+    color: #000;
+    padding: 4px;
+    font-size: 14px;
+    text-align: left;
+    border: 1px #fff solid;
+    vertical-align: top;
+}
+
+table.tableContent th {
+    white-space: pre;
+    background-color: #666;
+    color: #fff;
+    padding: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px #fff solid;
+    font-weight: bold;
+}
+
+table.tableContent td.close {
+    padding-left: 20px;
+}
+
+table.tableContent td.edit {
+    padding-left: 20px;
+}
+
+form * {
+    line-height:  20px;
+    margin:0;
+    padding:0;
+    text-align: left;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.pageNav a:link {
+    color: blue;
+    text-decoration: underline;
+}
+
+.pageNav a:visited {
+    color: purple;
+    text-decoration: underline;
+
+}
+
+.pageNav a:active {
+    background-color: yellow;
+    text-decoration: none;
+}
+
+.pageNav a:hover {
+    color:red;
+    text-decoration: underline;
+}
+
+a:link {
+    color: blue;
+    text-decoration:none;
+}
+
+a:visited {
+    color: purple;
+    text-decoration:none;
+}
+
+a:active {
+    background-color: yellow;
+    text-decoration:none;
+}
+
+a:hover {
+    color:red;
+    text-decoration:none;
+}
+
+input.formButton {
+    width: auto;
+    text-align: center;
+}
+
+div.addButton {
+    position: absolute;
+    top: 230px;
+    left: 60px;
+    margin: 0px;
+}
+
+
+
+div.addForm, div.showForm {
+    position: relative;
+    top: 20px;
+    left: 50px;
+    padding: 0px;
+    width: 300px;
+    border: 2px solid #666;
+    border-style: double;
+}
+
+
+
+div.headlineField {
+    padding: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    width: auto;
+    position: relative;
+    background-color: #666;
+    color: #fff;
+    top: 0px;
+}
+
+div.formField {
+    padding-top: 10px;
+    padding-left: 13px;
+    padding-bottom: 10px;
+}
+
+
+table.tableContent td.pageNav {
+    background-color: #fff;
+    text-align: right;
+
+}
+
+
+
+div.header {
+
+    height: 160px;
+}
+
+div.navigaiton {
+    position: relative;
+    top: 25px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+#menu {
+    padding:0 0 0 30px;
+    margin:0 0 0 0;
+    list-style:none;
+    width:auto;
+    height:60px;
+    background:url("../images/menuimg.png") repeat-x;
+}
+
+#menu li {
+    position:relative;
+    float:left;
+    margin:0;
+}
+
+#menu div#logout {
+    position:relative;
+    float:right;
+    margin: 5px;
+  
+}
+
+#menu li a {
+    display:block;
+    height:36px;
+    line-height:35px;
+    padding:0 20px 0 20px;
+    float:left;
+    color:#333;
+    text-decoration:none;
+    font-family:arial, sans-serif;
+    font-size:16px;
+    font-weight: bold;
+    background:url("../images/divide.png") no-repeat right top;
+
+}
+
+#menu li a b {
+    display:block;
+    height:36px;
+    float:left;
+    padding:0 0 0 20px;
+}
+
+#menu li a:hover,
+#menu li a:active,
+#menu li a:focus,
+.projects #menu li#projects a,
+.issueTracker #menu li#issueTracker a
+{
+    background:#999 url("../images/divide2.png") no-repeat right top;
+    cursor:pointer;
+    color:#fff;
+    line-height:35px;
+}
+
+
+#menu li a:hover b,
+#menu li a:active b,
+#menu li a:focus b,
+.projects #menu li#projects a b,
+.issueTracker #menu li#issueTracker a b
+{
+    background:#999;
+    cursor:pointer;
+}
+
+.error_list {
+    color: #ff0300;
+    font-size: 12px;
+}
+
+span#message {
+    color: #339900;
+    margin-left: 450px;
+}
+
+div.heading {
+    margin-left: 50px;
+}
+
+div.viewWeeklyProgressButton{
+    left: 150px;
+    position:absolute;
+    top: 230px;
+    margin: 0px;
+}
+
+#menu li div.logoutClass {
+    padding-left: 94%;
+    margin-top: .5%;
+}
+
+#mainLogo:visited {
+    color: white;
+}
+
+#logo {
+    border: #fff;
+}
+
+div.searchButton{
+    left: 160px;
+    position:absolute;
+    top: 230px;
+    margin: 0px;
+}
+
+#mainErrorDiv {
+    text-align: center;
+    font-weight: bold;
+    color: #CC0033;
+}

@@ -1,0 +1,75 @@
+/* 
+    Document   : addProjects
+    Created on : Mar 17, 2011, 9:30:12 AM
+    Author     : orangehrm
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+table.tableContent {
+    width: 950px;
+}
+
+#addProjectForm label {
+    position: relative;
+    float: left;
+    width: 190px;
+    left: 5px;
+} 
+
+
+div.addForm {
+    width: 950px;
+}
+form div {
+    clear: left;
+    margin: 0;
+    padding: 0;
+    padding-top: 0.6em;
+}
+
+span.mandatoryStar {
+    position: relative;
+    color: #fb0000;
+    top: 3px;
+    left: 3px;
+}
+
+#project_description{
+    width: 687px;
+}
+
+.formButton{
+    position: relative;
+    left: 5px;
+}
+#addProjectForm div li{
+    list-style-type: none;
+    padding-left: 125px;
+}
+
+div.error {
+    color: #CC0033;
+    font-size: 12px;
+    margin-left: 190px;
+}
+
+.error_list {
+    color: #CC0033;
+    font-size: 12px;
+    margin-left: 190px;
+}
+
+div#requiredField {
+    font-size: 10px;
+    padding-left: 12px;
+}

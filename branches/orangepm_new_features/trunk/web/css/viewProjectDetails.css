@@ -1,0 +1,249 @@
+/* 
+    Document   : addProjects
+    Created on : Mar 17, 2011, 9:30:12 AM
+    Author     : orangehrm
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+table.tableContent {
+    width: 1150px;
+}
+
+span#noStoriesMessage {
+    color: darksalmon;
+    margin-left: 275px;
+    font-weight: bold;
+}
+
+span#noLogsMessage {
+    color: darksalmon;
+    margin-left: 293px;
+    font-weight: bold;
+}
+
+#showProjectForm label {
+    position: relative;
+    float: left;
+    width: 190px;
+} 
+
+div.showForm {
+    width: 1150px;
+}
+
+form div {
+    clear: left;
+    margin: 0;
+    padding: 0;
+    padding-top: 0.6em;
+}
+
+#showProjectForm{
+    position: relative;
+    left: 25px;
+}
+.form_devision_heading{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+span.mandatoryStar {
+    position: relative;
+    color: #fb0000;
+    top: 3px;
+    left: 3px;
+}
+
+#project_description{
+    width: 700px;
+}
+
+.division_content{
+    position: relative;
+    left: 25px;
+}
+
+.break_line{
+    width: 1080px;
+    border: 1px solid #666;
+    position: relative;
+    left: 15px;
+}
+#showProjectForm div li{
+    list-style-type: none;
+    padding-left: 125px;
+}
+
+div.error {
+    color: #CC0033;
+    font-size: 12px;
+    margin-left: 135px;
+}
+
+div#requiredField {
+    font-size: 10px;
+    padding-left: 38px;
+}
+
+table.showTable {
+    position: relative;
+    top: 10px;
+    left: 5px;
+    text-align: center;
+    font-weight: normal;
+    color: #fff;
+    width: 1055px;
+    background-color: #666;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    margin-bottom: 30px;
+}
+
+
+.nameColumn{
+    width: 40%;
+}
+
+.percentageColumn{
+    width: 60%;
+}
+
+table.showTable td {
+    background-color: #CCC;
+    color: #000;
+    padding: 4px;
+    font-size: 14px;
+    text-align: left;
+    border: 1px #fff solid;
+    vertical-align: top;
+}
+
+table.showTable th {
+    white-space: pre;
+    background-color: #666;
+    color: #fff;
+    padding: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px #fff solid;
+    font-weight: bold;
+}
+
+div#moreFieldProject {
+    position: relative;
+    right: 5px;
+    font-size: 10px;
+    padding-left: 12px;
+}
+
+.listAction{
+    width: 11%;
+}
+
+textarea.description{
+    width: 90%;
+    height: 40px;
+}
+
+.descriptionColumn{
+    width: 50%;
+}
+
+.editBtn, #saveBtn, #editBtn, .deleteBtn, .confirmLink{
+    cursor:pointer;
+    position: relative;
+    left: 30%;
+}
+
+.progressbar{
+    height: 20px;
+    color: #666;
+}
+
+.progressbar div{
+    text-align: center;
+}
+
+#progressbar_accepted div{
+    background: #228B22;
+}
+
+#progressbar_backlog div{
+    background: #0EBFE9;
+}
+
+#progressbar_design div{
+    background: #FBEC5D;
+}
+
+#progressbar_development div{
+    background: #FBEC5D;
+}
+
+#progressbar_development_completed div{
+    background: #7AE346;
+}
+
+#progressbar_testing div{
+    background: orange;
+}
+
+#progressbar_rework div{
+    background: #FF0033;
+}
+
+#showProjectForm input[type=text], textarea{
+    background: #FFF;
+}
+
+.Project{
+    margin-bottom: 50px;
+}
+
+.divisionExpandColaps{
+    font-size: 15px;
+    position: relative;
+    left: 5px;
+}
+
+.info{
+    position: relative;
+    top: 3px;
+    bottom: 10px;
+    right: 5px;
+    font-size: 10px;
+    padding-left: 37px;
+}
+
+#showProjectForm #project_name {
+    width: 700px;
+}
+
+#showProjectForm #project_startDate {
+    width: 150px;
+}
+
+#showProjectForm #project_endDate {
+    width: 150px;
+}
+
+#showProjectForm #project_projectAdmin {
+    width: 150px;
+}
+
+#showProjectForm #project_status {
+    width: 150px;
+}

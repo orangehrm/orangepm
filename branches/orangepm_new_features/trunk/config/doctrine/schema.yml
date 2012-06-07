@@ -1,0 +1,216 @@
+Project:
+  actAs: [Timestampable]
+  tableName: orangepm_project
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name: string(255)
+    project_status_id:
+      name: project_status_id as projectStatusId
+      type: integer
+    deleted: { type: boolean, notnull: true, default: 1 }
+    user_id:
+      name: user_id as userId
+      type: integer
+    description:
+      type: clob
+    start_date:
+      name: start_date as startDate
+      type: date
+      notnull: true
+    end_date:
+      name: end_date as endDate
+      type: date
+  relations:
+    ProjectStatus:
+      onDelete: set null
+      local: projectStatusId
+      foreign: id
+    Story:
+      onDelete: set null
+      local: id
+      foreign: project_id
+    User:
+      onDelete: set null
+      local: userId
+      foreign: id
+      class: User
+      type: one
+      foreignAlias: Project
+      foreignType: many
+       
+Story:
+  actAs: [Timestampable]
+  tableName: orangepm_story
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    project_id: integer
+    estimation: { type: integer, notnull: false }
+    name: string(255)
+    date_added: date
+    status: string(255)
+    accepted_date: { type: date, notnull: false }
+    deleted_date: {type: date }
+    deleted: { type: boolean, notnull: true, default: 1 }
+  relations:
+    Project:
+      onDelete: CASCADE
+      local: project_id
+      foreign: id
+      type: many
+
+
+ProjectProgress:
+  actAs: [Timestampable]
+  tableName: orangepm_project_progress
+  columns:
+    project_id:
+      type: integer
+      primary: true
+    accepted_date:
+      type: date
+      primary: true
+    work_completed: integer
+    unit_of_work: integer
+
+User:
+  tableName: orangepm_user
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    first_name:
+      name: first_name as firstName
+      type: string(255)
+      notnull: true
+    last_name:
+      name: last_name as lastName
+      type: string(255)
+      notnull: true
+    email:
+      type: string(255)
+    is_active:
+      name: is_active as isActive
+      type: boolean
+      notnull: true
+      default: 1
+    username:
+      type: string(255)
+      unique: true
+      notnull: true
+    user_type:
+      name: user_type as userType
+      type: integer
+      notnull: true
+    password:
+      type: string(255)
+      notnull: true
+
+ProjectStatus:
+  tableName: orangepm_project_status
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+      notnull: true
+  relations:
+    Project:
+      local: id
+      foreign: projectStatusId
+
+ProjectLog:
+  tableName: orangepm_project_log
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    project_id:
+      name: project_id as projectId
+      type: integer(20)
+      notnull: true
+    added_by:
+      name: added_by as addedBy
+      type: integer(20)
+    description:
+      type: clob
+    logged_date:
+      name: logged_date as loggedDate
+      type: timestamp
+      notnull: true
+  relations:
+    Project:
+      class: Project
+      onDelete: CASCADE
+      local: project_id
+      foreign: id
+      type: one
+      foreignAlias: ProjectLogs
+      foreignType: many
+    User:
+      onDelete: set null
+      local: added_by
+      foreign: id
+      class: User
+      type: one
+      foreignAlias: ProjectLogs
+      foreignType: many
+
+Task:
+  tableName: orangepm_task
+  columns:
+    id: 
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+    story_id:
+      name: story_id as storyId
+      type: integer
+    effort:
+      type: decimal
+    description: 
+      type: clob
+    owned_by:
+      name: owned_by as ownedBy
+      type: string(255)
+    status:
+      type: integer
+  relations:
+    Story:
+      onDelete: CASCADE
+      local: story_id
+      foreign: id
+      class: Story
+      type: one
+      foreignAlias: Task
+      foreignType: many
+    TaskStatus:
+      onDelete: set null
+      local: status
+      foreign: id
+      class: TaskStatus
+      type: one
+      foreignAlias: Task
+      foreignType: many
+
+TaskStatus:
+  tableName: orangepm_task_status
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+      notnull: true

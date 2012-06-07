@@ -1,0 +1,72 @@
+/* 
+    Document   : viewProjects
+    Created on : Mar 17, 2011, 9:11:00 AM
+    Author     : orangehrm
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+.heading span#noRecordMessage {
+    color: darksalmon;
+    font-weight: bold;
+}
+
+table.tableContent {
+    top: 60px;
+    width: 1000px;    
+}
+
+td.edit {
+    cursor:pointer;
+}
+
+td.changedName {
+    width: 550px;
+}
+
+.tip {
+    color: #000;
+    background:#fdbc27;
+    display:none; /*--Hides by default--*/
+    padding:3px;
+    position:absolute;    z-index:1000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+a img {
+    border: none;
+}
+
+
+.ui-dialog-buttonpane{
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+.ui-button-text{
+    color:#211e2d;
+    font-size: medium;
+    font-weight: bold;
+
+}
+
+div#search {
+    top: 230px;
+    left: 80px;
+}
+
+div.searchButton {
+    top: 225px;
+}

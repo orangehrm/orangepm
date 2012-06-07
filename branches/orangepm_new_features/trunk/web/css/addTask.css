@@ -1,0 +1,89 @@
+root { 
+    display: block;
+}
+
+table.tableContent {
+    width: 950px;
+    margin-bottom: 100px;
+}
+
+#addTaskForm label {
+    position: relative;
+    float: left;
+    width: 140px;
+    left: 5px;
+} 
+
+#addProjectForm div li{
+    list-style-type: none;
+    padding-left: 125px;
+}
+
+div.addForm {
+    width: 950px;
+}
+form div {
+    clear: left;
+    margin: 0;
+    padding: 0;
+    padding-top: 0.6em;
+}
+
+span.mandatoryStar {
+    position: relative;
+    color: #fb0000;
+    top: 3px;
+    left: 3px;
+}
+
+#task_description{
+    width: 690px;
+}
+
+.formButton{
+    position: relative;
+    left: 5px;
+}
+.error_list {
+    color: #CC0033;
+    font-size: 12px;
+    margin-left: 153px;
+}
+
+div.error {
+    color: #CC0033;
+    font-size: 12px;
+    margin-left: 140px;
+}
+
+div#requiredField {
+    font-size: 10px;
+    padding-left: 12px;
+}
+
+#task_status{
+    width: 173px;
+}
+
+.taskName{
+    width: 250px;
+}
+
+.taskEffort{
+    width: 40px;
+}
+
+.taskStatus{
+    width: 60px;
+}
+
+.taskOwnedBy{
+    width: 130px;
+}
+
+table.tableContent td.open{
+    background-color: #FBEC5D;
+}
+table.tableContent td.complete{
+    background-color: #7AE346;
+}

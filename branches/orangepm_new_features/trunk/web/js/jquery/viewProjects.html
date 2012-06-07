@@ -1,0 +1,699 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+
+  
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title></title>
+    <link rel="shortcut icon" href="http://localhost:8080/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="screen" href="viewProjects_files/main.css">
+<link rel="stylesheet" type="text/css" media="screen" href="viewProjects_files/jquery-ui-1.css">
+<link rel="stylesheet" type="text/css" media="screen" href="viewProjects_files/jquery.css">
+    <script type="text/javascript" src="viewProjects_files/jquery-1.js"></script>
+<script type="text/javascript" src="viewProjects_files/jquery_002.js"></script>
+<script type="text/javascript" src="viewProjects_files/jquery_003.js"></script>
+<script type="text/javascript" src="viewProjects_files/jquery-ui-1.js"></script>
+<script type="text/javascript" src="viewProjects_files/jquery.js"></script>
+  <style type="text/css">#sfWebDebug {   padding: 0;   margin: 0;   font-family: Arial, sans-serif;   font-size: 12px;   color: #333;   text-align: left;   line-height: 12px; }  #sfWebDebug a, #sfWebDebug a:hover {   text-decoration: none;   border: none;   background-color: transparent;   color: #000; }  #sfWebDebug img {   float: none;   margin: 0;   border: 0;   display: inline; }  #sfWebDebugBar {   position: absolute;   margin: 0;   padding: 1px 0;   right: 0px;   top: 0px;   opacity: 0.80;   filter: alpha(opacity:80);   z-index: 10000;   white-space: nowrap;   background-color: #ddd; }  #sfWebDebugBar[id] {   position: fixed; }  #sfWebDebugBar img {   vertical-align: middle; }  #sfWebDebugBar .sfWebDebugMenu {   padding: 5px;   padding-left: 0;   display: inline;   margin: 0; }  #sfWebDebugBar .sfWebDebugMenu li {   display: inline;   list-style: none;   margin: 0;   padding: 0 6px; }  #sfWebDebugBar .sfWebDebugMenu li.last {   margin: 0;   padding: 0;   border: 0; }  #sfWebDebugDatabaseDetails li {   margin: 0;   margin-left: 30px;   padding: 5px 0; }  #sfWebDebugShortMessages li {   margin-bottom: 10px;   padding: 5px;   background-color: #ddd; }  #sfWebDebugShortMessages li {   list-style: none; }  #sfWebDebugDetails {   margin-right: 7px; }  #sfWebDebug pre {   line-height: 1.3;   margin-bottom: 10px; }  #sfWebDebug h1 {   font-size: 16px;   font-weight: bold;   margin: 20px 0;   padding: 0;   border: 0px;   background-color: #eee; }  #sfWebDebug h2 {   font-size: 14px;   font-weight: bold;   margin: 10px 0;   padding: 0;   border: 0px;   background: none; }  #sfWebDebug h3 {   font-size: 12px;   font-weight: bold;   margin: 10px 0;   padding: 0;   border: 0px;   background: none; }  #sfWebDebug .sfWebDebugTop {   position: absolute;   left: 0px;   top: 0px;   width: 98%;   padding: 0 1%;   margin: 0;   z-index: 9999;   background-color: #efefef;   border-bottom: 1px solid #aaa; }  #sfWebDebugLog {   margin: 0;   padding: 3px;   font-size: 11px; }  #sfWebDebugLogMenu {   margin-bottom: 5px; }  #sfWebDebugLogMenu li {   display: inline;   list-style: none;   margin: 0;   padding: 0 5px;   border-right: 1px solid #aaa; }  #sfWebDebugConfigSummary {   display: inline;   padding: 5px;   background-color: #ddd;   border: 1px solid #aaa;   margin: 20px 0; }  #sfWebDebugConfigSummary li {   list-style: none;   display: inline;   margin: 0;   padding: 0 5px; }  #sfWebDebugConfigSummary li.last {   border: 0; }  .sfWebDebugInfo, .sfWebDebugInfo td {   background-color: #ddd; }  .sfWebDebugWarning, .sfWebDebugWarning td {   background-color: orange !important; }  .sfWebDebugError, .sfWebDebugError td {   background-color: #f99 !important; }  .sfWebDebugLogNumber {   width: 1%; }  .sfWebDebugLogType {   width: 1%;   white-space: nowrap; }  .sfWebDebugLogType, #sfWebDebug .sfWebDebugLogType a {   color: darkgreen; }  #sfWebDebug .sfWebDebugLogType a:hover {   text-decoration: underline; }  .sfWebDebugLogInfo {   color: blue; }  .ison {   color: #3f3;   margin-right: 5px; }  .isoff {   color: #f33;   margin-right: 5px;   text-decoration: line-through; }  .sfWebDebugLogs {   padding: 0;   margin: 0;   border: 1px solid #999;   font-family: Arial;   font-size: 11px; }  .sfWebDebugLogs tr {   padding: 0;   margin: 0;   border: 0; }  .sfWebDebugLogs td {   margin: 0;   border: 0;   padding: 1px 3px;   vertical-align: top; }  .sfWebDebugLogs th {   margin: 0;   border: 0;   padding: 3px 5px;   vertical-align: top;   background-color: #999;   color: #eee;   white-space: nowrap; }  .sfWebDebugDebugInfo {   color: #999;   font-size: 11px;   margin: 5px 0 5px 10px;   padding: 2px 0 2px 5px;   border-left: 1px solid #aaa;   line-height: 1.25em; }  .sfWebDebugDebugInfo .sfWebDebugLogInfo, .sfWebDebugDebugInfo a.sfWebDebugFileLink {   color: #333 !important; }  .sfWebDebugCache {   padding: 0;   margin: 0;   font-family: Arial;   position: absolute;   overflow: hidden;   z-index: 995;   font-size: 9px;   padding: 2px;   filter:alpha(opacity=85);   -moz-opacity:0.85;   opacity: 0.85; }  #sfWebDebugSymfonyVersion {   margin-left: 0;   padding: 1px 4px;   background-color: #666;   color: #fff; }  #sfWebDebugviewDetails ul {   padding-left: 2em;   margin: .5em 0;   list-style: none; }  #sfWebDebugviewDetails li {   margin-bottom: .5em; }  #sfWebDebug .sfWebDebugDataType, #sfWebDebug .sfWebDebugDataType a {   color: #666;   font-style: italic; }  #sfWebDebug .sfWebDebugDataType a:hover {   text-decoration: underline; }  #sfWebDebugDatabaseLogs {   margin-bottom: 10px; }  #sfWebDebugDatabaseLogs ol {   margin: 0;   padding: 0;   margin-left: 20px;   list-style: number; }  #sfWebDebugDatabaseLogs li {   padding: 6px; }  #sfWebDebugDatabaseLogs li:nth-child(odd) {   background-color: #CCC; }  .sfWebDebugDatabaseQuery {   margin-bottom: .5em;   margin-top: 0; }  .sfWebDebugDatabaseLogInfo {   color: #666;   font-size: 11px; }  .sfWebDebugDatabaseQuery .sfWebDebugLogInfo {   color: #909;   font-weight: bold; }  .sfWebDebugHighlight {   background: #FFC; }</style></head><body>
+    <style type="text/css">
+
+    #addProject
+    {
+        border: 1px solid #006;
+    }
+
+    td.edit{
+
+        cursor:pointer;
+    }
+
+    .tip{
+        color: #000;
+        background:#fdbc27;
+        display:none; /*--Hides by default--*/
+        padding:3px;
+        position:absolute;    z-index:1000;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        font-size: 12px;
+
+    }
+
+    a img{
+
+        border: NONE;
+    }
+
+    body{
+        background-color: #fed00e;
+    }
+
+    a:link {
+        color: blue;
+        text-decoration:none;
+    }
+
+    a:visited {
+        color: purple;
+        text-decoration:none;
+    }
+
+    a:active {
+        background-color: yellow;
+        text-decoration:none;
+    }
+
+    a:hover {
+        color:red;
+        text-decoration:none;
+    }
+    }
+
+
+
+</style>
+
+<div class="Project">
+    <form id="form1" action="/frontend_dev.php/project/addProject" method="get">
+
+        <table>
+            <input name="_csrf_token" value="18ccecf851bea96f7971d7cffe3d48b1" id="csrf_token" type="hidden">
+            <tbody><tr>
+                <td colspan="2">
+                    <input value="Add" id="addProject" type="submit">
+                </td>
+            </tr>
+        </tbody></table>
+    </form>
+
+
+    <table border="1" bordercolor="red">
+        <tbody><tr><th> Id </th>
+            <th id="project_name_heading"> PROJECT NAME </th>
+
+                                    </tr><tr class="alt">
+
+                <td class="not id 15">15</td>
+                <td class="change name 15"><a class="storyLink" href="http://localhost:8080/frontend_dev.php/project/viewStories/id/15">   project3<span class="tip">Click here to view the stories</span></a></td>
+                <td class="edit edit 15"><img src="viewProjects_files/b_edit.png"></td>
+                <td class="not close 15"><a href="http://localhost:8080/frontend_dev.php/project/deleteProject/id/15"><img src="viewProjects_files/b_drop.png"><span style="display: none; top: 104px; left: 234px;" class="tip">Click here to delete the project</span></a></td> 
+                <!--<td class="">
+Notice: Use of undefined constant php - assumed 'php' in /home/OrangePM/apps/frontend/modules/project/templates/viewProjectsSuccess.php on line 96
+<span class="tip">Click here to delete the project</span></a></td>-->
+
+            </tr>
+                    <tr>
+
+                <td class="not id 16">16</td>
+                <td class="change name 16"> project3</td>
+                <td class="edit edit 16"><img src="viewProjects_files/b_edit.png"></td>
+                <td class="not close 16"><a href="http://localhost:8080/frontend_dev.php/project/deleteProject/id/16"><img src="viewProjects_files/b_drop.png"><span style="display: none; top: 113px; left: 232px;" class="tip">Click here to delete the project</span></a></td> 
+                <!--<td class="">
+Notice: Use of undefined constant php - assumed 'php' in /home/OrangePM/apps/frontend/modules/project/templates/viewProjectsSuccess.php on line 96
+<span class="tip">Click here to delete the project</span></a></td>-->
+
+            </tr>
+        
+
+            </tbody></table>
+        </div>
+
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+
+
+
+                $('td.edit').click(function(){
+
+
+                    $('.ajax').html($('.ajax input').val());
+                    $('.ajax').removeClass('ajax');
+
+                    $(this).parent().children('td.change').addClass('ajax');
+                    $(this).parent().children('td.change').html('<input id="editbox" size="'+$(this).parent().children('td.change').text().length+'" type="text" value="' + $(this).parent().children('td.change').text() + '">');
+
+                    $('#editbox').focus();
+
+                });
+
+                $('td.change').keydown(function(event){
+
+
+                    //arr = $(this).parent().children('td.change').attr('class').split( " " );
+                    arr = $(this).attr('class').split( " " );
+
+
+                    if(event.which == 13)
+                    {
+
+                        $.ajax({    type: "POST",
+                            url:"/frontend_dev.php/project/editProject",
+                            data: "name="+$('.ajax input').val()+"&id="+arr[2],//+"&field="+arr[1],
+                            success: function(data){
+                                var hstring = '<a href=' + '/frontend_dev.php/project/viewStories/id/16' +' > '+$('.ajax input').val()+'</a>';
+                        $('.ajax').html(hstring); //$('.ajax input').val());
+                        $('.ajax').removeClass('ajax');
+                    }});
+            }
+
+        }
+
+
+    );
+
+
+        $('#editbox').live('blur',function(){
+
+            $('.ajax').html($('.ajax input').val());
+            $('.ajax').removeClass('ajax');
+        });
+
+
+
+
+        $("td.edit,td.close,a.storyLink").hover(function(){
+            tip = $(this).find('.tip');
+            tip.show(); //Show tooltip
+        }, function() {
+            tip.hide(); //Hide tooltip
+        }).mousemove(function(e) {
+            var mousex = e.pageX + 20; //Get X coodrinates
+            var mousey = e.pageY + 20; //Get Y coordinates
+            var tipWidth = tip.width(); //Find width of tooltip
+            var tipHeight = tip.height(); //Find height of tooltip
+
+            //Distance of element from the right edge of viewport
+            var tipVisX = $(window).width() - (mousex + tipWidth);
+            //Distance of element from the bottom of viewport
+            var tipVisY = $(window).height() - (mousey + tipHeight);
+
+            if ( tipVisX < 20 ) { //If tooltip exceeds the X coordinate of viewport
+                mousex = e.pageX - tipWidth - 20;
+            } if ( tipVisY < 20 ) { //If tooltip exceeds the Y coordinate of viewport
+                mousey = e.pageY - tipHeight - 20;
+            }
+            //Absolute position the tooltip according to mouse position
+            tip.css({  top: mousey, left: mousex });
+        });
+
+       
+
+       
+
+
+
+    });
+
+
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">/* <![CDATA[ */
+function sfWebDebugGetElementsByClassName(strClass, strTag, objContElm)
+{
+  // http://muffinresearch.co.uk/archives/2006/04/29/getelementsbyclassname-deluxe-edition/
+  strTag = strTag || "*";
+  objContElm = objContElm || document;
+  var objColl = (strTag == '*' && document.all) ? document.all : objContElm.getElementsByTagName(strTag);
+  var arr = new Array();
+  var delim = strClass.indexOf('|') != -1  ? '|' : ' ';
+  var arrClass = strClass.split(delim);
+  var j = objColl.length;
+  for (var i = 0; i < j; i++) {
+    if(objColl[i].className == undefined) continue;
+    var arrObjClass = objColl[i].className.split ? objColl[i].className.split(' ') : [];
+    if (delim == ' ' && arrClass.length > arrObjClass.length) continue;
+    var c = 0;
+    comparisonLoop:
+    {
+      var l = arrObjClass.length;
+      for (var k = 0; k < l; k++) {
+        var n = arrClass.length;
+        for (var m = 0; m < n; m++) {
+          if (arrClass[m] == arrObjClass[k]) c++;
+          if (( delim == '|' && c == 1) || (delim == ' ' && c == arrClass.length)) {
+            arr.push(objColl[i]);
+            break comparisonLoop;
+          }
+        }
+      }
+    }
+  }
+  return arr;
+}
+
+function sfWebDebugToggleMenu()
+{
+  var element = document.getElementById('sfWebDebugDetails');
+
+  var cacheElements = sfWebDebugGetElementsByClassName('sfWebDebugCache');
+  var mainCacheElements = sfWebDebugGetElementsByClassName('sfWebDebugActionCache');
+  var panelElements = sfWebDebugGetElementsByClassName('sfWebDebugTop');
+
+  if (element.style.display != 'none')
+  {
+    for (var i = 0; i < panelElements.length; ++i)
+    {
+      panelElements[i].style.display = 'none';
+    }
+
+    // hide all cache information
+    for (var i = 0; i < cacheElements.length; ++i)
+    {
+      cacheElements[i].style.display = 'none';
+    }
+    for (var i = 0; i < mainCacheElements.length; ++i)
+    {
+      mainCacheElements[i].style.border = 'none';
+    }
+  }
+  else
+  {
+    for (var i = 0; i < cacheElements.length; ++i)
+    {
+      cacheElements[i].style.display = '';
+    }
+    for (var i = 0; i < mainCacheElements.length; ++i)
+    {
+      mainCacheElements[i].style.border = '1px solid #f00';
+    }
+  }
+
+  sfWebDebugToggle('sfWebDebugDetails');
+  sfWebDebugToggle('sfWebDebugShowMenu');
+  sfWebDebugToggle('sfWebDebugHideMenu');
+}
+
+function sfWebDebugShowDetailsFor(element)
+{
+  if (typeof element == 'string')
+    element = document.getElementById(element);
+
+  var panelElements = sfWebDebugGetElementsByClassName('sfWebDebugTop');
+  for (var i = 0; i < panelElements.length; ++i)
+  {
+    if (panelElements[i] != element)
+    {
+      panelElements[i].style.display = 'none';
+    }
+  }
+
+  sfWebDebugToggle(element);
+}
+
+function sfWebDebugToggle(element)
+{
+  if (typeof element == 'string')
+    element = document.getElementById(element);
+
+  if (element)
+    element.style.display = element.style.display == 'none' ? '' : 'none';
+}
+
+function sfWebDebugToggleMessages(klass)
+{
+  var elements = sfWebDebugGetElementsByClassName(klass);
+
+  var x = elements.length;
+  for (var i = 0; i < x; ++i)
+  {
+    sfWebDebugToggle(elements[i]);
+  }
+}
+
+function sfWebDebugToggleAllLogLines(show, klass)
+{
+  var elements = sfWebDebugGetElementsByClassName(klass);
+  var x = elements.length;
+  for (var i = 0; i < x; ++i)
+  {
+    elements[i].style.display = show ? '' : 'none';
+  }
+}
+
+function sfWebDebugShowOnlyLogLines(type)
+{
+  var types = new Array();
+  types[0] = 'info';
+  types[1] = 'warning';
+  types[2] = 'error';
+  for (klass in types)
+  {
+    var elements = sfWebDebugGetElementsByClassName('sfWebDebug' + types[klass].substring(0, 1).toUpperCase() + types[klass].substring(1, types[klass].length));
+    var x = elements.length;
+    for (var i = 0; i < x; ++i)
+    {
+      if ('tr' == elements[i].tagName.toLowerCase())
+      {
+        elements[i].style.display = (type == types[klass]) ? '' : 'none';
+      }
+    }
+  }
+}
+/* ]]> */</script>
+      <div id="sfWebDebug">
+        <div id="sfWebDebugBar">
+          <a href="#" onclick="sfWebDebugToggleMenu(); return false;"><img src="viewProjects_files/sf.png" alt="Debug toolbar"></a>
+
+          <ul id="sfWebDebugDetails" class="sfWebDebugMenu">
+            <li><span id="sfWebDebugSymfonyVersion">1.4.9</span></li>
+<li class="sfWebDebugInfo"><a title="Configuration" href="#" onclick="sfWebDebugShowDetailsFor('sfWebDebugconfigDetails'); return false;"><img src="viewProjects_files/config.png" alt="Config"> config</a></li>
+<li class="sfWebDebugInfo"><a title="View Layer" href="#" onclick="sfWebDebugShowDetailsFor('sfWebDebugviewDetails'); return false;"><img src="viewProjects_files/view.png" alt="View Layer"> view</a></li>
+<li class="sfWebDebugInfo"><a title="Logs" href="#" onclick="sfWebDebugShowDetailsFor('sfWebDebuglogsDetails'); return false;"><img src="viewProjects_files/log.png" alt="Log"> logs</a></li>
+<li><img src="viewProjects_files/memory.png" alt="Memory"> 9728.0 KB</li>
+<li class="sfWebDebugInfo"><a title="Timers" href="#" onclick="sfWebDebugShowDetailsFor('sfWebDebugtimeDetails'); return false;"><img src="viewProjects_files/time.png" alt="Time"> 127 ms</a></li>
+<li class="sfWebDebugInfo"><a title="SQL queries" href="#" onclick="sfWebDebugShowDetailsFor('sfWebDebugdbDetails'); return false;"><img src="viewProjects_files/database.png" alt="SQL queries"> 2</a></li>
+            <li class="last">
+              <a href="#" onclick="document.getElementById('sfWebDebug').style.display='none'; return false;"><img src="viewProjects_files/close.png" alt="Close"></a>
+            </li>
+          </ul>
+        </div>
+
+        <div id="sfWebDebugconfigDetails" class="sfWebDebugTop" style="display: none;"><h1>Configuration</h1><ul id="sfWebDebugConfigSummary"><li class="ison">debug</li><li class="isoff">xdebug</li><li class="ison">logging</li><li class="isoff">cache</li><li class="isoff">compression</li><li class="ison">tokenizer</li><li class="isoff">eaccelerator</li><li class="isoff">apc</li><li class="isoff last">xcache</li></ul>
+    <h2>Request <a href="#" onclick="sfWebDebugToggle('sfWebDebugRequest'); return false;" title="Toggle details"><img src="viewProjects_files/toggle.gif" alt="Toggle details"></a></h2>
+    <div id="sfWebDebugRequest" style="display: none;"><pre>options:
+  path_info_key: PATH_INFO
+  path_info_array: SERVER
+  http_port: null
+  https_port: null
+  default_format: null
+  logging: '1'
+  relative_url_root: null
+  formats: { txt: text/plain, js: [application/javascript, application/x-javascript, text/javascript], css: text/css, json: [application/json, application/x-json], xml: [text/xml, application/xml, application/x-xml], rdf: application/rdf+xml, atom: application/atom+xml }
+  no_script_name: false
+parameterHolder:
+  action: viewProjects
+  module: project
+attributeHolder:
+  sf_route: 'sfRoute Object()'
+</pre></div>
+    
+    <h2>Response <a href="#" onclick="sfWebDebugToggle('sfWebDebugResponse'); return false;" title="Toggle details"><img src="viewProjects_files/toggle.gif" alt="Toggle details"></a></h2>
+    <div id="sfWebDebugResponse" style="display: none;"><pre>status:
+  code: 200
+  text: OK
+options:
+  http_protocol: HTTP/1.1
+  logging: '1'
+  charset: utf-8
+  send_http_headers: false
+  content_type: 'text/html; charset=utf-8'
+cookies: {  }
+httpHeaders:
+  Content-Type: 'text/html; charset=utf-8'
+javascripts:
+  jquery/jquery-1.5.1.js: {  }
+  jquery/jquery-validate/jquery.validate.js: {  }
+  jquery/jquery.datePicker-2.1.2.js: {  }
+  jquery/jquery-ui-1.8.10.custom.min.js: {  }
+  jquery/jquery.alerts.js: {  }
+stylesheets:
+  main.css: {  }
+  jquery-ui-1.8.10.custom.css: {  }
+  jquery.alerts.css: {  }
+metas: {  }
+httpMetas:
+  Content-Type: 'text/html; charset=utf-8'
+</pre></div>
+    
+    <h2>User <a href="#" onclick="sfWebDebugToggle('sfWebDebugUser'); return false;" title="Toggle details"><img src="viewProjects_files/toggle.gif" alt="Toggle details"></a></h2>
+    <div id="sfWebDebugUser" style="display: none;"><pre>options:
+  auto_shutdown: false
+  culture: null
+  default_culture: en
+  use_flash: true
+  logging: '1'
+  timeout: 1800
+attributeHolder: {  }
+culture: en
+authenticated: false
+credentials: {  }
+lastRequest: 1300096064
+</pre></div>
+    
+    <h2>Settings <a href="#" onclick="sfWebDebugToggle('sfWebDebugSettings'); return false;" title="Toggle details"><img src="viewProjects_files/toggle.gif" alt="Toggle details"></a></h2>
+    <div id="sfWebDebugSettings" style="display: none;"><pre>mod_project_enabled: true
+mod_project_view_class: sfPHP
+sf_admin_module_web_dir: /sfDoctrinePlugin
+sf_admin_web_dir: /sf/sf_admin
+sf_app: frontend
+sf_app_base_cache_dir: /home/OrangePM/cache/frontend
+sf_app_cache_dir: /home/OrangePM/cache/frontend/dev
+sf_app_config_dir: /home/OrangePM/apps/frontend/config
+sf_app_dir: /home/OrangePM/apps/frontend
+sf_app_i18n_dir: /home/OrangePM/apps/frontend/i18n
+sf_app_lib_dir: /home/OrangePM/apps/frontend/lib
+sf_app_module_dir: /home/OrangePM/apps/frontend/modules
+sf_app_template_dir: /home/OrangePM/apps/frontend/templates
+sf_apps_dir: /home/OrangePM/apps
+sf_cache: false
+sf_cache_dir: /home/OrangePM/cache
+sf_charset: utf-8
+sf_check_lock: false
+sf_compressed: false
+sf_config_cache_dir: /home/OrangePM/cache/frontend/dev/config
+sf_config_dir: /home/OrangePM/config
+sf_csrf_secret: 5c6a245c8de2d9b1dc357fc89119340c7216e065
+sf_data_dir: /home/OrangePM/data
+sf_debug: true
+sf_default_culture: en
+sf_enabled_modules:
+  - default
+sf_environment: dev
+sf_error_404_action: error404
+sf_error_404_module: default
+sf_error_reporting: 32767
+sf_escaping_method: ESC_SPECIALCHARS
+sf_escaping_strategy: true
+sf_etag: false
+sf_file_link_format: null
+sf_i18n: false
+sf_i18n_cache_dir: /home/OrangePM/cache/frontend/dev/i18n
+sf_lib_dir: /home/OrangePM/lib
+sf_log_dir: /home/OrangePM/log
+sf_logging_enabled: true
+sf_login_action: login
+sf_login_module: default
+sf_module_cache_dir: /home/OrangePM/cache/frontend/dev/modules
+sf_module_disabled_action: disabled
+sf_module_disabled_module: default
+sf_no_script_name: false
+sf_orm: doctrine
+sf_plugins_dir: /home/OrangePM/plugins
+sf_root_dir: /home/OrangePM
+sf_secure_action: secure
+sf_secure_module: default
+sf_standard_helpers:
+  - Partial
+  - Cache
+sf_symfony_lib_dir: /home/OrangePM/lib/vendor/symfony/lib
+sf_template_cache_dir: /home/OrangePM/cache/frontend/dev/template
+sf_test_cache_dir: /home/OrangePM/cache/frontend/dev/test
+sf_test_dir: /home/OrangePM/test
+sf_upload_dir: /home/OrangePM/web/uploads
+sf_use_database: true
+sf_web_debug: true
+sf_web_debug_web_dir: /sf/sf_web_debug
+sf_web_dir: /home/OrangePM/web
+symfony.asset.javascripts_included: true
+symfony.asset.stylesheets_included: true
+</pre></div>
+    
+    <h2>Globals <a href="#" onclick="sfWebDebugToggle('sfWebDebugGlobals'); return false;" title="Toggle details"><img src="viewProjects_files/toggle.gif" alt="Toggle details"></a></h2>
+    <div id="sfWebDebugGlobals" style="display: none;"><pre>cookie:
+  symfony: faclg9uff4s8crfkkdcl3pnha5
+env: {  }
+files: {  }
+get: {  }
+post: {  }
+server:
+  DOCUMENT_ROOT: /home/OrangePM/web
+  GATEWAY_INTERFACE: CGI/1.1
+  HTTP_ACCEPT: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  HTTP_ACCEPT_CHARSET: 'ISO-8859-1,utf-8;q=0.7,*;q=0.7'
+  HTTP_ACCEPT_ENCODING: 'gzip,deflate'
+  HTTP_ACCEPT_LANGUAGE: 'en-us,en;q=0.5'
+  HTTP_CONNECTION: keep-alive
+  HTTP_COOKIE: symfony=faclg9uff4s8crfkkdcl3pnha5
+  HTTP_HOST: 'localhost:8080'
+  HTTP_KEEP_ALIVE: '115'
+  HTTP_REFERER: 'http://localhost:8080/frontend_dev.php/project/addProject?_csrf_token=18ccecf851bea96f7971d7cffe3d48b1'
+  HTTP_USER_AGENT: 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.15) Gecko/20110303 Ubuntu/10.10 (maverick) Firefox/3.6.15'
+  PATH: '/usr/local/bin:/usr/bin:/bin'
+  PATH_INFO: /project/viewProjects
+  PATH_TRANSLATED: /home/OrangePM/web/project/viewProjects
+  PHP_SELF: /frontend_dev.php/project/viewProjects
+  QUERY_STRING: ''
+  REMOTE_ADDR: 127.0.0.1
+  REMOTE_PORT: '35783'
+  REQUEST_METHOD: GET
+  REQUEST_TIME: 1300096064
+  REQUEST_URI: /frontend_dev.php/project/viewProjects
+  SCRIPT_FILENAME: /home/OrangePM/web/frontend_dev.php
+  SCRIPT_NAME: /frontend_dev.php
+  SERVER_ADDR: 127.0.0.1
+  SERVER_ADMIN: '[no address given]'
+  SERVER_NAME: localhost
+  SERVER_PORT: '8080'
+  SERVER_PROTOCOL: HTTP/1.1
+  SERVER_SIGNATURE: "&lt;address&gt;Apache/2.2.16 (Ubuntu) Server at localhost Port 8080&lt;/address&gt;\n"
+  SERVER_SOFTWARE: 'Apache/2.2.16 (Ubuntu)'
+session:
+  symfony/user/sfUser/attributes: {  }
+  symfony/user/sfUser/authenticated: false
+  symfony/user/sfUser/credentials: {  }
+  symfony/user/sfUser/culture: en
+  symfony/user/sfUser/lastRequest: 1300096064
+</pre></div>
+    
+    <h2>Php <a href="#" onclick="sfWebDebugToggle('sfWebDebugPhp'); return false;" title="Toggle details"><img src="viewProjects_files/toggle.gif" alt="Toggle details"></a></h2>
+    <div id="sfWebDebugPhp" style="display: none;"><pre>php: 5.3.3-1ubuntu9.3
+os: 'Linux orangehrm-In2 2.6.35-27-generic #48-Ubuntu SMP Tue Feb 22 20:25:29 UTC 2011 i686'
+extensions:
+  41: apache2handler
+  7: bcmath
+  8: bz2
+  9: calendar
+  0: 'Core (5.3.3-1ubuntu9.3)'
+  10: ctype
+  42: curl
+  1: 'date (5.3.3-1ubuntu9.3)'
+  11: dba
+  12: 'dom (20031129)'
+  2: ereg
+  31: 'exif (1.4 $Id: exif.c 293036 2010-01-03 09:23:27Z sebastian $)'
+  14: 'fileinfo (1.0.5-dev)'
+  15: 'filter (0.11.0)'
+  16: ftp
+  43: gd
+  17: gettext
+  13: 'hash (1.0)'
+  19: iconv
+  44: idn
+  45: 'imagick (3.0.0RC1)'
+  46: imap
+  20: 'json (1.2.1)'
+  3: libxml
+  21: mbstring
+  47: mcrypt
+  48: 'memcache (3.0.4)'
+  64: mhash
+  49: ming
+  50: 'mysql (1.0)'
+  51: 'mysqli (0.1)'
+  4: openssl
+  5: pcre
+  52: 'PDO (1.0.4dev)'
+  53: 'pdo_mysql (1.0.2)'
+  54: 'pdo_sqlite (1.0.1)'
+  30: 'Phar (2.0.1)'
+  23: posix
+  55: ps
+  56: pspell
+  57: recode
+  24: 'Reflection ($Revision: 300393 $)'
+  18: session
+  26: shmop
+  27: 'SimpleXML (0.1)'
+  58: snmp
+  28: soap
+  29: sockets
+  25: 'SPL (0.2)'
+  59: 'SQLite (2.0-dev)'
+  60: 'sqlite3 (0.7-dev)'
+  22: 'standard (5.3.3-1ubuntu9.3)'
+  32: sysvmsg
+  33: sysvsem
+  34: sysvshm
+  61: 'tidy (2.0)'
+  35: 'tokenizer (0.1)'
+  36: wddx
+  37: xml
+  38: 'xmlreader (0.1)'
+  62: 'xmlrpc (0.51)'
+  39: 'xmlwriter (0.1)'
+  63: 'xsl (0.1)'
+  40: 'zip (1.9.1)'
+  6: 'zlib (1.1)'
+</pre></div>
+    
+    <h2>Symfony <a href="#" onclick="sfWebDebugToggle('sfWebDebugSymfony'); return false;" title="Toggle details"><img src="viewProjects_files/toggle.gif" alt="Toggle details"></a></h2>
+    <div id="sfWebDebugSymfony" style="display: none;"><pre>version: 1.4.9
+path: /home/OrangePM/lib/vendor/symfony/lib
+</pre></div>
+    </div>
+<div id="sfWebDebugviewDetails" class="sfWebDebugTop" style="display: none;"><h1>View Layer</h1><h2>Template: <span title="SF_ROOT_DIR/apps/frontend/modules/project/templates/viewProjectsSuccess.php">project&nbsp;…&nbsp;viewProjectsSuccess.php</span> <a href="#" onclick="sfWebDebugToggle('sfWebDebugViewTemplate1'); return false;" title="Toggle details"><img src="viewProjects_files/toggle.gif" alt="Toggle details"></a></h2>
+<div id="sfWebDebugViewTemplate1" style="display: block;">
+<p>Parameters:</p>
+<ul>
+<li><code>$projectForm</code> <span class="sfWebDebugDataType">(<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/form/sfForm.class.php">sfForm</span>)</span>
+<a href="#" onclick="sfWebDebugToggle('sfWebDebugViewForm1'); return false;" title="Toggle details"><img src="viewProjects_files/toggle.gif" alt="Toggle details"></a>
+<div id="sfWebDebugViewForm1" style="display: none;">
+<ul><li>
+<code>$projectForm['_csrf_token']</code> <span class="sfWebDebugDataType">(<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/widget/sfWidgetFormInputHidden.class.php">sfWidgetFormInputHidden</span>)</span>
+</li></ul>
+</div></li>
+<li><code>$projectsList</code> <span class="sfWebDebugDataType">(<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Collection.php">Doctrine_Collection</span>)</span></li>
+</ul>
+</div></div>
+<div id="sfWebDebuglogsDetails" class="sfWebDebugTop" style="display: none;"><h1>Logs</h1>
+      <ul id="sfWebDebugLogMenu">
+        <li><a href="#" onclick="sfWebDebugToggleAllLogLines(true, 'sfWebDebugLogLine'); return false;">[all]</a></li>
+        <li><a href="#" onclick="sfWebDebugToggleAllLogLines(false, 'sfWebDebugLogLine'); return false;">[none]</a></li>
+        <li><a href="#" onclick="sfWebDebugShowOnlyLogLines('info'); return false;"><img src="viewProjects_files/info.png" alt="Show only infos"></a></li>
+        <li><a href="#" onclick="sfWebDebugShowOnlyLogLines('warning'); return false;"><img src="viewProjects_files/warning.png" alt="Show only warnings"></a></li>
+        <li><a href="#" onclick="sfWebDebugShowOnlyLogLines('error'); return false;"><img src="viewProjects_files/error.png" alt="Show only errors"></a></li>
+        <li><a href="#" onclick="sfWebDebugToggleMessages('Doctrine_Connection_Mysql'); return false;">Doctrine_Connection_Mysql</a></li>
+<li><a href="#" onclick="sfWebDebugToggleMessages('Doctrine_Connection_Statement'); return false;">Doctrine_Connection_Statement</a></li>
+<li><a href="#" onclick="sfWebDebugToggleMessages('projectActions'); return false;">projectActions</a></li>
+<li><a href="#" onclick="sfWebDebugToggleMessages('sfFilterChain'); return false;">sfFilterChain</a></li>
+<li><a href="#" onclick="sfWebDebugToggleMessages('sfPHPView'); return false;">sfPHPView</a></li>
+<li><a href="#" onclick="sfWebDebugToggleMessages('sfPatternRouting'); return false;">sfPatternRouting</a></li>
+<li><a href="#" onclick="sfWebDebugToggleMessages('sfWebDebugLogger'); return false;">sfWebDebugLogger</a></li>
+<li><a href="#" onclick="sfWebDebugToggleMessages('sfWebResponse'); return false;">sfWebResponse</a></li>
+      </ul>
+      <div id="sfWebDebugLogLines"><table class="sfWebDebugLogs">
+      <tbody><tr>
+        <th>#</th>
+        <th>type</th>
+        <th>message</th>
+      </tr>
+<tr class="sfWebDebugLogLine sfWebDebugInfo sfPatternRouting"><td class="sfWebDebugLogNumber">1</td><td class="sfWebDebugLogType"><img src="viewProjects_files/info.png" alt="Info">&nbsp;<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/routing/sfPatternRouting.class.php">sfPatternRouting</span></td><td>Match route "<span class="sfWebDebugLogInfo">default</span>"
+ (/:module/:action/*) for /project/viewProjects with parameters array ( 
+ 'module' =&gt; 'project',  'action' =&gt; 'viewProjects',) </td></tr>
+<tr class="sfWebDebugLogLine sfWebDebugInfo sfFilterChain"><td class="sfWebDebugLogNumber">2</td><td class="sfWebDebugLogType"><img src="viewProjects_files/info.png" alt="Info">&nbsp;<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/filter/sfFilterChain.class.php">sfFilterChain</span></td><td>Executing filter "<span class="sfWebDebugLogInfo">sfRenderingFilter</span>" </td></tr>
+<tr class="sfWebDebugLogLine sfWebDebugInfo sfFilterChain"><td class="sfWebDebugLogNumber">3</td><td class="sfWebDebugLogType"><img src="viewProjects_files/info.png" alt="Info">&nbsp;<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/filter/sfFilterChain.class.php">sfFilterChain</span></td><td>Executing filter "<span class="sfWebDebugLogInfo">sfExecutionFilter</span>" </td></tr>
+<tr class="sfWebDebugLogLine sfWebDebugInfo projectActions"><td class="sfWebDebugLogNumber">4</td><td class="sfWebDebugLogType"><img src="viewProjects_files/info.png" alt="Info">&nbsp;<span title="SF_ROOT_DIR/apps/frontend/modules/project/actions/actions.class.php">projectActions</span></td><td>Call "<span class="sfWebDebugLogInfo">projectActions-&gt;executeViewProjects()</span>" </td></tr>
+<tr class="sfWebDebugLogLine sfWebDebugInfo Doctrine_Connection_Mysql"><td class="sfWebDebugLogNumber">5</td><td class="sfWebDebugLogType"><img src="viewProjects_files/info.png" alt="Info">&nbsp;<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Connection/Mysql.php">Doctrine_Connection_Mysql</span></td><td>exec : <span class="sfWebDebugLogInfo">SET</span> NAMES 'UTF8' - () </td></tr>
+<tr class="sfWebDebugLogLine sfWebDebugInfo Doctrine_Connection_Statement"><td class="sfWebDebugLogNumber">6</td><td class="sfWebDebugLogType"><img src="viewProjects_files/info.png" alt="Info">&nbsp;<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Connection/Statement.php">Doctrine_Connection_Statement</span></td><td>execute : <span class="sfWebDebugLogInfo">SELECT</span> o.id <span class="sfWebDebugLogInfo">AS</span> o__id, o.name <span class="sfWebDebugLogInfo">AS</span> o__name, o.deleted <span class="sfWebDebugLogInfo">AS</span> o__deleted, o.created_at <span class="sfWebDebugLogInfo">AS</span> o__created_at, o.updated_at <span class="sfWebDebugLogInfo">AS</span> o__updated_at <span class="sfWebDebugLogInfo">FROM</span> orangepm_project o <span class="sfWebDebugLogInfo">WHERE</span> (o.deleted = ?) - (1) </td></tr>
+<tr class="sfWebDebugLogLine sfWebDebugInfo sfPHPView"><td class="sfWebDebugLogNumber">7</td><td class="sfWebDebugLogType"><img src="viewProjects_files/info.png" alt="Info">&nbsp;<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/view/sfPHPView.class.php">sfPHPView</span></td><td>Render "<span class="sfWebDebugLogInfo">sf_app_dir/modules/project/templates/viewProjectsSuccess.php</span>" </td></tr>
+<tr class="sfWebDebugLogLine sfWebDebugInfo sfPHPView"><td class="sfWebDebugLogNumber">8</td><td class="sfWebDebugLogType"><img src="viewProjects_files/info.png" alt="Info">&nbsp;<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/view/sfPHPView.class.php">sfPHPView</span></td><td>Decorate content with "<span class="sfWebDebugLogInfo">sf_app_dir/templates/layout.php</span>" </td></tr>
+<tr class="sfWebDebugLogLine sfWebDebugInfo sfPHPView"><td class="sfWebDebugLogNumber">9</td><td class="sfWebDebugLogType"><img src="viewProjects_files/info.png" alt="Info">&nbsp;<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/view/sfPHPView.class.php">sfPHPView</span></td><td>Render "<span class="sfWebDebugLogInfo">sf_app_dir/templates/layout.php</span>" </td></tr>
+<tr class="sfWebDebugLogLine sfWebDebugInfo sfWebResponse"><td class="sfWebDebugLogNumber">10</td><td class="sfWebDebugLogType"><img src="viewProjects_files/info.png" alt="Info">&nbsp;<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/response/sfWebResponse.class.php">sfWebResponse</span></td><td>Send status "<span class="sfWebDebugLogInfo">HTTP/1.1 200 OK</span>" </td></tr>
+<tr class="sfWebDebugLogLine sfWebDebugInfo sfWebResponse"><td class="sfWebDebugLogNumber">11</td><td class="sfWebDebugLogType"><img src="viewProjects_files/info.png" alt="Info">&nbsp;<span title="SF_ROOT_DIR/lib/vendor/symfony/lib/response/sfWebResponse.class.php">sfWebResponse</span></td><td>Send header "<span class="sfWebDebugLogInfo">Content-Type: text/html; charset=utf-8</span>" </td></tr>
+</tbody></table></div>
+    </div>
+<div id="sfWebDebugtimeDetails" class="sfWebDebugTop" style="display: none;"><h1>Timers</h1><table class="sfWebDebugLogs" style="width: 300px;"><tbody><tr><th>type</th><th>calls</th><th>time (ms)</th><th>time (%)</th></tr><tr><td class="sfWebDebugLogType">Configuration</td><td class="sfWebDebugLogNumber" style="text-align: right;">9</td><td style="text-align: right;">1.31</td><td style="text-align: right;">1</td></tr><tr><td class="sfWebDebugLogType">Factories</td><td class="sfWebDebugLogNumber" style="text-align: right;">1</td><td style="text-align: right;">29.03</td><td style="text-align: right;">22</td></tr><tr><td class="sfWebDebugLogType">Action "project/viewProjects"</td><td class="sfWebDebugLogNumber" style="text-align: right;">1</td><td style="text-align: right;">41.81</td><td style="text-align: right;">32</td></tr><tr><td class="sfWebDebugLogType">Database (Doctrine)</td><td class="sfWebDebugLogNumber" style="text-align: right;">2</td><td style="text-align: right;">0.01</td><td style="text-align: right;">0</td></tr><tr><td class="sfWebDebugLogType">View "Success" for "project/viewProjects"</td><td class="sfWebDebugLogNumber" style="text-align: right;">1</td><td style="text-align: right;">16.31</td><td style="text-align: right;">12</td></tr></tbody></table></div>
+<div id="sfWebDebugdbDetails" class="sfWebDebugTop" style="display: none;"><h1>SQL queries</h1>
+      <div id="sfWebDebugDatabaseLogs">
+        <h3>Doctrine Version: 1.2.3</h3>
+        <ol>
+        <li>
+          <p class="sfWebDebugDatabaseQuery"><span class="sfWebDebugLogInfo">SET</span> NAMES 'UTF8'</p>
+          <div class="sfWebDebugDatabaseLogInfo">0.00s, "doctrine" connection</div>
+        </li>
+
+        <li>
+          <p class="sfWebDebugDatabaseQuery"><span class="sfWebDebugLogInfo">SELECT</span> o.id <span class="sfWebDebugLogInfo">AS</span> o__id, o.name <span class="sfWebDebugLogInfo">AS</span> o__name, o.deleted <span class="sfWebDebugLogInfo">AS</span> o__deleted, o.created_at <span class="sfWebDebugLogInfo">AS</span> o__created_at, o.updated_at <span class="sfWebDebugLogInfo">AS</span> o__updated_at <span class="sfWebDebugLogInfo">FROM</span> orangepm_project o <span class="sfWebDebugLogInfo">WHERE</span> (o.deleted = '1')</p>
+          <div class="sfWebDebugDatabaseLogInfo">0.00s, "doctrine" connection</div>
+        </li></ol>
+      </div>
+    </div>
+      </div>
+    </body></html>
