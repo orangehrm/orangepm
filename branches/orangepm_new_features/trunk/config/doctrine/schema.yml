@@ -42,6 +42,7 @@ Project:
       foreignType: many
       
 ProjectUser:
+  actAs: [Timestampable]
   tableName: orangepm_project_user
   columns:
     project_id:
@@ -49,7 +50,6 @@ ProjectUser:
       notnull: true
     user_id:
       type: integer
-      notnull: true
     user_type:
       type: integer
       notnull: true
@@ -57,9 +57,19 @@ ProjectUser:
     Project:
       local: project_id
       foreign: id
+      onDelete: CASCADE
+      type: one
+      class: Project
+      foreignAlias: ProjectUser
+      foreignType: many
     User:
       local: user_id
       foreign: id
+      onDelete: CASCADE
+      type: one
+      class: User
+      foreignAlias: ProjectUser
+      foreignType: many
        
 Story:
   actAs: [Timestampable]
