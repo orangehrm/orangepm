@@ -9,6 +9,7 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
 
     public function setup() {
         
+        TestDataService::truncateTables(array('User','Project','Story','ProjectLog','ProjectUser'));
         TestDataService::populate(sfConfig::get('sf_test_dir') . '/fixtures/ProjectDao.yml');
         $this->projectDao = new ProjectDao();
         
@@ -93,6 +94,94 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
         $result = $this->projectDao->isActionAllowedForUser(7, 14);
         $this->assertEquals(false, $result);
         
+    }
+    
+    /*
+     * function Testing saving for ProjectUser
+     * @author Eranga
+     */
+    public function testSaveProjectUsers(){
+        
+        $project = new Project();
+        $project->setName('aaa');
+        $project->setUserId(3);
+        $project->setStartDate('2011-01-01');
+        $this->projectDao->saveProject($project);
+        
+        $collection=new Doctrine_Collection('ProjectUser');
+        $projectUser1=new ProjectUser();
+        $projectUser1->setProjectId($project->getId());
+        $projectUser1->setUserId(3);        
+        $projectUser1->setUserType(1);
+        $collection->add($projectUser1);
+        
+        $project->setProjectUser($collection);
+        $this->projectDao->saveProject($project);
+        $expected=$this->projectDao->getProjectById($project->getId())->getProjectUser();
+        $this->assertEquals(3,$expected[0]->getUserId());
+    }
+    
+    /*
+     * function Testing saving for ProjectUser when there are no users defined
+     * @author Eranga
+     */
+    public function testSaveProjectUsersWhenNoUsers(){
+        
+        $project = new Project();
+        $project->setName('aaa');
+        $project->setUserId(3);
+        $project->setStartDate('2011-01-01');
+        $this->projectDao->saveProject($project);
+        
+        $collection=new Doctrine_Collection('ProjectUser');
+        
+        $project->setProjectUser($collection);
+        $this->projectDao->saveProject($project);
+        $expected=$this->projectDao->getProjectById($project->getId())->getProjectUser();
+        $this->assertEquals(0,$expected->count());
+    }
+    
+    /*
+     * function Testing updating for ProjectUser
+     * @author Eranga
+     */
+    public function testUpdateProjectUsers(){
+               
+        $projectUser1=new ProjectUser();
+        $projectUser1->setProjectId(3);
+        $projectUser1->setUserId(5);
+        $projectUser1->setUserType(1);
+        
+        $projectUser2=new ProjectUser();
+        $projectUser2->setProjectId(3);
+        $projectUser2->setUserId(2);
+        $projectUser2->setUserType(2);
+        
+        $collection=new Doctrine_Collection('ProjectUser');
+        $collection->add($projectUser1);
+        $collection->add($projectUser2);
+        
+        $project=$this->projectDao->getProjectById(3);
+        $project->setProjectUser($collection);
+        $this->projectDao->saveProject($project);
+        
+        $projectUsers=$project->getProjectUser();
+        $this->assertEquals(2, $projectUsers->count());
+    }
+    
+    /*
+     * function Testing updating for ProjectUser when no users are defined
+     * @author Eranga
+     */
+    public function testUpdateProjectUsersWhenNoProjectUsers(){                   
+        $collection=new Doctrine_Collection('ProjectUser');
+        
+        $project=$this->projectDao->getProjectById(3);
+        $project->setProjectUser($collection);
+        $this->projectDao->saveProject($project);
+        
+        $projectUsers=$project->getProjectUser();
+        $this->assertEquals(0, $projectUsers->count());
     }
     
 }
