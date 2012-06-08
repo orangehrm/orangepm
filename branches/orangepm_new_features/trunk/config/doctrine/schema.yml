@@ -48,8 +48,10 @@ ProjectUser:
     project_id:
       type: integer
       notnull: true
+      name: project_id as projectId
     user_id:
       type: integer
+      name: user_id as userId
     user_type:
       type: integer
       notnull: true
