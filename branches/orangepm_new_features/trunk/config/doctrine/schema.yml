@@ -40,6 +40,11 @@ Project:
       type: one
       foreignAlias: Project
       foreignType: many
+    ProjectUser:
+      local: id
+      foreign: project_id
+      class: ProjectUser
+      type: many
       
 ProjectUser:
   actAs: [Timestampable]
@@ -66,8 +71,7 @@ ProjectUser:
       foreignType: many
     User:
       local: user_id
-      foreign: id
-      onDelete: CASCADE
+      foreign: id     
       type: one
       class: User
       foreignAlias: ProjectUser
