@@ -14,7 +14,7 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
         $this->projectDao = new ProjectDao();
         
     }
-
+    
     /* Tests for getProjectsByUser() */
     
     public function testGetProjectsByUserTestCount() {
@@ -68,7 +68,119 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
  
     }
 
-
+    
+      
+    
+    /**
+     * @author Samith
+     */
+    public function testGetAllProjectByUserTestObjectType(){
+        
+        $result = $this->projectDao->getProjectUsersByUser(1, 1,true , 3);
+        foreach ($result as $value) {
+            $this->assertTrue($value instanceof ProjectUser);
+        }
+        
+        $result = $this->projectDao->getProjectUsersByUser(1, 1,true );
+        foreach ($result as $value) {
+            $this->assertTrue($value instanceof ProjectUser);
+        }
+    }
+    
+    /**
+     * @author Samith
+     */
+    public function testGetAllProjectByUserTestObjectCount(){
+        
+        $result = $this->projectDao->getProjectUsersByUser(1, 1,true , 3);
+        $this->assertEquals(1, count($result));
+        
+        $result = $this->projectDao->getProjectUsersByUser(1, 1,true );
+        $this->assertEquals(2, count($result));
+        
+        $result = $this->projectDao->getProjectUsersByUser(1, 2,false );
+        $this->assertEquals(2, count($result));
+        
+        $result = $this->projectDao->getProjectUsersByUser(1, null,false );
+        $this->assertEquals(4, count($result));
+        
+        $result = $this->projectDao->getProjectUsersByUser(2, 2,false );
+        $this->assertEquals(2, count($result));
+    }
+    
+    /**
+     * @author Samith
+     */
+    public function testGetAllProjectByUserTestResultValues(){
+        
+        $result = $this->projectDao->getProjectUsersByUser(1, 1,true );
+        $this->assertEquals(3, $result[0]->getUserType());
+        
+        $result = $this->projectDao->getProjectUsersByUser(1, null,false );
+        $this->assertEquals(3, $result[0]->getUserType());
+        $this->assertEquals(2, $result[1]->getUserType());
+        $this->assertEquals(1, $result[2]->getUserType());
+        $this->assertEquals(3, $result[3]->getUserType());
+    }
+    
+    /**
+     * @author Samith
+     */
+    public function testGetAllProjectByUserTestWrongInputs(){
+         $result = $this->projectDao->getProjectUsersByUser(5, 5,true );
+         $this->assertNull($result);
+         
+         $result = $this->projectDao->getProjectUsersByUser(1, 3,true );
+         $this->assertNull($result);
+        
+    }    
+    
+    /**
+     * @author Samith
+     */
+    public function testGetProjectUsersByProjectIdTestObjectType(){
+        
+        $result = $this->projectDao->getProjectUsersByProjectId(1);
+        foreach ($result as $value) {
+            $this->assertTrue($value instanceof ProjectUser);
+        }
+    }
+    
+    /**
+     * @author Samith
+     */
+    public function testGetProjectUsersByProjectIdTestObjectCount(){
+        $result = $this->projectDao->getProjectUsersByProjectId(1);
+        $this->assertEquals(2, count($result));
+         
+        
+        $result = $this->projectDao->getProjectUsersByProjectId(4);
+        $this->assertEquals(4, count($result));
+    }
+    
+    /**
+     * @author Samith
+     */
+    public function testGetProjectUsersByProjectIdTestWrongInputs(){
+        $result = $this->projectDao->getProjectUsersByProjectId(111);
+         $this->assertNull($result);
+    }
+    
+    /**
+     * @author Samith
+     */ 
+    public function testGetProjectUsersByProjectIdTestResultValues(){
+          $result = $this->projectDao->getProjectUsersByProjectId(1);
+           $this->assertEquals(1, $result[0]->getUserId());
+           $this->assertEquals(1, $result[1]->getUserId());
+           $this->assertEquals(2, $result[1]->getUserType());
+           
+           $result = $this->projectDao->getProjectUsersByProjectId(4);
+           $this->assertEquals(1, $result[0]->getUserId());
+           $this->assertEquals(4, $result[3]->getUserId());
+           $this->assertEquals(1, $result[2]->getUserType());
+     }
+    
     /* Tests for isActionAllowedForStory() */
     public function testIsActionAllowedForStoryTestCorrectInputs() {
         
