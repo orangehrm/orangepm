@@ -144,6 +144,62 @@ class ProjectDao {
 
         return count($result) == 0 ? null : $result;
     }
+    
+    /**
+     *
+     * Get all projects with the associated roles 
+     * @param type $userId - the UserID
+     * @param type $statusId - the status of the required Projects
+     * @param type $isActive - if true it will return only the active projects , otherwise both active and deleted
+     * @param type $userType - specified user role
+     * @return type 
+     */
+    public function getProjectUsersByUser($userId, $statusId=Project::PROJECT_STATUS_ALL_ID, $isActive=true ,$userType = User::USER_TYPE_UNSPECIFIED) {
+
+        $query = Doctrine_Query::create()
+                ->select('pu.*')
+                ->from('ProjectUser pu')
+                ->leftJoin('pu.Project p');
+
+        $query->addWhere('pu.userId = ?', $userId);
+
+        if ($statusId != null) {
+            $query->addWhere('p.projectStatusId = ?', $statusId);
+        }
+
+        if ($isActive) {
+            $query->addWhere('p.deleted = ?', Project::FLAG_ACTIVE);
+        }  
+        
+        if($userType != User::USER_TYPE_UNSPECIFIED){
+            $query->addWhere('pu.userType = ?' , $userType);
+        }
+
+        
+        $result = $query->execute();
+
+        return count($result) == 0 ? null : $result;
+    }
+    
+    /**
+     * 
+     * Get the associated ProjectUsers
+     * @param type $projectId
+     * @return type 
+     */
+    public function getProjectUsersByProjectId($projectId){
+        $project = $this->getProjectById($projectId);
+        
+        if($project != null){
+            $result =$project->getProjectUser();
+        }
+        return count($result) == 0 ? null : $result;
+    }
+    
+    
+
+        
+    
 
     /**
      * Check whether the user has authentication to do the action
