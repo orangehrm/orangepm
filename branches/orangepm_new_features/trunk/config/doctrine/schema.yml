@@ -58,6 +58,7 @@ ProjectUser:
       type: integer
       name: user_id as userId
     user_type:
+      name: user_type as userType
       type: integer
       notnull: true
   relations:
