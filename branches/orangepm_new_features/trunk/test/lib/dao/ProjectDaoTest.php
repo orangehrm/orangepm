@@ -220,7 +220,7 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     
     public function testGetAllProjectsWithActiveOnly() {
         $projects=$this->projectDao->getAllProjects(1);
-        $this->assertEquals(count($projects), 6);
+        $this->assertEquals(count($projects), 7);
         $this->assertTrue($projects[0] instanceof Project);
     }
     
