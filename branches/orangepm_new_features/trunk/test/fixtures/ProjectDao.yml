@@ -12,9 +12,9 @@ Project:
   3: {id: 4, name: 'Google Summer of Code: Part 5', projectStatusId: 2, deleted: 0, userId: 3, startDate: '2011-01-01'}
   5: {id: 6, name: 'Alfresco-phase1-CR2', projectStatusId: 2, deleted: 1, userId: 3, startDate: '2011-01-01'}
   6: {id: 7, name: 'University of Alabama-phase1', projectStatusId: 2, deleted: 1, userId: 2, startDate: '2011-01-01'}
-  7: {id: 8, name: 'UB-Phase1-CR7', projectStatusId: 3, deleted: 1, userId: 4, startDate: '2011-01-01'}
+  7: {id: 8, name: 'UB-Phase1-CR7', projectStatusId: 1, deleted: 1, userId: 4, startDate: '2011-01-01'}
   8: {id: 9, name: 'Duke-NUS People Manager SAP Synchronization', projectStatusId: 3, deleted: 1, userId: 5, startDate: '2011-01-01'}
-  9: {id: 10, name: 'Google Art project', projectStatusId: 1, deleted: 1, userId: 4, startDate: '2011-01-01'}
+  9: {id: 10, name: 'Google Art project', projectStatusId: 1, deleted: 0, userId: 4, startDate: '2011-01-01'}
   
 Story:
   0: {id: 1, project_id: 5, estimation: 12, name: 'Performance appraisal form for biweekly paid employees', date_added: '2011-01-12', status: 'Pending', accepted_date: NULL, deleted_date: NULL, deleted: 1}

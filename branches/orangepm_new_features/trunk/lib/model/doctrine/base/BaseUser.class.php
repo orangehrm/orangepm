@@ -14,6 +14,7 @@
  * @property integer $userType
  * @property string $password
  * @property Doctrine_Collection $Project
+ * @property Doctrine_Collection $ProjectUser
  * @property Doctrine_Collection $ProjectLogs
  * 
  * @method integer             getId()          Returns the current record's "id" value
@@ -25,6 +26,7 @@
  * @method integer             getUserType()    Returns the current record's "userType" value
  * @method string              getPassword()    Returns the current record's "password" value
  * @method Doctrine_Collection getProject()     Returns the current record's "Project" collection
+ * @method Doctrine_Collection getProjectUser() Returns the current record's "ProjectUser" collection
  * @method Doctrine_Collection getProjectLogs() Returns the current record's "ProjectLogs" collection
  * @method User                setId()          Sets the current record's "id" value
  * @method User                setFirstName()   Sets the current record's "firstName" value
@@ -35,6 +37,7 @@
  * @method User                setUserType()    Sets the current record's "userType" value
  * @method User                setPassword()    Sets the current record's "password" value
  * @method User                setProject()     Sets the current record's "Project" collection
+ * @method User                setProjectUser() Sets the current record's "ProjectUser" collection
  * @method User                setProjectLogs() Sets the current record's "ProjectLogs" collection
  * 
  * @package    orangepm
@@ -94,6 +97,10 @@ abstract class BaseUser extends sfDoctrineRecord
         $this->hasMany('Project', array(
              'local' => 'id',
              'foreign' => 'userId'));
+
+        $this->hasMany('ProjectUser', array(
+             'local' => 'id',
+             'foreign' => 'user_id'));
 
         $this->hasMany('ProjectLog as ProjectLogs', array(
              'local' => 'id',
