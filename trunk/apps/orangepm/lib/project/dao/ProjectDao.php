@@ -25,6 +25,21 @@ class ProjectDao {
         if ($project instanceof Project) {
             $project->setDeleted(Project::FLAG_DELETED);
             $project->save();
+            $this->_deleteRelativeStoriesForProject($id);
+        }
+    }
+    /*
+     * stories related with deleted project
+     */
+    private function _deleteRelativeStoriesForProject($projectId){
+        $q = Doctrine_Query :: create()
+				->from('Story')
+				->where('deleted = ?', Story::FLAG_ACTIVE)
+				->andWhere('project_id = ?', $projectId);
+        $stories = $q->execute();
+        $storyDao = new StoryDao();
+        foreach ($stories as $story) {
+            $storyDao->deleteStory($story->getId(), date("Y-m-d H:i:s"));
         }
     }
 

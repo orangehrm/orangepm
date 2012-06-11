@@ -16,6 +16,7 @@
  * @property ProjectStatus $ProjectStatus
  * @property Story $Story
  * @property User $User
+ * @property Doctrine_Collection $ProjectUser
  * @property Doctrine_Collection $ProjectLogs
  * 
  * @method integer             getId()              Returns the current record's "id" value
@@ -29,6 +30,7 @@
  * @method ProjectStatus       getProjectStatus()   Returns the current record's "ProjectStatus" value
  * @method Story               getStory()           Returns the current record's "Story" value
  * @method User                getUser()            Returns the current record's "User" value
+ * @method Doctrine_Collection getProjectUser()     Returns the current record's "ProjectUser" collection
  * @method Doctrine_Collection getProjectLogs()     Returns the current record's "ProjectLogs" collection
  * @method Project             setId()              Sets the current record's "id" value
  * @method Project             setName()            Sets the current record's "name" value
@@ -41,6 +43,7 @@
  * @method Project             setProjectStatus()   Sets the current record's "ProjectStatus" value
  * @method Project             setStory()           Sets the current record's "Story" value
  * @method Project             setUser()            Sets the current record's "User" value
+ * @method Project             setProjectUser()     Sets the current record's "ProjectUser" collection
  * @method Project             setProjectLogs()     Sets the current record's "ProjectLogs" collection
  * 
  * @package    orangepm
@@ -102,6 +105,10 @@ abstract class BaseProject extends sfDoctrineRecord
              'local' => 'userId',
              'foreign' => 'id',
              'onDelete' => 'set null'));
+
+        $this->hasMany('ProjectUser', array(
+             'local' => 'id',
+             'foreign' => 'project_id'));
 
         $this->hasMany('ProjectLog as ProjectLogs', array(
              'local' => 'id',

@@ -4,11 +4,11 @@ require_once 'PHPUnit/Framework.php';
 require_once  sfConfig::get('sf_test_dir') . '/util/TestDataService.php';
 
 class ProjectDaoTest extends PHPUnit_Framework_TestCase {
-    
+
     protected $projectDao;
 
     public function setup() {
-        
+
         TestDataService::truncateTables(array('User','Project','Story','ProjectLog','ProjectUser'));
         TestDataService::populate(sfConfig::get('sf_test_dir') . '/fixtures/ProjectDao.yml');
         $this->projectDao = new ProjectDao();
@@ -16,50 +16,50 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     }
     
     /* Tests for getProjectsByUser() */
-    
+
     public function testGetProjectsByUserTestCount() {
-        
+
         $result = $this->projectDao->getProjectsByUser(2, 2);
         $this->assertEquals(2, count($result));
-        
+
         $result = $this->projectDao->getProjectsByUser(4, 1);
         $this->assertEquals(1, count($result));
-        
+
         $result = $this->projectDao->getProjectsByUser(1, 2);
-        $this->assertEquals(4, count($result));       
+        $this->assertEquals(4, count($result));
         
     }
-    
+
     public function testGetProjectsByUserTestObjectType() {
-        
+
         $result = $this->projectDao->getProjectsByUser(2, 2);
 
         foreach ($result as $value) {
             $this->assertTrue($value instanceof Project);
         }
-        
+
         $result = $this->projectDao->getProjectsByUser(4, 1);
 
         foreach ($result as $value) {
             $this->assertTrue($value instanceof Project);
         }
     }
-    
+
     public function testGetProjectsByUserTestResultValues() {
-        
+
         $result = $this->projectDao->getProjectsByUser(2, 2);
-        
+
         $this->assertEquals(3, $result[0]->getId());
         $this->assertEquals(7, $result[1]->getId());
-        
+
         $result = $this->projectDao->getProjectsByUser(4, 1);
-        
+
         $this->assertEquals(10, $result[0]->getId());
 
-    }    
-    
+    }
+
     public function testGetProjectsByUserTestWrongInputs() {
-        
+
         $result = $this->projectDao->getProjectsByUser(2, 4);
         $this->assertNull($result);
 
@@ -183,31 +183,54 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     
     /* Tests for isActionAllowedForStory() */
     public function testIsActionAllowedForStoryTestCorrectInputs() {
-        
+
         $result = $this->projectDao->isActionAllowedForUser(3, 9);
         $this->assertEquals(false, $result);
-        
+
         $result = $this->projectDao->isActionAllowedForUser(3, 3);
         $this->assertEquals(false, $result);
-        
+
         $result = $this->projectDao->isActionAllowedForUser(3, 6);
         $this->assertEquals(true, $result);
         
     }
-    
+
     public function testIsActionAllowedForStoryTestWrongInputs() {
-        
+
         $result = $this->projectDao->isActionAllowedForUser(4, 14);
         $this->assertEquals(false, $result);
-        
+
         $result = $this->projectDao->isActionAllowedForUser(7, 3);
         $this->assertEquals(false, $result);
-        
+
         $result = $this->projectDao->isActionAllowedForUser(7, 14);
         $this->assertEquals(false, $result);
         
     }
+
+    /*
+     * function Testing for delete project 
+     * @author Guru
+     */
+    public function testDeleteProject() {
+        $this->projectDao->deleteProject(1);
+        $result = $this->projectDao->getProjectById(1);
+        $this->assertEquals($result->getDeleted(), 0);
+    }
     
+    public function testGetAllProjectsWithActiveOnly() {
+        $projects=$this->projectDao->getAllProjects(1);
+        $this->assertEquals(count($projects), 6);
+        $this->assertTrue($projects[0] instanceof Project);
+    }
+    
+    public function testGetProjectsByStatus() {
+        $projects=$this->projectDao->getProjectsByStatus(true, 3);
+        $this->assertEquals(count($projects), 1);
+        $this->assertEquals("Duke-NUS People Manager SAP Synchronization", $projects[0]->getName());
+        $this->assertTrue($projects[0] instanceof Project);
+    }
+
     /*
      * function Testing saving for ProjectUser
      * @author Eranga

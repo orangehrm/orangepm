@@ -51,6 +51,7 @@ ProjectUser:
   tableName: orangepm_project_user
   columns:
     project_id:
+      name: project_id as projectId
       type: integer
       notnull: true
       name: project_id as projectId
