@@ -73,8 +73,9 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     
     /**
      * @author Samith
+     * @group samith
      */
-    public function testGetAllProjectByUserTestObjectType(){
+    public function testGetProjectUsersByUserTestObjectType(){
         
         $result = $this->projectDao->getProjectUsersByUser(1, 1,true , 3);
         foreach ($result as $value) {
@@ -89,8 +90,9 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     
     /**
      * @author Samith
+     * @group samith
      */
-    public function testGetAllProjectByUserTestObjectCount(){
+    public function testGetProjectUsersByUserTestObjectCount(){
         
         $result = $this->projectDao->getProjectUsersByUser(1, 1,true , 3);
         $this->assertEquals(1, count($result));
@@ -110,8 +112,9 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     
     /**
      * @author Samith
+     * @group samith
      */
-    public function testGetAllProjectByUserTestResultValues(){
+    public function testGetProjectUsersByUserTestResultValues(){
         
         $result = $this->projectDao->getProjectUsersByUser(1, 1,true );
         $this->assertEquals(3, $result[0]->getUserType());
@@ -125,8 +128,9 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     
     /**
      * @author Samith
+     * @group samith
      */
-    public function testGetAllProjectByUserTestWrongInputs(){
+    public function testGetProjectUsersByUserTestWrongInputs(){
          $result = $this->projectDao->getProjectUsersByUser(5, 5,true );
          $this->assertNull($result);
          
@@ -137,6 +141,7 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     
     /**
      * @author Samith
+     * @group samith
      */
     public function testGetProjectUsersByProjectIdTestObjectType(){
         
@@ -148,6 +153,7 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     
     /**
      * @author Samith
+     * @group samith
      */
     public function testGetProjectUsersByProjectIdTestObjectCount(){
         $result = $this->projectDao->getProjectUsersByProjectId(1);
@@ -160,6 +166,7 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     
     /**
      * @author Samith
+     * @group samith
      */
     public function testGetProjectUsersByProjectIdTestWrongInputs(){
         $result = $this->projectDao->getProjectUsersByProjectId(111);
@@ -168,6 +175,7 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     
     /**
      * @author Samith
+     * @group samith
      */ 
     public function testGetProjectUsersByProjectIdTestResultValues(){
           $result = $this->projectDao->getProjectUsersByProjectId(1);
@@ -319,15 +327,57 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(0, $projectUsers->count());
     }
     
-    public function testGetUserDetailsFromProjectUser() {
-        $projectUser= $this->projectDao->getProjectUsersByProjectId(2); 
-        $this->assertEquals(2, count($projectUser));
-        $includedUsers=array();
-        foreach($projectUser as $value) {
-            array_push($includedUsers,  $value->getUser());
-        }
-        $this->assertEquals('Thilina', $includedUsers[0]->getFirstName());
+
+    
+    /**
+     * @author Samith
+     * @group samith
+     */
+    public function testGetProjectUsersByProjectAndUserTestResultValues()
+    {
+        
+        $result = $this->projectDao->getProjectUsersByProjectAndUser(1,2);
+        $this->assertEquals(1,$result->getUserType() );
+        
+        
+        
+         $result =$this->projectDao->getProjectUsersByProjectAndUser(2,2);
+        $this->assertEquals(1, $result->getUserType() );
+        
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(3,8);
+        $this->assertEquals(2, $result->getUserType()  );
+                
+        
         
     }
+    
 
+    /**
+     * @author Samith
+     * @group samith
+     */
+    public function testGetProjectUsersByProjectAndUserTestObjectType(){
+        $result = $this->projectDao->getProjectUsersByProjectAndUser(1,2);
+        $this->assertTrue($result instanceof ProjectUser);
+        
+         $result =$this->projectDao->getProjectUsersByProjectAndUser(2,2);
+         $this->assertTrue($result instanceof ProjectUser);
+    }
+    
+    
+    /**
+     * @author Samith
+     * @group samith
+     */
+    public function testGetProjectUsersByProjectAndUserTestWrongInputs(){
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(11,11);
+        $this->assertTrue(!$result);
+        
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(1,11);
+        $this->assertTrue(!$result);
+        
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(11,1);
+        $this->assertTrue(!$result);
+    }
+    
 }
