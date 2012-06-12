@@ -476,4 +476,27 @@ class ProjectService {
             return 0;
         }
     }
+    
+    /*
+     * Get all project members for a project
+     * @param $projectId
+     */
+    public function getProjectUsersByProjectId($projectId) {
+        $result=$this->projectDao->getProjectUsersByProjectId($projectId);
+        return $result;
+    }
+    
+    /*
+     * get all users in project
+     * @param $projectId
+     * @return included Users object array
+     */
+    public function getUsersForProjectAsArray($projectId) {
+        $projectUser= $this->projectDao->getProjectUsersByProjectId($projectId);
+        $includedUsers=array();
+        foreach($projectUser as $value) {
+            array_push($includedUsers,  $value->getUser());
+        }
+        return $includedUsers; 
+    }
 }

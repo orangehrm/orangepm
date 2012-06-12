@@ -200,7 +200,7 @@ class ProjectDao {
      * 
      * Get the associated ProjectUsers
      * @param type $projectId
-     * @return type 
+     * @return ProjectUser Object
      */
     public function getProjectUsersByProjectId($projectId){
         $project = $this->getProjectById($projectId);

@@ -14,7 +14,7 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         $this->projectService = new ProjectService();
     }
 
-    public function testGetProjectsByUser() {
+    public function testGetProjectsByUserService() {
 
         $projectList = TestDataService::loadObjectList('Project', $this->fixture, 'set1');
 
@@ -26,7 +26,7 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
 
         $this->projectService->setProjectDao($ProjectDao);
 
-        $returnedProjectList = $this->projectService->getProjectsByUser(2);
+        $returnedProjectList = $this->projectService->getProjectsByUser(3);
 
         $this->assertEquals(3, count($returnedProjectList));
         
@@ -35,69 +35,34 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         }
     }
     
-    
-    /**
-     * @author Eranga
-     * Testing weather user is getting saved when passed through service layer
+    /*
+     * @author Guru
      */
-    public function testSaveProjectForService(){
-        $project = new Project();
-        $project->setId(11);
-        $project->setName('aaa');
-        $project->setUserId(2);
-        $project->setStartDate('2011-01-01');
-        $projectuser=new ProjectUser();
-        $collection=new Doctrine_Collection('ProjectUser');
-        $projectuser->setProjectId(11);
-        $projectuser->setUserId(2);        
-        $projectuser->setUserType(1);
-        $collection->add($projectuser);
-        $project->setProjectUser($collection);
-        $projectDao = $this->getMock('ProjectDao');
-        $projectDao->expects($this->once())
-            ->method('saveProject')
-            ->with($project);
-        $this->projectService->setProjectDao($projectDao);
-        $this->projectService->saveProject($project);   
-    }
-    
-    /**
-     * @author Eranga
-     * Testing weather user is getting updated when passed through service layer
-     */
-    public function testUpdateProjectForService(){
-        $project = new Project();
-        $project->setId(11);
-        $project->setName('aaa');
-        $project->setUserId(2);
-        $project->setStartDate('2011-01-01');
-        $projectuser=new ProjectUser();
-        $collection=new Doctrine_Collection('ProjectUser');
-        $projectuser->setProjectId(11);
-        $projectuser->setUserId(2);        
-        $projectuser->setUserType(1);
-        $collection->add($projectuser);
-        $project->setProjectUser($collection);
-        $projectDao = $this->getMock('ProjectDao');
-        $projectDao->expects($this->once())
-            ->method('updateProject')
-            ->with($project);
-        $this->projectService->setProjectDao($projectDao);
-        $this->projectService->updateProject($project);   
-    }
-    
-    /**
-     * @author Eranga
-     * Testing weather users can be fetched from ProjectUser table for a given user
-     */
-    public function testGetProjectUsersByUser() {
-        $ProjectDao = $this->getMock('ProjectDao', array('getProjectUsersByUser'));
+    public function testGetProjectUsersByProjectIdService() {
+        $projectUsersList = TestDataService::loadObjectList('ProjectUser', $this->fixture, 'setGetProjectUsersByProjectId');
+        $ProjectDao = $this->getMock('ProjectDao', array('getProjectUsersByProjectId'));
         $ProjectDao->expects($this->once())
-                   ->method('getProjectUsersByUser')
-                   ->with(1)
-                   ->will($this->returnValue(array(new ProjectUser())));
+                   ->method('getProjectUsersByProjectId')
+                   ->will($this->returnValue($projectUsersList));
         $this->projectService->setProjectDao($ProjectDao);
-
+        $returnedProjectUserList = $this->projectService->getProjectUsersByProjectId(3);
+        $this->assertEquals(4, count($returnedProjectUserList));
+        foreach ($returnedProjectUserList as $returnedProjectUser) {
+            $this->assertTrue($returnedProjectUser instanceof ProjectUser);
+        }
+    }
+    
+    public function testGetUsersForProjectAsArray() {
+        $projectUsersList = TestDataService::loadObjectList('ProjectUser', $this->fixture, 'setGetProjectUsersDetails');
+        $ProjectDao = $this->getMock('ProjectDao', array('getProjectUsersByProjectId'));
+        $ProjectDao->expects($this->once())
+                   ->method('getProjectUsersByProjectId')
+                   ->will($this->returnValue($projectUsersList));
+        $this->projectService->setProjectDao($ProjectDao);
+        $returnedUserList=$this->projectService->getUsersForProjectAsArray(3);
+        $this->assertEquals(4, count($returnedUserList));
+        $this->assertEquals('Thilina', $returnedUserList[0]->getFirstName());
+    }
         $returnedProjectList = $this->projectService->getProjectUsersByUser(1);
         $this->assertEquals(1, count($returnedProjectList));
      
