@@ -40,6 +40,21 @@
                 <?php endif; ?>
                 <div><?php echo $projectForm['status']->renderLabel() ?><?php echo $projectForm['status']->render() ?><?php echo $projectForm['status']->renderError() ?></div>
                 <div><?php echo $projectForm['description']->renderLabel() ?><?php echo $projectForm['description']->render() ?></div>
+                <table>
+                    <tr>
+                        <td>Assign users&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>
+                            <div><?php echo $projectForm['projectUserAll']->renderLabel() ?><br/><?php echo $projectForm['projectUserAll']->render() ?></div>
+                        </td>
+                        <td>
+                            <input class="formButton" type="button" value="<?php echo __('>') ?>" id="btnRight" />
+                            <input class="formButton" type="button"  value="<?php echo __('<') ?>" id="btnLeft"/>                          
+                        </td>
+                        <td>
+                            <div><?php echo $projectForm['projectUserSelected']->renderLabel() ?><br/><?php echo $projectForm['projectUserSelected']->render() ?></div>        
+                        </td>                        
+                    </tr>                    
+                </table>
                 <div>
                     <input class="formButton" type="submit" value="<?php echo __('Edit') ?>" id="saveButton" name="saveButton" />
                     &nbsp;&nbsp;&nbsp;

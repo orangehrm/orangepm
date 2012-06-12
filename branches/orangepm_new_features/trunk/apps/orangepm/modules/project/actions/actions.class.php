@@ -306,7 +306,7 @@ class projectActions extends sfActions {
         if ($this->getUser()->hasCredential('superAdmin')) {
             $isSuperAdmin = true;
         }
-        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin));
+        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>true));
         $response = $this->getResponse();
         $response->setTitle(__('Add Project'));
         $loggedUserObject = null;
@@ -335,6 +335,20 @@ class projectActions extends sfActions {
                 }
                 $projectSevice->saveProject($project);
                 $projectId = $project->getId();
+                //$projectUsers=array();
+                $projectUsersColl=new Doctrine_Collection('ProjectUser');
+                $projectUser=new ProjectUser();
+                $projectUsers=$this->projectForm->getWidget('projectUserSelected');
+                //$projectUsers[0]='dsds';
+                die($projectUsers[0]);
+                foreach($projectUsers as $key => $single){
+                    $projectUser->setUserId($key);
+                    $projectUser->setProjectId($projectId);
+                    $projectUser->setUserType(User::USER_TYPE_PROJECT_USER);
+                    $projectUsersColl->add($projectUser);
+                }
+                $project->setProjectUser($projectUsersColl);
+                $projectSevice->updateProject($project);
                 $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
                 $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
                 $this->redirect("project/viewProjectDetails?projectId=$projectId");

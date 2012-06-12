@@ -5,6 +5,10 @@ $(document).ready(function(){
     $('#project_projectAdmin').attr('disabled', true);
     $('#project_status').attr('disabled', true);
     $('#project_description').attr('disabled', true);
+    $('#project_projectUserAll').attr('disabled', true);
+    $('#project_projectUserSelected').attr('disabled', true);
+    $('#btnLeft').attr('disabled', true);
+    $('#btnRight').attr('disabled', true);
     $('#cancel').attr('disabled', true);
     
     $('#saveButton').click(function(event) {
@@ -16,6 +20,10 @@ $(document).ready(function(){
             $('#project_projectAdmin').removeAttr("disabled");
             $('#project_status').removeAttr("disabled");
             $('#project_description').removeAttr("disabled");
+            $('#project_projectUserAll').removeAttr("disabled");
+            $('#project_projectUserSelected').removeAttr("disabled");
+            $('#btnLeft').removeAttr("disabled");
+            $('#btnRight').removeAttr("disabled");
             $('#cancel').removeAttr("disabled");
             $('#saveButton').attr('value','Save') 
         }
@@ -71,5 +79,26 @@ $(document).ready(function(){
             $("#storyExpandColaps").removeClass('hide');
             $("#storyExpandColaps").html("[-]");
         } 
+    });
+    $('#btnRight').click(function(e) {
+        var selectedOpts = $('#project_projectUserAll option:selected');
+        if (selectedOpts.length == 0) {
+            e.preventDefault();
+        }
+
+        $('#project_projectUserSelected').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+    $('#btnLeft').click(function(e) {
+        var selectedOpts = $('#project_projectUserSelected option:selected');
+        if (selectedOpts.length == 0) {
+            e.preventDefault();
+        }
+
+        $('#project_projectUserAll').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
     });
 });

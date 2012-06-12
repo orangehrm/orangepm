@@ -13,6 +13,8 @@ class ProjectForm extends sfForm {
 	 */
     private $formWidgets = array();
     private $formValidators  = array();
+    private $nonSelected=array();
+    private $selected=array();
    
     public function configure() {
         
@@ -23,14 +25,30 @@ class ProjectForm extends sfForm {
         if($this->getOption('user')) {
             $this->_setProjectAdminWidgets();
         }
+        if($this->getOption('newproject')) {
+            $this->_setProjectUsersForNewProject();
+        }
+        else{
+            $this->_setProjectUsers();
+        }
         $this->_setDescriptionWidgets();
+        $this->_setProjectUserWidgets();
         $this->setWidgets($this->formWidgets);
         $this->setValidators($this->formValidators);
 
         $this->widgetSchema->setNameFormat('project[%s]');
         
+        
     }
-    
+    private function _setProjectUsers(){
+        $userService = new UserService();
+        $this->nonSelected=array('dfdf','sdfsfd','gggfgfg');
+        $this->selected=array('df','sdfsdf','hghjghj');
+    }
+    private function _setProjectUsersForNewProject(){
+        $userService = new UserService();
+        $this->nonSelected=$userService->getAllUsersAsArray();
+    }
     private function _setNameWidgets() {
         
         $this->formWidgets['name'] = new sfWidgetFormInputText(array(), array());
@@ -74,6 +92,12 @@ class ProjectForm extends sfForm {
         
         $this->formWidgets['description'] = new sfWidgetFormTextarea(array('label' => 'Description'));
         $this->formValidators['description'] = new sfValidatorString(array('required' => false));
+        
+    }
+    private function _setProjectUserWidgets() {
+        
+        $this->formWidgets['projectUserAll'] = new sfWidgetFormSelectMany(array('choices' => $this->nonSelected), array('label' => 'All users'));
+        $this->formWidgets['projectUserSelected'] = new sfWidgetFormSelectMany(array('choices' => $this->selected), array('label' => 'Selected users'));
         
     }
     
