@@ -63,5 +63,26 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(4, count($returnedUserList));
         $this->assertEquals('Thilina', $returnedUserList[0]->getFirstName());     
     }
+    
+    
+    /**
+     *@group blaa
+     */
+    public function testGetUserTypeTestResultValues(){
+        
+        //$this->fixture = sfConfig::get('sf_test_dir') . '/fixtures/ProjectService.yml';
+         $projectUserList = TestDataService::loadObjectList('ProjectUser', $this->fixture, 'ProjectUser');
+
+        $projectDao = $this->getMock('ProjectDao');
+        $projectDao->expects($this->once())
+            ->method('getProjectUsersByProjectAndUser')
+            ->with(1)
+            ->will($this->returnValue($projectUserList[2]));
+
+          $this->projectService->setProjectDao($projectDao);
+
+            $this->assertTrue(1,$this->projectService->getProjectUserType(1,2));
+       
+    }
 
 }
