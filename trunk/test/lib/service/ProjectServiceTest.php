@@ -62,7 +62,6 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         $returnedUserList=$this->projectService->getUsersForProjectAsArray(3);
         $this->assertEquals(4, count($returnedUserList));
         $this->assertEquals('Thilina', $returnedUserList[0]->getFirstName());
-    }
         $returnedProjectList = $this->projectService->getProjectUsersByUser(1);
         $this->assertEquals(1, count($returnedProjectList));
      
