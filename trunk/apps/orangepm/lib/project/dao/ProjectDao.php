@@ -200,7 +200,7 @@ class ProjectDao {
      * 
      * Get the associated ProjectUsers
      * @param type $projectId
-     * @return ProjectUser Object
+     * @return type $result
      */
     public function getProjectUsersByProjectId($projectId){
         $project = $this->getProjectById($projectId);
@@ -213,6 +213,25 @@ class ProjectDao {
     
     
 
+    /**
+     *
+     * @param type $userId
+     * @param type $projectId
+     * @return type $result
+     */
+    public function getProjectUsersByProjectAndUser($userId , $projectId ){
+        
+        $query = Doctrine_Query::create()
+                ->select('pu.*')
+                ->from('ProjectUser pu');
+        $query->addWhere('pu.userId = ?', $userId);
+        $query->addWhere('pu.projectId = ?', $projectId);
+        
+        $result = $query->fetchOne();
+
+        return $result;
+        
+    }
         
     
 
