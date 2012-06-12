@@ -54,7 +54,7 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
 
         $result = $this->projectDao->getProjectsByUser(4, 1);
 
-        $this->assertEquals(10, $result[0]->getId());
+        $this->assertEquals(8, $result[0]->getId());
 
     }
 
@@ -320,3 +320,6 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
     }
     
 }
+
+
+/////////////////////////////For  Test  //////////////////////
