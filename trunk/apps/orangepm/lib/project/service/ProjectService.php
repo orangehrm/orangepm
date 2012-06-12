@@ -408,8 +408,7 @@ class ProjectService {
     */ 
     public function saveProject($project) {
         
-        $dao = new ProjectDao();
-        $dao->saveProject($project);
+        $this->projectDao->saveProject($project);
         
     }
        
@@ -444,6 +443,24 @@ class ProjectService {
         
         return $dao->isActionAllowedForUser($userId, $projectId);
         
+    }
+    
+    /**
+     * Update an existing project
+     * @author Eranga
+     * @param $projectId
+     */
+    public function updateProject($project) {        
+        $this->projectDao->updateProject($project);        
+    }
+    
+    /**
+     * Getting projects for a particular user
+     * @author Eranga
+     * @param $userID
+     */
+    public function getProjectUsersByUser($userId) {        
+        return $this->projectDao->getProjectUsersByUser($userId);        
     }
     
     /**
