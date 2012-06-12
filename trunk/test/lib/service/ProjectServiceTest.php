@@ -26,7 +26,7 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
 
         $this->projectService->setProjectDao($ProjectDao);
 
-        $returnedProjectList = $this->projectService->getProjectsByUser(3);
+        $returnedProjectList = $this->projectService->getProjectsByUser(2);
 
         $this->assertEquals(3, count($returnedProjectList));
         
@@ -39,7 +39,7 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
      * @author Guru
      */
     public function testGetProjectUsersByProjectIdService() {
-        $projectUsersList = TestDataService::loadObjectList('ProjectUser', $this->fixture, 'setGetProjectUsersByProjectId');
+        $projectUsersList = TestDataService::loadObjectList('ProjectUser', $this->fixture, 'setGetProjectUsersDetails');
         $ProjectDao = $this->getMock('ProjectDao', array('getProjectUsersByProjectId'));
         $ProjectDao->expects($this->once())
                    ->method('getProjectUsersByProjectId')
