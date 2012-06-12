@@ -476,6 +476,15 @@ class ProjectService {
             return 0;
         }
     }
+
+    
+    
+    public function getProjectUserType($userId, $projectId){
+        
+        $result = $this->projectDao->getProjectUsersByProjectAndUser($userId, $projectId);
+        $userType = $result->getUserType();
+        return $userType;
+    }
     
     /*
      * Get all project members for a project
@@ -499,4 +508,5 @@ class ProjectService {
         }
         return $includedUsers; 
     }
+
 }
