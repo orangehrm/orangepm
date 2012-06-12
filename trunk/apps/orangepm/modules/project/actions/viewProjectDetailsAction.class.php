@@ -17,7 +17,7 @@ class viewProjectDetailsAction extends sfAction {
         if ($this->getUser()->hasCredential('superAdmin')) {
             $isSuperAdmin = true;
         }
-        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin));
+        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false));
         $projectId = $request->getParameter('projectId');
         $loggedUserObject = null;
         if ($this->projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId)) {

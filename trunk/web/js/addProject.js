@@ -32,5 +32,26 @@ $(document).ready(function(){
             changeYear: true,
             showAnim: "slideDown"
      });
+     $('#btnRight').click(function(e) {
+        var selectedOpts = $('#project_projectUserAll option:selected');
+        if (selectedOpts.length == 0) {
+            e.preventDefault();
+        }
+
+        $('#project_projectUserSelected').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+    $('#btnLeft').click(function(e) {
+        var selectedOpts = $('#project_projectUserSelected option:selected');
+        if (selectedOpts.length == 0) {
+            e.preventDefault();
+        }
+
+        $('#project_projectUserAll').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
     
 });
