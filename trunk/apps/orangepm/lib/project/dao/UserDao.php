@@ -108,7 +108,7 @@ class UserDao {
     }
     /*
      * Check if user is Active or Not
-     * @param userId
+     * @param userId   
      * @return boolean 
      */
     public function isUserActive($userId) {
