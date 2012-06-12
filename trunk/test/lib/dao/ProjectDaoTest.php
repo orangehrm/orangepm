@@ -319,9 +319,15 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(0, $projectUsers->count());
     }
     
-/////////////////////////////For  Test  //////////////////////
+    public function testGetUserDetailsFromProjectUser() {
+        $projectUser= $this->projectDao->getProjectUsersByProjectId(2); 
+        $this->assertEquals(2, count($projectUser));
+        $includedUsers=array();
+        foreach($projectUser as $value) {
+            array_push($includedUsers,  $value->getUser());
+        }
+        $this->assertEquals('Thilina', $includedUsers[0]->getFirstName());
+        
+    }
 
 }
-
-
-/////////////////////////////For  Test  //////////////////////
