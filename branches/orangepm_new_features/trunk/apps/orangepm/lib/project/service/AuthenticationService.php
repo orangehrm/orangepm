@@ -13,10 +13,12 @@
 class AuthenticationService {
     //put your code here
     private $projectDao = null;
+    private $userDao = null;
     
     
     public function __construct() {
         $this->projectDao = new ProjectDao();
+        $this->userDao = new UserDao();
     }
     
     /**
@@ -27,6 +29,11 @@ class AuthenticationService {
         $this->projectDao =  $projectDao;
     }
     
+    
+    public function setUserDao(UserDao $userDao) {
+        $this->userDao =  $userDao;
+    }
+    
     /**
      * Check whether user can or cannot edit the project's meta data
      * @param type $userId
@@ -35,15 +42,25 @@ class AuthenticationService {
      */
     public function isProjectMetadataEditbleByUser($userId ,$projectId){
         
-        $result = $this->projectDao->getProjectUsersByProjectAndUser($userId, $projectId);
-        if($result){
-            $userType = $result->getUserType();
-            
-            
-            if($userType == User::USER_TYPE_SUPER_ADMIN || $userType == User::USER_TYPE_PROJECT_ADMIN){
-                return true;
+        $user = $this->userDao->getUserById($userId);
+        
+        $userTypeCheck = $user->getUserType();
+        
+        if($userTypeCheck== User::USER_TYPE_SUPER_ADMIN){
+            return true;
+        }
+        else
+        {
+            $result = $this->projectDao->getProjectUsersByProjectAndUser($userId, $projectId);
+            if($result){
+                $userType = $result->getUserType();
+
+
+                if($userType == User::USER_TYPE_SUPER_ADMIN || $userType == User::USER_TYPE_PROJECT_ADMIN){
+                    return true;
+                }
+
             }
-            
         }
         
         
