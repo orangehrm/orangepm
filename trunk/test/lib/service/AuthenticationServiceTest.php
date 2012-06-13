@@ -26,7 +26,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
     
     /**
      *@author Samith
-     * @group auth 
+     * @group admin 
      */
     public function testIsProjectEditbleByUserResultValues(){
         
@@ -36,14 +36,45 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
         $projectDao->expects($this->any())
             ->method('getProjectUsersByProjectAndUser')
             ->with()
-            ->will($this->onConsecutiveCalls($projectUserList[0] , $projectUserList[1],$projectUserList[2] ,$projectUserList[3] ));
+            ->will($this->onConsecutiveCalls( $projectUserList[1],$projectUserList[3] ));
 
           $this->authenticationService->setProjectDao($projectDao);
+          
+          
+          
+          $userList = TestDataService::loadObjectList('User', $this->fixture, 'User');
+         
+        $userDao = $this->getMock('UserDao');
+        $userDao->expects($this->any())
+            ->method('getUserById')
+            ->with()
+            ->will($this->onConsecutiveCalls($userList[0] , $userList[3],$userList[0],$userList[1] ));
         
-        $this->assertTrue(!$this->authenticationService->isProjectMetadataEditbleByUser(1,1));
+        $this->assertTrue($this->authenticationService->isProjectMetadataEditbleByUser(1,1));
         $this->assertTrue($this->authenticationService->isProjectMetadataEditbleByUser(5,1));
         $this->assertTrue($this->authenticationService->isProjectMetadataEditbleByUser(1,2));        
         $this->assertTrue(!$this->authenticationService->isProjectMetadataEditbleByUser(2,2));
+        
+        
+    }
+    
+    /**
+     *@group admin 
+     */
+    public function testIsProjectEditbleByUserForAdmin(){
+        
+         $userList = TestDataService::loadObjectList('User', $this->fixture, 'User');
+         
+        $userDao = $this->getMock('UserDao');
+        $userDao->expects($this->any())
+            ->method('getUserById')
+            ->with()
+            ->will($this->onConsecutiveCalls($userList[0] ));
+
+        $this->authenticationService->setUserDao($userDao);
+        $this->assertTrue($this->authenticationService->isProjectMetadataEditbleByUser(1,1));
+            
+       
         
         
     }
