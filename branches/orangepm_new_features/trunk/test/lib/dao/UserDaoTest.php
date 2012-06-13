@@ -24,6 +24,10 @@ class UserDaoTest extends PHPUnit_Framework_TestCase{
         $user = $this->userDao->getUserById(2);
         $this->assertTrue($user instanceof User);
         $this->assertEquals('Chanaka',  $user->getFirstName());
+        
+        
+        $user = $this->userDao->getUserById(10000);
+        $this->asserttrue(!$user);
     }
 
 
