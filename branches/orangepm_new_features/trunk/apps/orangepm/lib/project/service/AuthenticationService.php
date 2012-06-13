@@ -40,33 +40,37 @@ class AuthenticationService {
      * @param type $projectId
      * @return boolean - true if permission is granted
      */
-    public function isProjectMetadataEditbleByUser($userId ,$projectId){
+    public function projectAccessLevel($userId ,$projectId){
         
+        $userType = User::USER_TYPE_UNSPECIFIED;
         $user = $this->userDao->getUserById($userId);
         
         $userTypeCheck = $user->getUserType();
         
         if($userTypeCheck== User::USER_TYPE_SUPER_ADMIN){
-            return true;
+            return User::USER_TYPE_SUPER_ADMIN;
         }
         else
         {
             $result = $this->projectDao->getProjectUsersByProjectAndUser($userId, $projectId);
             if($result){
-                $userType = $result->getUserType();
-
-
-                if($userType == User::USER_TYPE_SUPER_ADMIN || $userType == User::USER_TYPE_PROJECT_ADMIN){
-                    return true;
-                }
-
+                $userType = $result->getUserType();            
+                
             }
         }
         
         
-        return false;
+        return $userType;
         
     }
+    
+    
+    
+    
+     
+     
+    
+    
     
    
 }
