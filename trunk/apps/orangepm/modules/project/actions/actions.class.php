@@ -367,15 +367,13 @@ class projectActions extends sfActions {
      * @return unknown_type
      */
     public function executeDeleteProject($request) {
-
-        //$projectService = new ProjectService();
-        //if($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $request->getParameter('id'))) {
-
-        if ($this->getUser()->hasCredential('superAdmin')) {
-
+        $this->projectId = $request->getParameter('id');
+        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+        $auth = new AuthenticationService();
+        if($auth->isProjectMetadataEditbleByUser($loggedUserId, $this->projectId)){
             $dao = new projectDao();
-            $dao->deleteProject($request->getParameter('id'));
-            $this->getUser()->setFlash('statusId', $dao->getProjectById($request->getParameter('id'))->getProjectStatusId());
+            $dao->deleteProject($this->projectId);
+            $this->getUser()->setFlash('statusId', $dao->getProjectById($this->projectId)->getProjectStatusId());
             $this->redirect('project/viewProjects');
         } else {
             $this->redirect("project/viewProjects");
@@ -388,31 +386,36 @@ class projectActions extends sfActions {
      * @return unknown_type
      */
     public function executeEditProject($request) {
-        $dao = new ProjectDao();
-        $project = new Project();
+        $this->projectId = $request->getParameter('id');
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
-        $this->projectAdminId = $request->getParameter('projectAdminId');
-        $project->setId($request->getParameter('id'));
-        $project->setName($request->getParameter('name'));
-        $project->setProjectStatusId($request->getParameter('projectStatus'));
-        $project->setStartDate($request->getParameter('startDate'));
-        if ($request->getParameter('endDate') != '') {
-            $project->setEndDate($request->getParameter('endDate'));
-        }
-/*        if($this->getUser()->hasCredential('projectAdmin')) {
-            $project->setUserId($this->getUser()->getAttribute($loggedUserObject)->getId());
-        } else {
-            if ($request->getParameter('endDate') == )
-        }*/
-        if ($this->getUser()->hasCredential('superAdmin')) {
-            if($request->getParameter('projectAdminId') != 0) {
-                $project->setUserId($request->getParameter('projectAdminId'));
+        $auth = new AuthenticationService();
+        if($auth->isProjectMetadataEditbleByUser($loggedUserId, $this->projectId)){
+            $dao = new ProjectDao();
+            $project = new Project();
+            $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+            $this->projectAdminId = $request->getParameter('projectAdminId');
+            $project->setId($request->getParameter('id'));
+            $project->setName($request->getParameter('name'));
+            $project->setProjectStatusId($request->getParameter('projectStatus'));
+            $project->setStartDate($request->getParameter('startDate'));
+            if ($request->getParameter('endDate') != '') {
+                $project->setEndDate($request->getParameter('endDate'));
             }
-        } else {
-            $project->setUserId($loggedUserId);
+    /*        if($this->getUser()->hasCredential('projectAdmin')) {
+                $project->setUserId($this->getUser()->getAttribute($loggedUserObject)->getId());
+            } else {
+                if ($request->getParameter('endDate') == )
+            }*/
+            if ($this->getUser()->hasCredential('superAdmin')) {
+                if($request->getParameter('projectAdminId') != 0) {
+                    $project->setUserId($request->getParameter('projectAdminId'));
+                }
+            } else {
+                $project->setUserId($loggedUserId);
+            }
+            //$project->setUserId($this->projectAdminId);
+            $dao->updateProject($project);
         }
-        //$project->setUserId($this->projectAdminId);
-        $dao->updateProject($project);
         die;
     }
 
