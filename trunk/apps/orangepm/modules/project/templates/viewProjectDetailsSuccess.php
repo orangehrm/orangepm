@@ -18,6 +18,20 @@
     var updateLinkUrl = "<?php echo url_for('project/updateLog') ?>";
     var deleteLinkUrl = "<?php echo url_for("project/deleteLog?projectId=$projectId&projectName={$project->getName()}&from=viewDetails"); ?>";
     var viewTaskUrl = "<?php echo url_for('project/viewTasks') ?>";
+    function setSelected()
+    {
+        var list = document.getElementById('project_projectUserSelected');
+        var alllList = document.getElementById('project_projectUserAll');
+        var vals=list.options[0].value;
+        for(var i = 1; i < list.options.length; ++i){
+            vals+=','+list.options[i].value;
+            list.options[i].selected=false;
+        }
+        for(var i = 0; i < alllList.options.length; ++i){
+            alllList.options[i].selected=false;
+        }
+        document.getElementById("aaa").value = vals;
+    }
 </script>
 
 <div class="Project">
@@ -29,7 +43,8 @@
         <div class="headlineField"><?php echo __($project->getName()) ?></div>
         <div class="formField">
         <div class="form_devision_heading">Details</div>
-            <form id="showProjectForm" action="<?php echo url_for('project/viewProjectDetails') ?>" method="post">
+            <form id="showProjectForm" action="<?php echo url_for('project/viewProjectDetails') ?>" method="post" onsubmit="setSelected()">
+                <input type="hidden" name="aaa" id="aaa">
                 <input type="hidden" id="projectId" name="projectId" value="<?php echo $project->getId()?>" />
                 <div><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render(array('value' => $project->getName())) ?><?php echo $projectForm['name']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['startDate']->renderLabel() ?><?php echo $projectForm['startDate']->render(array('value' => $project->getStartDate())) ?><?php echo $projectForm['startDate']->renderError() ?><br class="clear" /></div>

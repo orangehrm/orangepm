@@ -256,12 +256,21 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
         $projectUser1->setProjectId($project->getId());
         $projectUser1->setUserId(3);        
         $projectUser1->setUserType(1);
+        $projectUser1->save();
         $collection->add($projectUser1);
         
-        $project->setProjectUser($collection);
-        $this->projectDao->saveProject($project);
+        $collection=new Doctrine_Collection('ProjectUser');
+        $projectUser2=new ProjectUser();
+        $projectUser2->setProjectId($project->getId());
+        $projectUser2->setUserId(4);        
+        $projectUser2->setUserType(1);
+        $projectUser2->save();
+        $collection->add($projectUser2);
+        
+        //$project->setProjectUser($collection);
+        $this->projectDao->saveProjectUsers($collection);
         $expected=$this->projectDao->getProjectById($project->getId())->getProjectUser();
-        $this->assertEquals(3,$expected[0]->getUserId());
+        $this->assertEquals(2,$expected->count());
     }
     
     /*
