@@ -478,11 +478,23 @@ class ProjectService {
     }
 
     
-    
+    /**
+     *
+     * Return the user type
+     * @author Samith
+     * @param type $userId
+     * @param type $projectId
+     * @return type - null if parameters are invalid , otherwise 
+     */
     public function getProjectUserType($userId, $projectId){
         
+        $userType = null;
         $result = $this->projectDao->getProjectUsersByProjectAndUser($userId, $projectId);
-        $userType = $result->getUserType();
+        if($result){
+            $userType = $result->getUserType();
+            
+        }
+        
         return $userType;
     }
     
