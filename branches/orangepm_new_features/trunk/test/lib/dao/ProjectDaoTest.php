@@ -373,7 +373,7 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
         $result =$this->projectDao->getProjectUsersByProjectAndUser(11,11);
         $this->assertTrue(!$result);
         
-        $result =$this->projectDao->getProjectUsersByProjectAndUser(1,11);
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(55,6);
         $this->assertTrue(!$result);
         
         $result =$this->projectDao->getProjectUsersByProjectAndUser(11,1);

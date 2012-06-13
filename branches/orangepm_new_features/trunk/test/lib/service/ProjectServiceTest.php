@@ -68,23 +68,45 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
     
     
     /**
-     *@group blaa
+     * @author Samith
+     *@group buddy
      */
-//    public function testGetUserTypeTestResultValues(){
-//        
-//        //$this->fixture = sfConfig::get('sf_test_dir') . '/fixtures/ProjectService.yml';
-//         $projectUserList = TestDataService::loadObjectList('ProjectUser', $this->fixture, 'ProjectUser');
-//
-//        $projectDao = $this->getMock('ProjectDao');
-//        $projectDao->expects($this->once())
-//            ->method('getProjectUsersByProjectAndUser')
-//            ->with(1)
-//            ->will($this->returnValue($projectUserList[2]));
-//
-//          $this->projectService->setProjectDao($projectDao);
-//
-//            $this->assertTrue(1,$this->projectService->getProjectUserType(1,2));
-//       
-//    }
+    public function testGetUserTypeTestResultValues(){
+        
+        //$this->fixture = sfConfig::get('sf_test_dir') . '/fixtures/ProjectService.yml';
+         $projectUserList = TestDataService::loadObjectList('ProjectUser', $this->fixture, 'ProjectUser');
+
+        $projectDao = $this->getMock('ProjectDao');
+        $projectDao->expects($this->once())
+            ->method('getProjectUsersByProjectAndUser')
+            ->with(1)
+            ->will($this->returnValue($projectUserList[2]));
+
+          $this->projectService->setProjectDao($projectDao);
+
+            $this->assertEquals(1,$this->projectService->getProjectUserType(1,2));
+            
+            
+           
+       
+    }
+    
+    
+    /**
+     *@author Samith
+     * @group samith
+     */
+    public function testGetUserTypeTestWrongInputs(){
+         $projectDao = $this->getMock('ProjectDao');
+        $projectDao->expects($this->once())
+            ->method('getProjectUsersByProjectAndUser')
+            ->with()
+            ->will($this->returnValue(false));
+
+          $this->projectService->setProjectDao($projectDao);
+         
+
+          $this->assertNull($this->projectService->getProjectUserType(55,6));
+    }
 
 }

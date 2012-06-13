@@ -41,6 +41,7 @@ class AllTests {
         $suite->addTestFile(dirname(__FILE__) . '/lib/service/ProjectServiceTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/lib/service/ProjectLogServiceTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/lib/service/TaskServiceTest.php');
+        $suite->addTestFile(dirname(__FILE__) . '/lib/service/AuthenticationServiceTest.php');
                 
         /* DAO tests */
         $suite->addTestFile(dirname(__FILE__) . '/lib/dao/ProjectDaoTest.php');
