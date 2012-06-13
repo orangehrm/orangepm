@@ -411,6 +411,8 @@ class ProjectService {
         $this->projectDao->saveProject($project);
         
     }
+    
+    
        
     /**
      * Get all projects considering user type and status 
@@ -450,8 +452,9 @@ class ProjectService {
      * @author Eranga
      * @param $projectId
      */
-    public function updateProject($project) {        
-        $this->projectDao->updateProject($project);        
+    public function updateProject($project,$projectUsersColl) { 
+    
+        $this->projectDao->updateProject($project,$projectUsersColl);        
     }
     
     /**
@@ -520,5 +523,19 @@ class ProjectService {
         }
         return $includedUsers; 
     }
+    public function getUsersForProjectAsArrayOnlyName($projectId) {
+        $projectUser= $this->projectDao->getProjectUsersByProjectId($projectId);
+        $userArray=array();
+        if(count($projectUser)==0){
+            return $userArray;
+        }
+        foreach($projectUser as $value) {
+            $user=$value->getUser();
+            //array_push($includedUsers,  $value->getUser());
+            $userArray[$user->getId()] = $user->getFirstName().' '.$user->getLastName();
+        }
+        return $userArray; 
+    }
+    
 
 }

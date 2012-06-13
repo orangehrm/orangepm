@@ -17,14 +17,15 @@ class viewProjectDetailsAction extends sfAction {
         if ($this->getUser()->hasCredential('superAdmin')) {
             $isSuperAdmin = true;
         }
-        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false));
         $projectId = $request->getParameter('projectId');
+        $projectUserString=$request->getParameter('aaa');
+        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId));
         $loggedUserObject = null;
         if ($this->projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId)) {
             if ($request->isMethod('post') && ($request->getParameter("saveButton") == __("Save"))) {
                 $this->projectForm->bind($request->getParameter($this->projectForm->getName()));
                 if($this->projectForm->isValid()){
-                    $this->updateProject($projectId);
+                    $this->updateProject($projectId,$projectUserString);
                 }
             } 
             $this->userId = $this->getUser()->getAttribute($loggedUserObject)->getId();
@@ -48,9 +49,10 @@ class viewProjectDetailsAction extends sfAction {
         } else {die;}
     }
 
-    public function updateProject($projectId) {
+    public function updateProject($projectId,$projectUserString) {
         $project = new Project();
         $projectDao = new ProjectDao();
+        $projectSevice = new ProjectService();
         
         $project->setId($projectId);
         $project->setName($this->projectForm->getValue('name'));
@@ -63,7 +65,20 @@ class viewProjectDetailsAction extends sfAction {
         if ($this->projectForm->getValue('endDate') != '') {
             $project->setEndDate($this->projectForm->getValue('endDate'));
         }
-        $projectDao->updateProject($project);
+        $projectUsersColl=new Doctrine_Collection('ProjectUser');
+        //die($projectUserString);
+        $projectUserValues=split(',', $projectUserString);
+        //die($request->getParameter('aaa'));
+        foreach($projectUserValues as $single){
+            $projectUser=new ProjectUser();
+            $projectUser->setUserId($single);
+            $projectUser->setProjectId($projectId);
+            $projectUser->setUserType(User::USER_TYPE_PROJECT_USER);
+            $projectUsersColl->add($projectUser);
+        }
+
+        //$project->setProjectUser($projectUsersColl);
+        $projectSevice->updateProject($project,$projectUsersColl);
     }
     
     public function getPercentageList($projectId) {

@@ -4,6 +4,20 @@
 <script type="text/javascript">
     var lang_nameRequired = "<?php echo __('Project name is required'); ?>";
     var lang_startDateRequired = "<?php echo __('Development Start date is required'); ?>";
+    function setSelected()
+    {
+        var list = document.getElementById('project_projectUserSelected');
+        var alllList = document.getElementById('project_projectUserAll');
+        var vals=list.options[0].value;
+        for(var i = 1; i < list.options.length; ++i){
+            vals+=','+list.options[i].value;
+            list.options[i].selected=false;
+        }
+        for(var i = 0; i < alllList.options.length; ++i){
+            alllList.options[i].selected=false;
+        }
+        document.getElementById("aaa").value = vals;
+    }
 </script>
 
 <div class="Project">
@@ -15,7 +29,8 @@
     <div class="addForm">
         <div class="headlineField"><?php echo __('Add Project') ?></div>
         <div class="formField">
-            <form id="addProjectForm" action="<?php echo url_for('project/addProject') ?>" method="POST">
+            <form id="addProjectForm" action="<?php echo url_for('project/addProject') ?>" method="POST" onsubmit="setSelected()">
+                <input type="hidden" name="aaa" id="aaa">
                 <div><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render() ?><?php echo $projectForm['name']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['startDate']->renderLabel() ?><?php echo $projectForm['startDate']->render() ?><?php echo $projectForm['startDate']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['endDate']->renderLabel() ?><?php echo $projectForm['endDate']->render() ?><?php echo $projectForm['endDate']->renderError() ?><br class="clear" /></div>
@@ -29,7 +44,7 @@
                     <tr>
                         <td>Assign users&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                         <td>
-                            <div><?php echo $projectForm['projectUserAll']->renderLabel() ?><br/><?php echo $projectForm['projectUserAll']->render() ?><?php echo $projectForm['projectUserAll']->renderError() ?></div>
+                            <div><?php echo $projectForm['projectUserAll']->renderLabel() ?><br/><?php echo $projectForm['projectUserAll']->render() ?></div>
                         </td>
                         <td>
                             <input class="formButton" type="button" value="<?php echo __('>') ?>" id="btnRight" />

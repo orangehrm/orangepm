@@ -12,6 +12,19 @@ class ProjectDao {
     public function saveProject($project) {
         $project->save();
     }
+    
+    /**
+     * Save project users
+     * @author Eranga
+     * @param $projectUsers Doctrine project user collection
+     */
+    public function saveProjectUsers(Doctrine_Collection $projectUsers) {
+        foreach ($projectUsers as $single){
+            $single->save();
+        }
+    }
+    
+    
 
     /**
      * Delete Projects
@@ -83,9 +96,19 @@ class ProjectDao {
      * @param $project
      * @return none
      */
-    public function updateProject(Project $tempProject) {
+    public function updateProject($tempProject,$projectUsersColl = null) {
+//        echo "<pre>";
+//        print_r($tempProject->toArray());
+        
+        
+        //$tempProject->setProjectUser($projectUsersColl);
 
         $project = Doctrine_Core::getTable('Project')->find($tempProject->getId());
+//        print_r($projectUsersColl->toArray());
+//        exit();
+        if($projectUsersColl!=null){
+            $project->setProjectUser($projectUsersColl);            
+        }       
 
         if ($project instanceof Project) {
             $project->setName($tempProject->getName());
@@ -96,6 +119,7 @@ class ProjectDao {
             $project->setEndDate($tempProject->getEndDate());
             $project->save();
         }
+        
     }
     
 

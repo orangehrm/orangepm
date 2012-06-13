@@ -108,5 +108,22 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
 
           $this->assertNull($this->projectService->getProjectUserType(55,6));
     }
+    
+    /**
+     *@author Eranga
+     * Testing save project users
+     */
+    public function testSaveProjectUser(){
+         $projectDao = $this->getMock('ProjectDao');
+        $projectDao->expects($this->once())
+            ->method('getProjectUsersByProjectAndUser')
+            ->with()
+            ->will($this->returnValue(false));
+
+          $this->projectService->setProjectDao($projectDao);
+         
+
+          $this->assertNull($this->projectService->getProjectUserType(55,6));
+    }
 
 }

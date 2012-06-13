@@ -14,7 +14,9 @@ class ProjectForm extends sfForm {
     private $formWidgets = array();
     private $formValidators  = array();
     private $nonSelected=array();
+    private $all=array();
     private $selected=array();
+    
    
     public function configure() {
         
@@ -29,7 +31,7 @@ class ProjectForm extends sfForm {
             $this->_setProjectUsersForNewProject();
         }
         else{
-            $this->_setProjectUsers();
+            $this->_setProjectUsers($this->getOption('projectid'));
         }
         $this->_setDescriptionWidgets();
         $this->_setProjectUserWidgets();
@@ -40,10 +42,12 @@ class ProjectForm extends sfForm {
         
         
     }
-    private function _setProjectUsers(){
+    private function _setProjectUsers($projectId){
+        $projectService = new ProjectService();
         $userService = new UserService();
-        $this->nonSelected=array('dfdf','sdfsfd','gggfgfg');
-        $this->selected=array('df','sdfsdf','hghjghj');
+        $this->all=$userService->getAllUsersAsArray();
+        $this->selected=$projectService->getUsersForProjectAsArrayOnlyName($projectId);
+        $this->nonSelected=array_diff($this->all, $this->selected);
     }
     private function _setProjectUsersForNewProject(){
         $userService = new UserService();
@@ -97,7 +101,10 @@ class ProjectForm extends sfForm {
     private function _setProjectUserWidgets() {
         
         $this->formWidgets['projectUserAll'] = new sfWidgetFormSelectMany(array('choices' => $this->nonSelected), array('label' => 'All users'));
+        $this->formValidators['projectUserAll'] = new sfValidatorChoice(array('choices' => array_keys($this->nonSelected),'required' => false));
         $this->formWidgets['projectUserSelected'] = new sfWidgetFormSelectMany(array('choices' => $this->selected), array('label' => 'Selected users'));
+        $this->formValidators['projectUserSelected'] = new sfValidatorChoice(array('choices' => array_keys($this->selected),'required' => false));
+
         
     }
     

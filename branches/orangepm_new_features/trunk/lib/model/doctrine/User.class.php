@@ -15,7 +15,7 @@ class User extends BaseUser
     const USER_TYPE_UNSPECIFIED = 0;
     const USER_TYPE_SUPER_ADMIN = 1;
     const USER_TYPE_PROJECT_ADMIN = 2;
-    const USER_TYPE_PROJECT_MEMBER = 3;
+    const USER_TYPE_PROJECT_USER = 3;
     
     
     

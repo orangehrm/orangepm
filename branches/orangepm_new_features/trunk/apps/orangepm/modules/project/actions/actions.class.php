@@ -306,7 +306,7 @@ class projectActions extends sfActions {
         if ($this->getUser()->hasCredential('superAdmin')) {
             $isSuperAdmin = true;
         }
-        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>true));
+        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>true,'projectid'=>null));
         $response = $this->getResponse();
         $response->setTitle(__('Add Project'));
         $loggedUserObject = null;
@@ -315,7 +315,7 @@ class projectActions extends sfActions {
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
 
         if ($request->isMethod('post')) {
-            $this->projectForm->bind($request->getParameter('project'));
+            $this->projectForm->bind($request->getParameter('project'));            
 
             if ($this->projectForm->isValid()) {
                 $project = new Project();
@@ -336,19 +336,25 @@ class projectActions extends sfActions {
                 $projectSevice->saveProject($project);
                 $projectId = $project->getId();
                 //$projectUsers=array();
-                $projectUsersColl=new Doctrine_Collection('ProjectUser');
-                $projectUser=new ProjectUser();
-                $projectUsers=$this->projectForm->getWidget('projectUserSelected');
+                $projectUsersColl=new Doctrine_Collection('ProjectUser');                
+                //$projectUsers=$this->projectForm->getWidget('projectUserAll');
+                //$mine=array();
+                //$mine=$projectUsers->get;
                 //$projectUsers[0]='dsds';
-                die($projectUsers[0]);
-                foreach($projectUsers as $key => $single){
-                    $projectUser->setUserId($key);
+                $projectUserString=$request->getParameter('aaa');
+                //die($projectUserString);
+                $projectUserValues=split(',', $projectUserString);
+                //die($request->getParameter('aaa'));
+                foreach($projectUserValues as $single){
+                    $projectUser=new ProjectUser();
+                    $projectUser->setUserId($single);
                     $projectUser->setProjectId($projectId);
                     $projectUser->setUserType(User::USER_TYPE_PROJECT_USER);
                     $projectUsersColl->add($projectUser);
                 }
-                $project->setProjectUser($projectUsersColl);
-                $projectSevice->updateProject($project);
+               
+                //$project->setProjectUser($projectUsersColl);
+                $projectSevice->updateProject($project,$projectUsersColl);
                 $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
                 $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
                 $this->redirect("project/viewProjectDetails?projectId=$projectId");
