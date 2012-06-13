@@ -27,8 +27,13 @@ class AuthenticationService {
         $this->projectDao =  $projectDao;
     }
     
-    
-    public function isProjectEditbleByUser($userId ,$projectId){
+    /**
+     * Check whether user can or cannot edit the project's meta data
+     * @param type $userId
+     * @param type $projectId
+     * @return boolean - true if permission is granted
+     */
+    public function isProjectMetadataEditbleByUser($userId ,$projectId){
         
         $result = $this->projectDao->getProjectUsersByProjectAndUser($userId, $projectId);
         if($result){
