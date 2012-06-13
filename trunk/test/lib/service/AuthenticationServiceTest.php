@@ -28,7 +28,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
      *@author Samith
      * @group admin 
      */
-    public function testIsProjectEditbleByUserResultValues(){
+    public function testProjectAccessLevelResultValues(){
         
          $projectUserList = TestDataService::loadObjectList('ProjectUser', $this->fixture, 'ProjectUser');
 
@@ -36,7 +36,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
         $projectDao->expects($this->any())
             ->method('getProjectUsersByProjectAndUser')
             ->with()
-            ->will($this->onConsecutiveCalls( $projectUserList[1],$projectUserList[3] ));
+            ->will($this->onConsecutiveCalls( $projectUserList[1],$projectUserList[3] ,false ));
 
           $this->authenticationService->setProjectDao($projectDao);
           
@@ -48,36 +48,21 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
         $userDao->expects($this->any())
             ->method('getUserById')
             ->with()
-            ->will($this->onConsecutiveCalls($userList[0] , $userList[3],$userList[0],$userList[1] ));
+            ->will($this->onConsecutiveCalls($userList[0] , $userList[4],$userList[0],$userList[1] ,$userList[2]));
         
-        $this->assertTrue($this->authenticationService->isProjectMetadataEditbleByUser(1,1));
-        $this->assertTrue($this->authenticationService->isProjectMetadataEditbleByUser(5,1));
-        $this->assertTrue($this->authenticationService->isProjectMetadataEditbleByUser(1,2));        
-        $this->assertTrue(!$this->authenticationService->isProjectMetadataEditbleByUser(2,2));
+        $this->assertEquals(User::USER_TYPE_SUPER_ADMIN , $this->authenticationService->projectAccessLevel(1,1));
+        $this->assertEquals(User::USER_TYPE_PROJECT_ADMIN ,$this->authenticationService->projectAccessLevel(5,1));
+        $this->assertEquals(User::USER_TYPE_SUPER_ADMIN ,$this->authenticationService->projectAccessLevel(1,2));        
+        $this->assertEquals(User::USER_TYPE_PROJECT_MEMBER ,$this->authenticationService->projectAccessLevel(2,2));
+        $this->assertEquals(User::USER_TYPE_UNSPECIFIED ,$this->authenticationService->projectAccessLevel(2,10));
         
         
     }
     
-    /**
-     *@group admin 
-     */
-    public function testIsProjectEditbleByUserForAdmin(){
-        
-         $userList = TestDataService::loadObjectList('User', $this->fixture, 'User');
-         
-        $userDao = $this->getMock('UserDao');
-        $userDao->expects($this->any())
-            ->method('getUserById')
-            ->with()
-            ->will($this->onConsecutiveCalls($userList[0] ));
-
-        $this->authenticationService->setUserDao($userDao);
-        $this->assertTrue($this->authenticationService->isProjectMetadataEditbleByUser(1,1));
-            
-       
-        
-        
-    }
+    
+    
+    
+    
 }
 
 ?>
