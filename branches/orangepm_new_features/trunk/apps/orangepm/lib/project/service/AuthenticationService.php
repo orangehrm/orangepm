@@ -55,7 +55,7 @@ class AuthenticationService {
             $result = $this->projectDao->getProjectUsersByProjectAndUser($userId, $projectId);
             if($result){
                 $userType = $result->getUserType();            
-                
+                return $userType;
             }
         }
         
