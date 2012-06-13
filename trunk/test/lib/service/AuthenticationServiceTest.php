@@ -15,7 +15,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
     protected $authenticationService;
     
     protected function setUp() {
-        TestDataService::truncateTables(array('ProjectUser'));
+        TestDataService::truncateTables(array('ProjectUser' ,'User','Project'));
         $this->fixture = sfConfig::get('sf_test_dir') . '/fixtures/Authentication.yml';
         TestDataService::populate($this->fixture);
         $this->authenticationService= new AuthenticationService();
@@ -40,10 +40,10 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
 
           $this->authenticationService->setProjectDao($projectDao);
         
-        $this->assertTrue(!$this->authenticationService->isProjectEditbleByUser(1,1));
-        $this->assertTrue($this->authenticationService->isProjectEditbleByUser(5,1));
-        $this->assertTrue($this->authenticationService->isProjectEditbleByUser(1,2));        
-        $this->assertTrue(!$this->authenticationService->isProjectEditbleByUser(2,2));
+        $this->assertTrue(!$this->authenticationService->isProjectMetadataEditbleByUser(1,1));
+        $this->assertTrue($this->authenticationService->isProjectMetadataEditbleByUser(5,1));
+        $this->assertTrue($this->authenticationService->isProjectMetadataEditbleByUser(1,2));        
+        $this->assertTrue(!$this->authenticationService->isProjectMetadataEditbleByUser(2,2));
         
         
     }
