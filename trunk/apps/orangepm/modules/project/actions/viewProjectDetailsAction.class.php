@@ -10,6 +10,9 @@ class viewProjectDetailsAction extends sfAction {
         $this->taskService = new TaskService();
         $this->userService = new UserService();
         $this->storyEstimationCount = 0;
+        $this->authenticationService = new AuthenticationService();
+        $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
+   
     }
     
     public function execute($request) {
@@ -22,8 +25,10 @@ class viewProjectDetailsAction extends sfAction {
         $projectUserString=$request->getParameter('aaa');
         $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId));
         $loggedUserObject = null;
-        if ($this->projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId)) {
-            if ($request->isMethod('post') && ($request->getParameter("saveButton") == __("Save"))) {
+       $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
+        $this->projectAccessLevel = $this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
+        if($this->projectAccessLevel != User::USER_TYPE_UNSPECIFIED){        
+               if ($request->isMethod('post') && ($request->getParameter("saveButton") == __("Save"))) {
                 $this->projectForm->bind($request->getParameter($this->projectForm->getName()));
                 if($this->projectForm->isValid()){
                     $this->updateProject($projectId,$projectUserString);
@@ -55,6 +60,8 @@ class viewProjectDetailsAction extends sfAction {
     }
 
     public function updateProject($projectId,$projectUserString) {
+        if(($this->projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($this->projectAccessLevel == User::USER_TYPE_SUPER_ADMIN)){
+     
         $project = new Project();
         $projectDao = new ProjectDao();
         $projectSevice = new ProjectService();
@@ -90,6 +97,8 @@ class viewProjectDetailsAction extends sfAction {
             else{
                 $projectSevice->updateProject($project);
             }
+            
+        } else {die;}
 }
         
         //$project->setProjectUser($projectUsersColl);        
