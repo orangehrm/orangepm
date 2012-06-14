@@ -73,6 +73,11 @@ span.mandatoryStar {
     left: 25px;
 }
 
+.listbox{
+        width: 170px;
+         
+    }
+
 .break_line{
     width: 1080px;
     border: 1px solid #666;

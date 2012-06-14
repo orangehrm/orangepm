@@ -2,7 +2,6 @@
 <?php echo stylesheet_tag('viewStories') ?>
 
 <?php use_helper('Pagination'); ?>
-
 <script type="text/javascript">
     var lang_nameRequired = "<?php echo __('Project name is required');?>";
     var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
@@ -57,30 +56,30 @@
                 <div><?php echo $projectForm['description']->renderLabel() ?><?php echo $projectForm['description']->render() ?></div>
                 <table>
                     <tr>
-                        <td>Assign users&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td><label for="project_projectUserAll">Assign users</label></td>
                         <td>
-                            <div><?php echo $projectForm['projectUserAll']->renderLabel() ?><br/><?php echo $projectForm['projectUserAll']->render() ?></div>
+                            <div><?php echo $projectForm['projectUserAll']->renderLabel() ?><br/><?php echo $projectForm['projectUserAll']->render(array('class'=>'listbox')) ?></div>
                         </td>
                         <td>
                             <input class="formButton" type="button" value="<?php echo __('>') ?>" id="btnRight" />
-                            <input class="formButton" type="button"  value="<?php echo __('<') ?>" id="btnLeft"/>                          
+                            <input class="formButton" type="button"  value="<?php echo __('<') ?>" id="btnLeft"/>&nbsp;&nbsp;&nbsp;&nbsp;                          
                         </td>
                         <td>
-                            <div><?php echo $projectForm['projectUserSelected']->renderLabel() ?><br/><?php echo $projectForm['projectUserSelected']->render() ?></div>        
+                            <div><?php echo $projectForm['projectUserSelected']->renderLabel() ?><br/><?php echo $projectForm['projectUserSelected']->render(array('class'=>'listbox')) ?></div>        
                         </td>                        
                     </tr>                    
                 </table>
                 
                 
                  <!-- buddy --> 
-                <?php if($projectAccessLevel == User::USER_TYPE_SUPER_ADMIN && $projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN): ?>
+                <?php //if($projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN): ?>
                 <div>
                     <input class="formButton" type="submit" value="<?php echo __('Edit') ?>" id="saveButton" name="saveButton" />
                     &nbsp;&nbsp;&nbsp;
                     <input class="formButton" type="submit" id="cancel" value="<?php echo __('Cancel') ?>" />
                 </div>
                  <!-- buddy --> 
-                <?php endif; ?>
+                <?php //endif; ?>
                 
                 <?php echo $projectForm->renderHiddenFields(); ?>
             </form>

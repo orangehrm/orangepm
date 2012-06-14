@@ -64,6 +64,17 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('Thilina', $returnedUserList[0]->getFirstName());     
     }
     
+    public function testGetUsersForProjectAsArrayOnlyName() {
+        $projectUsersList = TestDataService::loadObjectList('ProjectUser', $this->fixture, 'setGetProjectUsersDetails');
+        $ProjectDao = $this->getMock('ProjectDao', array('getProjectUsersByProjectId'));
+        $ProjectDao->expects($this->once())
+                   ->method('getProjectUsersByProjectId')
+                   ->will($this->returnValue(null));
+        $this->projectService->setProjectDao($ProjectDao);
+        $returnedUserList=$this->projectService->getUsersForProjectAsArrayOnlyName(0);
+        $this->assertEquals(0, count($returnedUserList));    
+    }
+    
     
     
     
