@@ -56,7 +56,7 @@
                 <div><?php echo $projectForm['description']->renderLabel() ?><?php echo $projectForm['description']->render() ?></div>
                 <table>
                     <tr>
-                        <td><label for="project_projectUserAll">Assign users</label></td>
+                        <td><label for="project_assigningUsers">Assign users</label></td>
                         <td>
                             <div><?php echo $projectForm['projectUserAll']->renderLabel() ?><br/><?php echo $projectForm['projectUserAll']->render(array('class'=>'listbox')) ?></div>
                         </td>
