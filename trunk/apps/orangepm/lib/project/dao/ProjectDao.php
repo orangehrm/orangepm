@@ -12,19 +12,17 @@ class ProjectDao {
     public function saveProject($project) {
         $project->save();
     }
-    
+
     /**
      * Save project users
      * @author Eranga
      * @param $projectUsers Doctrine project user collection
      */
     public function saveProjectUsers(Doctrine_Collection $projectUsers) {
-        foreach ($projectUsers as $single){
+        foreach ($projectUsers as $single) {
             $single->save();
         }
     }
-    
-    
 
     /**
      * Delete Projects
@@ -41,14 +39,16 @@ class ProjectDao {
             $this->_deleteRelativeStoriesForProject($id);
         }
     }
+
     /*
      * stories related with deleted project
      */
-    private function _deleteRelativeStoriesForProject($projectId){
+
+    private function _deleteRelativeStoriesForProject($projectId) {
         $q = Doctrine_Query :: create()
-				->from('Story')
-				->where('deleted = ?', Story::FLAG_ACTIVE)
-				->andWhere('project_id = ?', $projectId);
+                ->from('Story')
+                ->where('deleted = ?', Story::FLAG_ACTIVE)
+                ->andWhere('project_id = ?', $projectId);
         $stories = $q->execute();
         $storyDao = new StoryDao();
         foreach ($stories as $story) {
@@ -91,19 +91,18 @@ class ProjectDao {
         return $query->execute();
     }
 
-        /**
+    /**
      * Update projects function 
      * @param $project
      * @return none
      */
-    public function updateProject($tempProject,$projectUsersColl = null) {       
-        $project = Doctrine_Core::getTable('Project')->find($tempProject->getId());  
-        if($projectUsersColl!=null){
-            $project->setProjectUser($projectUsersColl);            
+    public function updateProject($tempProject, $projectUsersColl = null) {
+        $project = Doctrine_Core::getTable('Project')->find($tempProject->getId());
+        if ($projectUsersColl != null) {
+            $project->setProjectUser($projectUsersColl);
+        } else {
+            $project->getProjectUser()->delete();
         }
-        else{
-              $project->getProjectUser()->delete();
-        }        
 
         if ($project instanceof Project) {
             $project->setName($tempProject->getName());
@@ -114,9 +113,7 @@ class ProjectDao {
             $project->setEndDate($tempProject->getEndDate());
             $project->save();
         }
-        
     }
-    
 
     /**
      * Get project
@@ -178,7 +175,7 @@ class ProjectDao {
 
         return count($result) == 0 ? null : $result;
     }
-    
+
     /**
      *
      * Get all projects with the associated roles 
@@ -188,7 +185,7 @@ class ProjectDao {
      * @param type $userType - specified user role
      * @return type 
      */
-    public function getProjectUsersByUser($userId, $statusId=Project::PROJECT_STATUS_ALL_ID, $isActive=true ,$userType = User::USER_TYPE_UNSPECIFIED) {
+    public function getProjectUsersByUser($userId, $statusId=Project::PROJECT_STATUS_ALL_ID, $isActive=true, $userType = User::USER_TYPE_UNSPECIFIED) {
 
         $query = Doctrine_Query::create()
                 ->select('pu.*')
@@ -203,34 +200,33 @@ class ProjectDao {
 
         if ($isActive) {
             $query->addWhere('p.deleted = ?', Project::FLAG_ACTIVE);
-        }  
-        
-        if($userType != User::USER_TYPE_UNSPECIFIED){
-            $query->addWhere('pu.userType = ?' , $userType);
         }
 
-        
+        if ($userType != User::USER_TYPE_UNSPECIFIED) {
+            $query->addWhere('pu.userType = ?', $userType);
+        }
+
+
         $result = $query->execute();
 
         return count($result) == 0 ? null : $result;
     }
-    
+
     /**
      * 
      * Get the associated ProjectUsers
      * @param type $projectId
      * @return type $result
      */
-    public function getProjectUsersByProjectId($projectId){
+    public function getProjectUsersByProjectId($projectId) {
         $project = $this->getProjectById($projectId);
-        
-        if($project != null){
-            $result =$project->getProjectUser();
+
+        if ($project != null) {
+            return $project->getProjectUser();
+        } else {
+            return null;
         }
-        return count($result) == 0 ? null : $result;
     }
-    
-    
 
     /**
      *
@@ -238,21 +234,18 @@ class ProjectDao {
      * @param type $projectId
      * @return type $result
      */
-    public function getProjectUsersByProjectAndUser($userId , $projectId ){
-        
+    public function getProjectUsersByProjectAndUser($userId, $projectId) {
+
         $query = Doctrine_Query::create()
                 ->select('pu.*')
                 ->from('ProjectUser pu');
         $query->addWhere('pu.userId = ?', $userId);
         $query->addWhere('pu.projectId = ?', $projectId);
-        
+
         $result = $query->fetchOne();
 
         return $result;
-        
     }
-        
-    
 
     /**
      * Check whether the user has authentication to do the action
@@ -262,23 +255,22 @@ class ProjectDao {
     public function isActionAllowedForUser($userId, $projectId) {
 
         $project = $this->getProjectById($projectId);
-        
+
         $user = new UserDao();
         $actualUser = $user->getUserById($userId);
-        
-        if(((count($project)) && ($project instanceof Project)) &&  ((count($actualUser)) && ($actualUser instanceof User))) {  
-            
-            $actualProjectOwnerUserId = $project->getUserId();            
+
+        if (((count($project)) && ($project instanceof Project)) && ((count($actualUser)) && ($actualUser instanceof User))) {
+
+            $actualProjectOwnerUserId = $project->getUserId();
             $actualUserType = $actualUser->getUserType();
-            
-            if(($userId == $actualProjectOwnerUserId) || ($actualUserType == User::USER_TYPE_SUPER_ADMIN)) {
+
+            if (($userId == $actualProjectOwnerUserId) || ($actualUserType == User::USER_TYPE_SUPER_ADMIN)) {
 
                 return true;
             }
-        }        
-        
+        }
+
         return false;
-        
     }
 
 }

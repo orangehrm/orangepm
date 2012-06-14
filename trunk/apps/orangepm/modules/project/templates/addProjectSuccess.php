@@ -42,17 +42,16 @@
                 <div><?php echo $projectForm['description']->renderLabel() ?><?php echo $projectForm['description']->render() ?></div>
                 <table>
                     <tr>
-                        <td>Assign users&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td><label for="project_projectUserAll">Assign users</label></td>
                         <td>
-                            <div><?php echo $projectForm['projectUserAll']->renderLabel() ?><br/><?php echo $projectForm['projectUserAll']->render() ?></div>
+                            <div><?php echo $projectForm['projectUserAll']->renderLabel() ?><br/><?php echo $projectForm['projectUserAll']->render(array('class'=>'listbox')) ?></div>
                         </td>
                         <td>
-                            <input class="formButton" type="button" value="<?php echo __('>') ?>" id="btnRight" />
-                            &nbsp;&nbsp;&nbsp;
-                            <input class="formButton" type="button"  value="<?php echo __('<') ?>" id="btnLeft"/>                          
+                            <input class="formButton" type="button" value="<?php echo __('>') ?>" id="btnRight" />                            
+                            <input class="formButton" type="button"  value="<?php echo __('<') ?>" id="btnLeft"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                          
                         </td>
                         <td>
-                            <div><?php echo $projectForm['projectUserSelected']->renderLabel() ?><br/><?php echo $projectForm['projectUserSelected']->render() ?><?php echo $projectForm['projectUserSelected']->renderError() ?></div>        
+                            <div><?php echo $projectForm['projectUserSelected']->renderLabel() ?><br/><?php echo $projectForm['projectUserSelected']->render(array('class'=>'listbox')) ?><?php echo $projectForm['projectUserSelected']->renderError() ?></div>        
                         </td>                        
                     </tr>                    
                 </table>

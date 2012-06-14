@@ -100,12 +100,13 @@ class ProjectForm extends sfForm {
     }
     private function _setProjectUserWidgets() {
         
-        $this->formWidgets['projectUserAll'] = new sfWidgetFormSelectMany(array('choices' => $this->nonSelected), array('label' => 'All users'));
+        $this->formWidgets['projectUserAll'] = new sfWidgetFormSelectMany(array('choices' => $this->nonSelected));
         $this->formValidators['projectUserAll'] = new sfValidatorChoice(array('choices' => array_keys($this->nonSelected),'required' => false));
-        $this->formWidgets['projectUserSelected'] = new sfWidgetFormSelectMany(array('choices' => $this->selected), array('label' => 'Selected users'));
+        $this->formWidgets['projectUserAll']->setLabel(__("Avalable Users"));
+        $this->formWidgets['projectUserSelected'] = new sfWidgetFormSelectMany(array('choices' => $this->selected));
         $this->formValidators['projectUserSelected'] = new sfValidatorChoice(array('choices' => array_keys($this->selected),'required' => false));
+        $this->formWidgets['projectUserSelected']->setLabel(__("Selected Users"));
 
-        
     }
     
 }
