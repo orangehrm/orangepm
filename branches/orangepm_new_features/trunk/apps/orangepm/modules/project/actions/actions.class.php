@@ -340,7 +340,7 @@ if($this->getUser()->hasCredential('superAdmin')){
                 } else {
                     $project->setUserId($loggedUserId);
                 }
-                $projectSevice->saveProject($project);
+                $projectSevice->saveProject($project);               
                 $projectId = $project->getId();
                 //$projectUsers=array();
                 $projectUsersColl=new Doctrine_Collection('ProjectUser');                
@@ -359,7 +359,11 @@ if($this->getUser()->hasCredential('superAdmin')){
                     $projectUser->setUserType(User::USER_TYPE_PROJECT_MEMBER);
                     $projectUsersColl->add($projectUser);
                 }
-               
+               $projectUser=new ProjectUser();
+               $projectUser->setUserId($project->getUserId());
+               $projectUser->setProjectId($projectId);
+               $projectUser->setUserType(User::USER_TYPE_PROJECT_ADMIN);
+               $projectUsersColl->add($projectUser);
                 //$project->setProjectUser($projectUsersColl);
                 $projectSevice->updateProject($project,$projectUsersColl);
                 $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
