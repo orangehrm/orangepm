@@ -72,14 +72,14 @@
                 
                 
                  <!-- buddy --> 
-                <?php //if($projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN): ?>
+                <?php if($projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN): ?>
                 <div>
                     <input class="formButton" type="submit" value="<?php echo __('Edit') ?>" id="saveButton" name="saveButton" />
                     &nbsp;&nbsp;&nbsp;
                     <input class="formButton" type="submit" id="cancel" value="<?php echo __('Cancel') ?>" />
                 </div>
                  <!-- buddy --> 
-                <?php //endif; ?>
+                <?php endif; ?>
                 
                 <?php echo $projectForm->renderHiddenFields(); ?>
             </form>
