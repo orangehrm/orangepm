@@ -275,6 +275,7 @@ class projectActions extends sfActions {
         }
 
         $this->projects = $projectSevice->getProjectsByUserAndStatus($loggedUserId, $this->statusId);
+        
 
         if($this->selectedStatusId != "") {
             
@@ -283,6 +284,11 @@ class projectActions extends sfActions {
         }
 if($this->getUser()->hasCredential('superAdmin')){
     $this->projects = $projectSevice->getAllProjects(true, $this->statusId);
+    if($this->selectedStatusId != "") {
+            
+            $this->projects =  $projectSevice->getAllProjects(true, selectedStatusId);
+            
+        }
 }
         if (count($this->projects) == 0) {
             $this->noRecordMessage = __("No Matching Projects Found");
