@@ -8,6 +8,7 @@ class viewProjectDetailsAction extends sfAction {
         $this->projectService = new ProjectService();
         $this->projectLogService = new ProjectLogService();
         $this->taskService = new TaskService();
+        $this->userService = new UserService();
         $this->storyEstimationCount = 0;
     }
     
@@ -32,9 +33,14 @@ class viewProjectDetailsAction extends sfAction {
             $this->userName = $this->projectLogService->getUserName($this->userId);
             $this->project = $this->projectService->getProjectById($projectId);
             $this->projectId = $projectId;
+            $all=$this->userService->getAllUsersAsArray();
+            $selected=$this->projectService->getUsersForProjectAsArrayOnlyName($projectId);
+            $nonSelected=array_diff($all, $selected);
             $this->projectForm->setDefault('projectAdmin', array('choices' => $this->project->getUserId()));
             $this->projectForm->setDefault('status', array('choices' => $this->project->getProjectStatusId()));
             $this->projectForm->setDefault('description', $this->project->getDescription());
+            $this->projectForm->setDefault('projectUserAll', array('choices' => $nonSelected));
+            $this->projectForm->setDefault('projectUserSelected', array('choices' => $selected));
             
             $viewStoriesDao = new StoryDao();
             $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $projectId , 1);
@@ -67,18 +73,22 @@ class viewProjectDetailsAction extends sfAction {
         }
         $projectUsersColl=new Doctrine_Collection('ProjectUser');
         //die($projectUserString);
-        $projectUserValues=split(',', $projectUserString);
-        //die($request->getParameter('aaa'));
-        foreach($projectUserValues as $single){
-            $projectUser=new ProjectUser();
-            $projectUser->setUserId($single);
-            $projectUser->setProjectId($projectId);
-            $projectUser->setUserType(User::USER_TYPE_PROJECT_USER);
-            $projectUsersColl->add($projectUser);
+        if($projectUserString!=''){
+            $projectUserValues=explode(',', $projectUserString);
+            //die($request->getParameter('aaa'));
+            foreach($projectUserValues as $single){
+                $projectUser=new ProjectUser();
+                $projectUser->setUserId($single);
+                $projectUser->setProjectId($projectId);
+                $projectUser->setUserType(User::USER_TYPE_PROJECT_USER);
+                $projectUsersColl->add($projectUser);
+            }
+            $projectSevice->updateProject($project,$projectUsersColl);
         }
-
-        //$project->setProjectUser($projectUsersColl);
-        $projectSevice->updateProject($project,$projectUsersColl);
+        else{
+            $projectSevice->updateProject($project);
+        }
+        //$project->setProjectUser($projectUsersColl);        
     }
     
     public function getPercentageList($projectId) {

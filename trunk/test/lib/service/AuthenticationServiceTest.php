@@ -53,7 +53,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(User::USER_TYPE_SUPER_ADMIN , $this->authenticationService->projectAccessLevel(1,1));
         $this->assertEquals(User::USER_TYPE_PROJECT_ADMIN ,$this->authenticationService->projectAccessLevel(5,1));
         $this->assertEquals(User::USER_TYPE_SUPER_ADMIN ,$this->authenticationService->projectAccessLevel(1,2));        
-        $this->assertEquals(User::USER_TYPE_PROJECT_MEMBER ,$this->authenticationService->projectAccessLevel(2,2));
+        $this->assertEquals(User::USER_TYPE_PROJECT_USER ,$this->authenticationService->projectAccessLevel(2,2));
         $this->assertEquals(User::USER_TYPE_UNSPECIFIED ,$this->authenticationService->projectAccessLevel(2,10));
         
         
