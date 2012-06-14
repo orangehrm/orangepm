@@ -82,6 +82,7 @@ $(document).ready(function() {
                 $(this).parent().children('td.changedUserType').html('<select name="changedUserType" id="changedUserType">'+
                     '<option value="Project Admin">Project Admin</option>'+
                     '<option value="Super Admin">Super Admin</option>'+
+                    '<option value="Project Member">Project Member</option>'+
                     '</select> ');
                 
                 $("#changedUserType").val(previousUserType);
