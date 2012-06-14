@@ -56,14 +56,19 @@ class projectActions extends sfActions {
                 $loginService = new LoginService();
                 $loggedUser = $loginService->getUserByUsernameAndPassword($user, $pass);
                 
+                
                 if ($loggedUser instanceof User) {
 
+                    echo  $loggedUser->getId() ;
                     $this->getUser()->setAttribute($loggedUserObject, $loggedUser);
 
                     $this->getUser()->setAuthenticated(true);
 
+
+
                     $userRole = $loginService->getUserRole($loggedUser->getUserType());
 
+                    
                     if (!empty($userRole)) {
                         $this->getUser()->addCredential($userRole);
                     }
@@ -349,7 +354,7 @@ class projectActions extends sfActions {
                     $projectUser=new ProjectUser();
                     $projectUser->setUserId($single);
                     $projectUser->setProjectId($projectId);
-                    $projectUser->setUserType(User::USER_TYPE_PROJECT_USER);
+                    $projectUser->setUserType(User::USER_TYPE_PROJECT_MEMBER);
                     $projectUsersColl->add($projectUser);
                 }
                
