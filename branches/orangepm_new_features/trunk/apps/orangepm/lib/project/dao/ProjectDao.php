@@ -96,19 +96,22 @@ class ProjectDao {
      * @param $project
      * @return none
      */
-    public function updateProject($tempProject,$projectUsersColl = null) {
-//        echo "<pre>";
-//        print_r($tempProject->toArray());
-        
-        
-        //$tempProject->setProjectUser($projectUsersColl);
-
-        $project = Doctrine_Core::getTable('Project')->find($tempProject->getId());
-//        print_r($projectUsersColl->toArray());
-//        exit();
+    public function updateProject($tempProject,$projectUsersColl = null) {       
+        $project = Doctrine_Core::getTable('Project')->find($tempProject->getId());                
         if($projectUsersColl!=null){
             $project->setProjectUser($projectUsersColl);            
-        }       
+        }
+        else{
+            $projectUsers=new Doctrine_Collection('ProjectUser');
+            $projectUsers=$project->getProjectUser();
+            $var='';
+            foreach($projectUsers as $single){
+                $var.=$single->getUserID().':';
+                $single->delete();
+            }
+            $projectUsers2=new Doctrine_Collection('ProjectUser');
+            $project->setProjectUser($projectUsers2);
+        }        
 
         if ($project instanceof Project) {
             $project->setName($tempProject->getName());

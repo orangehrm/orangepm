@@ -245,7 +245,7 @@ class projectActions extends sfActions {
 
         $response = $this->getResponse();
         $response->setTitle(__('Projects'));
-        $loggedUserObject = null;
+        $this->loggedUserObject = null;
         $this->projectForm = new sfForm();
         
         $this->selectedStatusId = $request->getParameter('selectedStatusId');
@@ -263,7 +263,7 @@ class projectActions extends sfActions {
         $projectSevice = new ProjectService();
         $loginService = new LoginService();
 
-        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+        $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
 
         if ($this->statusId == null) {
             $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
@@ -343,7 +343,7 @@ class projectActions extends sfActions {
                 //$projectUsers[0]='dsds';
                 $projectUserString=$request->getParameter('aaa');
                 //die($projectUserString);
-                $projectUserValues=split(',', $projectUserString);
+                $projectUserValues=explode(',', $projectUserString);
                 //die($request->getParameter('aaa'));
                 foreach($projectUserValues as $single){
                     $projectUser=new ProjectUser();

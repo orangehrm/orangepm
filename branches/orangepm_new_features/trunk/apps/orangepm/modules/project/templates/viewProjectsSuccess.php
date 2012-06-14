@@ -74,7 +74,7 @@
                         <td class="<?php echo "test" . $project->getUserId(); ?>" ><?php echo "Project Admin";  ?></td>
                         <td class="<?php  echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
                         <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
-                    <?php } else if($isProjectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) { ?>
+                    <?php } else if($isProjectAccessLevel == User::USER_TYPE_PROJECT_USER) { ?>
                         <td class="<?php echo "test" . $project->getUserId(); ?>" ><?php echo "Member";  ?></td>
                         <td> </td>
                         <td> </td>
