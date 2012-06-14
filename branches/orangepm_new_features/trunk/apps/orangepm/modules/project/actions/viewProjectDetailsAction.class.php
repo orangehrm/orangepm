@@ -10,6 +10,8 @@ class viewProjectDetailsAction extends sfAction {
         $this->taskService = new TaskService();
         $this->userService = new UserService();
         $this->storyEstimationCount = 0;
+        $this->authenticationService = new AuthenticationService();
+        $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
     }
     
     public function execute($request) {
@@ -22,7 +24,10 @@ class viewProjectDetailsAction extends sfAction {
         $projectUserString=$request->getParameter('aaa');
         $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId));
         $loggedUserObject = null;
-        if ($this->projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId)) {
+        $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
+        $this->projectAccessLevel = $this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
+        echo $this->projectAccessLevel;
+        if($this->projectAccessLevel != User::USER_TYPE_UNSPECIFIED){        
             if ($request->isMethod('post') && ($request->getParameter("saveButton") == __("Save"))) {
                 $this->projectForm->bind($request->getParameter($this->projectForm->getName()));
                 if($this->projectForm->isValid()){
@@ -56,38 +61,41 @@ class viewProjectDetailsAction extends sfAction {
     }
 
     public function updateProject($projectId,$projectUserString) {
-        $project = new Project();
-        $projectDao = new ProjectDao();
-        $projectSevice = new ProjectService();
         
-        $project->setId($projectId);
-        $project->setName($this->projectForm->getValue('name'));
-        $project->setProjectStatusId($this->projectForm->getValue('status'));
-        if ($this->projectForm->getValue('projectAdmin') != 0) {
-           $project->setUserId($this->projectForm->getValue('projectAdmin'));
-        }
-        $project->setDescription($this->projectForm->getValue('description'));
-        $project->setStartDate($this->projectForm->getValue('startDate'));
-        if ($this->projectForm->getValue('endDate') != '') {
-            $project->setEndDate($this->projectForm->getValue('endDate'));
-        }
-        $projectUsersColl=new Doctrine_Collection('ProjectUser');
-        //die($projectUserString);
-        if($projectUserString!=''){
-            $projectUserValues=explode(',', $projectUserString);
-            //die($request->getParameter('aaa'));
-            foreach($projectUserValues as $single){
-                $projectUser=new ProjectUser();
-                $projectUser->setUserId($single);
-                $projectUser->setProjectId($projectId);
-                $projectUser->setUserType(User::USER_TYPE_PROJECT_USER);
-                $projectUsersColl->add($projectUser);
+        if(($this->projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN) && ($this->projectAccessLevel == User::USER_TYPE_SUPER_ADMIN)){
+            $project = new Project();
+            $projectDao = new ProjectDao();
+            $projectSevice = new ProjectService();
+
+            $project->setId($projectId);
+            $project->setName($this->projectForm->getValue('name'));
+            $project->setProjectStatusId($this->projectForm->getValue('status'));
+            if ($this->projectForm->getValue('projectAdmin') != 0) {
+            $project->setUserId($this->projectForm->getValue('projectAdmin'));
             }
-            $projectSevice->updateProject($project,$projectUsersColl);
-        }
-        else{
-            $projectSevice->updateProject($project);
-        }
+            $project->setDescription($this->projectForm->getValue('description'));
+            $project->setStartDate($this->projectForm->getValue('startDate'));
+            if ($this->projectForm->getValue('endDate') != '') {
+                $project->setEndDate($this->projectForm->getValue('endDate'));
+            }
+            $projectUsersColl=new Doctrine_Collection('ProjectUser');
+            //die($projectUserString);
+            if($projectUserString!=''){
+                $projectUserValues=explode(',', $projectUserString);
+                //die($request->getParameter('aaa'));
+                foreach($projectUserValues as $single){
+                    $projectUser=new ProjectUser();
+                    $projectUser->setUserId($single);
+                    $projectUser->setProjectId($projectId);
+                    $projectUser->setUserType(User::USER_TYPE_PROJECT_MEMBER);
+                    $projectUsersColl->add($projectUser);
+                }
+                $projectSevice->updateProject($project,$projectUsersColl);
+            }
+            else{
+                $projectSevice->updateProject($project);
+            }
+        } else {die;}
         //$project->setProjectUser($projectUsersColl);        
     }
     
