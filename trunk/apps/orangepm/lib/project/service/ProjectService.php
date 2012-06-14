@@ -467,6 +467,22 @@ class ProjectService {
     }
     
     /**
+     * 
+     * @param type $userId
+     * @param type $statusId
+     * @return array 
+     */
+    public function getProjectsByUserAndStatus($userId, $statusId) {
+        $projectUser = $this->projectDao->getProjectUsersByUser($userId, $statusId, true);
+        $projects=array();
+        foreach($projectUser as $value) {
+            array_push($projects,  $value->getProject());
+        }
+        return $projects; 
+    }
+
+
+    /**
      * Get the percentage
      * @param $value
      * @param $total

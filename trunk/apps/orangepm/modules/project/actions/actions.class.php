@@ -274,14 +274,16 @@ class projectActions extends sfActions {
             $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
         }
 
-        $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $this->statusId);
+        $this->projects = $projectSevice->getProjectsByUserAndStatus($loggedUserId, $this->statusId);
 
         if($this->selectedStatusId != "") {
             
-            $this->projects = $projectSevice->getProjectsByUser($loggedUserId, $request->getParameter('selectedStatusId'));
+            $this->projects = $projectSevice->getProjectsByUserAndStatus($loggedUserId, $request->getParameter('selectedStatusId'));
             
         }
-
+if($this->getUser()->hasCredential('superAdmin')){
+    $this->projects = $projectSevice->getAllProjects(true, $this->statusId);
+}
         if (count($this->projects) == 0) {
             $this->noRecordMessage = __("No Matching Projects Found");
         }
@@ -381,7 +383,7 @@ class projectActions extends sfActions {
         $this->projectId = $request->getParameter('id');
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $auth = new AuthenticationService();
-        $accessLevel = $auth->isProjectMetadataEditbleByUser($loggedUserId, $this->projectId);
+        $accessLevel = $auth->projectAccessLevel($loggedUserId, $this->projectId);
         if(($accessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($accessLevel == User::USER_TYPE_SUPER_ADMIN) ){
             $dao = new projectDao();
             $dao->deleteProject($this->projectId);
@@ -401,7 +403,7 @@ class projectActions extends sfActions {
         $this->projectId = $request->getParameter('id');
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $auth = new AuthenticationService();
-        $accessLevel = $auth->isProjectMetadataEditbleByUser($loggedUserId, $this->projectId);
+        $accessLevel = $auth->projectAccessLevel($loggedUserId, $this->projectId);
         if(($accessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($accessLevel == User::USER_TYPE_SUPER_ADMIN) ){
             $dao = new ProjectDao();
             $project = new Project();
