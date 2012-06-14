@@ -5,10 +5,10 @@ $(document).ready(function(){
     $('#project_projectAdmin').attr('disabled', true);
     $('#project_status').attr('disabled', true);
     $('#project_description').attr('disabled', true);
-    $('#project_projectUserAll').attr('disabled', true);
-    $('#project_projectUserSelected').attr('disabled', true);
-    $('#btnLeft').attr('disabled', true);
-    $('#btnRight').attr('disabled', true);
+    $('#project_projectUserAll').hide();
+    $('label[for="project_projectUserAll"]').hide();
+    $('#btnLeft').hide();
+    $('#btnRight').hide();
     $('#cancel').attr('disabled', true);
     
     $('#saveButton').click(function(event) {
@@ -20,10 +20,11 @@ $(document).ready(function(){
             $('#project_projectAdmin').removeAttr("disabled");
             $('#project_status').removeAttr("disabled");
             $('#project_description').removeAttr("disabled");
-            $('#project_projectUserAll').removeAttr("disabled");
+            $('#project_projectUserAll').show();
+            $('label[for="project_projectUserAll"]').show();
             $('#project_projectUserSelected').removeAttr("disabled");
-            $('#btnLeft').removeAttr("disabled");
-            $('#btnRight').removeAttr("disabled");
+            $('#btnLeft').show();
+            $('#btnRight').show();
             $('#cancel').removeAttr("disabled");
             $('#saveButton').attr('value','Save') 
         }

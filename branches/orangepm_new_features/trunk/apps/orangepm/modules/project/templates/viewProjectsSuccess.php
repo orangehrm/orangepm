@@ -91,14 +91,14 @@
         <tr><td> </td><td></td><td></td><td></td><td></td><?php if($sf_user->hasCredential('superAdmin')): ?><td></td><?php endif; ?></tr>
         <?php endif; ?>
     </table>
-
+     <?php if($sf_user->hasCredential('superAdmin') || $sf_user->hasCredential('projectAdmin')): ?>
     <div class="addButton">
-
+        
         <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
             <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
         </form>
     </div>
-    
+    <?php endif; ?>
     <div class="searchButton">        
         <?php echo $projectSearchForm ?>
     </div>
