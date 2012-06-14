@@ -376,7 +376,8 @@ class projectActions extends sfActions {
         $this->projectId = $request->getParameter('id');
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $auth = new AuthenticationService();
-        if($auth->isProjectMetadataEditbleByUser($loggedUserId, $this->projectId)){
+        $accessLevel = $auth->isProjectMetadataEditbleByUser($loggedUserId, $this->projectId);
+        if(($accessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($accessLevel == User::USER_TYPE_SUPER_ADMIN) ){
             $dao = new projectDao();
             $dao->deleteProject($this->projectId);
             $this->getUser()->setFlash('statusId', $dao->getProjectById($this->projectId)->getProjectStatusId());
@@ -395,7 +396,8 @@ class projectActions extends sfActions {
         $this->projectId = $request->getParameter('id');
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $auth = new AuthenticationService();
-        if($auth->isProjectMetadataEditbleByUser($loggedUserId, $this->projectId)){
+        $accessLevel = $auth->isProjectMetadataEditbleByUser($loggedUserId, $this->projectId);
+        if(($accessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($accessLevel == User::USER_TYPE_SUPER_ADMIN) ){
             $dao = new ProjectDao();
             $project = new Project();
             $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
