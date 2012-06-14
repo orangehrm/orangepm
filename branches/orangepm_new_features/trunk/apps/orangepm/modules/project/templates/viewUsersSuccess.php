@@ -40,6 +40,8 @@
                             echo 'Super Admin';
                         elseif($user->getUserType() == 2)
                             echo 'Project Admin';
+                        elseif($user->getUserType() == 3)
+                            echo 'Project Member';
                     ?>
                 </td>
                 <td class="<?php echo "changedUsername username" . $user->getId(); ?>" ><?php echo $user->getUsername(); ?></td>
