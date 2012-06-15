@@ -452,9 +452,9 @@ class ProjectService {
      * @author Eranga
      * @param $projectId
      */
-    public function updateProject($project,$projectUsersColl=null) { 
+    public function updateProject($project,$projectUsersColl=null,$deleteProjUsers=true) { 
     
-        $this->projectDao->updateProject($project,$projectUsersColl);        
+        $this->projectDao->updateProject($project,$projectUsersColl,$deleteProjUsers);        
     }
     
     /**

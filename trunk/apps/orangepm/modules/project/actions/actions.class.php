@@ -453,7 +453,7 @@ class projectActions extends sfActions {
                 $project->setUserId($loggedUserId);
             }
             //$project->setUserId($this->projectAdminId);
-            $dao->updateProject($project);
+            $dao->updateProject($project,null,false);
         }
         die;
     }

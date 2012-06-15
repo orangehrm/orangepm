@@ -23,7 +23,8 @@ class viewProjectDetailsAction extends sfAction {
         }
         $projectId = $request->getParameter('projectId');
         $projectUserString=$request->getParameter('aaa');
-        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId));
+        $removeUserId=null;
+        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));
         $loggedUserObject = null;
        $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
         $this->projectAccessLevel = $this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
@@ -33,7 +34,7 @@ class viewProjectDetailsAction extends sfAction {
                 if($this->projectForm->isValid()){
                     $this->updateProject($projectId,$projectUserString);
                      
-                    $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId));
+                    $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));
                 }
             } 
             
