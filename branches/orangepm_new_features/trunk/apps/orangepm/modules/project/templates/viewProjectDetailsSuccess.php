@@ -51,18 +51,22 @@
                 
                 <?php if($sf_user->hasCredential('superAdmin')): ?>
                 <div><?php echo $projectForm['projectAdmin']->renderLabel() ?><?php echo $projectForm['projectAdmin']->render() ?><?php echo $projectForm['projectAdmin']->renderError() ?></div>
+                <?php else:?>
+                <div><label for="project_projectAdmin"><?php echo __('Project Admin') ?></label><?php echo $project->getUser()->getFirstName();?> <?php echo $project->getUser()->getLastName();?></div>
                 <?php endif; ?>
                 <div><?php echo $projectForm['status']->renderLabel() ?><?php echo $projectForm['status']->render() ?><?php echo $projectForm['status']->renderError() ?></div>
                 <div><?php echo $projectForm['description']->renderLabel() ?><?php echo $projectForm['description']->render() ?></div>
                 <table>
                     <tr>
-                        <td><label for="project_assigningUsers">Assign users</label></td>
+                        <td style="vertical-align: top;padding-top: 10px"><label for="project_assigningUsers">Assign Members</label></td>
                         <td>
                             <div><?php echo $projectForm['projectUserAll']->renderLabel() ?><br/><?php echo $projectForm['projectUserAll']->render(array('class'=>'listbox')) ?></div>
-                        </td>
-                        <td>
+                        </td>                        
+                        <td >
+                            <div id="btns" style="padding-left: 0px;padding-right: 20px">
                             <input class="formButton" type="button" value="<?php echo __('>') ?>" id="btnRight" />
-                            <input class="formButton" type="button"  value="<?php echo __('<') ?>" id="btnLeft"/>&nbsp;&nbsp;&nbsp;&nbsp;                          
+                            <input class="formButton" type="button"  value="<?php echo __('<') ?>" id="btnLeft"/>   
+                            </div>
                         </td>
                         <td>
                             <div><?php echo $projectForm['projectUserSelected']->renderLabel() ?><br/><?php echo $projectForm['projectUserSelected']->render(array('class'=>'listbox')) ?></div>        

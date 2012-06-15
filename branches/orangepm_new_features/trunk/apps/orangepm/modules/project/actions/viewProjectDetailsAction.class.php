@@ -22,15 +22,19 @@ class viewProjectDetailsAction extends sfAction {
             $isSuperAdmin = true;
         }
         $projectId = $request->getParameter('projectId');
+        $this->project = $this->projectService->getProjectById($projectId);
         $projectUserString=$request->getParameter('aaa');
         $removeUserId=null;
         $loggedUserObject = null;
         $isProjectAccessLevel=$this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
-        if($isProjectAccessLevel == User::USER_TYPE_PROJECT_ADMIN){
-            $removeUserId=$this->getUser()->getAttribute($loggedUserObject)->getId();
+        if(($isProjectAccessLevel == User::USER_TYPE_PROJECT_ADMIN)||($isProjectAccessLevel == User::USER_TYPE_SUPER_ADMIN)){
+            $removeUserId=$this->getUser()->getAttribute($loggedUserObject)->getId();        
+        }
+        else if($isProjectAccessLevel == User::USER_TYPE_PROJECT_MEMBER){
+            $removeUserId=$this->project->getUserId();
         }
         $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));        
-       $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
+        $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
         $this->projectAccessLevel = $this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
         if($this->projectAccessLevel != User::USER_TYPE_UNSPECIFIED){        
                if ($request->isMethod('post') && ($request->getParameter("saveButton") == __("Save"))) {
@@ -44,8 +48,7 @@ class viewProjectDetailsAction extends sfAction {
             
            
             $this->userId = $this->getUser()->getAttribute($loggedUserObject)->getId();
-            $this->userName = $this->projectLogService->getUserName($this->userId);
-            $this->project = $this->projectService->getProjectById($projectId);
+            $this->userName = $this->projectLogService->getUserName($this->userId);            
             $this->projectId = $projectId;
             $this->projectForm->setDefault('projectAdmin', array('choices' => $this->project->getUserId()));
             $this->projectForm->setDefault('status', array('choices' => $this->project->getProjectStatusId()));
