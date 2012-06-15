@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var selectedProjectAdmin=null;
     $('#cancel').click(function(){  
         location.href="viewProjects";
     
@@ -60,6 +61,19 @@ $(document).ready(function(){
         $(selectedOpts).remove();
         e.preventDefault();
     });
+    $('#project_projectAdmin').change(function() {
+        if(selectedProjectAdmin!=null){
+            $('#project_projectUserAll').append($(selectedProjectAdmin).clone());            
+        }
+        selectedProjectAdmin = $('#project_projectAdmin option:selected');
+        if($(selectedProjectAdmin).val()!=0){
+            $('#project_projectUserAll option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
+            $('#project_projectUserSelected option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
+            alert(selectedProjectAdmin.val());
+        }
+    });
+
+
     
     
 });
