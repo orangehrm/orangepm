@@ -356,15 +356,20 @@ if($this->getUser()->hasCredential('superAdmin')){
                 //$projectUsers[0]='dsds';
                 $projectUserString=$request->getParameter('aaa');
                 //die($projectUserString);
-                $projectUserValues=explode(',', $projectUserString);
+                
                 //die($request->getParameter('aaa'));
-                foreach($projectUserValues as $single){
+                if($projectUserString!=''){
+                    $projectUserValues=explode(',', $projectUserString);
+                    foreach($projectUserValues as $single){
                     $projectUser=new ProjectUser();
                     $projectUser->setUserId($single);
                     $projectUser->setProjectId($projectId);
                     $projectUser->setUserType(User::USER_TYPE_PROJECT_MEMBER);
                     $projectUsersColl->add($projectUser);
                 }
+                    
+                }
+                
                $projectUser=new ProjectUser();
                $projectUser->setUserId($project->getUserId());
                $projectUser->setProjectId($projectId);
