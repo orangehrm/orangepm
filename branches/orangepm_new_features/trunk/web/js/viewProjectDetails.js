@@ -105,7 +105,9 @@ $(document).ready(function(){
         e.preventDefault();
     });
     $('#project_projectAdmin').change(function() {
-        $('#project_projectUserAll').append($(selectedProjectAdmin).clone());            
+        if($(selectedProjectAdmin).val()!=0){
+            $('#project_projectUserAll').append($(selectedProjectAdmin).clone());
+        }            
         selectedProjectAdmin = $('#project_projectAdmin option:selected');
         if($(selectedProjectAdmin).val()!=0){
             $('#project_projectUserAll option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
