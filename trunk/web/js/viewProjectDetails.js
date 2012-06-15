@@ -1,7 +1,5 @@
 $(document).ready(function(){
-    selectedProjectAdmin=$('#project_projectAdmin option:selected');
-    $('#project_projectUserAll option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
-    $('#project_projectUserSelected option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
+    var selectedProjectAdmin=$('#project_projectAdmin option:selected');
     $('#project_name').attr('disabled', true);
     $('#project_startDate').attr('disabled', true);
     $('#project_endDate').attr('disabled', true);
@@ -10,8 +8,8 @@ $(document).ready(function(){
     $('#project_description').attr('disabled', true);
     $('#project_projectUserAll').hide();
     $('label[for="project_projectUserAll"]').hide();
-    $('#btnLeft').hide();
-    $('#btnRight').hide();
+    $('#btns').hide();
+    //$('#btnRight').hide();
     $('#cancel').attr('disabled', true);
     
     $('#saveButton').click(function(event) {
@@ -26,8 +24,8 @@ $(document).ready(function(){
             $('#project_projectUserAll').show();
             $('label[for="project_projectUserAll"]').show();
             $('#project_projectUserSelected').removeAttr("disabled");
-            $('#btnLeft').show();
-            $('#btnRight').show();
+            $('#btns').show();
+            //$('#btnRight').show();
             $('#cancel').removeAttr("disabled");
             $('#saveButton').attr('value','Save') 
         }
@@ -106,7 +104,7 @@ $(document).ready(function(){
     });
     $('#project_projectAdmin').change(function() {  
         $('#project_projectUserAll').append($(selectedProjectAdmin).clone());
-        $('#project_projectUserAll option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
-        $('#project_projectUserSelected option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
+        $('#project_projectUserAll option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
+        $('#project_projectUserSelected option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
     });
 });

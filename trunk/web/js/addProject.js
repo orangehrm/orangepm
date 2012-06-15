@@ -66,8 +66,8 @@ $(document).ready(function(){
             $('#project_projectUserAll').append($(selectedProjectAdmin).clone());            
         }
         selectedProjectAdmin = $('#project_projectAdmin option:selected');
-        $('#project_projectUserAll option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
-        $('#project_projectUserSelected option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
+        $('#project_projectUserAll option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
+        $('#project_projectUserSelected option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
     });
 
 

@@ -46,9 +46,11 @@ class ProjectForm extends sfForm {
         $projectService = new ProjectService();
         $userService = new UserService();
         $this->all=$userService->getAllUsersAsArray();
+//        echo '<pre>';
+//        var_dump($this->all);
+//        die();
         $this->selected=$projectService->getUsersForProjectAsArrayOnlyName($projectId);
         $this->nonSelected=array_diff($this->all, $this->selected);
-        //die($removeUserId);
         if($removeUserId!=null){
             unset($this->selected[$removeUserId]);
             unset($this->all[$removeUserId]);
@@ -109,10 +111,10 @@ class ProjectForm extends sfForm {
         
         $this->formWidgets['projectUserAll'] = new sfWidgetFormSelectMany(array('choices' => $this->nonSelected));
         $this->formValidators['projectUserAll'] = new sfValidatorChoice(array('choices' => array_keys($this->nonSelected),'required' => false));
-        $this->formWidgets['projectUserAll']->setLabel(__("Avalable Users"));
+        $this->formWidgets['projectUserAll']->setLabel(__("Avalable Members"));
         $this->formWidgets['projectUserSelected'] = new sfWidgetFormSelectMany(array('choices' => $this->selected));
         $this->formValidators['projectUserSelected'] = new sfValidatorChoice(array('choices' => array_keys($this->selected),'required' => false));
-        $this->formWidgets['projectUserSelected']->setLabel(__("Selected Users"));
+        $this->formWidgets['projectUserSelected']->setLabel(__("Selected Members"));
 
     }
     

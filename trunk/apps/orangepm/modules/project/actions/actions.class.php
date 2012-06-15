@@ -325,7 +325,7 @@ class projectActions extends sfActions {
         }
         $removeUserId=null;
         $loggedUserObject = null;
-        if($this->getUser()->hasCredential('projectAdmin')){
+        if(($this->getUser()->hasCredential('projectAdmin'))||($this->getUser()->hasCredential('superAdmin'))){
             $removeUserId=$this->getUser()->getAttribute($loggedUserObject)->getId();
         }
         $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>true,'projectid'=>null,'removeUserId'=>$removeUserId));        
