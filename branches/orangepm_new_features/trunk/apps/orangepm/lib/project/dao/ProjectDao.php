@@ -183,7 +183,7 @@ class ProjectDao {
      * @param type $statusId - the status of the required Projects
      * @param type $isActive - if true it will return only the active projects , otherwise both active and deleted
      * @param type $userType - specified user role
-     * @return type 
+     * @return ProjectUser[] 
      */
     public function getProjectUsersByUser($userId, $statusId=Project::PROJECT_STATUS_ALL_ID, $isActive=true, $userType = User::USER_TYPE_UNSPECIFIED) {
 
