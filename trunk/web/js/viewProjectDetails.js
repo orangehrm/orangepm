@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    selectedProjectAdmin=null;
     $('#project_name').attr('disabled', true);
     $('#project_startDate').attr('disabled', true);
     $('#project_endDate').attr('disabled', true);
@@ -27,6 +28,7 @@ $(document).ready(function(){
             $('#btnRight').show();
             $('#cancel').removeAttr("disabled");
             $('#saveButton').attr('value','Save') 
+            selectedProjectAdmin = $('#project_projectAdmin option:selected');
         }
     });
     
@@ -100,5 +102,16 @@ $(document).ready(function(){
         $('#project_projectUserAll').append($(selectedOpts).clone());
         $(selectedOpts).remove();
         e.preventDefault();
+    });
+    $('#project_projectAdmin').change(function() {
+        if(selectedProjectAdmin!=null){
+            $('#project_projectUserAll').append($(selectedProjectAdmin).clone());            
+        }
+        selectedProjectAdmin = $('#project_projectAdmin option:selected');
+        if($(selectedProjectAdmin).val()!=0){
+            $('#project_projectUserAll option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
+            $('#project_projectUserSelected option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
+            alert(selectedProjectAdmin.val());
+        }
     });
 });
