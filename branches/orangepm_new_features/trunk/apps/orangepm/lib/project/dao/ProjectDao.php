@@ -96,11 +96,11 @@ class ProjectDao {
      * @param $project
      * @return none
      */
-    public function updateProject($tempProject, $projectUsersColl = null) {
+    public function updateProject($tempProject, $projectUsersColl = null,$deleteProjUsers=true) {
         $project = Doctrine_Core::getTable('Project')->find($tempProject->getId());
         if ($projectUsersColl != null) {
             $project->setProjectUser($projectUsersColl);
-        } else {
+        } else if($deleteProjUsers){
             $project->getProjectUser()->delete();
         }
 
