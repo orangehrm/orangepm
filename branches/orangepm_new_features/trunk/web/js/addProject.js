@@ -40,28 +40,6 @@ $(document).ready(function(){
         changeYear: true,
         showAnim: "slideDown"
     });
-    $('#project_projectUserAll').find('option').each(function(){
-        $(this).dblclick( function (e) {
-            var selectedOpts = $('#project_projectUserAll option:selected');
-            if (selectedOpts.length == 0) {
-                e.preventDefault();
-            }        
-            $('#project_projectUserSelected').append($(selectedOpts).clone());
-            $(selectedOpts).remove();
-            e.preventDefault();
-        });
-    });
-    $('#project_projectUserSelected').find('option').each(function(){
-        $(this).dblclick( function (e) {
-            var selectedOpts = $('#project_projectUserSelected option:selected');
-            if (selectedOpts.length == 0) {
-                e.preventDefault();
-            }        
-            $('#project_projectUserAll').append($(selectedOpts).clone());
-            $(selectedOpts).remove();
-            e.preventDefault();
-        });
-    });
     $('#btnRight').click(function(e) {
         var selectedOpts = $('#project_projectUserAll option:selected');
         if (selectedOpts.length == 0) {
