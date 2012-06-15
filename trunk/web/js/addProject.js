@@ -62,7 +62,7 @@ $(document).ready(function(){
         e.preventDefault();
     });
     $('#project_projectAdmin').change(function() {
-        if(selectedProjectAdmin!=null){
+        if((selectedProjectAdmin!=null)&&($(selectedProjectAdmin).val()!=0)){
             $('#project_projectUserAll').append($(selectedProjectAdmin).clone());            
         }
         selectedProjectAdmin = $('#project_projectAdmin option:selected');
