@@ -507,7 +507,9 @@ class projectActions extends sfActions {
         $this->projectId = $request->getParameter('id');
         $projectService = new ProjectService();
         $loggedUserObject = null;
-        if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
+        $auth = new AuthenticationService();
+        $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId);
+        if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
             $this->projectName = $request->getParameter('projectName');
             $this->storyForm = new StoryForm();
             $this->storyForm->setDefault('projectId', $this->projectId);
@@ -581,8 +583,10 @@ class projectActions extends sfActions {
         $projectService = new ProjectService();
         $this->taskService = new TaskService();
         $loggedUserObject = null;
-        if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
-
+        $auth = new AuthenticationService();
+        $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId);
+        if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
+       
             $this->id = $request->getParameter('id');
             $projectDao = new ProjectDao();
             $this->projectName = $projectDao->getProjectById($this->id)->getName();
