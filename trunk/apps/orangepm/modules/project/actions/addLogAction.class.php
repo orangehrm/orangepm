@@ -23,8 +23,10 @@ class addLogAction extends sfAction {
         $loggedUserObject = null;
         $this->userId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $this->userName = $this->projectLogService->getUserName($this->userId);
-        $projectService = new ProjectService();
-        if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId)) {
+        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+        $auth = new AuthenticationService();
+        $accessLevel = $auth->projectAccessLevel($loggedUserId, $this->projectId);
+        if($accessLevel != User::USER_TYPE_UNSPECIFIED){
             $this->projectLogList = $this->projectLogService->getLogItemListByProjectId($this->projectId);
             if (count($this->projectLogList) == 0) {
                 $this->noRecordMessage = __("No Matching Log Items Found");
