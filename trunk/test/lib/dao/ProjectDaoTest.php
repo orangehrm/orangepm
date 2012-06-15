@@ -136,7 +136,15 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
          
          $result = $this->projectDao->getProjectUsersByUser(1, 3,true );
          $this->assertNull($result);
+         
+         $result = $this->projectDao->getProjectUsersByUser(null, 3,true );
+         $this->assertNull($result);
+         
+         $result = $this->projectDao->getProjectUsersByUser(null, null,null );
+         $this->assertNull($result);
         
+         $result = $this->projectDao->getProjectUsersByUser(null, null );
+         $this->assertNull($result);
     }    
     
     /**

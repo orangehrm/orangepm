@@ -66,11 +66,19 @@ class viewProjectDetailsAction extends sfAction {
         $projectDao = new ProjectDao();
         $projectSevice = new ProjectService();
         
+        $loggedUserObject = null;
+        
+
+        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+        
         $project->setId($projectId);
         $project->setName($this->projectForm->getValue('name'));
         $project->setProjectStatusId($this->projectForm->getValue('status'));
         if ($this->projectForm->getValue('projectAdmin') != 0) {
            $project->setUserId($this->projectForm->getValue('projectAdmin'));
+        }else
+        {
+            $project->setUserId($loggedUserId);
         }
         $project->setDescription($this->projectForm->getValue('description'));
         $project->setStartDate($this->projectForm->getValue('startDate'));
@@ -78,6 +86,16 @@ class viewProjectDetailsAction extends sfAction {
             $project->setEndDate($this->projectForm->getValue('endDate'));
         }
         $projectUsersColl=new Doctrine_Collection('ProjectUser');
+        
+        //Addding Project Admin into the ProjectUserTable
+               $projectUser=new ProjectUser();
+               $projectUser->setUserId($project->getUserId());
+               $projectUser->setProjectId($projectId);
+               $projectUser->setUserType(User::USER_TYPE_PROJECT_ADMIN);
+               $projectUsersColl->add($projectUser);
+        
+        
+        
         //die($projectUserString);
         if($projectUserString!=''){
             $projectUserValues=explode(',', $projectUserString);
@@ -90,12 +108,15 @@ class viewProjectDetailsAction extends sfAction {
                 $projectUsersColl->add($projectUser);
 
             }
-                            
+               
+            
+            
+            
                 $projectSevice->updateProject($project,$projectUsersColl);
                 
             }
             else{
-                $projectSevice->updateProject($project);
+                $projectSevice->updateProject($project,$projectUsersColl);
             }
             
         } else {die;}

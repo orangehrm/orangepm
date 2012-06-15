@@ -364,12 +364,12 @@ if($this->getUser()->hasCredential('superAdmin')){
                 if($projectUserString!=''){
                     $projectUserValues=explode(',', $projectUserString);
                     foreach($projectUserValues as $single){
-                    $projectUser=new ProjectUser();
-                    $projectUser->setUserId($single);
-                    $projectUser->setProjectId($projectId);
-                    $projectUser->setUserType(User::USER_TYPE_PROJECT_MEMBER);
-                    $projectUsersColl->add($projectUser);
-                }
+                        $projectUser=new ProjectUser();
+                        $projectUser->setUserId($single);
+                        $projectUser->setProjectId($projectId);
+                        $projectUser->setUserType(User::USER_TYPE_PROJECT_MEMBER);
+                        $projectUsersColl->add($projectUser);
+                    }
                     
                 }
                 
@@ -442,6 +442,9 @@ if($this->getUser()->hasCredential('superAdmin')){
             if ($this->getUser()->hasCredential('superAdmin')) {
                 if($request->getParameter('projectAdminId') != 0) {
                     $project->setUserId($request->getParameter('projectAdminId'));
+                }
+                else {
+                    $project->setUserId($loggedUserId);
                 }
             } else {
                 $project->setUserId($loggedUserId);
