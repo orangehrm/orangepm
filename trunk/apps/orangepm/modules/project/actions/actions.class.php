@@ -22,6 +22,7 @@ class projectActions extends sfActions {
         if ((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
             $this->redirect('project/login');
         }
+        $this->authenticationService = new AuthenticationService();$this->authenticationService = new AuthenticationService();
     }
 
     /**
@@ -322,13 +323,19 @@ class projectActions extends sfActions {
         if ($this->getUser()->hasCredential('superAdmin')) {
             $isSuperAdmin = true;
         }
-        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>true,'projectid'=>null));
+        $removeUserId=null;
+        $loggedUserObject = null;
+        if($this->getUser()->hasCredential('projectAdmin')){
+            $removeUserId=$this->getUser()->getAttribute($loggedUserObject)->getId();
+        }
+        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>true,'projectid'=>null,'removeUserId'=>$removeUserId));        
         $response = $this->getResponse();
         $response->setTitle(__('Add Project'));
         $loggedUserObject = null;
         $projectSevice = new ProjectService();
 
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+        $this->projectForm->setDefault('projectAdmin', $loggedUserId);
 
         if ($request->isMethod('post')) {
             $this->projectForm->bind($request->getParameter('project'));            

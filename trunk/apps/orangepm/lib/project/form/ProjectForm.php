@@ -28,7 +28,7 @@ class ProjectForm extends sfForm {
             $this->_setProjectAdminWidgets();
         }
         if($this->getOption('newproject')) {
-            $this->_setProjectUsersForNewProject();
+            $this->_setProjectUsersForNewProject($this->getOption('removeUserId'));
         }
         else{
             $this->_setProjectUsers($this->getOption('projectid'),$this->getOption('removeUserId'));
@@ -54,9 +54,12 @@ class ProjectForm extends sfForm {
             unset($this->all[$removeUserId]);
         }
     }
-    private function _setProjectUsersForNewProject(){
+    private function _setProjectUsersForNewProject($removeUserId){
         $userService = new UserService();
         $this->nonSelected=$userService->getAllUsersAsArray();
+        if($removeUserId!=null){
+            unset($this->nonSelected[$removeUserId]);
+        }
     }
     private function _setNameWidgets() {
         
@@ -91,9 +94,8 @@ class ProjectForm extends sfForm {
         
         $userService = new UserService();        
         $projectAdmins = $userService->getAllUsersAsArray();
-        $projectAdmins[0] = __('--Select--');
         
-        $this->formWidgets['projectAdmin'] = new sfWidgetFormSelect(array('choices' => $projectAdmins), array('label' => 'Project Admin'));
+        $this->formWidgets['projectAdmin'] = new sfWidgetFormSelect(array('choices' => $projectAdmins) ,array('label' => 'Project Admin'));
         $this->formValidators['projectAdmin'] = new sfValidatorChoice(array('choices' => array_keys($projectAdmins)));
     }
     

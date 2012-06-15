@@ -104,14 +104,9 @@ $(document).ready(function(){
         $(selectedOpts).remove();
         e.preventDefault();
     });
-    $('#project_projectAdmin').change(function() {
-        if($(selectedProjectAdmin).val()!=0){
-            $('#project_projectUserAll').append($(selectedProjectAdmin).clone());
-        }            
-        selectedProjectAdmin = $('#project_projectAdmin option:selected');
-        if($(selectedProjectAdmin).val()!=0){
-            $('#project_projectUserAll option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
-            $('#project_projectUserSelected option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
-        }
+    $('#project_projectAdmin').change(function() {  
+        $('#project_projectUserAll').append($(selectedProjectAdmin).clone());
+        $('#project_projectUserAll option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
+        $('#project_projectUserSelected option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
     });
 });
