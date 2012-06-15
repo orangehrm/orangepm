@@ -59,7 +59,6 @@ class projectActions extends sfActions {
                 
                 if ($loggedUser instanceof User) {
 
-                    echo  $loggedUser->getId() ;
                     $this->getUser()->setAttribute($loggedUserObject, $loggedUser);
 
                     $this->getUser()->setAuthenticated(true);
@@ -271,25 +270,29 @@ class projectActions extends sfActions {
         $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
 
         if ($this->statusId == null) {
-            $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
+            $this->statusId = Project::PROJECT_STATUS_ALL_ID;
         }
 
-        $this->projects = $projectSevice->getProjectsByUserAndStatus($loggedUserId, $this->statusId);
+        if($this->getUser()->hasCredential('superAdmin')){
+            if($this->selectedStatusId != "") {
+                $this->projects =  $projectSevice->getAllProjects(true, $this->selectedStatusId);
+            }
+            else{
+                $this->projects = $projectSevice->getAllProjects(true, $this->statusId);
+            }
+        }
+        else{
+            if($this->selectedStatusId != "") {
+                $this->projects = $projectSevice->getProjectsByUserIdAndStatusId($loggedUserId, $this->selectedStatusId);
+                $this->projects = $projectSevice->getProjectsByUserIdAndStatusId($loggedUserId, $this->selectedStatusId);
+                
+            }
+            else{
+                $this->projects = $projectSevice->getProjectsByUserIdAndStatusId($loggedUserId, $this->statusId);
+            }            
+        }
         
-
-        if($this->selectedStatusId != "") {
-            
-            $this->projects = $projectSevice->getProjectsByUserAndStatus($loggedUserId, $request->getParameter('selectedStatusId'));
-            
-        }
-if($this->getUser()->hasCredential('superAdmin')){
-    $this->projects = $projectSevice->getAllProjects(true, $this->statusId);
-    if($this->selectedStatusId != "") {
-            
-            $this->projects =  $projectSevice->getAllProjects(true, selectedStatusId);
-            
-        }
-}
+        
         if (count($this->projects) == 0) {
             $this->noRecordMessage = __("No Matching Projects Found");
         }

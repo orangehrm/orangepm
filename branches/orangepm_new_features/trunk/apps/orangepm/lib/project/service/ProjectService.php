@@ -472,13 +472,16 @@ class ProjectService {
      * @param type $statusId
      * @return array 
      */
-    public function getProjectsByUserAndStatus($userId, $statusId) {
+    public function getProjectsByUserIdAndStatusId($userId, $statusId) {
         $projectUser = $this->projectDao->getProjectUsersByUser($userId, $statusId, true);
-        $projects=array();
-        foreach($projectUser as $value) {
-            array_push($projects,  $value->getProject());
-        }
-        return $projects; 
+        if($projectUser!=NULL){
+            $projects=array();
+            foreach($projectUser as $value) {
+                array_push($projects,  $value->getProject());
+            }
+            return $projects; 
+        }        
+        return NULL;
     }
 
 
@@ -534,8 +537,10 @@ class ProjectService {
     public function getUsersForProjectAsArray($projectId) {
         $projectUser= $this->projectDao->getProjectUsersByProjectId($projectId);
         $includedUsers=array();
-        foreach($projectUser as $value) {
-            array_push($includedUsers,  $value->getUser());
+        if($projectUser!=NULL){
+            foreach($projectUser as $value) {
+                array_push($includedUsers,  $value->getUser());
+            }
         }
         return $includedUsers; 
     }

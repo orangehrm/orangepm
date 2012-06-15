@@ -194,7 +194,7 @@ class ProjectDao {
 
         $query->addWhere('pu.userId = ?', $userId);
 
-        if ($statusId != null) {
+        if ($statusId != Project::PROJECT_STATUS_ALL_ID) {
             $query->addWhere('p.projectStatusId = ?', $statusId);
         }
 

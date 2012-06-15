@@ -136,5 +136,26 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
 
           $this->assertNull($this->projectService->getProjectUserType(55,6));
     }
+    
+    /**
+     * 
+     * @author guru 
+     */
+    public function testGetProjectsByUserIdAndStatusId() {
+        $projectUserList = TestDataService::loadObjectList('ProjectUser', $this->fixture, 'SetProjectUser');
 
+        $projectDao = $this->getMock('ProjectDao');
+        $projectDao->expects($this->once())
+            ->method('getProjectUsersByUser')
+            ->with(1)
+            ->will($this->returnValue($projectUserList));
+
+          $this->projectService->setProjectDao($projectDao);
+          $result = $this->projectService->getProjectsByUserIdAndStatusId(1,  Project::PROJECT_STATUS_ALL_ID);
+          $this->assertEquals(4,  count($result));
+          foreach ($result as $project){
+              $this->assertTrue($project instanceof Project);
+          }
+            
+    }
 }
