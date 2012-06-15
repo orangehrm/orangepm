@@ -270,7 +270,7 @@ class projectActions extends sfActions {
         $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
 
         if ($this->statusId == null) {
-            $this->statusId = Project::PROJECT_STATUS_ALL_ID;
+            $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
         }
 
         if($this->getUser()->hasCredential('superAdmin')){
