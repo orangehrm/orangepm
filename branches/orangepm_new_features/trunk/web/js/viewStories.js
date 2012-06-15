@@ -75,8 +75,13 @@ $(document).ready(function() {
             $(this).parent().children('td.changedDate').addClass('ajaxDate');
             $(this).parent().children('td.changedDate').html('<input id="editboxDate" size="9" type="text" value="'+$(this).parent().children('td.changedDate').text()+'">');
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
-            $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
-            
+            if(isAllowToEditEffort == 0){
+                $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="hidden" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
+//                $(this).parent().children('td.changedEstimation').html('<label value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
+            }
+            else{
+                $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
+            }
 
             $(this).parent().children('td.changedAcceptedDate').addClass('ajaxAcceptedDate');
             $(this).parent().children('td.changedAcceptedDate').html('<input id="editboxAcceptedDate" size="9" type="text" value="'+$(this).parent().children('td.changedAcceptedDate').text()+ '">');
@@ -145,7 +150,7 @@ $(document).ready(function() {
 
                                                 $('.ajaxAcceptedDate').html($('.ajaxAcceptedDate input').val());
                                                 $('.ajaxStatus').html($('.ajaxStatus select').val());
-                                                $('.ajaxStatus').removeClass('ajaxStatus');
+                                                $('.ajaxStatus').removeClass('ajaxStatus');                                                
                                                 if((projectViewUrl != null) && (statusChanged)) {
                                                     window.location.reload();
                                                 }
