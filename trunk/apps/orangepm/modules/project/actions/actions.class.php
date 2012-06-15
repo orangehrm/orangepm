@@ -342,6 +342,9 @@ if($this->getUser()->hasCredential('superAdmin')){
                 if ($isSuperAdmin) {
                     if($this->projectForm->getValue('projectAdmin') != 0) {
                         $project->setUserId($this->projectForm->getValue('projectAdmin'));
+                    }else
+                    {
+                      $project->setUserId($loggedUserId);
                     }
                 } else {
                     $project->setUserId($loggedUserId);
