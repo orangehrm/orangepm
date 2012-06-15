@@ -22,7 +22,14 @@
                     <div><span>:</span> <?php echo $userForm['firstName']->renderLabel() ?><?php echo $userForm['firstName']->render() ?><?php echo $userForm['firstName']->renderError() ?></div>
                     <div><span>:</span> <?php echo $userForm['lastName']->renderLabel() ?><?php echo $userForm['lastName']->render() ?><?php echo $userForm['lastName']->renderError() ?></div>
                     <div><span>:</span> <?php echo $userForm['email']->renderLabel() ?><?php echo $userForm['email']->render() ?><?php echo $userForm['email']->renderError() ?><br class="clear" /></div>
-                    <div><?php echo $userForm['userType']->renderLabel() ?><input type="hidden" id ="user_userType" name="user[userType]" value ="<?php echo $loggedUser->getUserType(); ?>"><label class="projectAdmin"><?php echo ': '.__('Project Admin'); ?></label></div>
+                    <div><?php echo $userForm['userType']->renderLabel() ?><input type="hidden" id ="user_userType" name="user[userType]" value ="<?php echo $loggedUser->getUserType(); ?>"><label class="projectAdmin"><?php 
+                        if($loggedUser->getUserType()== 1)
+                            echo ':'.' Super Admin';
+                        elseif($loggedUser->getUserType() == 2)
+                            echo ':'.' Project Admin';
+                        elseif($loggedUser->getUserType() == 3)
+                            echo ':'.' Project Member';
+                    ?></label></div>
                     <div><?php echo $userForm['username']->renderLabel() ?><input type="hidden" id ="user_username" name="user[username]" value ="<?php echo $loggedUser->getUsername(); ?>"><label class="username"><?php echo ': '.$loggedUser->getUsername(); ?></label></div>
                     <div><span>:</span> <?php echo $userForm['password']->renderLabel() ?><?php echo $userForm['password']->render() ?><?php echo $userForm['password']->renderError() ?><br class="clear" /></div>
                     <div>
