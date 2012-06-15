@@ -69,7 +69,6 @@ $(document).ready(function(){
         if($(selectedProjectAdmin).val()!=0){
             $('#project_projectUserAll option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
             $('#project_projectUserSelected option[value*="'+ $(selectedProjectAdmin).val() +'"]').remove();
-            alert(selectedProjectAdmin.val());
         }
     });
 
