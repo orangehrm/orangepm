@@ -15,8 +15,10 @@ class viewTasksAction extends sfAction {
         $this->story = $this->storyDao->getStoryById($this->storyId);
         $this->project = $this->projectService->getProjectById($this->story->getProjectId());
         $loggedUserObject = null;
-        if ($this->projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->project->getId())) {
-            $this->taskList = $this->taskService->getTaskByStoryId($this->storyId);
+        $auth = new AuthenticationService();
+        $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->story->getProjectId());
+        if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
+              $this->taskList = $this->taskService->getTaskByStoryId($this->storyId);
             if (count($this->taskList) == 0) {
                 $this->noRecordMessage = __("No Matching Tasks Found");
             }

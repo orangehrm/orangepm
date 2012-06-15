@@ -12,7 +12,10 @@ class editTaskAction extends sfAction {
         $projectService = new ProjectService();
         $projectId = $request->getParameter('projectId');
         $loggedUserObject = null;
-        if ($projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId)) {
+        $auth = new AuthenticationService();
+        
+        $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
+        if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
             $task = new Task();
             $task->setId($request->getParameter('id'));
             $task->setName($request->getParameter('name'));
