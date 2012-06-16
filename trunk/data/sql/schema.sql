@@ -11,7 +11,7 @@ ALTER TABLE orangepm_project ADD CONSTRAINT orangepm_project_user_id_orangepm_us
 ALTER TABLE orangepm_project ADD CONSTRAINT orangepm_project_project_status_id_orangepm_project_status_id FOREIGN KEY (project_status_id) REFERENCES orangepm_project_status(id) ON DELETE SET NULL;
 ALTER TABLE orangepm_project_log ADD CONSTRAINT orangepm_project_log_project_id_orangepm_project_id FOREIGN KEY (project_id) REFERENCES orangepm_project(id) ON DELETE CASCADE;
 ALTER TABLE orangepm_project_log ADD CONSTRAINT orangepm_project_log_added_by_orangepm_user_id FOREIGN KEY (added_by) REFERENCES orangepm_user(id) ON DELETE SET NULL;
-ALTER TABLE orangepm_project_user ADD CONSTRAINT orangepm_project_user_user_id_orangepm_user_id FOREIGN KEY (user_id) REFERENCES orangepm_user(id) ON DELETE CASCADE;
+ALTER TABLE orangepm_project_user ADD CONSTRAINT orangepm_project_user_user_id_orangepm_user_id FOREIGN KEY (user_id) REFERENCES orangepm_user(id);
 ALTER TABLE orangepm_project_user ADD CONSTRAINT orangepm_project_user_project_id_orangepm_project_id FOREIGN KEY (project_id) REFERENCES orangepm_project(id) ON DELETE CASCADE;
 ALTER TABLE orangepm_task ADD CONSTRAINT orangepm_task_story_id_orangepm_story_id FOREIGN KEY (story_id) REFERENCES orangepm_story(id) ON DELETE CASCADE;
 ALTER TABLE orangepm_task ADD CONSTRAINT orangepm_task_status_orangepm_task_status_id FOREIGN KEY (status) REFERENCES orangepm_task_status(id) ON DELETE SET NULL;

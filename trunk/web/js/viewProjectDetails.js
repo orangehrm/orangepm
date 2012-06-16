@@ -1,5 +1,6 @@
 $(document).ready(function(){
-    var selectedProjectAdmin=$('#project_projectAdmin option:selected');
+    var selectedProjectAdmin=$('#project_projectAdmin option:selected');    
+    $('#project_projectUserSelected option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
     $('#project_name').attr('disabled', true);
     $('#project_startDate').attr('disabled', true);
     $('#project_endDate').attr('disabled', true);
@@ -25,7 +26,7 @@ $(document).ready(function(){
             $('label[for="project_projectUserAll"]').show();
             $('#project_projectUserSelected').removeAttr("disabled");
             $('#btns').show();
-            //$('#btnRight').show();
+            $('#project_projectUserAll option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
             $('#cancel').removeAttr("disabled");
             $('#saveButton').attr('value','Save') 
         }
@@ -104,6 +105,7 @@ $(document).ready(function(){
     });
     $('#project_projectAdmin').change(function() {  
         $('#project_projectUserAll').append($(selectedProjectAdmin).clone());
+        selectedProjectAdmin=$('#project_projectAdmin option:selected');
         $('#project_projectUserAll option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
         $('#project_projectUserSelected option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
     });
