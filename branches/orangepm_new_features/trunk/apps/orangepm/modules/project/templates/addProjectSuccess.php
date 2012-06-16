@@ -42,13 +42,15 @@
                 <div><?php echo $projectForm['description']->renderLabel() ?><?php echo $projectForm['description']->render() ?></div>
                 <table>
                     <tr>
-                        <td><label for="project_projectUserAll">Assign users</label></td>
+                        <td style="vertical-align: top;padding-top: 10px"><label for="project_assigningUsers">Assign Members</label></td>
                         <td>
                             <div><?php echo $projectForm['projectUserAll']->renderLabel() ?><br/><?php echo $projectForm['projectUserAll']->render(array('class'=>'listbox')) ?></div>
                         </td>
                         <td>
+                            <div id="btns" style="padding-left: 0px;padding-right: 20px">
                             <input class="formButton" type="button" value="<?php echo __('>') ?>" id="btnRight" />                            
-                            <input class="formButton" type="button"  value="<?php echo __('<') ?>" id="btnLeft"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                          
+                            <input class="formButton" type="button"  value="<?php echo __('<') ?>" id="btnLeft"/>
+                            </div>
                         </td>
                         <td>
                             <div><?php echo $projectForm['projectUserSelected']->renderLabel() ?><br/><?php echo $projectForm['projectUserSelected']->render(array('class'=>'listbox')) ?><?php echo $projectForm['projectUserSelected']->renderError() ?></div>        
