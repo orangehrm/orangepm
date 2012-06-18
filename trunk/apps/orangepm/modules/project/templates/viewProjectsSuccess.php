@@ -76,8 +76,8 @@
                         <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
                     <?php } else if($isProjectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) { ?>
                         <td class="<?php echo "test" . $project->getUserId(); ?>" ><?php echo "Member";  ?></td>
-                        <td> </td>
-                        <td> </td>
+                        <td>NA</td>
+                        <td>NA</td>
                     <?php } else if($isProjectAccessLevel == User::USER_TYPE_SUPER_ADMIN){ ?>
                         <td class="<?php echo "show role in that project from ProjctUser" . $project->getUserId(); ?>" ><?php if($project->getUser()->getIsActive() != 0) {echo $project->getUser()->getFirstName()." ".$project->getUser()->getLastName();} ?></td>
                         <td class="<?php  echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
@@ -92,16 +92,19 @@
         <?php endif; ?>
     </table>
      <?php if($sf_user->hasCredential('superAdmin') || $sf_user->hasCredential('projectAdmin')): ?>
-    <div class="addButton">
-        
+    <div class="addButton">        
         <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
             <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
         </form>
     </div>
-    <?php endif; ?>
     <div class="searchButton">        
         <?php echo $projectSearchForm ?>
     </div>
+    <?php else: ?>
+    <div class="searchButtonOnly" >        
+        <?php echo $projectSearchForm ?>
+    </div>
+    <?php endif; ?>
 
 </div>
 
