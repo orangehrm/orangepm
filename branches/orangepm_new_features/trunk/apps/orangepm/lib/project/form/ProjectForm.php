@@ -31,7 +31,7 @@ class ProjectForm extends sfForm {
             $this->_setProjectUsersForNewProject($this->getOption('removeUserId'));
         }
         else{
-            $this->_setProjectUsers($this->getOption('projectid'),$this->getOption('removeUserId'),$this->getOption('removeUserId2'));
+            $this->_setProjectUsers($this->getOption('projectid'),$this->getOption('removeUserId'));
         }
         $this->_setDescriptionWidgets();
         $this->_setProjectUserWidgets();
@@ -42,23 +42,17 @@ class ProjectForm extends sfForm {
         
         
     }
-    private function _setProjectUsers($projectId,$removeUserId,$removeUserId2){
+    private function _setProjectUsers($projectId,$removeUserId){
+        //die($removeUserId);
         $projectService = new ProjectService();
         $userService = new UserService();
         $this->all=$userService->getAllUsersAsArray();
-//        echo '<pre>';
-//        var_dump($this->all);
-//        die();
         $this->selected=$projectService->getUsersForProjectAsArrayOnlyName($projectId);
-        $this->nonSelected=array_diff($this->all, $this->selected);
         if($removeUserId!=null){
             unset($this->selected[$removeUserId]);
             unset($this->all[$removeUserId]);
         }
-        if($removeUserId2!=null){
-            unset($this->selected[$removeUserId2]);
-            unset($this->all[$removeUserId2]);
-        }
+        $this->nonSelected=array_diff($this->all, $this->selected);
     }
     private function _setProjectUsersForNewProject($removeUserId){
         $userService = new UserService();
