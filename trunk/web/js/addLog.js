@@ -58,7 +58,7 @@ $(document).ready(function(){
     });
     
     $('#addButton').click(function() {
-        $("table.showTable tbody").append('<tr><td id="ajaxLoggedDate"><input id="loggedDate" size="9" type="text" value=""></td><td id="ajaxUserName" value="'+userId+'" >'+userName+"</td><td><textarea id='ajaxDescription'></textarea></td>"+
+        $("table.showTable tbody").append('<tr><td id="ajaxLoggedDate"><input id="loggedDate" size="9" type="text" value="'+getCurrentTime(true)+'"></td><td id="ajaxUserName" value="'+userId+'" >'+userName+"</td><td><textarea id='ajaxDescription'></textarea></td>"+
             '<td class="logSave" colspan="2">'+logSaveImgUrl+'</td></tr>');
         
         $("#loggedDate").datepicker(
