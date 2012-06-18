@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var selectedProjectAdmin=$('#project_projectAdmin option:selected');
+    var selectedProjectAdmin=null;
     $('#cancel').click(function(){  
         location.href="viewProjects";
     
@@ -62,9 +62,15 @@ $(document).ready(function(){
         e.preventDefault();
     });
     $('#project_projectAdmin').change(function() {
-        $('#project_projectUserAll').append($(selectedProjectAdmin).clone());            
+        if(selectedProjectAdmin!=null){
+            $('#project_projectUserAll').append($(selectedProjectAdmin).clone());            
+        }
         selectedProjectAdmin = $('#project_projectAdmin option:selected');
         $('#project_projectUserAll option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
         $('#project_projectUserSelected option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
     });
+
+
+    
+    
 });

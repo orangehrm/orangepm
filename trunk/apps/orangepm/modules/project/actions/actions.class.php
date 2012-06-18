@@ -479,12 +479,16 @@ class projectActions extends sfActions {
             'id' => $request->getParameter('id'),
             'status' => $request->getParameter('status')
         );
-        if ($request->getParameter('estimation') == '')
-            $inputParameters['estimated effort'] = null;
-        else
-            $inputParameters['estimated effort'] = $request->getParameter('estimation');
-
-
+        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+        $projectId = $dao->getProjectIdByStoryId($request->getParameter('id'));
+        $auth = new AuthenticationService();
+        $accessLevel = $auth->projectAccessLevel($loggedUserId, $projectId);
+        if(($accessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($accessLevel == User::USER_TYPE_SUPER_ADMIN) ){
+            if ($request->getParameter('estimation') == '')
+                $inputParameters['estimated effort'] = null;
+            else
+                $inputParameters['estimated effort'] = $request->getParameter('estimation');
+        }
         if ($request->getParameter('acceptedDate') == '')
             $inputParameters['accepted date'] = null;
         else

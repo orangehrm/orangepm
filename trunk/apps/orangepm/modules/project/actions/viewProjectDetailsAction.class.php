@@ -39,7 +39,7 @@ class viewProjectDetailsAction extends sfAction {
         if($this->projectAccessLevel != User::USER_TYPE_UNSPECIFIED){        
                if ($request->isMethod('post') && ($request->getParameter("saveButton") == __("Save"))) {
                 $this->projectForm->bind($request->getParameter($this->projectForm->getName()));
-                if($this->projectForm->isValid()){                    
+                if($this->projectForm->isValid()){
                     $this->updateProject($projectId,$projectUserString);
                      
                     $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));
