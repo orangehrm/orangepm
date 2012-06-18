@@ -128,7 +128,12 @@ class StoryDao {
      */
     public function getProjectIdByStoryId($storyId) {
         $story = Doctrine_Core::getTable('Story')->find($storyId);
-        return $story->getProjectId();
+        if($story!=NULL){
+            return $story->getProjectId();
+        }
+        else{
+            return NULL;
+        }
     }
     
     /**
@@ -137,7 +142,10 @@ class StoryDao {
      */
     public function getEstimationEffortByStoryId($storyId){
         $story = Doctrine_Core::getTable('Story')->find($storyId);
-        return $story->getEstimation();
+        if($story != NULL)
+            return $story->getEstimation();
+        else 
+            return NULL;
     }
 
 }

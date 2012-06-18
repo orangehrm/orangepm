@@ -10,13 +10,17 @@
  * @author orangehrm
  */
 require_once 'PHPUnit/Framework.php';
+require_once  sfConfig::get('sf_test_dir') . '/util/TestDataService.php';
 
 class StoryDaoTest extends PHPUnit_Framework_TestCase {
     //put your code here
+    
+    protected $storyDao;
+    
     public function setup() {
-
-        $this->deleteData();
-        $this->insertData();
+        TestDataService::truncateTables(array('User','Project','Story','ProjectLog','ProjectUser'));
+        TestDataService::populate(sfConfig::get('sf_test_dir') . '/fixtures/ProjectDao.yml');
+        $this->storyDao = new StoryDao();
     }
     public function insertData() {
         $story = new Story();
@@ -73,7 +77,29 @@ class StoryDaoTest extends PHPUnit_Framework_TestCase {
 
 
    }
-
-
+   /**
+    * @author guru
+    */
+   public function testGetProjectIdByStoryId() {
+       $this->assertEquals(6 ,  $this->storyDao->getProjectIdByStoryId(12));
+   }
+   /**
+    *@author guru 
+    */
+   public function testGetProjectIdByStoryIdNonId() {
+       $this->assertEquals(NULL ,  $this->storyDao->getProjectIdByStoryId(15));
+   }
+   /**
+    * @author guru 
+    */
+   public function testGetEstimationEffortByStoryId() {
+       $this->assertEquals(5 ,  $this->storyDao->getEstimationEffortByStoryId(12));
+   }
+   /**
+    * @author guru 
+    */
+   public function testGetEstimationEffortByStoryIdNonId() {
+       $this->assertEquals(NULL ,  $this->storyDao->getEstimationEffortByStoryId(15));
+   }
 }
 ?>
