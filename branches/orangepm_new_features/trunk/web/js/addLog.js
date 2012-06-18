@@ -71,7 +71,7 @@ $(document).ready(function(){
             data: "projectId="+projectId+"&projectName="+projectName+"&loggedDate="+getCurrentTime(false)+"&addedBy="+addedBy+"&description="+description,
             success: function(){
                 window.location.href = addLinkUrl+"/projectId/"+projectId+"/projectName/"+projectName;
-            },
+            }
         });
     });
     
