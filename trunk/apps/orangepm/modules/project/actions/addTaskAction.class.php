@@ -17,7 +17,7 @@ class addTaskAction extends sfAction {
         $loggedUserObject = null;
         $auth = new AuthenticationService();
         $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->story->getProjectId());
-        if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
+        if ( $projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
             $this->taskForm = new TaskForm();
             $this->taskList = $this->taskService->getTaskByStoryId($this->storyId);
             if ($request->isMethod('post')) {
