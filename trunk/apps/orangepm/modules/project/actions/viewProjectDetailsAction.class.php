@@ -15,8 +15,7 @@ class viewProjectDetailsAction extends sfAction {
    
     }
     
-    public function execute($request) {
-        
+    public function execute($request) {     
         $isSuperAdmin = false;
         if ($this->getUser()->hasCredential('superAdmin')) {
             $isSuperAdmin = true;
@@ -24,21 +23,10 @@ class viewProjectDetailsAction extends sfAction {
         $projectId = $request->getParameter('projectId');
         $this->project = $this->projectService->getProjectById($projectId);
         $projectUserString=$request->getParameter('aaa');
-        $removeUserId=null;
-        $removeUserId2=null;
+        $removeUserId=$this->project->getUserId();
         $loggedUserObject = null;
         $isProjectAccessLevel=$this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
-        if(($isProjectAccessLevel == User::USER_TYPE_PROJECT_ADMIN)||($isProjectAccessLevel == User::USER_TYPE_SUPER_ADMIN)){
-            $removeUserId=$this->getUser()->getAttribute($loggedUserObject)->getId();
-            $removeUserId2=$this->project->getUserId();
-            if($removeUserId==$removeUserId2){
-                $removeUserId2=null;
-            }
-        }
-        else if($isProjectAccessLevel == User::USER_TYPE_PROJECT_MEMBER){
-            $removeUserId=$this->project->getUserId();
-        }
-        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId,'removeUserId2'=>$removeUserId2));        
+        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));        
         $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
         $this->projectAccessLevel = $this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
         if($this->projectAccessLevel != User::USER_TYPE_UNSPECIFIED){        
@@ -46,12 +34,11 @@ class viewProjectDetailsAction extends sfAction {
                 $this->projectForm->bind($request->getParameter($this->projectForm->getName()));
                 if($this->projectForm->isValid()){
                     $this->updateProject($projectId,$projectUserString);
-                     
-                    $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId,'removeUserId2'=>$removeUserId2));
+                    $this->updatedProject= $this->projectService->getProjectById($projectId);
+                    $removeUserId=$this->updatedProject->getUserId();
+                    $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));
                 }
-            } 
-            
-           
+            }                        
             $this->userId = $this->getUser()->getAttribute($loggedUserObject)->getId();
             $this->userName = $this->projectLogService->getUserName($this->userId);            
             $this->projectId = $projectId;
@@ -101,20 +88,13 @@ class viewProjectDetailsAction extends sfAction {
             $project->setEndDate($this->projectForm->getValue('endDate'));
         }
         $projectUsersColl=new Doctrine_Collection('ProjectUser');
-        
-        //Addding Project Admin into the ProjectUserTable
                $projectUser=new ProjectUser();
                $projectUser->setUserId($project->getUserId());
                $projectUser->setProjectId($projectId);
                $projectUser->setUserType(User::USER_TYPE_PROJECT_ADMIN);
                $projectUsersColl->add($projectUser);
-        
-        
-        
-        //die($projectUserString);
         if($projectUserString!=''){
             $projectUserValues=explode(',', $projectUserString);
-            //die($request->getParameter('aaa'));
             foreach($projectUserValues as $single){
                 $projectUser=new ProjectUser();
                 $projectUser->setUserId($single);
