@@ -24,7 +24,8 @@ class editTaskAction extends sfAction {
             $task->setDescription($request->getParameter('description'));
             $task->setOwnedBy($request->getParameter('ownedBy'));
             $this->taskService->updateTask($task);
+        }else {
+            $this->redirect("project/viewProjects");
         }
-        die;
     }
 }
