@@ -468,6 +468,7 @@ class projectActions extends sfActions {
             }
             //$project->setUserId($this->projectAdminId);
             $dao->updateProject($project,null,false);
+            die;
         } else {
             $this->redirect("project/viewProjects");
         }
