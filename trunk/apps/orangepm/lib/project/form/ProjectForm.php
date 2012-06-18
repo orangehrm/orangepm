@@ -31,7 +31,7 @@ class ProjectForm extends sfForm {
             $this->_setProjectUsersForNewProject($this->getOption('removeUserId'));
         }
         else{
-            $this->_setProjectUsers($this->getOption('projectid'),$this->getOption('removeUserId'));
+            $this->_setProjectUsers($this->getOption('projectid'),$this->getOption('removeUserId'),$this->getOption('removeUserId2'));
         }
         $this->_setDescriptionWidgets();
         $this->_setProjectUserWidgets();
@@ -42,7 +42,7 @@ class ProjectForm extends sfForm {
         
         
     }
-    private function _setProjectUsers($projectId,$removeUserId){
+    private function _setProjectUsers($projectId,$removeUserId,$removeUserId2){
         $projectService = new ProjectService();
         $userService = new UserService();
         $this->all=$userService->getAllUsersAsArray();
@@ -54,6 +54,10 @@ class ProjectForm extends sfForm {
         if($removeUserId!=null){
             unset($this->selected[$removeUserId]);
             unset($this->all[$removeUserId]);
+        }
+        if($removeUserId2!=null){
+            unset($this->selected[$removeUserId2]);
+            unset($this->all[$removeUserId2]);
         }
     }
     private function _setProjectUsersForNewProject($removeUserId){
