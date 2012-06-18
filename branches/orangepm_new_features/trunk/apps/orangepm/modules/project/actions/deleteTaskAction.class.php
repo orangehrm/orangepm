@@ -19,7 +19,9 @@ class deleteTaskAction extends sfAction {
             $taskService = new TaskService();
             $taskService->deleteTask($id);
             $this->redirect("project/viewTasks?storyId=$storyId");
+        }else {
+            $storyId = $request->getParameter('storyId');            
+            $this->redirect("project/viewTasks?storyId=$storyId");
         }
-        die;
     }
 }
