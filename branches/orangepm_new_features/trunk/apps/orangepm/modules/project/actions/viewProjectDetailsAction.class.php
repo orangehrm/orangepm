@@ -64,7 +64,9 @@ class viewProjectDetailsAction extends sfAction {
             if (count($this->projectLogList) == 0) {
                 $this->noLogsMessage = __("No Matching Log Items Found");
             }
-        } else {die;}
+        } else {
+            $this->redirect("project/viewProjects");
+        }
     }
 
     public function updateProject($projectId,$projectUserString) {
@@ -127,7 +129,9 @@ class viewProjectDetailsAction extends sfAction {
                 $projectSevice->updateProject($project,$projectUsersColl);
             }
             
-        } else {die;}
+        } else {
+            $this->redirect("project/viewProjects");
+        }
 }
         
         //$project->setProjectUser($projectUsersColl);        

@@ -319,86 +319,95 @@ class projectActions extends sfActions {
      */
     public function executeAddProject($request) {
 
-        $isSuperAdmin = false;
-        if ($this->getUser()->hasCredential('superAdmin')) {
-            $isSuperAdmin = true;
-        }
-        $removeUserId=null;
         $loggedUserObject = null;
-        if(($this->getUser()->hasCredential('projectAdmin'))||($this->getUser()->hasCredential('superAdmin'))){
-            $removeUserId=$this->getUser()->getAttribute($loggedUserObject)->getId();
-        }
-        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>true,'projectid'=>null,'removeUserId'=>$removeUserId));        
-        $response = $this->getResponse();
-        $response->setTitle(__('Add Project'));
-        $loggedUserObject = null;
-        $projectSevice = new ProjectService();
+        $auth = new AuthenticationService();
+        $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId);
+        if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN ) {
 
-        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
-        $this->projectForm->setDefault('projectAdmin', $loggedUserId);
 
-        if ($request->isMethod('post')) {
-            $this->projectForm->bind($request->getParameter('project'));            
-
-            if ($this->projectForm->isValid()) {
-                $project = new Project();
-                $project->setName($this->projectForm->getValue('name'));
-                $project->setProjectStatusId($this->projectForm->getValue('status'));
-                $project->setStartDate($this->projectForm->getValue('startDate'));
-                if($this->projectForm->getValue('endDate') != '') {
-                    $project->setEndDate($this->projectForm->getValue('endDate'));
-                }
-                $project->setDescription($this->projectForm->getValue('description'));
-                if ($isSuperAdmin) {
-                    if($this->projectForm->getValue('projectAdmin') != 0) {
-                        $project->setUserId($this->projectForm->getValue('projectAdmin'));
-                    }else
-                    {
-                      $project->setUserId($loggedUserId);
-                    }
-                } else {
-                    $project->setUserId($loggedUserId);
-                }
-                $projectSevice->saveProject($project);               
-                $projectId = $project->getId();
-                //$projectUsers=array();
-                $projectUsersColl=new Doctrine_Collection('ProjectUser');                
-                //$projectUsers=$this->projectForm->getWidget('projectUserAll');
-                //$mine=array();
-                //$mine=$projectUsers->get;
-                //$projectUsers[0]='dsds';
-                $projectUserString=$request->getParameter('aaa');
-                //die($projectUserString);
-                
-                //die($request->getParameter('aaa'));
-                if($projectUserString!=''){
-                    $projectUserValues=explode(',', $projectUserString);
-                    foreach($projectUserValues as $single){
-                        $projectUser=new ProjectUser();
-                        $projectUser->setUserId($single);
-                        $projectUser->setProjectId($projectId);
-                        $projectUser->setUserType(User::USER_TYPE_PROJECT_MEMBER);
-                        $projectUsersColl->add($projectUser);
-                    }
-                    
-                }
-                
-               $projectUser=new ProjectUser();
-               $projectUser->setUserId($project->getUserId());
-               $projectUser->setProjectId($projectId);
-               $projectUser->setUserType(User::USER_TYPE_PROJECT_ADMIN);
-               $projectUsersColl->add($projectUser);
-                //$project->setProjectUser($projectUsersColl);
-                $projectSevice->updateProject($project,$projectUsersColl);
-                $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
-                $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
-                $this->redirect("project/viewProjectDetails?projectId=$projectId");
+            $isSuperAdmin = false;
+            if ($this->getUser()->hasCredential('superAdmin')) {
+                $isSuperAdmin = true;
             }
-        }
-        if ($isSuperAdmin) {
-            $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
-        } else {
-            $this->projects = $projectSevice->getProjectsByUser($loggedUserId);
+            $removeUserId=null;
+            $loggedUserObject = null;
+            if(($this->getUser()->hasCredential('projectAdmin'))||($this->getUser()->hasCredential('superAdmin'))){
+                $removeUserId=$this->getUser()->getAttribute($loggedUserObject)->getId();
+            }
+            $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>true,'projectid'=>null,'removeUserId'=>$removeUserId));        
+            $response = $this->getResponse();
+            $response->setTitle(__('Add Project'));
+            $loggedUserObject = null;
+            $projectSevice = new ProjectService();
+
+            $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+            $this->projectForm->setDefault('projectAdmin', $loggedUserId);
+
+            if ($request->isMethod('post')) {
+                $this->projectForm->bind($request->getParameter('project'));            
+
+                if ($this->projectForm->isValid()) {
+                    $project = new Project();
+                    $project->setName($this->projectForm->getValue('name'));
+                    $project->setProjectStatusId($this->projectForm->getValue('status'));
+                    $project->setStartDate($this->projectForm->getValue('startDate'));
+                    if($this->projectForm->getValue('endDate') != '') {
+                        $project->setEndDate($this->projectForm->getValue('endDate'));
+                    }
+                    $project->setDescription($this->projectForm->getValue('description'));
+                    if ($isSuperAdmin) {
+                        if($this->projectForm->getValue('projectAdmin') != 0) {
+                            $project->setUserId($this->projectForm->getValue('projectAdmin'));
+                        }else
+                        {
+                        $project->setUserId($loggedUserId);
+                        }
+                    } else {
+                        $project->setUserId($loggedUserId);
+                    }
+                    $projectSevice->saveProject($project);               
+                    $projectId = $project->getId();
+                    //$projectUsers=array();
+                    $projectUsersColl=new Doctrine_Collection('ProjectUser');                
+                    //$projectUsers=$this->projectForm->getWidget('projectUserAll');
+                    //$mine=array();
+                    //$mine=$projectUsers->get;
+                    //$projectUsers[0]='dsds';
+                    $projectUserString=$request->getParameter('aaa');
+                    //die($projectUserString);
+
+                    //die($request->getParameter('aaa'));
+                    if($projectUserString!=''){
+                        $projectUserValues=explode(',', $projectUserString);
+                        foreach($projectUserValues as $single){
+                            $projectUser=new ProjectUser();
+                            $projectUser->setUserId($single);
+                            $projectUser->setProjectId($projectId);
+                            $projectUser->setUserType(User::USER_TYPE_PROJECT_MEMBER);
+                            $projectUsersColl->add($projectUser);
+                        }
+
+                    }
+
+                $projectUser=new ProjectUser();
+                $projectUser->setUserId($project->getUserId());
+                $projectUser->setProjectId($projectId);
+                $projectUser->setUserType(User::USER_TYPE_PROJECT_ADMIN);
+                $projectUsersColl->add($projectUser);
+                    //$project->setProjectUser($projectUsersColl);
+                    $projectSevice->updateProject($project,$projectUsersColl);
+                    $this->getUser()->setFlash('addProject', __('The Project is added successfully'));
+                    $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
+                    $this->redirect("project/viewProjectDetails?projectId=$projectId");
+                }
+            }
+            if ($isSuperAdmin) {
+                $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
+            } else {
+                $this->projects = $projectSevice->getProjectsByUser($loggedUserId);
+            }
+        }else {
+            $this->redirect("project/viewProjects");
         }
     }
 
@@ -408,7 +417,9 @@ class projectActions extends sfActions {
      * @return unknown_type
      */
     public function executeDeleteProject($request) {
+        
         $this->projectId = $request->getParameter('id');
+        $loggedUserObject= null;
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $auth = new AuthenticationService();
         $accessLevel = $auth->projectAccessLevel($loggedUserId, $this->projectId);
@@ -429,6 +440,7 @@ class projectActions extends sfActions {
      */
     public function executeEditProject($request) {
         $this->projectId = $request->getParameter('id');
+        $loggedUserObject= null;
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $auth = new AuthenticationService();
         $accessLevel = $auth->projectAccessLevel($loggedUserId, $this->projectId);
@@ -461,8 +473,9 @@ class projectActions extends sfActions {
             }
             //$project->setUserId($this->projectAdminId);
             $dao->updateProject($project,null,false);
+        } else {
+            $this->redirect("project/viewProjects");
         }
-        die;
     }
 
     /**
