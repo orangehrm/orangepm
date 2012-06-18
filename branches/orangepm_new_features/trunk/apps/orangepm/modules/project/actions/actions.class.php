@@ -319,12 +319,7 @@ class projectActions extends sfActions {
      */
     public function executeAddProject($request) {
 
-        $loggedUserObject = null;
-        $auth = new AuthenticationService();
-        $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId);
-        if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN ) {
-
-
+         if(($this->getUser()->hasCredential('projectAdmin'))||($this->getUser()->hasCredential('superAdmin'))){
             $isSuperAdmin = false;
             if ($this->getUser()->hasCredential('superAdmin')) {
                 $isSuperAdmin = true;
