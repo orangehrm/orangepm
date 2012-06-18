@@ -489,6 +489,9 @@ class projectActions extends sfActions {
             else
                 $inputParameters['estimated effort'] = $request->getParameter('estimation');
         }
+        else{
+            $inputParameters['estimated effort'] = $dao->getEstimationEffortByStoryId($request->getParameter('id'));
+        }
         if ($request->getParameter('acceptedDate') == '')
             $inputParameters['accepted date'] = null;
         else
