@@ -17,7 +17,10 @@
     var updateLinkUrl = "<?php echo url_for('project/updateLog') ?>";
     var deleteLinkUrl = "<?php echo url_for("project/deleteLog?projectId=$projectId&projectName={$project->getName()}&from=viewDetails"); ?>";
     var viewTaskUrl = "<?php echo url_for('project/viewTasks') ?>";
-    var isAllowToEditEffort = "<?php $auth = new AuthenticationService();?>";
+    var isAllowToEditEffort = "<?php $auth = new AuthenticationService(); 
+                    $isProjectAccessLevel=$auth->projectAccessLevel($sf_user->getAttribute($loggedUserObject)->getId(), $projectId);
+                    if(($isProjectAccessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($isProjectAccessLevel == User::USER_TYPE_SUPER_ADMIN) ) { echo '1';}
+                    else {echo '0'; } ?>";
     function setSelected()
     {
         var list = document.getElementById('project_projectUserSelected');

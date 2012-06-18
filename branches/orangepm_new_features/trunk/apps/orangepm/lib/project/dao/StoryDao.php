@@ -121,5 +121,14 @@ class StoryDao {
 
         return Doctrine_Core::getTable('Story')->find($id);
     }
+    
+    /**
+     *
+     * @param type $storyId 
+     */
+    public function getProjectIdByStoryId($storyId) {
+        $story = Doctrine_Core::getTable('Story')->find($storyId);
+        return $story->getProjectId();
+    }
 
 }
