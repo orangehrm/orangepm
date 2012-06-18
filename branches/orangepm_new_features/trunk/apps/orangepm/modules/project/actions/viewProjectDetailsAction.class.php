@@ -25,15 +25,20 @@ class viewProjectDetailsAction extends sfAction {
         $this->project = $this->projectService->getProjectById($projectId);
         $projectUserString=$request->getParameter('aaa');
         $removeUserId=null;
+        $removeUserId2=null;
         $loggedUserObject = null;
         $isProjectAccessLevel=$this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
         if(($isProjectAccessLevel == User::USER_TYPE_PROJECT_ADMIN)||($isProjectAccessLevel == User::USER_TYPE_SUPER_ADMIN)){
-            $removeUserId=$this->getUser()->getAttribute($loggedUserObject)->getId();        
+            $removeUserId=$this->getUser()->getAttribute($loggedUserObject)->getId();
+            $removeUserId2=$this->project->getUserId();
+            if($removeUserId==$removeUserId2){
+                $removeUserId2=null;
+            }
         }
         else if($isProjectAccessLevel == User::USER_TYPE_PROJECT_MEMBER){
             $removeUserId=$this->project->getUserId();
         }
-        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));        
+        $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId,'removeUserId2'=>$removeUserId2));        
         $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
         $this->projectAccessLevel = $this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
         if($this->projectAccessLevel != User::USER_TYPE_UNSPECIFIED){        
@@ -42,7 +47,7 @@ class viewProjectDetailsAction extends sfAction {
                 if($this->projectForm->isValid()){
                     $this->updateProject($projectId,$projectUserString);
                      
-                    $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));
+                    $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId,'removeUserId2'=>$removeUserId2));
                 }
             } 
             
