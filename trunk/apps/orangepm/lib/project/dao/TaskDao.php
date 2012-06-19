@@ -127,5 +127,15 @@ class TaskDao {
         } catch (Exception $e) {
             throw new DaoException($e->getMessage(), $e->getCode(), $e);
         }
-    } 
+    }
+    
+    public function getMaxEndingDateOfTasks($storyId){
+        $query = Doctrine_Query::create()
+                        ->select('MAX(t.estimatedEndDate) as max_date')
+                        ->from('Task t')
+                        ->where('t.storyId = ?', $storyId);
+        $allCols = $query->fetchOne();
+        return $allCols['max_date'];
+    }
+    
 }
