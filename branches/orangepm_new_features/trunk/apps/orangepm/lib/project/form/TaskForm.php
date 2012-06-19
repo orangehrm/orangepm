@@ -16,6 +16,7 @@ class TaskForm extends sfForm {
     public function configure() {
         $this->_setNameWidgets();
         $this->_setEffortWidgets();
+        $this->_setEstimatedEndDate();
         $this->_setStatusWidgets();
         $this->_setOwnedByWidgets();
         $this->_setDescriptionWidgets();
@@ -38,6 +39,12 @@ class TaskForm extends sfForm {
         $this->formWidgets['effort']->setLabel(__("Estimated Effort"));
     }
     
+    private function _setEstimatedEndDate() {
+        $this->formWidgets['estimatedEndDate'] = new sfWidgetFormInputText(array(), array());
+        $this->formValidators['estimatedEndDate'] = new sfValidatorString(array('required' => false), array('required' => __('Estimated End Date')));
+    }
+
+
     private function _setStatusWidgets() {
         
         $taskService = new TaskService();

@@ -28,6 +28,7 @@
                 <th><?php echo __('Effort');?></th>
                 <th><?php echo __('Tasks Total');?></th>
                 <th><?php echo __('Date Added') ?></th>
+                <th><?php echo __('Estimated End Date') ?></th>
                 <th><?php echo 'Status' ?></th>
                 <th><?php echo 'Accepted Date' ?></th>
                 <th colspan="2"><?php echo __('Actions') ?></th>
@@ -40,6 +41,7 @@
                     <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
                     <td class="<?php echo "changedTasksTotal taskTotal " . $story->getId(); ?>"> <?php echo $taskService->getTaskTotalEffortByStoryId($story->getId()) ?></td>
                     <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
+                    <td class="<?php echo "estimatedEndDate EndDate " . $story->getId(); ?>"> <?php echo $story->getEstimatedEndDate(); ?></td>
                     <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $status ?></td>
                     <td class="<?php echo "changedAcceptedDate acceptedDate " . $story->getId(); ?>"> <?php echo $story->getAcceptedDate(); ?></td>
                     <td class="<?php echo "edit edit " . $story->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn') ?></td>

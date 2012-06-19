@@ -21,6 +21,7 @@
             <form id="addTaskForm" action="<?php echo url_for("project/addTask?storyId={$story->getId()}"); ?>" method="post">
                 <div><?php echo $taskForm['name']->renderLabel() ?><?php echo $taskForm['name']->render() ?><?php echo $taskForm['name']->renderError() ?><br class="clear"/></div>
                 <div><?php echo $taskForm['effort']->renderLabel() ?><?php echo $taskForm['effort']->render() ?><?php echo $taskForm['effort']->renderError() ?><br class="clear"/></div>
+                <div><?php echo $taskForm['estimatedEndDate']->renderLabel() ?><?php echo $taskForm['estimatedEndDate']->render() ?><?php echo $taskForm['estimatedEndDate']->renderError() ?><br class="clear"/></div>
                 <div><?php echo $taskForm['status']->renderLabel() ?><?php echo $taskForm['status']->render() ?><?php echo $taskForm['status']->renderError() ?></div>
                 <div><?php echo $taskForm['ownedBy']->renderLabel() ?><?php echo $taskForm['ownedBy']->render() ?><?php echo $taskForm['ownedBy']->renderError() ?></div>
                 <div><?php echo $taskForm['description']->renderLabel() ?><?php echo $taskForm['description']->render() ?></div>

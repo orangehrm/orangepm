@@ -23,4 +23,12 @@ $(document).ready(function(){
         }
         
     });
+    
+    $("#task_estimatedEndDate").datepicker(
+    {
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true,
+        showAnim: "slideDown"
+    });
 });
