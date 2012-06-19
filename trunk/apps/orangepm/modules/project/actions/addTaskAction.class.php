@@ -24,7 +24,6 @@ class addTaskAction extends sfAction {
                 $this->taskForm->bind($request->getParameter('task'));
                 if ($this->taskForm->isValid()) {
                     $this->saveTask();
-                    echo $this->taskForm->getValue('status');
                     $this->redirect("project/viewTasks?storyId={$this->storyId}");
                 }
             }
@@ -37,6 +36,7 @@ class addTaskAction extends sfAction {
         $task = new Task();
         $task->setName($this->taskForm->getValue('name'));
         $task->setEffort($this->taskForm->getValue('effort') ? $this->taskForm->getValue('effort') : null);
+        $task->setEstimatedEndDate($this->taskForm->getValue('estimatedEndDate'));
         $task->setStatus($this->taskForm->getValue('status'));
         $task->setOwnedBy($this->taskForm->getValue('ownedBy'));
         $task->setDescription($this->taskForm->getValue('description'));
