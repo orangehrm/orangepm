@@ -336,8 +336,6 @@ class projectActions extends sfActions {
             $projectSevice = new ProjectService();
 
             $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
-            $this->projectForm->setDefault('projectAdmin', $loggedUserId);
-
             if ($request->isMethod('post')) {
                 $this->projectForm->bind($request->getParameter('project'));            
 
@@ -395,6 +393,9 @@ class projectActions extends sfActions {
                     $this->getUser()->setFlash('statusId', $this->projectForm->getValue('status'));
                     $this->redirect("project/viewProjectDetails?projectId=$projectId");
                 }
+            }
+            else{
+                $this->projectForm->setDefault('projectAdmin', $loggedUserId);
             }
             if ($isSuperAdmin) {
                 $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
