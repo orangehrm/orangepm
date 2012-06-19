@@ -23,7 +23,7 @@ class TaskServiceTest extends PHPUnit_Framework_TestCase {
         $task->setOwnedBy("Dasun");
         $task->setStatus(1);
         $taskDao = $this->getMock('TaskDao');
-        $taskDao->expects($this->once())
+        $taskDao->expects($this->any())
             ->method('saveTask')
             ->with($task);
         $this->taskService->setTaskDao($taskDao);
