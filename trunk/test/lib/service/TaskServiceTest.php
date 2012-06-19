@@ -126,46 +126,4 @@ class TaskServiceTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($this->taskService->deleteTask($taskList[0]));
     }
     
-    
-    public function testSaveTaskWithNullStoryEnd(){   
-        
-//        
-//         TestDataService::truncateTables(array('User','Project','Story','TaskStatus','Task'));
-//        TestDataService::populate(sfConfig::get('sf_test_dir') . '/fixtures/Task.yml');
-//        TestDataService::truncateTables(array('Task'));
-//        
-//        
-//        $taskList = TestDataService::loadObjectList('Task', $this->fixture, 'Task');
-//        $taskDao = $this->getMock('TaskDao');
-//        $taskDao->expects($this->any())
-//            ->method('saveTask')
-//            ->with($this->onConsecutiveCalls($taskList[0] ,$taskList[1]);
-//            
-        
-        
-        
-        
-//        TestDataService::truncateTables(array('User','Project','Story','TaskStatus','Task'));
-//        TestDataService::populate(sfConfig::get('sf_test_dir') . '/fixtures/Task.yml');
-        
-        $task = new Task();
-        $task->setName("Test name");
-        $task->setStoryId(5);
-        $task->setEffort(10);
-        $task->setDescription("Test description");
-        $task->setEstimatedEndDate('2011-01-10');
-        $task->setOwnedBy("Dasun");
-        $task->setStatus(1);
-        
-        $taskDao = $this->getMock('TaskDao');
-        $taskDao->expects($this->any())
-            ->method('saveTask')
-            ->with($task);
-        $this->taskService->setTaskDao($taskDao);
-        
-       $this->taskService->saveTask($task) ;
-        
-        
-        
-    }
 }
