@@ -18,7 +18,7 @@ class addTaskAction extends sfAction {
         $auth = new AuthenticationService();
         $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->story->getProjectId());
         if ( $projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
-            $this->taskForm = new TaskForm();
+            $this->taskForm = new TaskForm();            
             $this->taskList = $this->taskService->getTaskByStoryId($this->storyId);
             if ($request->isMethod('post')) {
                 $this->taskForm->bind($request->getParameter('task'));
@@ -26,6 +26,9 @@ class addTaskAction extends sfAction {
                     $this->saveTask();
                     $this->redirect("project/viewTasks?storyId={$this->storyId}");
                 }
+            }
+            else{
+                $this->taskForm->setDefault('estimatedEndDate', date("Y-m-d"));
             }
         } else {
             $this->redirect("project/viewProjects");
