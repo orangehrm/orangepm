@@ -86,10 +86,15 @@ class StoryDao {
      public function getStory($storyId){
 
         return Doctrine_Core::getTable('Story')->find($storyId);
-
+    }
+    
+    
+    public function getTasks($storyId){
+        $stroy=Doctrine_Core::getTable('Story')->find($storyId);
+        return $story->getTask();
     }
 
-   /**
+    /**
     * Get stories for project progress
     * @param $active, $projectId,$sortBy
     * @return relevent Doctrine object
@@ -146,6 +151,18 @@ class StoryDao {
             return $story->getEstimation();
         else 
             return NULL;
+    }
+    
+    /*
+     * @author Eranga
+     * Setting estimated end date for story depending on the new task added
+     */
+    public function updateEstimatedEndDate($storyId,$date){
+        $story=Doctrine_Core::getTable('Story')->find($storyId);
+        if($story instanceof Story){
+            $story->setEstimatedEndDate($date);
+            $story->save();            
+        }
     }
 
 }
