@@ -22,7 +22,7 @@
     <div id="mainErrorDiv"></div>
     <div class="StoryShowForm">
         <table class="tableContent">
-            <tr><td class="pageNav" colspan="8"><?php echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
+            <tr><td class="pageNav" colspan="9"><?php echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
             <tr>
                 <th><?php echo __('Story Name') ?></th>
                 <th><?php echo __('Effort');?></th>
