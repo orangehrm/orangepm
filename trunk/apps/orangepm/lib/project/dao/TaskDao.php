@@ -65,10 +65,7 @@ class TaskDao {
             } else {
                 $query->set('t.effort', '?', $task->getEffort());
             }
-            if($task->getEstimatedEndDate() == NULL){
-                $query->set('t.estimatedEndDate', $task->getEstimatedEndDate());
-            }
-            else{
+            if($task->getEstimatedEndDate() != NULL){
                 $query->set('t.estimatedEndDate', '?', $task->getEstimatedEndDate());
             }
             $query->set('t.description', '?', $task->getDescription());
