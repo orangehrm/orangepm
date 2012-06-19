@@ -91,6 +91,7 @@ Story:
     estimation: { type: integer, notnull: false }
     name: string(255)
     date_added: date
+    estimated_end_date: date
     status: string(255)
     accepted_date: { type: date, notnull: false }
     deleted_date: {type: date }
@@ -224,6 +225,7 @@ Task:
       type: string(255)
     status:
       type: integer
+    estimated_end_date: date
   relations:
     Story:
       onDelete: CASCADE
