@@ -48,8 +48,10 @@ class ProjectForm extends sfForm {
         $userService = new UserService();
         $this->all=$userService->getAllUsersAsArray();
         $this->selected=$projectService->getUsersForProjectAsArrayOnlyName($projectId);
+        $projectAdmin = $projectService->getProjectById($projectId)->getUserId();
+        
         if($removeUserId!=null){
-            unset($this->selected[$removeUserId]);
+            unset($this->selected[$projectAdmin]);
             unset($this->all[$removeUserId]);
         }
         $this->nonSelected=array_diff($this->all, $this->selected);

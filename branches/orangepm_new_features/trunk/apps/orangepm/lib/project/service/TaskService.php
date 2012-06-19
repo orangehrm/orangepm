@@ -6,9 +6,31 @@
 class TaskService {
     
     private $taskDao = null;
+    private $projectDao = null;
+    private $storyDao = null;
     
     public function __construct() {
         $this->taskDao = new TaskDao();
+        $this->projectDao = new ProjectDao();
+        $this->storyDao = new StoryDao();
+    }
+    
+    
+    /**
+     * Set project dao
+     * @param ProjectDao $projectDao
+     * @return null
+     */
+    public function setProjectDao(ProjectDao $projectDao) {
+        $this->projectDao = $projectDao;
+    }
+    
+    /**
+     * Get project dao
+     * @return ProjectDao
+     */
+    public function getProjectDao() {
+        return $this->projectDao;
     }
     
     /**
@@ -33,6 +55,19 @@ class TaskService {
      */
     public function saveTask(Task $task) {
         $this->taskDao->saveTask($task);
+        $taskEndDate = $task->getEstimatedEndDate();
+        $storyEndDate = $task->getStory()->getEstimatedEndDate();
+        $newEndDate = $taskEndDate;
+        if($taskEndDate != null){
+            
+            if($storyEndDate != null){
+                if($taskEndDate < $storyEndDate){
+                    $newEndDate = $storyEndDate;
+                }
+            }
+            $this->storyDao->updateEstimatedEndDate($task->getStoryId(), $newEndDate);
+        }
+       
     }
     
     /**
