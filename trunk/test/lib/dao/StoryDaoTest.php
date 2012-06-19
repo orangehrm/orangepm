@@ -18,7 +18,7 @@ class StoryDaoTest extends PHPUnit_Framework_TestCase {
     protected $storyDao;
     
     public function setup() {
-        TestDataService::truncateTables(array('User','Project','Story','ProjectLog','ProjectUser'));
+        TestDataService::truncateTables(array('User','Project','Story','ProjectLog','ProjectUser','Task'));
         TestDataService::populate(sfConfig::get('sf_test_dir') . '/fixtures/ProjectDao.yml');
         $this->storyDao = new StoryDao();
     }
@@ -136,6 +136,37 @@ class StoryDaoTest extends PHPUnit_Framework_TestCase {
        $this->storyDao->updateEstimatedEndDate($storyId,$date);
        $story=$this->storyDao->getStory($storyId);       
        $this->assertFalse($story);
+   }
+   
+   /*
+    * @author Eranga
+    * Testing geting tasks for a particular story
+    */
+    public function testGetTasks(){
+       $storyId=1;
+       $taskSet=$this->storyDao->getTasks($storyId);
+       $this->assertTrue($taskSet[0] instanceof Task);
+       $this->assertEquals(2,$taskSet->count());   
+   }
+   
+   /*
+    * @author Eranga
+    * Testing geting tasks for a particular story when story Id is not defined
+    */
+   public function testGetTasksForUndefinedStoryId(){
+       $storyId=50;
+       $taskSet=$this->storyDao->getTasks($storyId);
+       $this->assertNull($taskSet);   
+   }
+   
+   /*
+    * @author Eranga
+    * Testing geting tasks for a particular story when tasks are not defined
+    */
+   public function testGetTasksForUndefinedTasksForStory(){
+       $storyId=2;
+       $taskSet=$this->storyDao->getTasks($storyId);
+       $this->assertNull($taskSet);   
    }
 }
 ?>

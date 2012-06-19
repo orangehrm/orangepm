@@ -53,6 +53,12 @@ ProjectUser:
   7: {id: 8, project_id: 4, user_id: 4, user_type: 2}
   8: {id: 9, project_id: 8, user_id: 3, user_type: 2}
   
+Task:
+  0: {id: 1, name: 'test name', story_id: 1, effort: 3, description: 'adding calander', owned_by: 'guru'}
+  1: {id: 2, name: 'test name', story_id: 1, effort: 4, description: 'adding calander', owned_by: 'guru'}
+  2: {id: 3, name: 'test name', story_id: 3, effort: 3, description: 'adding calander', owned_by: 'guru'}
+  3: {id: 4, name: 'test name', story_id: 3, effort: 4, description: 'adding calander', owned_by: 'guru'}
+
   
   
   
