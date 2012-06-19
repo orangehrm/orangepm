@@ -90,8 +90,20 @@ class StoryDao {
     
     
     public function getTasks($storyId){
-        $stroy=Doctrine_Core::getTable('Story')->find($storyId);
-        return $story->getTask();
+        $story=Doctrine_Core::getTable('Story')->find($storyId);
+        if($story instanceof Story){
+            $returnVal = $story->getTask();
+            if($returnVal->count()>0){
+                return $returnVal;
+            }
+            else{
+                return null;
+            }
+        }
+        else{
+            return null;
+        }
+        
     }
 
     /**
