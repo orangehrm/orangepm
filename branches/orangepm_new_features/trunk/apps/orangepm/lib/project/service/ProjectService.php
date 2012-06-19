@@ -532,18 +532,9 @@ class ProjectService {
     /*
      * get all users in project
      * @param $projectId
-     * @return included Users object array
+     * @return included Users name array
      */
-    public function getUsersForProjectAsArray($projectId) {
-        $projectUser= $this->projectDao->getProjectUsersByProjectId($projectId);
-        $includedUsers=array();
-        if($projectUser!=NULL){
-            foreach($projectUser as $value) {
-                array_push($includedUsers,  $value->getUser());
-            }
-        }
-        return $includedUsers; 
-    }
+    
     public function getUsersForProjectAsArrayOnlyName($projectId) {
         $projectUser = $this->projectDao->getProjectUsersByProjectId($projectId);
         $userArray=array();

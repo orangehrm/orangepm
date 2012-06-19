@@ -65,6 +65,12 @@ class TaskDao {
             } else {
                 $query->set('t.effort', '?', $task->getEffort());
             }
+            if($task->getEstimatedEndDate() == NULL){
+                $query->set('t.estimatedEndDate', $task->getEstimatedEndDate());
+            }
+            else{
+                $query->set('t.estimatedEndDate', '?', $task->getEstimatedEndDate());
+            }
             $query->set('t.description', '?', $task->getDescription());
             $query->set('t.ownedBy', '?', $task->getOwnedBy());
             $query->set('t.status', '?', $task->getStatus());

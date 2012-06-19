@@ -75,12 +75,9 @@ $(document).ready(function() {
             $(this).parent().children('td.changedDate').addClass('ajaxDate');
             $(this).parent().children('td.changedDate').html('<input id="editboxDate" size="9" type="text" value="'+$(this).parent().children('td.changedDate').text()+'">');
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
-            if(isAllowToEditEffort != 1){
-                $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="hidden" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
-//                $(this).parent().children('td.changedEstimation').html('<label value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
-            }
-            else{
-                $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
+            $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
+            if(isAllowToEditEffort == '0'){
+                document.getElementById('editboxEstimation').disabled = true;
             }
 
             $(this).parent().children('td.changedAcceptedDate').addClass('ajaxAcceptedDate');
