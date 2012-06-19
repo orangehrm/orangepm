@@ -12,10 +12,10 @@ set2:
   5: {id: 10, name: 'Google Art project', projectStatusId: 1, deleted: 1, userId: 4}  
 
 setGetProjectUsersDetails:
-  0: {id: 1, project_id: 1, user_id: 1, user_type: 3}
-  1: {id: 2, project_id: 1, user_id: 2, user_type: 2}
-  2: {id: 3, project_id: 2, user_id: 3, user_type: 1}
-  3: {id: 4, project_id: 2, user_id: 4, user_type: 1}
+  0: {id: 1, project_id: 3, user_id: 1, user_type: 3}
+  1: {id: 2, project_id: 3, user_id: 2, user_type: 2}
+  2: {id: 3, project_id: 3, user_id: 3, user_type: 1}
+  3: {id: 4, project_id: 3, user_id: 4, user_type: 1}
   
 ProjectUser:
   0: {id: 1, project_id: 1, user_id: 1, user_type: 3}

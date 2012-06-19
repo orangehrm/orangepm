@@ -12,27 +12,30 @@
  * @property clob $description
  * @property string $ownedBy
  * @property integer $status
+ * @property date $estimatedEndDate
  * @property Story $Story
  * @property TaskStatus $TaskStatus
  * 
- * @method integer    getId()          Returns the current record's "id" value
- * @method string     getName()        Returns the current record's "name" value
- * @method integer    getStoryId()     Returns the current record's "storyId" value
- * @method decimal    getEffort()      Returns the current record's "effort" value
- * @method clob       getDescription() Returns the current record's "description" value
- * @method string     getOwnedBy()     Returns the current record's "ownedBy" value
- * @method integer    getStatus()      Returns the current record's "status" value
- * @method Story      getStory()       Returns the current record's "Story" value
- * @method TaskStatus getTaskStatus()  Returns the current record's "TaskStatus" value
- * @method Task       setId()          Sets the current record's "id" value
- * @method Task       setName()        Sets the current record's "name" value
- * @method Task       setStoryId()     Sets the current record's "storyId" value
- * @method Task       setEffort()      Sets the current record's "effort" value
- * @method Task       setDescription() Sets the current record's "description" value
- * @method Task       setOwnedBy()     Sets the current record's "ownedBy" value
- * @method Task       setStatus()      Sets the current record's "status" value
- * @method Task       setStory()       Sets the current record's "Story" value
- * @method Task       setTaskStatus()  Sets the current record's "TaskStatus" value
+ * @method integer    getId()               Returns the current record's "id" value
+ * @method string     getName()             Returns the current record's "name" value
+ * @method integer    getStoryId()          Returns the current record's "storyId" value
+ * @method decimal    getEffort()           Returns the current record's "effort" value
+ * @method clob       getDescription()      Returns the current record's "description" value
+ * @method string     getOwnedBy()          Returns the current record's "ownedBy" value
+ * @method integer    getStatus()           Returns the current record's "status" value
+ * @method date       getEstimatedEndDate() Returns the current record's "estimatedEndDate" value
+ * @method Story      getStory()            Returns the current record's "Story" value
+ * @method TaskStatus getTaskStatus()       Returns the current record's "TaskStatus" value
+ * @method Task       setId()               Sets the current record's "id" value
+ * @method Task       setName()             Sets the current record's "name" value
+ * @method Task       setStoryId()          Sets the current record's "storyId" value
+ * @method Task       setEffort()           Sets the current record's "effort" value
+ * @method Task       setDescription()      Sets the current record's "description" value
+ * @method Task       setOwnedBy()          Sets the current record's "ownedBy" value
+ * @method Task       setStatus()           Sets the current record's "status" value
+ * @method Task       setEstimatedEndDate() Sets the current record's "estimatedEndDate" value
+ * @method Task       setStory()            Sets the current record's "Story" value
+ * @method Task       setTaskStatus()       Sets the current record's "TaskStatus" value
  * 
  * @package    orangepm
  * @subpackage model
@@ -68,6 +71,9 @@ abstract class BaseTask extends sfDoctrineRecord
              ));
         $this->hasColumn('status', 'integer', null, array(
              'type' => 'integer',
+             ));
+        $this->hasColumn('estimated_end_date as estimatedEndDate', 'date', null, array(
+             'type' => 'date',
              ));
     }
 

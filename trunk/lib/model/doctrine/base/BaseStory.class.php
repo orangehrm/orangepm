@@ -10,6 +10,7 @@
  * @property integer $estimation
  * @property string $name
  * @property date $date_added
+ * @property date $estimatedEndDate
  * @property string $status
  * @property date $accepted_date
  * @property date $deleted_date
@@ -17,28 +18,30 @@
  * @property Doctrine_Collection $Project
  * @property Doctrine_Collection $Task
  * 
- * @method integer             getId()            Returns the current record's "id" value
- * @method integer             getProjectId()     Returns the current record's "project_id" value
- * @method integer             getEstimation()    Returns the current record's "estimation" value
- * @method string              getName()          Returns the current record's "name" value
- * @method date                getDateAdded()     Returns the current record's "date_added" value
- * @method string              getStatus()        Returns the current record's "status" value
- * @method date                getAcceptedDate()  Returns the current record's "accepted_date" value
- * @method date                getDeletedDate()   Returns the current record's "deleted_date" value
- * @method boolean             getDeleted()       Returns the current record's "deleted" value
- * @method Doctrine_Collection getProject()       Returns the current record's "Project" collection
- * @method Doctrine_Collection getTask()          Returns the current record's "Task" collection
- * @method Story               setId()            Sets the current record's "id" value
- * @method Story               setProjectId()     Sets the current record's "project_id" value
- * @method Story               setEstimation()    Sets the current record's "estimation" value
- * @method Story               setName()          Sets the current record's "name" value
- * @method Story               setDateAdded()     Sets the current record's "date_added" value
- * @method Story               setStatus()        Sets the current record's "status" value
- * @method Story               setAcceptedDate()  Sets the current record's "accepted_date" value
- * @method Story               setDeletedDate()   Sets the current record's "deleted_date" value
- * @method Story               setDeleted()       Sets the current record's "deleted" value
- * @method Story               setProject()       Sets the current record's "Project" collection
- * @method Story               setTask()          Sets the current record's "Task" collection
+ * @method integer             getId()               Returns the current record's "id" value
+ * @method integer             getProjectId()        Returns the current record's "project_id" value
+ * @method integer             getEstimation()       Returns the current record's "estimation" value
+ * @method string              getName()             Returns the current record's "name" value
+ * @method date                getDateAdded()        Returns the current record's "date_added" value
+ * @method date                getEstimatedEndDate() Returns the current record's "estimatedEndDate" value
+ * @method string              getStatus()           Returns the current record's "status" value
+ * @method date                getAcceptedDate()     Returns the current record's "accepted_date" value
+ * @method date                getDeletedDate()      Returns the current record's "deleted_date" value
+ * @method boolean             getDeleted()          Returns the current record's "deleted" value
+ * @method Doctrine_Collection getProject()          Returns the current record's "Project" collection
+ * @method Doctrine_Collection getTask()             Returns the current record's "Task" collection
+ * @method Story               setId()               Sets the current record's "id" value
+ * @method Story               setProjectId()        Sets the current record's "project_id" value
+ * @method Story               setEstimation()       Sets the current record's "estimation" value
+ * @method Story               setName()             Sets the current record's "name" value
+ * @method Story               setDateAdded()        Sets the current record's "date_added" value
+ * @method Story               setEstimatedEndDate() Sets the current record's "estimatedEndDate" value
+ * @method Story               setStatus()           Sets the current record's "status" value
+ * @method Story               setAcceptedDate()     Sets the current record's "accepted_date" value
+ * @method Story               setDeletedDate()      Sets the current record's "deleted_date" value
+ * @method Story               setDeleted()          Sets the current record's "deleted" value
+ * @method Story               setProject()          Sets the current record's "Project" collection
+ * @method Story               setTask()             Sets the current record's "Task" collection
  * 
  * @package    orangepm
  * @subpackage model
@@ -67,6 +70,9 @@ abstract class BaseStory extends sfDoctrineRecord
              'length' => 255,
              ));
         $this->hasColumn('date_added', 'date', null, array(
+             'type' => 'date',
+             ));
+        $this->hasColumn('estimated_end_date as estimatedEndDate', 'date', null, array(
              'type' => 'date',
              ));
         $this->hasColumn('status', 'string', 255, array(

@@ -9,7 +9,6 @@ class editTaskAction extends sfAction {
         $this->taskService = new TaskService();
     }
     public function execute($request) {
-        $projectService = new ProjectService();
         $projectId = $request->getParameter('projectId');
         $loggedUserObject = null;
         $auth = new AuthenticationService();
@@ -20,6 +19,7 @@ class editTaskAction extends sfAction {
             $task->setId($request->getParameter('id'));
             $task->setName($request->getParameter('name'));
             $task->setEffort($request->getParameter('effort') ? $request->getParameter('effort') : 'NULL');
+            $task->setEstimatedEndDate($request->getParameter('estimatedEndDate'));
             $task->setStatus($request->getParameter('status'));
             $task->setDescription($request->getParameter('description'));
             $task->setOwnedBy($request->getParameter('ownedBy'));
