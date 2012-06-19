@@ -55,34 +55,76 @@ class TaskServiceTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($taskList[0]['name'], $retuls[0]['name']);
     }
     
-//    public function testUpdateTask() {
-//        $task = new Task();
-//        $task->setId(1);
-//        $task->setName('New name');
-//        $task->setEffort(20);
-//        $task->setDescription('New description');
-//        $task->setOwnedBy("Dasun");
-//        $task->setStatus(2);
-//        $taskDao = $this->getMock('TaskDao');
-//        $taskDao->expects($this->once())
-//            ->method('updateTask')
-//            ->with($task)
-//            ->will($this->returnValue(1));
-//        $this->taskService->setTaskDao($taskDao);
-//        $result = $this->taskService->updateTask($task);
-//        $this->assertEquals(1, $result);
-//    }
+    /**
+     *@group samith 
+     */
+    public function testUpdateTask() {
+        
+        $taskList = TestDataService::loadObjectList('Task', $this->fixture, 'Task');
+        $storyList = TestDataService::loadObjectList('Task', $this->fixture, 'Story');
+        
+        $taskDao = $this->getMock('TaskDao' , array('updateTask','getTaskById','getMaxEndingDateOfTasks'));
+        $taskDao->expects($this->any())
+            ->method('updateTask')
+            ->with($taskList[0])
+            ->will($this->returnValue(1));
+        
+        $taskDao->expects($this->any())
+            ->method('getTaskById')
+            ->with()
+            ->will($this->returnValue($taskList[0]));
+        
+        $taskDao->expects($this->any())
+            ->method('getMaxEndingDateOfTasks')
+            ->with()
+            ->will($this->returnValue($taskList[0]['estimatedEndDate']));
+        
+        $storyDao = $this->getMock('StoryDao');
+        $storyDao->expects($this->any())
+            ->method('updateEstimatedEndDate')
+            ->with()
+            ->will($this->returnValue(true));
+        
+        $this->taskService->setTaskDao($taskDao);
+        $this->taskService->setStoryDao($storyDao);
+        $this->assertTrue($this->taskService->updateTask($taskList[0]));
+//     
+    }
     
-//    public function testDeleteTask() {
-//        $taskDao = $this->getMock('TaskDao');
-//        $taskDao->expects($this->once())
-//            ->method('deleteTask')
-//            ->with(1)
-//            ->will($this->returnValue(1));
-//        $this->taskService->setTaskDao($taskDao);
-//        $result = $this->taskService->deleteTask(1);
-//        $this->assertEquals(1, $result);
-//    }
+    /**
+     *@group samith 
+     */
+    public function testDeleteTask() {       
+        
+        $taskList = TestDataService::loadObjectList('Task', $this->fixture, 'Task');
+        $storyList = TestDataService::loadObjectList('Task', $this->fixture, 'Story');
+        
+        $taskDao = $this->getMock('TaskDao' , array('deleteTask','getTaskById','getMaxEndingDateOfTasks'));
+        $taskDao->expects($this->any())
+            ->method('deleteTask')
+            ->with($taskList[0])
+            ->will($this->returnValue(1));
+        
+        $taskDao->expects($this->any())
+            ->method('getTaskById')
+            ->with()
+            ->will($this->returnValue($taskList[0]));
+        
+        $taskDao->expects($this->any())
+            ->method('getMaxEndingDateOfTasks')
+            ->with()
+            ->will($this->returnValue($taskList[0]['estimatedEndDate']));
+        
+        $storyDao = $this->getMock('StoryDao');
+        $storyDao->expects($this->any())
+            ->method('updateEstimatedEndDate')
+            ->with()
+            ->will($this->returnValue(true));
+        
+        $this->taskService->setTaskDao($taskDao);
+        $this->taskService->setStoryDao($storyDao);
+        $this->assertTrue($this->taskService->deleteTask($taskList[0]));
+    }
     
     
     public function testSaveTaskWithNullStoryEnd(){   

@@ -91,15 +91,14 @@ class TaskService {
      */
     public function updateTask(Task $task) {
         $taskId = $task->getId();
-        $success =  $this->taskDao->updateTask($task); 
+        $this->taskDao->updateTask($task); 
         
         $updatedTask = $this->taskDao->getTaskById($taskId);
         $storyId =$updatedTask->getStoryId();        
         $taskMaxEndDate = $this->taskDao->getMaxEndingDateOfTasks($storyId);        
-        $this->storyDao->updateEstimatedEndDate($storyId, $taskMaxEndDate);
+        return $this->storyDao->updateEstimatedEndDate($storyId, $taskMaxEndDate);
             
         
-        return success;
     }
     
     /**
@@ -110,12 +109,11 @@ class TaskService {
     public function deleteTask($id) {        
         $updatedTask = $this->taskDao->getTaskById($id);
         $storyId =$updatedTask->getStoryId();
-        $success =  $this->taskDao->deleteTask($id);
+        $this->taskDao->deleteTask($id);
         
         $taskMaxEndDate = $this->taskDao->getMaxEndingDateOfTasks($storyId);        
-        $this->storyDao->updateEstimatedEndDate($storyId, $taskMaxEndDate);           
+        return $this->storyDao->updateEstimatedEndDate($storyId, $taskMaxEndDate);           
         
-        return success;
     }
     
     /**
