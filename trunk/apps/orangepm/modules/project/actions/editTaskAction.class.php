@@ -23,7 +23,7 @@ class editTaskAction extends sfAction {
             $task->setStatus($request->getParameter('status'));
             $task->setDescription($request->getParameter('description'));
             $task->setOwnedBy($request->getParameter('ownedBy'));
-            $this->taskService->updateTask($task);
+            $this->taskService->updateTask($task);            
             die;
         }else {
             $this->redirect("project/viewProjects");
