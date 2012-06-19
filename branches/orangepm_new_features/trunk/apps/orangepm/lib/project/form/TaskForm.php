@@ -28,7 +28,7 @@ class TaskForm extends sfForm {
     }
     
     private function _setNameWidgets() {
-        $this->formWidgets['name'] = new sfWidgetFormInputText(array(), array('size'=>'85'));
+        $this->formWidgets['name'] = new sfWidgetFormInputText(array(), array('size'=>'71'));
         $this->formValidators['name'] = new sfValidatorString(array('required' => true), array('required' => __('The Task Name is required')));
         $this->formWidgets['name']->setLabel(__("Name")."<span class='mandatoryStar'>*</span>");
     }
@@ -42,6 +42,7 @@ class TaskForm extends sfForm {
     private function _setEstimatedEndDate() {
         $this->formWidgets['estimatedEndDate'] = new sfWidgetFormInputText(array(), array());
         $this->formValidators['estimatedEndDate'] = new sfValidatorString(array('required' => false), array('required' => __('Estimated End Date')));
+        $this->formWidgets['estimatedEndDate']->setLabel(__("Estimated End Date"));
     }
 
 
@@ -55,7 +56,7 @@ class TaskForm extends sfForm {
     }
     
     private function _setOwnedByWidgets() {
-        $this->formWidgets['ownedBy'] = new sfWidgetFormInputText(array(), array('size'=>'85'));
+        $this->formWidgets['ownedBy'] = new sfWidgetFormInputText(array(), array('size'=>'71'));
         $this->formValidators['ownedBy'] = new sfValidatorString(array('required' => false));
         $this->formWidgets['ownedBy']->setLabel(__("Owned By"));
     }
