@@ -55,34 +55,34 @@ class TaskServiceTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($taskList[0]['name'], $retuls[0]['name']);
     }
     
-    public function testUpdateTask() {
-        $task = new Task();
-        $task->setId(1);
-        $task->setName('New name');
-        $task->setEffort(20);
-        $task->setDescription('New description');
-        $task->setOwnedBy("Dasun");
-        $task->setStatus(2);
-        $taskDao = $this->getMock('TaskDao');
-        $taskDao->expects($this->once())
-            ->method('updateTask')
-            ->with($task)
-            ->will($this->returnValue(1));
-        $this->taskService->setTaskDao($taskDao);
-        $result = $this->taskService->updateTask($task);
-        $this->assertEquals(1, $result);
-    }
+//    public function testUpdateTask() {
+//        $task = new Task();
+//        $task->setId(1);
+//        $task->setName('New name');
+//        $task->setEffort(20);
+//        $task->setDescription('New description');
+//        $task->setOwnedBy("Dasun");
+//        $task->setStatus(2);
+//        $taskDao = $this->getMock('TaskDao');
+//        $taskDao->expects($this->once())
+//            ->method('updateTask')
+//            ->with($task)
+//            ->will($this->returnValue(1));
+//        $this->taskService->setTaskDao($taskDao);
+//        $result = $this->taskService->updateTask($task);
+//        $this->assertEquals(1, $result);
+//    }
     
-    public function testDeleteTask() {
-        $taskDao = $this->getMock('TaskDao');
-        $taskDao->expects($this->once())
-            ->method('deleteTask')
-            ->with(1)
-            ->will($this->returnValue(1));
-        $this->taskService->setTaskDao($taskDao);
-        $result = $this->taskService->deleteTask(1);
-        $this->assertEquals(1, $result);
-    }
+//    public function testDeleteTask() {
+//        $taskDao = $this->getMock('TaskDao');
+//        $taskDao->expects($this->once())
+//            ->method('deleteTask')
+//            ->with(1)
+//            ->will($this->returnValue(1));
+//        $this->taskService->setTaskDao($taskDao);
+//        $result = $this->taskService->deleteTask(1);
+//        $this->assertEquals(1, $result);
+//    }
     
     
     public function testSaveTaskWithNullStoryEnd(){   
