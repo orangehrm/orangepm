@@ -101,5 +101,41 @@ class StoryDaoTest extends PHPUnit_Framework_TestCase {
    public function testGetEstimationEffortByStoryIdNonId() {
        $this->assertEquals(NULL ,  $this->storyDao->getEstimationEffortByStoryId(15));
    }
+   
+   /*
+    * @author Eranga
+    * Testing updating estimeated end data for story
+    */
+   public function testUpdateEstimatedEndDate(){
+       $date='2011-01-15';
+       $storyId=4;
+       $this->storyDao->updateEstimatedEndDate($storyId,$date);
+       $story=$this->storyDao->getStory($storyId);
+       $this->assertEquals($date,$story->getEstimatedEndDate());
+   }
+   
+   /*
+    * @author Eranga
+    * Testing updating estimeated end data for story when date is null
+    */
+   public function testUpdateEstimatedEndDateWhenDateIsNull(){
+       $date=null;
+       $storyId=4;
+       $this->storyDao->updateEstimatedEndDate($storyId,$date);
+       $story=$this->storyDao->getStory($storyId);
+       $this->assertEquals($date,$story->getEstimatedEndDate());
+   }
+   
+   /*
+    * @author Eranga
+    * Testing updating estimeated end data for story when user id is not in range
+    */
+   public function testUpdateEstimatedEndDateForInvalidUserId(){
+       $date='2011-01-15';
+       $storyId=15;
+       $this->storyDao->updateEstimatedEndDate($storyId,$date);
+       $story=$this->storyDao->getStory($storyId);       
+       $this->assertFalse($story);
+   }
 }
 ?>
