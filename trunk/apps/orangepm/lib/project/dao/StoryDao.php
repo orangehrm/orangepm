@@ -173,8 +173,13 @@ class StoryDao {
         $story=Doctrine_Core::getTable('Story')->find($storyId);
         if($story instanceof Story){
             $story->setEstimatedEndDate($date);
-            $story->save();            
+            $story->save();     
+            return true;
+            
+        }else{
+            return false;
         }
+            
     }
 
 }
