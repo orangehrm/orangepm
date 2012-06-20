@@ -147,4 +147,15 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
           }
             
     }
+    
+    /*
+     * 
+     */
+    public function testGetRelatedProjectStories(){
+        $active=true;
+        $pageNo=1;
+        $projectId=1;
+        $result=$this->projectService->getRelatedProjectStories($active, $projectId, $pageNo);
+        $this->assertEquals(1,$result->count());        
+    }
 }
