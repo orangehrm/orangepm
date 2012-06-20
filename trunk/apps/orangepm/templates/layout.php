@@ -20,6 +20,7 @@
                         <li> <?php echo link_to(__('Projects'), 'project/viewProjects', array('id' => 'projects')); ?></li>
                         <?php if ($sf_user->hasCredential('superAdmin')){ ?>
                             <li> <?php echo link_to(__('Users'), 'project/viewUsers', array()); ?></li>
+                            <li> <?php echo link_to(__('Projects Summary'), 'project/viewAllProjectDetails', array()); ?></li>
                         <?php } else { ?>
                         
                             <li> <?php echo link_to(__('Profile'), 'project/viewProfile', array()); ?></li>
