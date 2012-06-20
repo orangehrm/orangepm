@@ -23,3 +23,6 @@ Task:
   1: {id: 2, story_id: 1, name: 'Add Dao and service classes', effort: 20, description: 'Add dao and service classes for Task entity', ownedBy: "Saman", status: 1, estimatedEndDate: '2011-03-24'}
   2: {id: 3, story_id: 2, name: 'Changed the schema', effort: 30, description: 'Changed the schema to add Employee entity', ownedBy: "Sunil", status: 2, estimatedEndDate: '2011-02-08'}  
   3: {id: 4, story_id: 1, name: 'Add Dao and service classes', effort: 0, description: 'Add dao and service classes for Task entity', ownedBy: "Saman", status: 1} 
+  4: {id: 5, story_id: 6, name: 'Changed the schema', effort: 30, description: 'Changed the schema to add Employee entity', ownedBy: "Sunil", status: 2, estimatedEndDate: '2011-02-08'}  
+  5: {id: 6, story_id: 5, name: 'Add Dao and service classes', effort: 0, description: 'Add dao and service classes for Task entity', ownedBy: "Saman", status: 1, estimatedEndDate: '2011-01-08'} 
+  6: {id: 7, story_id: 4, name: 'Add Dao and service classes', effort: 0, description: 'Add dao and service classes for Task entity', ownedBy: "Saman", status: 1, estimatedEndDate: '2011-01-08'} 

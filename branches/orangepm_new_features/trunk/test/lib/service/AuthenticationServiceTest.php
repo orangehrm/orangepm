@@ -38,17 +38,18 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
             ->with()
             ->will($this->onConsecutiveCalls( $projectUserList[1],$projectUserList[3] ,false ));
 
-          $this->authenticationService->setProjectDao($projectDao);
+        $this->authenticationService->setProjectDao($projectDao);       
           
           
-          
-          $userList = TestDataService::loadObjectList('User', $this->fixture, 'User');
+        $userList = TestDataService::loadObjectList('User', $this->fixture, 'User');
          
         $userDao = $this->getMock('UserDao');
         $userDao->expects($this->any())
             ->method('getUserById')
             ->with()
             ->will($this->onConsecutiveCalls($userList[0] , $userList[4],$userList[0],$userList[1] ,$userList[2]));
+        
+        $this->authenticationService->setUserDao($userDao);
         
         $this->assertEquals(User::USER_TYPE_SUPER_ADMIN , $this->authenticationService->projectAccessLevel(1,1));
         $this->assertEquals(User::USER_TYPE_PROJECT_ADMIN ,$this->authenticationService->projectAccessLevel(5,1));
