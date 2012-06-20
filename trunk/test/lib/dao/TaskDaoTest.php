@@ -132,7 +132,7 @@ class TaskDaoTest extends PHPUnit_Framework_TestCase {
      * Testing for getting max estimated ending date for story when no tasks defined for that
      */
     public function testGetMaxEndingDateOfTasksForNonExistingTasks(){
-        $storyId=6;
+        $storyId=3;
         $absolute = $this->taskDao->getMaxEndingDateOfTasks($storyId);
         $this->assertNull($absolute);
     }

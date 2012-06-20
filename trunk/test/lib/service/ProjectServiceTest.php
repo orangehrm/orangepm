@@ -19,7 +19,7 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         $projectList = TestDataService::loadObjectList('Project', $this->fixture, 'set1');
 
         $ProjectDao = $this->getMock('ProjectDao', array('getProjectsByUser'));
-        $ProjectDao->expects($this->once())
+        $ProjectDao->expects($this->any())
                    ->method('getProjectsByUser')
                    ->with(2)
                    ->will($this->returnValue($projectList));
@@ -33,6 +33,15 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         foreach ($returnedProjectList as $returnedProject) {
             $this->assertTrue($returnedProject instanceof Project);
         }
+        $ProjectDao2 = $this->getMock('ProjectDao');
+        $ProjectDao2->expects($this->any())
+                   ->method('getProjectsByUser')
+                   ->with(2 , 100 , true)
+                   ->will($this->returnValue(true));
+        
+        $this->projectService->setProjectDao($ProjectDao2);
+        $this->assertTrue($this->projectService->getProjectsByUser(2 , 100 , true));
+        
     }
     
     /*

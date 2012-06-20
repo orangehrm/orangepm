@@ -29,7 +29,10 @@ class AuthenticationService {
         $this->projectDao =  $projectDao;
     }
     
-    
+    /**
+     *Set User Dao
+     * @param UserDao $userDao 
+     */
     public function setUserDao(UserDao $userDao) {
         $this->userDao =  $userDao;
     }
