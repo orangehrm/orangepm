@@ -41,12 +41,11 @@ class StoryDao {
     }
 
    /**
-    * Delete story
-    * @param $id, $deletedDate
-    * @return none
+    * Get stories for the project
+    * @param $active, $projectId, $pageNo
+    * @return set of stories for the project
     */
    public function getRelatedProjectStories($active, $projectId, $pageNo) {
-
         if ($active) {
             $pager = new sfDoctrinePager('Story', 50);
             $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId)->orderBy('date_added, name');

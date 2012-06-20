@@ -10,6 +10,12 @@ set2:
   3: {id: 8, name: 'UB-Phase1-CR7', projectStatusId: 3, deleted: 1, userId: 4}
   4: {id: 9, name: 'Duke-NUS People Manager SAP Synchronization', projectStatusId: 3, deleted: 1, userId: 5}
   5: {id: 10, name: 'Google Art project', projectStatusId: 1, deleted: 1, userId: 4}  
+  
+set3:
+  0: {id: 1, project_id: 1, estimation: 12, name: 'Performance appraisal form for biweekly paid employees', date_added: '2011-01-12', status: 'Pending', accepted_date: NULL, deleted_date: NULL, deleted: 1}
+  1: {id: 2, project_id: 1, estimation: 15, name: 'Define General Company Information', date_added: '2011-01-11', status: 'Development', accepted_date: NULL, deleted_date: NULL, deleted: 1}
+  2: {id: 3, project_id: 1, estimation: 22, name: 'Define Institution Information', date_added: '2011-01-08', status: 'Accepted', accepted_date: '2011-07-10', deleted_date: NULL, deleted: 1}
+  3: {id: 4, project_id: 2, estimation: 30, name: 'Define General Company Information', date_added: '2011-01-05', status: 'Rework', accepted_date: NULL, deleted_date: NULL, deleted: 1}
 
 setGetProjectUsersDetails:
   0: {id: 1, project_id: 3, user_id: 1, user_type: 3}

@@ -7,11 +7,6 @@ class viewAllProjectDetailsAction extends sfAction {
             $this->redirect('project/login');
         }
         $this->projectService = new ProjectService();
-        $this->projectLogService = new ProjectLogService();
-        $this->taskService = new TaskService();
-        $this->userService = new UserService();
-        $this->storyEstimationCount = 0;
-        $this->authenticationService = new AuthenticationService();
         $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
     }
 
@@ -29,7 +24,7 @@ class viewAllProjectDetailsAction extends sfAction {
         $allStatusCountArray = array();
         foreach($projects as $single) {
             $storyList = $this->projectService->getRelatedProjectStories(true, $single->getId(), 1);
-            $statusCountArray = array('project'=>$single,'Backlog' => 0, 'Design' => 0, 'Development' => 0, 'Development Completed' => 0, 'Testing' => 0, 'Rework' => 0, 'Accepted' => 0);
+            $statusCountArray = array('project'=>$single,'EstCount'=>0,'Backlog' => 0, 'Design' => 0, 'Development' => 0, 'Development Completed' => 0, 'Testing' => 0, 'Rework' => 0, 'Accepted' => 0);
             if (count($storyList) != 0) {
                 $storyEstimationCount = 0;
                 foreach ($storyList->getResults() as $story) {
@@ -37,7 +32,7 @@ class viewAllProjectDetailsAction extends sfAction {
                     $key = $story->getStatus() == 'Pending' ? 'Backlog' : $story->getStatus();
                     $statusCountArray["$key"]+= $story->getEstimation();
                 }
-                $this->storyEstimationCount = $storyEstimationCount;
+                $statusCountArray['EstCount'] = $storyEstimationCount;
                 $allStatusCountArray[]=$statusCountArray;
             }
         }

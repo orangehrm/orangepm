@@ -7,6 +7,7 @@ class ProjectService {
     public $isEdited = false;
     public $editedProjectId = Project::PROJECT_STATUS_DEFAULT_ID;
     private $projectDao = null;
+    private $storyDao = null;
     /**
 	 * Calculate the Project progress
 	 * @param $acceptedDate, $status, $storyId
@@ -15,6 +16,7 @@ class ProjectService {
     
     function __construct() {
         $this->projectDao = new ProjectDao();
+        $this->storyDao=new StoryDao();
     }
     
     /**
@@ -572,11 +574,9 @@ class ProjectService {
      * @author eranga
      * @param $active - weather prject is deleted or not
      * @param $projectId - id of the related project for the stories
-     * $pageNo
+     * @param $pageNo - Number of the page of the data set after paging
      */
     public function getRelatedProjectStories($active, $projectId, $pageNo){
-        $storyDao=new StoryDao();
-        $this->setStoryDao($storyDao);
         return $this->getStoryDao()->getRelatedProjectStories($active, $projectId, $pageNo);
     }
     
