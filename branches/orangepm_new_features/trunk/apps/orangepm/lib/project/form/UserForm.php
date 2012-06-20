@@ -49,9 +49,9 @@ class UserForm extends sfForm {
             'username' => new sfValidatorString(array(), array('required' => __('Enter username'))),
             'password' => new sfValidatorString(array(), array('required' => __('Enter password'))),
         ));
-if ($this->getOption('isSuperAdmin')) {
-        $this->validatorSchema->setPostValidator(new sfValidatorCallback(array('callback' => array($this, 'postValidation'))));
-}
+        if ($this->getOption('isSuperAdmin')) {
+                $this->validatorSchema->setPostValidator(new sfValidatorCallback(array('callback' => array($this, 'postValidation'))));
+        }
     }
 
     public function postValidation($validator, $values) {

@@ -123,13 +123,13 @@ class projectActions extends sfActions {
 
         if ($this->getUser()->hasCredential('superAdmin')) {
 
-            $this->userForm = new UserForm();
+            $this->userForm = new UserForm(array(), array('isSuperAdmin'=> true));
             $response = $this->getResponse();
             $response->setTitle(__('Add User'));
             $userService = new UserService();
             $usernames = $userService->getAllUsernamesAsArray();
 
-            if ($request->isMethod('post')) {
+            if ($request->isMethod('post')) {               
                 $this->userForm->bind($request->getParameter('user'));
                 if ($this->userForm->isValid()) {
                     $dao = new UserDao();
