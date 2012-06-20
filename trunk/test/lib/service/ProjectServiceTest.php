@@ -144,18 +144,26 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
           $this->assertEquals(4,  count($result));
           foreach ($result as $project){
               $this->assertTrue($project instanceof Project);
-          }
-            
+          }          
     }
     
     /*
-     * 
+     * @author eranga
+     * Testing weather returning actual number of stories for a given project
      */
     public function testGetRelatedProjectStories(){
+        $projectStoryList = TestDataService::loadObjectList('Story', $this->fixture, 'set3');        
         $active=true;
-        $pageNo=1;
         $projectId=1;
-        $result=$this->projectService->getRelatedProjectStories($active, $projectId, $pageNo);
-        $this->assertEquals(1,$result->count());        
+        $pageNo=1;
+        $storyDao = $this->getMock('StoryDao');
+        $storyDao->expects($this->once())
+            ->method('getRelatedProjectStories')
+            ->with($active,$projectId,$pageNo)
+            ->will($this->returnValue($projectStoryList));
+        $this->projectService->setStoryDao($storyDao);
+        $absolute=$this->projectService->getRelatedProjectStories($active,$projectId,$pageNo);
+        $this->assertEquals(4, count($absolute));
+        
     }
 }
