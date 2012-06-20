@@ -4,7 +4,7 @@ class viewAllProjectDetailsAction extends sfAction {
 
     public function preExecute() {
         if ((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
-            $this->redirect('project/viewProjects');
+            $this->redirect('project/login');
         }
         $this->projectService = new ProjectService();
         $this->projectLogService = new ProjectLogService();
@@ -17,7 +17,7 @@ class viewAllProjectDetailsAction extends sfAction {
 
     public function execute($request) {
         if (!$this->getUser()->hasCredential('superAdmin')) {
-            $this->redirect('project/login');
+            $this->redirect('project/viewProjects');
         }
         $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
         $this->statusId = Project::PROJECT_STATUS_ALL;
