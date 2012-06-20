@@ -27,11 +27,28 @@ class ProjectService {
     }
     
     /**
+     * Set story dao
+     * @param StoryDao $storyDao
+     * @return null
+     */
+    public function setStoryDao(StoryDao $storyDao) {
+        $this->storyDao = $storyDao;
+    }
+    
+    /**
      * Get project dao
      * @return ProjectDao
      */
     public function getProjectDao() {
         return $this->projectDao;
+    }
+    
+    /**
+     * Get story dao
+     * @return StoryDao
+     */
+    public function getStoryDao() {
+        return $this->storyDao;
     }
     
     public function trackProjectProgress($acceptedDate, $status, $storyId) {
@@ -548,6 +565,19 @@ class ProjectService {
             $userArray[$user->getId()] = $user->getFirstName().' '.$user->getLastName();
         }
         return $userArray; 
+    }
+    
+    /*
+     * Get project stories related to the project
+     * @author eranga
+     * @param $active - weather prject is deleted or not
+     * @param $projectId - id of the related project for the stories
+     * $pageNo
+     */
+    public function getRelatedProjectStories($active, $projectId, $pageNo){
+        $storyDao=new StoryDao();
+        $this->setStoryDao($storyDao);
+        return $this->getStoryDao()->getRelatedProjectStories($active, $projectId, $pageNo);
     }
     
 
