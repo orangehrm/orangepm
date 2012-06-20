@@ -22,6 +22,7 @@ class viewProjectDetailsAction extends sfAction {
         $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
         $this->statusId = Project::PROJECT_STATUS_ALL;
         $this->projects = $this->projects = $projectSevice->getAllProjects(true, $this->statusId);
+        $this->projectProgressList=$this->getPercentageList($this->projects);
     }
 
     public function getPercentageList($projects) {
