@@ -1,4 +1,5 @@
 <?php echo stylesheet_tag('viewProjectDetails') ?>
+<?php echo stylesheet_tag('viewStories') ?>
 <div class="Project">
     <div class="heading">
         <h3> </h3>
@@ -32,13 +33,13 @@
                         <tr>
                             <th>Project Status</th>
                             <th class="percentageColumn">Percentage</th>
-                            <th class="effortColumn"> Effort (<?php echo $storyEstimationCount?>)</th>
+                            <th class="effortColumn"> Effort (<?php echo $single['EstCount']; ?>)</th>
                         </tr>
                         <?php foreach ($single as $status => $effort): ?>
-                        <?php if($status!='project') { ?>
+                        <?php if(($status!='project') && ($status!='EstCount') ) { ?>
                         <tr>
                            <td><?php echo __($status);?></td>
-                           <td><div id="progressbar_<?php echo str_replace(" ","_",strtolower($status));?>"class="progressbar" value="<?php echo $projectService->getPecentage($effort, $storyEstimationCount)?>"></div></td>
+                           <td><div id="progressbar_<?php echo str_replace(" ","_",strtolower($status));?>"class="progressbar" value="<?php echo $projectService->getPecentage($single["$status"], $single['EstCount'])?>"></div></td>
                            <td><?php echo $effort?></td>
                         </tr>
                         <?php } ?>
@@ -48,5 +49,8 @@
             </div>
         </div>        
     </div>
+    <br/>
     <?php endforeach; ?>
 </div>
+<?php echo javascript_include_tag('viewProjectDetails'); ?>
+<?php echo javascript_include_tag('viewStories'); ?>
