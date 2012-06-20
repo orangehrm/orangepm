@@ -9,7 +9,7 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
 
     public function setup() {
 
-        TestDataService::truncateTables(array('User','Project','Story','ProjectLog','ProjectUser'));
+        //TestDataService::truncateTables(array('User','Project','Story','ProjectLog','ProjectUser'));
         TestDataService::populate(sfConfig::get('sf_test_dir') . '/fixtures/ProjectDao.yml');
         $this->projectDao = new ProjectDao();
         
