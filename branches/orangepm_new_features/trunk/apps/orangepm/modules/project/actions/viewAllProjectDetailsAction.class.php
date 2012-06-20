@@ -1,6 +1,6 @@
 <?php
 
-class viewProjectDetailsAction extends sfAction {
+class viewAllProjectDetailsAction extends sfAction {
 
     public function preExecute() {
         if ((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
@@ -21,7 +21,7 @@ class viewProjectDetailsAction extends sfAction {
         }
         $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
         $this->statusId = Project::PROJECT_STATUS_ALL;
-        $this->projects = $this->projects = $projectSevice->getAllProjects(true, $this->statusId);
+        $this->projects = $this->projectService->getAllProjects(true, $this->statusId);
         $this->projectProgressList=$this->getPercentageList($this->projects);
     }
 
