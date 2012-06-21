@@ -18,7 +18,7 @@
                             <td><label for="project_startDate"><?php echo __('Start Date : ') ?></label></td> <td><?php echo $single['project']->getStartDate(); ?> </td>
                         </tr>
                         <tr>
-                            <td><label for="project_endDate"><?php echo __('Start Date : ') ?></label></td> <td><?php echo $single['project']->getStartDate(); ?> </td>
+                            <td><label for="project_endDate"><?php echo __('End Date : ') ?></label></td> <td><?php echo $single['project']->getEndDate(); ?> </td>
                         </tr>
                     </tbody>
                 </table>

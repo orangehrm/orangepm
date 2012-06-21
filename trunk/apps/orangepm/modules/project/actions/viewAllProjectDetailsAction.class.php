@@ -14,8 +14,11 @@ class viewAllProjectDetailsAction extends sfAction {
         if (!$this->getUser()->hasCredential('superAdmin')) {
             $this->redirect('project/viewProjects');
         }
+        $this->statusId = $request->getParameter('selectedStatusId');
         $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
-        $this->statusId = Project::PROJECT_STATUS_ALL;
+        if($this->statusId ==null){
+            $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
+        }
         $this->projects = $this->projectService->getAllProjects(true, $this->statusId);
         $this->projectProgressList=$this->getPercentageList($this->projects);
     }
