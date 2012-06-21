@@ -85,7 +85,7 @@ class ProjectDao {
                 ->where('a.projectStatusId = ?', $statusId);
 
         if ($isActive) {
-            $query->addWhere('a.deleted = ?', Project::FLAG_ACTIVE);
+            $query->addWhere('a.deleted = ?', Project::FLAG_ACTIVE)->orderBy('a.created_at desc');
         }
 
         return $query->execute();
