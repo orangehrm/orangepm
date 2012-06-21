@@ -40,7 +40,7 @@ class TaskForm extends sfForm {
     }
     
     private function _setEstimatedEndDate() {
-        $this->formWidgets['estimatedEndDate'] = new sfWidgetFormInputText(array(), array());
+        $this->formWidgets['estimatedEndDate'] = new sfWidgetFormInputText(array(), array('readonly'=>true));
         $this->formValidators['estimatedEndDate'] = new sfValidatorString(array('required' => false), array('required' => __('Estimated End Date')));
         $this->formWidgets['estimatedEndDate']->setLabel(__("Estimated End Date"));
     }
