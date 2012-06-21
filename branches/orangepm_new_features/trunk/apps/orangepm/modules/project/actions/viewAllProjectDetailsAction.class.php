@@ -23,8 +23,18 @@ class viewAllProjectDetailsAction extends sfAction {
         if($this->statusId ==null){
             $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
         }
-        $this->projects = $this->projectService->getAllProjects(true, $this->selectedStatusId);
+        if($this->selectedStatusId!=NULL){
+            $this->projects = $this->projectService->getAllProjects(true, $this->selectedStatusId);
+        }
+        else{
+            $this->projects = $this->projectService->getAllProjects(true, $this->statusId);
+        }
+        
         $this->projectProgressList=$this->getPercentageList($this->projects);
+        
+        if (count($this->projectProgressList) == 0) {
+            $this->noRecordMessage = __("No Matching Projects Found");
+        }
     }
 
     public function getPercentageList($projects) {

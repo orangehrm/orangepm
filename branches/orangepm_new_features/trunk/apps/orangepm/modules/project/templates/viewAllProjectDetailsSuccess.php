@@ -2,8 +2,14 @@
 <?php echo stylesheet_tag('viewStories') ?>
 <div class="Project">
     <div class="heading">
-        <h3> </h3>
+        <h2> <?php echo __('Projects'); ?> </h2>
+        
     </div>
+    <div id="mainErrorDiv"><span id="noRecordMessage"><?php if(isset($noRecordMessage)) echo $noRecordMessage; ?></span></div>
+    <div class="searchButtonOnly">        
+        <?php echo $projectSearchForm ?>
+    </div>
+    <br/>
     <?php foreach ($projectProgressList  as $single): ?>
     <div class="showForm">
         <div class="headlineField"><?php echo $single['project']->getName(); ?></div>
@@ -54,3 +60,4 @@
 </div>
 <?php echo javascript_include_tag('viewProjectDetails'); ?>
 <?php echo javascript_include_tag('viewStories'); ?>
+<?php echo javascript_include_tag('viewAllProjectDetails'); ?>

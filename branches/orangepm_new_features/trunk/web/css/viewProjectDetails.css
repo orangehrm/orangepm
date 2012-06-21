@@ -15,6 +15,11 @@ root {
     display: block;
 }
 
+.heading  {
+    color: darksalmon;
+    font-weight: bold;
+}
+
 table.tableContent {
     width: 1150px;
 }
