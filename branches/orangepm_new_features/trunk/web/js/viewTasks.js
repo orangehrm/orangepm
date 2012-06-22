@@ -87,7 +87,7 @@ $(document).ready(function() {
                 status = $.trim($(this).parent().children('td.changedStatus').text());
                 
                 $(this).parent().children('td.changedName').addClass('ajaxName');
-                $(this).parent().children('td.changedName').html("<input type='text' id='ajaxNameInput' value='"+name+"'></input>");
+                $(this).parent().children('td.changedName').html("<input type='text' id='ajaxNameInput' value='"+escapeQuotes(name)+"'></input>");
                 $(this).parent().children('td.changedEffort').addClass('ajaxEffort');
                 $(this).parent().children('td.changedEffort').html("<input type='text' id='ajaxEffortInput' value='"+effort+"'></input>");
                 $(this).parent().children('td.changedEstimatedEndDate').addClass('ajaxEstimatedEndDate');
@@ -103,7 +103,7 @@ $(document).ready(function() {
                 var statusId = getStatusId(status);
                 $('#ajaxStatus').find("option[value='"+statusId+"']").attr('selected',true);
                 $(this).parent().children('td.changedOwnedBy').addClass('ajaxOwnedBy');
-                $(this).parent().children('td.changedOwnedBy').html("<input type='text' id='ajaxOwnedByInput' value='"+ownedBy+"'></input>");
+                $(this).parent().children('td.changedOwnedBy').html("<input type='text' id='ajaxOwnedByInput' value='"+escapeQuotes(ownedBy)+"'></input>");
                 $(this).parent().children('td.changedDescription').addClass('ajaxDescription');
                 $(this).parent().children('td.changedDescription').html("<textarea id='ajaxDescriptionInput'>"+description+"</textarea>");
                 $(this).html(saveImgUrl);
@@ -133,4 +133,10 @@ $(document).ready(function() {
     function removeMainErrorMessage() {
         $('#mainErrorDiv').empty();
     }
+function escapeQuotes(words){
+    words=words.replace("&","&amp;");
+    words=words.replace('"',"&#34;");
+    words=words.replace("'","&#39;");
+    return words;
+}
 });
