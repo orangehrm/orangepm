@@ -72,7 +72,7 @@ $(document).ready(function() {
             $('.ajaxProjectAdmin').removeClass('ajaxProjectAdmin');
 
             $(this).parent().children('td.changedName').addClass('ajaxName');
-            $(this).parent().children('td.changedName').html('<input id="editboxName" size="55" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
+            $(this).parent().children('td.changedName').html('<input id="editboxName" size="55" type="text" value="'+escapeQuotes($(this).parent().children('td.changedName').text())+'">');
 
             $(this).parent().children('td.changedStartDate').addClass('ajaxStartDate');
             $(this).parent().children('td.changedStartDate').html('<input id="editboxStartDate" size="9" type="text" value="'+$(this).parent().children('td.changedStartDate').text()+'">');
@@ -177,4 +177,10 @@ function setMainErrorMessage(message) {
 
 function removeMainErrorMessage() {
     $('#mainErrorDiv').empty();
+}
+function escapeQuotes(words){
+    words=words.replace("&","&amp;");
+    words=words.replace('"',"&#34;");
+    words=words.replace("'","&#39;");
+    return words;
 }
