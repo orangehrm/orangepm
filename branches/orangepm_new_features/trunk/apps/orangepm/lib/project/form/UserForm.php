@@ -43,21 +43,40 @@ class UserForm extends sfForm {
             $this->setDefault('lastName', $this->getOption('lastName'));
             $this->setDefault('email', $this->getOption('email'));
             $this->setDefault('password', $this->getOption('password'));
+            //$this->setDefault('oldPassword', $this->getOption('password'));
+            //$this->widgetSchema['password']->setOption('always_render_empty', false);
             $this->widgetSchema['firstName']->setAttribute('readonly', 'readonly');
             $this->widgetSchema['lastName']->setAttribute('readonly', 'readonly');
-        }
-
-        $this->setValidators(array(
+            $this->setValidators(array(
+            'firstName' => new sfValidatorString(array(), array('required' => __('Enter First Name'))),
+            'lastName' => new sfValidatorString(array(), array('required' => __('Enter Last Name'))),
+            'email' => new sfValidatorEmail(array(), array('required' => __('Enter email'))),
+            'userType' => new sfValidatorString(array('required' => false)),
+            'username' => new sfValidatorString(array(), array('required' => __('Enter username'))),
+            'oldPassword' => new sfValidatorString(array(), array('required' => __('Enter old password'))),
+            'newPassword' => new sfValidatorString(array(), array('required' => __('Enter new password'))),
+            'confirmPassword' => new sfValidatorString(array(), array('required' => __('Enter confirm password'))),
+        ));
+            $this->mergePostValidator( new sfValidatorSchemaCompare('confirmPassword'
+            , sfValidatorSchemaCompare::EQUAL, 'newPassword',
+            array(), array('invalid' => 'Password does not match! Please retype')));
+//            $this->mergePostValidator( new sfValidatorSchemaCompare('oldPassword'
+//            , sfValidatorSchemaCompare::EQUAL, 'password',
+//            array(), array('invalid' => 'Invalid Nilufer Password')));
+        }else{$this->mergePostValidator( new sfValidatorSchemaCompare('oldPassword'
+            , sfValidatorSchemaCompare::EQUAL, 'password',
+            array(), array('invalid' => 'Invalid Nilufer Password')));
+            $this->setValidators(array(
             'firstName' => new sfValidatorString(array(), array('required' => __('Enter First Name'))),
             'lastName' => new sfValidatorString(array(), array('required' => __('Enter Last Name'))),
             'email' => new sfValidatorEmail(array(), array('required' => __('Enter email'))),
             'userType' => new sfValidatorString(array('required' => false)),
             'username' => new sfValidatorString(array(), array('required' => __('Enter username'))),
             'password' => new sfValidatorString(array(), array('required' => __('Enter password'))),
-            'oldPassword' => new sfValidatorString(array(), array('required' => __('Enter old password'))),
-            'newPassword' => new sfValidatorString(array(), array('required' => __('Enter new password'))),
-            'confirmPassword' => new sfValidatorString(array(), array('required' => __('Enter confirm password'))),
-        ));
+             ));
+        }
+
+        
         if ($this->getOption('isSuperAdmin')) {
                 $this->validatorSchema->setPostValidator(new sfValidatorCallback(array('callback' => array($this, 'postValidation'))));
         }

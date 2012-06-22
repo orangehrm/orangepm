@@ -48,20 +48,21 @@ class AuthenticationService {
         $userType = User::USER_TYPE_UNSPECIFIED;
         $user = $this->userDao->getUserById($userId);
         
-        $userTypeCheck = $user->getUserType();
-        
-        if($userTypeCheck== User::USER_TYPE_SUPER_ADMIN){
-            return User::USER_TYPE_SUPER_ADMIN;
-        }
-        else
-        {
-            $result = $this->projectDao->getProjectUsersByProjectAndUser($userId, $projectId);
-            if($result){
-                $userType = $result->getUserType();            
-                return $userType;
+        if($user != null){
+            $userTypeCheck = $user->getUserType();
+
+            if($userTypeCheck== User::USER_TYPE_SUPER_ADMIN){
+                return User::USER_TYPE_SUPER_ADMIN;
+            }
+            else
+            {
+                $result = $this->projectDao->getProjectUsersByProjectAndUser($userId, $projectId);
+                if($result){
+                    $userType = $result->getUserType();            
+                    return $userType;
+                }
             }
         }
-        
         
         return $userType;
         
