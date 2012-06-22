@@ -4,7 +4,8 @@ class editTaskAction extends sfAction {
 
     public function preExecute(){
         if ((!$this->getUser()->isAuthenticated()) && ($this->getRequestParameter('action') != 'login' )) {
-            $this->redirect('project/login');
+            echo 'notSaved';
+            exit;
         }
         $this->taskService = new TaskService();
     }

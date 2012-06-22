@@ -28,51 +28,62 @@ $(document).ready(function() {
     var synchronize = true;
     $("td.edit").click(function() {
         if(synchronize || $(this).hasClass('ajaxEdit')) {
-           var name;
-           var effort;
-           var ownedBy;
-           var description;
-           if($(this).hasClass('ajaxEdit')) {
-               if($.trim($(this).parent().children('td.changedName').find('input').attr('value')) != '') {
-                   if(!isNaN($.trim($(this).parent().children('td.changedEffort').find('input').attr('value')))) {
-                       removeMainErrorMessage();
-                       $(this).removeClass('ajaxEdit');
-                       var nameText = $.trim($(this).parent().children('td.changedName').find('input').attr('value'));
-                       var effortText = $.trim($(this).parent().children('td.changedEffort').find('input').attr('value'));
-                       var estimatedEndDate = $.trim($(this).parent().children('td.changedEstimatedEndDate').find('input').attr('value'));
-                       var statusSelect = $(this).parent().children('td.changedStatus').find('select').attr('value');
-                       var ownedByText = $.trim($(this).parent().children('td.changedOwnedBy').find('input').attr('value'));
-                       var descriptionText = $.trim($(this).parent().children('td.changedDescription').find('textarea').attr('value'));
-                       var classString = $(this).attr('class');
-                       var id = classString.split(' ')[1];
-                       var $parentRow = $(this).parent();
-                       $.ajax({
-                           type: "post",
-                           url: updateTaskUrl,
-                           data: "id="+id+"&name="+nameText+"&effort="+effortText+"&estimatedEndDate="+estimatedEndDate+"&status="+statusSelect+"&ownedBy="+ownedByText+"&description="+descriptionText+"&projectId="+projectId,
-                           success: function(){
-                               $parentRow.children('td.changedName').html(nameText);
-                               $parentRow.children('td.changedEffort').html(effortText);
-                               $parentRow.children('td.changedEstimatedEndDate').html(estimatedEndDate);
-                               $parentRow.children('td.changedStatus').html(statusArray[statusSelect]);
-                               $parentRow.children('td.changedStatus').addClass(statusArray[statusSelect].toLowerCase());
-                               $parentRow.children('td.changedOwnedBy').html(ownedByText);
-                               $parentRow.children('td.changedDescription').html(descriptionText);
-                           },
-                           fail: function() {
-                               $parentRow.children('td.changedName').html(name);
-                               $parentRow.children('td.changedEffort').html(effort);
-                               $parentRow.children('td.changedEstimatedEndDate').html(estimatedEndDate);
-                               $parentRow.children('td.changedStatus').html(statusArray[status]);
-                               $parentRow.children('td.changedOwnedBy').html(ownedBy);
-                               $parentRow.children('td.changedDescription').html(description);
-                           }
-                       });
-                       $(this).html(editImgUrl);
-                       synchronize = true;
-                   } else { 
-                       setMainErrorMessage('Task Effort is not valid');
-                   }
+            var name = $.trim($(this).parent().children('td.changedName').find('input').attr('value'));
+            var effort = $.trim($(this).parent().children('td.changedEffort').find('input').attr('value'));
+            var preestimatedEndDate = $.trim($(this).parent().children('td.changedEstimatedEndDate').find('input').attr('value'));
+            var ownedBy = $.trim($(this).parent().children('td.changedOwnedBy').find('input').attr('value'));
+            var description = $.trim($(this).parent().children('td.changedDescription').find('textarea').attr('value'));
+            if($(this).hasClass('ajaxEdit')) {
+                if($.trim($(this).parent().children('td.changedName').find('input').attr('value')) != '') {
+                    if(!isNaN($.trim($(this).parent().children('td.changedEffort').find('input').attr('value')))) {
+                        removeMainErrorMessage();
+                        $(this).removeClass('ajaxEdit');
+                        var nameText = $.trim($(this).parent().children('td.changedName').find('input').attr('value'));
+                        var effortText = $.trim($(this).parent().children('td.changedEffort').find('input').attr('value'));
+                        var estimatedEndDate = $.trim($(this).parent().children('td.changedEstimatedEndDate').find('input').attr('value'));
+                        var statusSelect = $(this).parent().children('td.changedStatus').find('select').attr('value');
+                        var ownedByText = $.trim($(this).parent().children('td.changedOwnedBy').find('input').attr('value'));
+                        var descriptionText = $.trim($(this).parent().children('td.changedDescription').find('textarea').attr('value'));
+                        var classString = $(this).attr('class');
+                        var id = classString.split(' ')[1];
+                        var $parentRow = $(this).parent();
+                        $.ajax({
+                            type: "post",
+                            url: updateTaskUrl,
+                            data: "id="+id+"&name="+nameText+"&effort="+effortText+"&estimatedEndDate="+estimatedEndDate+"&status="+statusSelect+"&ownedBy="+ownedByText+"&description="+descriptionText+"&projectId="+projectId,
+                            success: function(responce){
+                                if(responce=='notSaved'){
+                                    alert("Your session is expired");
+                                    $parentRow.children('td.changedName').html(name);
+                                    $parentRow.children('td.changedEffort').html(effort);
+                                    $parentRow.children('td.changedEstimatedEndDate').html(preestimatedEndDate);
+                                    $parentRow.children('td.changedStatus').html(statusArray[status]);
+                                    $parentRow.children('td.changedOwnedBy').html(ownedBy);
+                                    $parentRow.children('td.changedDescription').html(description);
+                                }else {
+                                    $parentRow.children('td.changedName').html(nameText);
+                                    $parentRow.children('td.changedEffort').html(effortText);
+                                    $parentRow.children('td.changedEstimatedEndDate').html(estimatedEndDate);
+                                    $parentRow.children('td.changedStatus').html(statusArray[statusSelect]);
+                                    $parentRow.children('td.changedStatus').addClass(statusArray[statusSelect].toLowerCase());
+                                    $parentRow.children('td.changedOwnedBy').html(ownedByText);
+                                    $parentRow.children('td.changedDescription').html(descriptionText);                                    
+                                }                            
+                            },
+                            fail: function() {
+                                $parentRow.children('td.changedName').html(name);
+                                $parentRow.children('td.changedEffort').html(effort);
+                                $parentRow.children('td.changedEstimatedEndDate').html(estimatedEndDate);
+                                $parentRow.children('td.changedStatus').html(statusArray[status]);
+                                $parentRow.children('td.changedOwnedBy').html(ownedBy);
+                                $parentRow.children('td.changedDescription').html(description);
+                            }
+                        });
+                        $(this).html(editImgUrl);
+                        synchronize = true;
+                    } else { 
+                        setMainErrorMessage('Task Effort is not valid');
+                    }
                 } else { 
                     setMainErrorMessage('Task name is empty');
                 }
@@ -133,10 +144,10 @@ $(document).ready(function() {
     function removeMainErrorMessage() {
         $('#mainErrorDiv').empty();
     }
-function escapeQuotes(words){
-    words=words.replace("&","&amp;");
-    words=words.replace('"',"&#34;");
-    words=words.replace("'","&#39;");
-    return words;
-}
+    function escapeQuotes(words){
+        words=words.replace("&","&amp;");
+        words=words.replace('"',"&#34;");
+        words=words.replace("'","&#39;");
+        return words;
+    }
 });
