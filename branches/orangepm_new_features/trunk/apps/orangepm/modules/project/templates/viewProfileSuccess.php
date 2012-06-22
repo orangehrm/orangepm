@@ -5,7 +5,11 @@
     //we write javascript related stuff here, but if the logic gets lengthy should use a seperate js file
     var lang_emailRequired = "<?php echo __("E-mail is required"); ?>";
     var lang_validEmailRequired = "<?php echo __("Valid email required"); ?>";
-    var lang_passwordRequired = "<?php echo __("Password is required"); ?>";    
+    var lang_passwordRequired = "<?php echo __("Password is required"); ?>";
+    var lang_oldPasswordRequired = '<?php echo __("Old Password is required"); ?>';
+    var lang_newPasswordRequired = '<?php echo __("New Password is required"); ?>';
+    var lang_confirmPasswordRequired = '<?php echo __("Confirm Password is required"); ?>';
+    var lang_newPasswordNotMatch = '<?php echo __("New password is not match"); ?>';
     //]]>
 </script>
 
@@ -31,7 +35,9 @@
                             echo ':'.' Project Member';
                     ?></label></div>
                     <div><?php echo $userForm['username']->renderLabel() ?><input type="hidden" id ="user_username" name="user[username]" value ="<?php echo $loggedUser->getUsername(); ?>"><label class="username"><?php echo ': '.$loggedUser->getUsername(); ?></label></div>
-                    <div><span>:</span> <?php echo $userForm['password']->renderLabel() ?><?php echo $userForm['password']->render() ?><?php echo $userForm['password']->renderError() ?><br class="clear" /></div>
+                    <div><span>:</span> <?php echo $userForm['oldPassword']->renderLabel() ?><?php echo $userForm['oldPassword']->render() ?><?php echo $userForm['oldPassword']->renderError() ?><br class="clear" /></div>
+                    <div><span>:</span> <?php echo $userForm['newPassword']->renderLabel() ?><?php echo $userForm['newPassword']->render() ?><?php echo $userForm['newPassword']->renderError() ?><br class="clear" /></div>
+                    <div><span>:</span> <?php echo $userForm['confirmPassword']->renderLabel() ?><?php echo $userForm['confirmPassword']->render() ?><?php echo $userForm['confirmPassword']->renderError() ?><br class="clear" /></div>
                     <div>
                         <input class="formButton" type="submit" value="<?php echo __('Save') ?>" id="saveButton" />
                         <input class="formButton" type="button" id="cancel" value="<?php echo __('Cancel') ?>" />
