@@ -306,9 +306,10 @@ function findSelected(){
         changedEstimation.disabled = false;
         editboxAcceptedDate.disabled=true;
     }
-
     
-    
+    if(isAllowToEditEffort == '0'){
+                document.getElementById('editboxEstimation').disabled = true;
+    }    
 }
 
 function datepicker(){
