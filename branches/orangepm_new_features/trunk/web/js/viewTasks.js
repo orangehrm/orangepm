@@ -91,7 +91,7 @@ $(document).ready(function() {
                 $(this).parent().children('td.changedEffort').addClass('ajaxEffort');
                 $(this).parent().children('td.changedEffort').html("<input type='text' id='ajaxEffortInput' value='"+effort+"'></input>");
                 $(this).parent().children('td.changedEstimatedEndDate').addClass('ajaxEstimatedEndDate');
-                $(this).parent().children('td.changedEstimatedEndDate').html("<input type='text' id='ajaxEstimatedEndDateInput' value='"+estimatedEndDate+"'></input>");
+                $(this).parent().children('td.changedEstimatedEndDate').html('<input id="ajaxEstimatedEndDateInput" type="text"  value="'+$(this).parent().children('td.changedEstimatedEndDate').text()+'">');
                 
                 var statusDropDown = '<select name="ajaxStatus" id="ajaxStatus" >';
                 for(key in statusArray) {
