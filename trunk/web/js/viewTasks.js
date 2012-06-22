@@ -53,13 +53,8 @@ $(document).ready(function() {
                             data: "id="+id+"&name="+nameText+"&effort="+effortText+"&estimatedEndDate="+estimatedEndDate+"&status="+statusSelect+"&ownedBy="+ownedByText+"&description="+descriptionText+"&projectId="+projectId,
                             success: function(responce){
                                 if(responce=='notSaved'){
-                                    alert("Your session is expired");
-                                    $parentRow.children('td.changedName').html(name);
-                                    $parentRow.children('td.changedEffort').html(effort);
-                                    $parentRow.children('td.changedEstimatedEndDate').html(preestimatedEndDate);
-                                    $parentRow.children('td.changedStatus').html(statusArray[status]);
-                                    $parentRow.children('td.changedOwnedBy').html(ownedBy);
-                                    $parentRow.children('td.changedDescription').html(description);
+                                    alert("Your session is expired. Please log in");
+                                    window.location.href = loginUrl;
                                 }else {
                                     $parentRow.children('td.changedName').html(nameText);
                                     $parentRow.children('td.changedEffort').html(effortText);
