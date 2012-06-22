@@ -387,13 +387,28 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
      * @group samith
      */
     public function testGetProjectUsersByProjectAndUserTestWrongInputs(){
-        $result =$this->projectDao->getProjectUsersByProjectAndUser(11,11);
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(55,70);
         $this->assertTrue(!$result);
         
-        $result =$this->projectDao->getProjectUsersByProjectAndUser(55,6);
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(67,6);
         $this->assertTrue(!$result);
         
-        $result =$this->projectDao->getProjectUsersByProjectAndUser(11,1);
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(1,14);
+        $this->assertTrue(!$result);
+        
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(null,null);
+        $this->assertTrue(!$result);
+        
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(null,1);
+        $this->assertTrue(!$result);
+        
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(1,null);
+        $this->assertTrue(!$result);
+        
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(1999,null);
+        $this->assertTrue(!$result);
+        
+        $result =$this->projectDao->getProjectUsersByProjectAndUser(null , 232);
         $this->assertTrue(!$result);
     }
     

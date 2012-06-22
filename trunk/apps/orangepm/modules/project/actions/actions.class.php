@@ -600,20 +600,25 @@ class projectActions extends sfActions {
         $projectService = new ProjectService();
         $this->taskService = new TaskService();
         $loggedUserObject = null;
+        $projectDao = new ProjectDao();
         $auth = new AuthenticationService();
+       if($projectDao->getProjectById($this->projectId) != null){
         $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId);
-        if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
-       
-            $this->id = $request->getParameter('id');
-            $projectDao = new ProjectDao();
-            $this->projectName = $projectDao->getProjectById($this->id)->getName();
-            $viewStoriesDao = new StoryDao();
+            if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
 
-            $pageNo = $this->getRequestParameter('page', 1);
-            $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
+                $this->id = $request->getParameter('id');
+                
+                $this->projectName = $projectDao->getProjectById($this->id)->getName();
+                $viewStoriesDao = new StoryDao();
 
-            if (count($this->storyList) == 0) {
-                $this->noRecordMessage = __("No Matching Stories Found");
+                $pageNo = $this->getRequestParameter('page', 1);
+                $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
+
+                if (count($this->storyList) == 0) {
+                    $this->noRecordMessage = __("No Matching Stories Found");
+                }
+            } else {
+                $this->redirect("project/viewProjects");
             }
         } else {
             $this->redirect("project/viewProjects");
