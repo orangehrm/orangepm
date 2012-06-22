@@ -397,4 +397,11 @@ class ProjectDaoTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(!$result);
     }
     
+    /**
+     * @author Guru 
+     */
+    public function testGetProjectByIdWithNonId() {
+        $result = $this->projectDao->getProjectById(1000); //non object id
+        $this->assertEquals(NULL, $result);        
+    }    
 }
