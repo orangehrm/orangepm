@@ -50,7 +50,7 @@ $(document).ready(function() {
                         $.ajax({
                             type: "post",
                             url: updateTaskUrl,
-                            data: "id="+id+"&name="+nameText+"&effort="+effortText+"&estimatedEndDate="+estimatedEndDate+"&status="+statusSelect+"&ownedBy="+ownedByText+"&description="+descriptionText+"&projectId="+projectId,
+                            data: {id: id , name: nameText, effort: effortText, estimatedEndDate: estimatedEndDate, status: statusSelect, ownedBy: ownedByText, description: descriptionText, projectId: projectId},                            
                             success: function(responce){
                                 if(responce=='notSaved'){
                                     window.location.href = loginUrl+"?noSession=true";

@@ -68,11 +68,11 @@ $(document).ready(function() {
             $('.ajaxPassword').removeClass('ajaxPassword');
             
             $(this).parent().children('td.changedFirstName').addClass('ajaxFirstName');
-            $(this).parent().children('td.changedFirstName').html('<input id="editboxFirstName" size="15" type="text" maxlength="15" value="'+$(this).parent().children('td.changedFirstName').text()+'">');
+            $(this).parent().children('td.changedFirstName').html('<input id="editboxFirstName" size="15" type="text" maxlength="15" value="'+escapeQuotes($(this).parent().children('td.changedFirstName').text())+'">');
             $(this).parent().children('td.changedLastName').addClass('ajaxLastName');
-            $(this).parent().children('td.changedLastName').html('<input id="editboxLastName" size="15" type="text" maxlength="15" value="'+$(this).parent().children('td.changedLastName').text()+'">');
+            $(this).parent().children('td.changedLastName').html('<input id="editboxLastName" size="15" type="text" maxlength="15" value="'+escapeQuotes($(this).parent().children('td.changedLastName').text())+'">');
             $(this).parent().children('td.changedEmail').addClass('ajaxEmail');
-            $(this).parent().children('td.changedEmail').html('<input id="editboxEmail" size="30" type="text" maxlength="30" value="'+$(this).parent().children('td.changedEmail').text()+ '">');            
+            $(this).parent().children('td.changedEmail').html('<input id="editboxEmail" size="30" type="text" maxlength="30" value="'+escapeQuotes($(this).parent().children('td.changedEmail').text())+ '">');            
             
             $(this).parent().children('td.changedUserType').addClass('ajaxUserType');
             if(dropdownToggleVariable){
@@ -91,7 +91,7 @@ $(document).ready(function() {
             }
             
             $(this).parent().children('td.changedUsername').addClass('ajaxUsername');
-            $(this).parent().children('td.changedUsername').html('<input id="editboxUsername" size="14" type="text" maxlength="15" value="'+$(this).parent().children('td.changedUsername').text()+'">');
+            $(this).parent().children('td.changedUsername').html('<input id="editboxUsername" size="14" type="text" maxlength="15" value="'+escapeQuotes($(this).parent().children('td.changedUsername').text())+'">');
             $(this).parent().children('td.changedPassword').addClass('ajaxPassword');
             $(this).parent().children('td.changedPassword').html('<input id="editboxPassword" size="14" type="text" maxlength="15" value="double click to reset" readonly="readonly" >');
                 
@@ -134,8 +134,7 @@ $(document).ready(function() {
                                     $.ajax({
                                         type: "post",
                                         url: linkUrl,
-
-                                        data: "firstName="+$('.ajaxFirstName input').val()+"&lastName="+$('.ajaxLastName input').val()+"&email="+jQuery.trim($('.ajaxEmail input').val())+"&id="+classNameArray[2]+"&userType="+jQuery.trim($('.ajaxUserType select').val())+"&username="+jQuery.trim($('.ajaxUsername input').val()+"&password="+jQuery.trim($('.ajaxPassword input').val())),
+                                        data: {firstName : $('.ajaxFirstName input').val() , lastName : $('.ajaxLastName input').val() , email : jQuery.trim($('.ajaxEmail input').val()) , id : classNameArray[2] , userType : jQuery.trim($('.ajaxUserType select').val()) , username : jQuery.trim($('.ajaxUsername input').val()) , password : jQuery.trim($('.ajaxPassword input').val())},
 
                                         success: function(){
 
@@ -190,4 +189,10 @@ function setMainErrorMessage(message) {
 
 function removeMainErrorMessage() {
     $('#mainErrorDiv').empty();
+}
+function escapeQuotes(words){
+    words=words.replace("&","&amp;");
+    words=words.replace('"',"&#34;");
+    words=words.replace("'","&#39;");
+    return words;
 }

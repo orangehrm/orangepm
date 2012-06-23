@@ -140,9 +140,7 @@ $(document).ready(function() {
                     $.ajax({
                         type: "post",
                         url: linkUrl,
-                        
-                        data: "name="+$('.ajaxName input').val().trim()+"&startDate="+$('.ajaxStartDate input').val().trim()+"&endDate="+$('.ajaxEndDate input').val().trim()+"&id="+classNameArray[2]+"&projectStatus="+status + "&projectAdminId=" + $('#changedProjectAdmin option:selected').val()+ "&ajaxPost=true",
-
+                        data: {name : $('.ajaxName input').val().trim(), startDate : $('.ajaxStartDate input').val().trim(), endDate : $('.ajaxEndDate input').val().trim(), id : classNameArray[2], projectStatus : status, projectAdminId : $('#changedProjectAdmin option:selected').val(), ajaxPost : true},
                         success: function(responce){
                             if(responce!=''){
                                 window.location.href = loginUrl+"?noSession=true";
