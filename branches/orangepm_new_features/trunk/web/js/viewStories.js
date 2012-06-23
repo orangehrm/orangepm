@@ -71,7 +71,7 @@ $(document).ready(function() {
             $('.ajaxStatus').removeClass('ajaxStatus');
             
             $(this).parent().children('td.changedName').addClass('ajaxName');
-            $(this).parent().children('td.changedName').html('<input id="editboxName" size="20" type="text" value="'+escapeQuotes($(this).parent().children('td.changedName').text())+'">');
+            $(this).parent().children('td.changedName').html('<input id="editboxName" size="20" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
             $(this).parent().children('td.changedDate').addClass('ajaxDate');
             $(this).parent().children('td.changedDate').html('<input id="editboxDate" size="9" type="text" value="'+$(this).parent().children('td.changedDate').text()+'">');
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
@@ -330,11 +330,4 @@ function setMainErrorMessage(message) {
 
 function removeMainErrorMessage() {
     $('#mainErrorDiv').empty();
-}
-
-function escapeQuotes(words){
-    words=words.replace("&","&amp;");
-    words=words.replace('"',"&#34;");
-    words=words.replace("'","&#39;");
-    return words;
 }
