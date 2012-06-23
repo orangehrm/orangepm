@@ -81,12 +81,12 @@ $(document).ready(function() {
             $(this).parent().children('td.changedEndDate').html('<input id="editboxEndDate" size="9" type="text" value="'+$(this).parent().children('td.changedEndDate').text()+'">');
             
             $("#editboxStartDate, #editboxEndDate").datepicker(
-                    {
-                        dateFormat: 'yy-mm-dd',
-                        changeMonth: true,
-                        changeYear: true,
-                        showAnim: "slideDown"
-             });
+            {
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                showAnim: "slideDown"
+            });
             
             if(dropdownToggleVariable){
                 
@@ -141,16 +141,20 @@ $(document).ready(function() {
                         type: "post",
                         url: linkUrl,
                         
-                        data: "name="+$('.ajaxName input').val().trim()+"&startDate="+$('.ajaxStartDate input').val().trim()+"&endDate="+$('.ajaxEndDate input').val().trim()+"&id="+classNameArray[2]+"&projectStatus="+status + "&projectAdminId=" + $('#changedProjectAdmin option:selected').val(),
+                        data: "name="+$('.ajaxName input').val().trim()+"&startDate="+$('.ajaxStartDate input').val().trim()+"&endDate="+$('.ajaxEndDate input').val().trim()+"&id="+classNameArray[2]+"&projectStatus="+status + "&projectAdminId=" + $('#changedProjectAdmin option:selected').val()+ "&ajaxPost=true",
 
-                        success: function(){
-                            var hstring = '<a href='+'viewProjectDetails?'+'projectId='+classNameArray[2]+' > '+$('.ajaxName input').val().trim()+'</a>';
-                            $('.ajaxName').html(hstring);                            
-                            $('.ajaxName').removeClass('ajaxName');                           
-                            $('.ajaxStartDate').html($('.ajaxStartDate input').val().trim());
-                            $('.ajaxEndDate').html($('.ajaxEndDate input').val().trim());
-                            $('.ajaxStartDate').removeClass('ajaxStartDate');
-                            $('.ajaxEndDate').removeClass('ajaxEndDate');
+                        success: function(responce){
+                            if(responce!=''){
+                                window.location.href = loginUrl+"?noSession=true";
+                            }else {
+                                var hstring = '<a href='+'viewProjectDetails?'+'projectId='+classNameArray[2]+' > '+$('.ajaxName input').val().trim()+'</a>';
+                                $('.ajaxName').html(hstring);                            
+                                $('.ajaxName').removeClass('ajaxName');                           
+                                $('.ajaxStartDate').html($('.ajaxStartDate input').val().trim());
+                                $('.ajaxEndDate').html($('.ajaxEndDate input').val().trim());
+                                $('.ajaxStartDate').removeClass('ajaxStartDate');
+                                $('.ajaxEndDate').removeClass('ajaxEndDate');
+                            }
                         }
 
                     });

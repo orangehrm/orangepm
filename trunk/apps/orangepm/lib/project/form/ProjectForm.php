@@ -24,6 +24,7 @@ class ProjectForm extends sfForm {
         $this->_setStatusWidgets();
         $this->_setStartDateWidgets();
         $this->_setEndDateWidgets();
+
         if($this->getOption('user')) {
             $this->_setProjectAdminWidgets();
         }
@@ -36,6 +37,7 @@ class ProjectForm extends sfForm {
         $this->_setDescriptionWidgets();
         $this->_setProjectUserWidgets();
         $this->setWidgets($this->formWidgets);
+        
         $this->setValidators($this->formValidators);
 
         $this->widgetSchema->setNameFormat('project[%s]');
@@ -81,6 +83,7 @@ class ProjectForm extends sfForm {
         $this->formWidgets['startDate'] = new sfWidgetFormInputText(array(), array());
         $this->formValidators['startDate'] = new sfValidatorString(array('required' => true), array('required' => __('Development Start Date is required')));
         $this->formWidgets['startDate']->setLabel(__("Development Start Date")."<span class='mandatoryStar'>*</span>");
+        
     }
     
     private function _setStatusWidgets() {
