@@ -5,6 +5,7 @@
     var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
     var editImgUrl = '<?php echo image_tag('b_edit.png', 'id=editBtn') ?>';
     var linkUrl = "<?php echo url_for('project/editProject') ?>";
+    var loginUrl = "<?php echo url_for('project/login')?>";
     var projectAdmins = new Array;
     
     <?php

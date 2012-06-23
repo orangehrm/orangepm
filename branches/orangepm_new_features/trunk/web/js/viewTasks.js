@@ -53,8 +53,7 @@ $(document).ready(function() {
                             data: "id="+id+"&name="+nameText+"&effort="+effortText+"&estimatedEndDate="+estimatedEndDate+"&status="+statusSelect+"&ownedBy="+ownedByText+"&description="+descriptionText+"&projectId="+projectId,
                             success: function(responce){
                                 if(responce=='notSaved'){
-                                    alert("Your session is expired. Please log in");
-                                    window.location.href = loginUrl;
+                                    window.location.href = loginUrl+"?noSession=true";
                                 }else {
                                     $parentRow.children('td.changedName').html(nameText);
                                     $parentRow.children('td.changedEffort').html(effortText);
