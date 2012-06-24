@@ -13,6 +13,9 @@ $(document).ready(function() {
         },
         messages: {
             'user[email]': { required: lang_emailRequired, email: lang_validEmailRequired },
+//            if('user[isPasswordChange]'){
+//                
+//            }
             'user[oldPassword]': { required: lang_oldPasswordRequired },
             'user[newPassword]': { required: lang_newPasswordRequired },
             'user[confirmPassword]': { required: lang_confirmPasswordRequired }
