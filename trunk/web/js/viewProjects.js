@@ -140,7 +140,15 @@ $(document).ready(function() {
                     $.ajax({
                         type: "post",
                         url: linkUrl,
-                        data: {name : $('.ajaxName input').val().trim(), startDate : $('.ajaxStartDate input').val().trim(), endDate : $('.ajaxEndDate input').val().trim(), id : classNameArray[2], projectStatus : status, projectAdminId : $('#changedProjectAdmin option:selected').val(), ajaxPost : true},
+                        data: {
+                            name : $('.ajaxName input').val().trim(), 
+                            startDate : $('.ajaxStartDate input').val().trim(), 
+                            endDate : $('.ajaxEndDate input').val().trim(), 
+                            id : classNameArray[2], 
+                            projectStatus : status, 
+                            projectAdminId : $('#changedProjectAdmin option:selected').val(), 
+                            ajaxPost : true
+                        },
                         success: function(responce){
                             if(responce!=''){
                                 window.location.href = loginUrl+"?noSession=true";
@@ -181,8 +189,11 @@ function removeMainErrorMessage() {
     $('#mainErrorDiv').empty();
 }
 function escapeQuotes(words){
-    words=words.replace("&","&amp;");
-    words=words.replace('"',"&#34;");
-    words=words.replace("'","&#39;");
-    return words;
+    return words
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
 }
