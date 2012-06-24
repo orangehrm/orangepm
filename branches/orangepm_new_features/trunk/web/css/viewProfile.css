@@ -48,7 +48,7 @@ div#requiredField {
 
 form#editProfile div li{
     list-style-type: none;
-    padding-left: 135px;
+    padding-left: 190px;
 }
 
 table.tableContent {
@@ -58,7 +58,7 @@ table.tableContent {
 div.error {
     color: #CC0033;
     font-size: 12px;
-    margin-left: 136px;
+    margin-left: 190px;
 }
 
 form div {
@@ -70,7 +70,7 @@ form div {
 
 form#editProfile label {
     float: left;
-    width: 125px;
+    width: 185px;
 }
 
 html body div.Profile div.editProfileForm div.formField form#editProfile #saveButton , #cancel {

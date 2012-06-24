@@ -20,6 +20,8 @@ class UserForm extends sfForm {
             'oldPassword' => new sfWidgetFormInputPassword(array(), array('size' => '20', 'maxlength' => 15)),
             'newPassword' => new sfWidgetFormInputPassword(array(), array('size' => '20', 'maxlength' => 15)),
             'confirmPassword' => new sfWidgetFormInputPassword(array(), array('size' => '20', 'maxlength' => 15)),
+            'isPasswordChange' => new sfWidgetFormInputCheckbox(array(), array('value'=>'1')),
+            
         ));
 
 
@@ -36,6 +38,7 @@ class UserForm extends sfForm {
         $this->widgetSchema->setLabel('oldPassword', 'Old Password');
         $this->widgetSchema->setLabel('newPassword', 'New Password');
         $this->widgetSchema->setLabel('confirmPassword', 'Confirm Password');
+        $this->widgetSchema->setLabel('isPasswordChange', 'Password Change');
 
         if ($this->getOption('userFormType') == 'editUserForm') {
 

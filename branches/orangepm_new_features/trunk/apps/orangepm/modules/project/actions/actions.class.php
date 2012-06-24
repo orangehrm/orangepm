@@ -603,8 +603,8 @@ class projectActions extends sfActions {
         $projectDao = new ProjectDao();
         $auth = new AuthenticationService();
         if ($projectDao->getProjectById($this->projectId) != null) {
-            $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId);
-            if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
+            $this->projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId);
+            if ($this->projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $this->projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $this->projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
 
                 $this->id = $request->getParameter('id');
 
