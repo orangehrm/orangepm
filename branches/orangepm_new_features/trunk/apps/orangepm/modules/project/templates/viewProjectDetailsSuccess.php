@@ -7,6 +7,7 @@
     var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
     var editImgUrl = '<?php echo image_tag('b_edit.png', 'id=editBtn') ?>';
     var linkUrl = "<?php echo url_for('project/editStory') ?>";
+    var loginUrl = '<?php echo url_for('project/login')?>';
     var projectViewUrl = "<?php echo url_for("project/viewProjectDetails?projectId={$project->getId()}&projectName={$project->getName()}")?>";
     var statusChanged = false;
     var userId = "<?php echo $userId;?>";

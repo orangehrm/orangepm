@@ -134,7 +134,15 @@ $(document).ready(function() {
                                     $.ajax({
                                         type: "post",
                                         url: linkUrl,
-                                        data: {firstName : $('.ajaxFirstName input').val() , lastName : $('.ajaxLastName input').val() , email : jQuery.trim($('.ajaxEmail input').val()) , id : classNameArray[2] , userType : jQuery.trim($('.ajaxUserType select').val()) , username : jQuery.trim($('.ajaxUsername input').val()) , password : jQuery.trim($('.ajaxPassword input').val())},
+                                        data: {
+                                            firstName : $('.ajaxFirstName input').val() , 
+                                            lastName : $('.ajaxLastName input').val() , 
+                                            email : jQuery.trim($('.ajaxEmail input').val()) , 
+                                            id : classNameArray[2] , 
+                                            userType : jQuery.trim($('.ajaxUserType select').val()) , 
+                                            username : jQuery.trim($('.ajaxUsername input').val()) , 
+                                            password : jQuery.trim($('.ajaxPassword input').val())
+                                            },
 
                                         success: function(){
 
@@ -142,7 +150,7 @@ $(document).ready(function() {
                                                 $('.ajaxPassword').html("hidden");
                                             }
 
-                                            /*$('.ajaxFirstName').html($('.ajaxFirstName input').val());
+                                        /*$('.ajaxFirstName').html($('.ajaxFirstName input').val());
                                         $('.ajaxLastName').html($('.ajaxLastName input').val());
                                         $('.ajaxEmail').html($('.ajaxEmail input').val());
                                         $('.ajaxUserType').html($('.ajaxUserType select').text());
@@ -191,8 +199,11 @@ function removeMainErrorMessage() {
     $('#mainErrorDiv').empty();
 }
 function escapeQuotes(words){
-    words=words.replace("&","&amp;");
-    words=words.replace('"',"&#34;");
-    words=words.replace("'","&#39;");
-    return words;
+    return words
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
 }
