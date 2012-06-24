@@ -235,7 +235,7 @@ class projectActions extends sfActions {
                     'email' => $this->userForm->getValue('email'),
                     'userType' => $this->loggedUser->getUserType(),
                     'username' => $this->loggedUser->getUsername(),
-                    'password' => $this->userForm->getValue('password')
+                    'password' => $this->userForm->getValue('newPassword')
                 );
                 $userDao->updateUser($userParameters, $this->loggedUser->getId());
                 $this->getUser()->setFlash('editProfile', __('The profile edit successfully'));
