@@ -35,8 +35,6 @@
                             echo ':'.' Project Member';
                     ?></label></div>
                     <div><?php echo $userForm['username']->renderLabel() ?><input type="hidden" id ="user_username" name="user[username]" value ="<?php echo $loggedUser->getUsername(); ?>"><label class="username"><?php echo ': '.$loggedUser->getUsername(); ?></label></div>
-                    <div><span>:</span> <?php echo $userForm['isPasswordChange']->renderLabel() ?><?php echo $userForm['isPasswordChange']->render() ?><?php echo $userForm['isPasswordChange']->renderError() ?><br class="clear" /></div>
-                    <div><span>:</span> <?php echo $userForm['oldPassword']->renderLabel() ?><?php echo $userForm['oldPassword']->render() ?><?php echo $userForm['oldPassword']->renderError() ?><br class="clear" /></div>
                     <div><span>:</span> <?php echo $userForm['newPassword']->renderLabel() ?><?php echo $userForm['newPassword']->render() ?><?php echo $userForm['newPassword']->renderError() ?><br class="clear" /></div>
                     <div><span>:</span> <?php echo $userForm['confirmPassword']->renderLabel() ?><?php echo $userForm['confirmPassword']->render() ?><?php echo $userForm['confirmPassword']->renderError() ?><br class="clear" /></div>
                     <div>
