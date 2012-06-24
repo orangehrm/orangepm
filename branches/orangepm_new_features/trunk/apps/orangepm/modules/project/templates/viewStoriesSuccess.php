@@ -7,7 +7,7 @@
     var linkUrl = "<?php echo url_for('project/editStory') ?>";
     var loginUrl = '<?php echo url_for('project/login')?>';
     var viewTaskUrl = "<?php echo url_for('project/viewTasks') ?>";
-    var isAllowToEditEffort = "<?php    if(($isProjectAccessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($isProjectAccessLevel == User::USER_TYPE_SUPER_ADMIN) ) { echo '1';}
+    var isAllowToEditEffort = "<?php    if(($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($projectAccessLevel == User::USER_TYPE_SUPER_ADMIN) ) { echo '1';}
                                         else {echo '0'; } ?>";
 </script>
 
