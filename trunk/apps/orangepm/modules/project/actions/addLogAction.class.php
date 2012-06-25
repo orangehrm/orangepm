@@ -19,7 +19,9 @@ class addLogAction extends sfAction {
             $this->projectLogService->saveLogItem($projectLog);
         }
         $this->projectId = $request->getParameter('projectId');
-        $this->projectName = $request->getParameter('projectName');
+        $projectService = new ProjectService();
+        $project = $projectService->getProjectById($this->projectId);
+        $this->projectName = $project->getName();
         $loggedUserObject = null;
         $this->userId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $this->userName = $this->projectLogService->getUserName($this->userId);

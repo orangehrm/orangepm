@@ -9,8 +9,8 @@
 
 <div class="Task">
     <div class="heading">
-        <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> > <?php echo link_to(__($project->getName()),"project/viewProjectDetails?projectName={$project->getName()}&projectId={$project->getId()}"); ?> >
-            <?php echo link_to(__('Stories'),"project/viewStories?projectName={$project->getName()}&id={$project->getId()}"); ?> > <?php echo link_to(__($story->getName()), "project/viewTasks?storyId={$story->getId()}");?> > <?php echo __('Add Task'); ?></h3>
+        <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> > <?php echo link_to(__($project->getName()),"project/viewProjectDetails?projectId={$project->getId()}&projectName={$project->getName()}"); ?> >
+            <?php echo link_to(__('Stories'),"project/viewStories?id={$project->getId()}&projectName={$project->getName()}"); ?> > <?php echo link_to(__($story->getName()), "project/viewTasks?storyId={$story->getId()}");?> > <?php echo __('Add Task'); ?></h3>
         <span id="message"><?php echo $sf_user->getFlash('addStory') ?></span>
         <span id="noRecordMessage"><?php if(isset($noRecordMessage)) echo $noRecordMessage; ?></span>
     </div>

@@ -13,7 +13,7 @@
 
 <div class="Project">
     <div class="heading">
-        <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> > <?php echo link_to(__($projectName),"project/viewProjectDetails?projectName={$projectName}&projectId={$id}"); ?> > <?php echo __('Stories'); ?> </h3>
+        <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> > <?php echo link_to(__($projectName),"project/viewProjectDetails?projectId={$id}&projectName={$projectName}"); ?> > <?php echo __('Stories'); ?> </h3>
         <span id="message"><?php echo $sf_user->getFlash('addStory') ?></span>
         <span id="noRecordMessage"><?php if(isset($noRecordMessage)) echo $noRecordMessage; ?></span>
     </div>
