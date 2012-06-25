@@ -13,7 +13,9 @@ $(document).ready(function() {
         },
         messages: {
             'user[email]': { required: lang_emailRequired, email: lang_validEmailRequired },
-            'user[password]': { required: lang_passwordRequired }
+            
+            'user[newPassword]': { required: lang_newPasswordRequired },
+            'user[confirmPassword]': { required: lang_confirmPasswordRequired }
         },        
         errorElement : 'div',
         errorPlacement: function(error, element) {

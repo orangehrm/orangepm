@@ -1,10 +1,15 @@
 $(document).ready(function(){
+    var selectedProjectAdmin=$('#project_projectAdmin option:selected');
     $('#project_name').attr('disabled', true);
     $('#project_startDate').attr('disabled', true);
     $('#project_endDate').attr('disabled', true);
     $('#project_projectAdmin').attr('disabled', true);
     $('#project_status').attr('disabled', true);
     $('#project_description').attr('disabled', true);
+    $('#project_projectUserAll').hide();
+    $('label[for="project_projectUserAll"]').hide();
+    $('#btns').hide();
+    //$('#btnRight').hide();
     $('#cancel').attr('disabled', true);
     
     $('#saveButton').click(function(event) {
@@ -16,6 +21,11 @@ $(document).ready(function(){
             $('#project_projectAdmin').removeAttr("disabled");
             $('#project_status').removeAttr("disabled");
             $('#project_description').removeAttr("disabled");
+            $('#project_projectUserAll').show();
+            $('label[for="project_projectUserAll"]').show();
+            $('#project_projectUserSelected').removeAttr("disabled");
+            $('#btns').show();
+            //$('#btnRight').show();
             $('#cancel').removeAttr("disabled");
             $('#saveButton').attr('value','Save') 
         }
@@ -71,5 +81,31 @@ $(document).ready(function(){
             $("#storyExpandColaps").removeClass('hide');
             $("#storyExpandColaps").html("[-]");
         } 
+    });
+    $('#btnRight').click(function(e) {
+        var selectedOpts = $('#project_projectUserAll option:selected');
+        if (selectedOpts.length == 0) {
+            e.preventDefault();
+        }        
+        $('#project_projectUserSelected').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+    $('#btnLeft').click(function(e) {
+        var selectedOpts = $('#project_projectUserSelected option:selected');
+        if (selectedOpts.length == 0) {
+            e.preventDefault();
+        }
+
+        $('#project_projectUserAll').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+    $('#project_projectAdmin').change(function() {  
+        $('#project_projectUserAll').append($(selectedProjectAdmin).clone());
+        selectedProjectAdmin=$('#project_projectAdmin option:selected');
+        $('#project_projectUserAll option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
+        $('#project_projectUserSelected option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
     });
 });

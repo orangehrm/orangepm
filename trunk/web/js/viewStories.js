@@ -71,12 +71,14 @@ $(document).ready(function() {
             $('.ajaxStatus').removeClass('ajaxStatus');
             
             $(this).parent().children('td.changedName').addClass('ajaxName');
-            $(this).parent().children('td.changedName').html('<input id="editboxName" size="37" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
+            $(this).parent().children('td.changedName').html('<input id="editboxName" size="20" type="text" value="'+escapeQuotes($(this).parent().children('td.changedName').text())+'">');
             $(this).parent().children('td.changedDate').addClass('ajaxDate');
             $(this).parent().children('td.changedDate').html('<input id="editboxDate" size="9" type="text" value="'+$(this).parent().children('td.changedDate').text()+'">');
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
             $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
-            
+            if(isAllowToEditEffort == '0'){
+                document.getElementById('editboxEstimation').disabled = true;
+            }
 
             $(this).parent().children('td.changedAcceptedDate').addClass('ajaxAcceptedDate');
             $(this).parent().children('td.changedAcceptedDate').html('<input id="editboxAcceptedDate" size="9" type="text" value="'+$(this).parent().children('td.changedAcceptedDate').text()+ '">');
@@ -133,21 +135,32 @@ $(document).ready(function() {
                                             type: "post",
                                             url: linkUrl,
 
+                                            data: {
+                                                name : $('.ajaxName input').val() , 
+                                                date : $('.ajaxDate input').val() , 
+                                                estimation : jQuery.trim($('.ajaxEstimation input').val()) , 
+                                                id : classNameArray[2] , 
+                                                status : jQuery.trim($('.ajaxStatus select').val()) , 
+                                                acceptedDate : jQuery.trim($('.ajaxAcceptedDate input').val())
+                                            },
 
-                                            data: "name="+$('.ajaxName input').val()+"&date="+$('.ajaxDate input').val()+"&estimation="+jQuery.trim($('.ajaxEstimation input').val())+"&id="+classNameArray[2]+"&status="+jQuery.trim($('.ajaxStatus select').val())+"&acceptedDate="+jQuery.trim($('.ajaxAcceptedDate input').val()),
+                                            success: function(responce){
+                                                if(responce!=''){
+                                                    window.location.href = loginUrl+"?noSession=true";
+                                                }
+                                                else{
+                                                    $('#message').html('The Story was updated successfully');
+                                                    var stroyClass = $('.ajaxName').attr('class').split(' ');
+                                                    $('.ajaxName').html("<a href="+viewTaskUrl+"?storyId="+stroyClass[2]+">"+$('.ajaxName input').val()+"</a>");
+                                                    $('.ajaxDate').html($('.ajaxDate input').val());
+                                                    $('.ajaxEstimation').html($('.ajaxEstimation input').val());
 
-                                            success: function(){
-                                                $('#message').html('The Story was updated successfully');
-                                                var stroyClass = $('.ajaxName').attr('class').split(' ');
-                                                $('.ajaxName').html("<a href="+viewTaskUrl+"?storyId="+stroyClass[2]+">"+$('.ajaxName input').val()+"</a>");
-                                                $('.ajaxDate').html($('.ajaxDate input').val());
-                                                $('.ajaxEstimation').html($('.ajaxEstimation input').val());
-
-                                                $('.ajaxAcceptedDate').html($('.ajaxAcceptedDate input').val());
-                                                $('.ajaxStatus').html($('.ajaxStatus select').val());
-                                                $('.ajaxStatus').removeClass('ajaxStatus');
-                                                if((projectViewUrl != null) && (statusChanged)) {
-                                                    window.location.reload();
+                                                    $('.ajaxAcceptedDate').html($('.ajaxAcceptedDate input').val());
+                                                    $('.ajaxStatus').html($('.ajaxStatus select').val());
+                                                    $('.ajaxStatus').removeClass('ajaxStatus');                                                
+                                                    if((projectViewUrl != null) && (statusChanged)) {
+                                                        window.location.reload();
+                                                    }
                                                 }
                                             }
                                         });
@@ -304,9 +317,10 @@ function findSelected(){
         changedEstimation.disabled = false;
         editboxAcceptedDate.disabled=true;
     }
-
     
-    
+    if(isAllowToEditEffort == '0'){
+        document.getElementById('editboxEstimation').disabled = true;
+    }    
 }
 
 function datepicker(){
@@ -327,4 +341,13 @@ function setMainErrorMessage(message) {
 
 function removeMainErrorMessage() {
     $('#mainErrorDiv').empty();
+}
+function escapeQuotes(words){
+    return words
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
 }

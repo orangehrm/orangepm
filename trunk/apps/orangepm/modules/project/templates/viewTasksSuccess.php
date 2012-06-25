@@ -5,6 +5,7 @@
     var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
     var editImgUrl = '<?php echo image_tag('b_edit.png', 'id=editBtn') ?>';
     var updateTaskUrl = '<?php echo url_for('project/editTask')?>';
+    var loginUrl = '<?php echo url_for('project/login')?>';
     var projectId = '<?php echo $project->getId()?>';
     var statusArray = new Array();
     <?php 
@@ -16,7 +17,7 @@
 
 <div class="Task">
     <div class="heading">
-        <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> > <?php echo link_to(__($project->getName()),"project/viewProjectDetails?projectName={$project->getName()}&projectId={$project->getId()}"); ?> > <?php echo link_to(__('Stories'),"project/viewStories?projectName={$project->getName()}&id={$project->getId()}"); ?> > <?php echo __($story->getName()); ?> > <?php echo __("Tasks"); ?></h3> 
+        <h3> <?php echo link_to(__('Projects'),'project/viewProjects'); ?> > <?php echo link_to(__($project->getName()),"project/viewProjectDetails?projectId={$project->getId()}&projectName={$project->getName()}"); ?> > <?php echo link_to(__('Stories'),"project/viewStories?id={$project->getId()}&projectName={$project->getName()}"); ?> > <?php echo __($story->getName()); ?> > <?php echo __("Tasks"); ?></h3> 
         <span id="message"><?php echo $sf_user->getFlash('addStory') ?></span>
         <span id="noRecordMessage"><?php if(isset($noRecordMessage)) echo $noRecordMessage; ?></span>
     </div>
@@ -27,6 +28,7 @@
             <tr>
                 <th class="taskName"><?php echo __('Task Name') ?></th>
                 <th class="taskEffort"><?php echo __('Effort')?></th>
+                <th class="taskEstimatedEndDate"><?php echo __('Estimated End Date');?></th>
                 <th class="taskStatus"><?php echo 'Status' ?></th>
                 <th class="taskOwnedBy"><?php echo __('Owned By') ?></th>
                 <th class="taskDescription"><?php echo __('Description');?></th>
@@ -37,6 +39,7 @@
                 <tr id="row">
                     <td class="<?php echo "changedName name " . $task->getId(); ?>"><?php echo $task->getName(); ?></td>
                     <td class="<?php echo "changedEffort effort " . $task->getId(); ?>"><?php echo $task->getEffort(); ?></td>
+                    <td class="<?php echo "changedEstimatedEndDate estimatedEndDate " . $task->getId(); ?>"> <?php echo $task->getEstimatedEndDate(); ?></td>
                     <td class="<?php echo "changedStatus status " . $task->getId(); ?> <?php echo strtolower($taskService->getStatus($task->getStatus())); ?>"> <?php echo $taskService->getStatus($task->getStatus()); ?></td>
                     <td class="<?php echo "changedOwnedBy ownedBy " . $task->getId(); ?>"> <?php echo $task->getOwnedBy(); ?></td>
                     <td class="<?php echo "changedDescription description " . $task->getId(); ?>"> <?php echo $task->getDescription(); ?></td>

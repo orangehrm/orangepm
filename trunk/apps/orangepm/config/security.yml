@@ -3,3 +3,6 @@
 
 default:
   is_secure: true
+  
+editTask:
+  is_secure: false

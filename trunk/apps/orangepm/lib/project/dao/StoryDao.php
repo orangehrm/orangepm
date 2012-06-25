@@ -41,12 +41,11 @@ class StoryDao {
     }
 
    /**
-    * Delete story
-    * @param $id, $deletedDate
-    * @return none
+    * Get stories for the project
+    * @param $active, $projectId, $pageNo
+    * @return set of stories for the project
     */
    public function getRelatedProjectStories($active, $projectId, $pageNo) {
-
         if ($active) {
             $pager = new sfDoctrinePager('Story', 50);
             $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId)->orderBy('date_added, name');
@@ -86,10 +85,27 @@ class StoryDao {
      public function getStory($storyId){
 
         return Doctrine_Core::getTable('Story')->find($storyId);
-
+    }
+    
+    
+    public function getTasks($storyId){
+        $story=Doctrine_Core::getTable('Story')->find($storyId);
+        if($story instanceof Story){
+            $returnVal = $story->getTask();
+            if($returnVal->count()>0){
+                return $returnVal;
+            }
+            else{
+                return null;
+            }
+        }
+        else{
+            return null;
+        }
+        
     }
 
-   /**
+    /**
     * Get stories for project progress
     * @param $active, $projectId,$sortBy
     * @return relevent Doctrine object
@@ -120,6 +136,49 @@ class StoryDao {
     public function getStoryById($id) {
 
         return Doctrine_Core::getTable('Story')->find($id);
+    }
+    
+    /**
+     *
+     * @param type $storyId 
+     */
+    public function getProjectIdByStoryId($storyId) {
+        $story = Doctrine_Core::getTable('Story')->find($storyId);
+        if($story!=NULL){
+            return $story->getProjectId();
+        }
+        else{
+            return NULL;
+        }
+    }
+    
+    /**
+     *
+     * @param type $storyId 
+     */
+    public function getEstimationEffortByStoryId($storyId){
+        $story = Doctrine_Core::getTable('Story')->find($storyId);
+        if($story != NULL)
+            return $story->getEstimation();
+        else 
+            return NULL;
+    }
+    
+    /*
+     * @author Eranga
+     * Setting estimated end date for story depending on the new task added
+     */
+    public function updateEstimatedEndDate($storyId,$date){
+        $story=Doctrine_Core::getTable('Story')->find($storyId);
+        if($story instanceof Story){
+            $story->setEstimatedEndDate($date);
+            $story->save();     
+            return true;
+            
+        }else{
+            return false;
+        }
+            
     }
 
 }

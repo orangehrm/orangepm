@@ -58,20 +58,29 @@ $(document).ready(function(){
     });
     
     $('#addButton').click(function() {
-        $("table.showTable tbody").append('<tr><td id="ajaxLoggedDate">'+getCurrentTime(true)+'</td><td id="ajaxUserName" value="'+userId+'" >'+userName+"</td><td><textarea id='ajaxDescription'></textarea></td>"+
+        $("table.showTable tbody").append('<tr><td id="ajaxLoggedDate"><input id="loggedDate" size="9" type="text" value="'+getCurrentTime(true)+'"></td><td id="ajaxUserName" value="'+userId+'" >'+userName+"</td><td><textarea id='ajaxDescription'></textarea></td>"+
             '<td class="logSave" colspan="2">'+logSaveImgUrl+'</td></tr>');
+        
+        $("#loggedDate").datepicker(
+        {
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            showAnim: "slideDown"
+        });
     });
     
     $('#logSaveBtn').live('click', function() {
+        var loggedDate = $('#loggedDate').val().trim();
         var addedBy = $('#ajaxUserName').attr('value');
         var description = $('#ajaxDescription').val();
         $.ajax({
             type: "post",
             url: addLinkUrl,
-            data: "projectId="+projectId+"&projectName="+projectName+"&loggedDate="+getCurrentTime(false)+"&addedBy="+addedBy+"&description="+description,
+            data: "projectId="+projectId+"&projectName="+projectName+"&loggedDate="+loggedDate+"&addedBy="+addedBy+"&description="+description,
             success: function(){
                 window.location.href = addLinkUrl+"/projectId/"+projectId+"/projectName/"+projectName;
-            },
+            }
         });
     });
     

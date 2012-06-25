@@ -5,6 +5,7 @@
     var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
     var editImgUrl = '<?php echo image_tag('b_edit.png', 'id=editBtn') ?>';
     var linkUrl = "<?php echo url_for('project/editProject') ?>";
+    var loginUrl = "<?php echo url_for('project/login')?>";
     var projectAdmins = new Array;
     
     <?php
@@ -42,9 +43,11 @@
             <th> <?php echo __('Started<br>Date'); ?> </th>
             <th> <?php echo __('End Date'); ?> </th>
             <th> <?php echo __('Status'); ?> </th>
-            <?php if($sf_user->hasCredential('superAdmin')): ?>
+            <?php if($sf_user->hasCredential('superAdmin')){ ?>
                 <th> <?php echo __('Project Admin'); ?> </th>
-            <?php endif; ?>
+            <?php } else{ ?>
+                <th> <?php echo __('Role'); ?> </th>
+            <?php } ?>  
             <th colspan="2"><?php echo __('Actions') ?></th>
 
             <?php $alt = '1' ?>
@@ -64,29 +67,45 @@
             <td class="<?php echo "changedStartDate startDate " . $project->getId(); ?>" ><?php echo $project->getStartDate(); ?></td>
             <td class="<?php echo "changedEndDate endDate " . $project->getId(); ?>" ><?php echo $project->getEndDate(); ?></td>
             <td class="<?php echo "changedProjectStatus projectStatus " . $project->getId(); ?>" ><?php echo $project->getProjectStatus()->getName(); ?></td>
-            <?php if($sf_user->hasCredential('superAdmin')): ?>
-                <td class="<?php echo "changedProjectAdmin projectAdmin " . $project->getUserId(); ?>" ><?php if($project->getUser()->getIsActive() != 0) {echo $project->getUser()->getFirstName()." ".$project->getUser()->getLastName();} ?></td>
-            <?php endif; ?>
-            <td class="<?php echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
-            <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
-        </tr>
+            
+                
+                  <?php if($project->getUser()->getIsActive() != 0) { $auth = new AuthenticationService(); 
+                    $isProjectAccessLevel=$auth->projectAccessLevel($sf_user->getAttribute($loggedUserObject)->getId(), $project->getId());
+                    if($isProjectAccessLevel == User::USER_TYPE_PROJECT_ADMIN) { ?>
+                        <td class="<?php echo "test" . $project->getUserId(); ?>" ><?php echo "Project Admin";  ?></td>
+                        <td class="<?php  echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
+                        <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
+                    <?php } else if($isProjectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) { ?>
+                        <td class="<?php echo "test" . $project->getUserId(); ?>" ><?php echo "Member";  ?></td>
+                        <td>NA</td>
+                        <td>NA</td>
+                    <?php } else if($isProjectAccessLevel == User::USER_TYPE_SUPER_ADMIN){ ?>
+                        <td class="<?php echo "show role in that project from ProjctUser" . $project->getUserId(); ?>" ><?php if($project->getUser()->getIsActive() != 0) {echo $project->getUser()->getFirstName()." ".$project->getUser()->getLastName();} ?></td>
+                        <td class="<?php  echo "edit edit " . $project->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn'); ?></td>
+                        <td class="<?php echo "not close " . $project->getId(); ?>"><a class="confirmLink" href="<?php echo url_for("project/deleteProject?id={$project->getId()}"); ?>" ><?php echo image_tag('b_drop.png'); ?></a></td>
+                    <?php }
+                    } ?>
+            </tr>
         <?php endforeach; ?>
         <?php else: ?>
             <!-- do not delete the space between <td> tags -->
         <tr><td> </td><td></td><td></td><td></td><td></td><?php if($sf_user->hasCredential('superAdmin')): ?><td></td><?php endif; ?></tr>
         <?php endif; ?>
     </table>
-
-    <div class="addButton">
-
+     <?php if($sf_user->hasCredential('superAdmin') || $sf_user->hasCredential('projectAdmin')): ?>
+    <div class="addButton">        
         <form id="addForm" action="<?php echo url_for('project/addProject') ?>" method="get">
             <input type="submit" value="<?php echo __('Add') ?>" id="addProject" />
         </form>
     </div>
-    
     <div class="searchButton">        
         <?php echo $projectSearchForm ?>
     </div>
+    <?php else: ?>
+    <div class="searchButtonOnly" >        
+        <?php echo $projectSearchForm ?>
+    </div>
+    <?php endif; ?>
 
 </div>
 

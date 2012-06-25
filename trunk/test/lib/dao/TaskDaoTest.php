@@ -39,6 +39,9 @@ class TaskDaoTest extends PHPUnit_Framework_TestCase {
         }
     }
     
+    /**
+     * @group updao
+     */
     public function testUpdateTask() {
         $task = new Task();
         $task->setId(1);
@@ -51,6 +54,39 @@ class TaskDaoTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(1, $updateCount);
         $result = TestDataService::fetchObject('Task', 1);
         $this->assertEquals($task->getDescription(), $result->getDescription());
+        
+        
+        
+        $task = new Task();
+        $task->setId(1);
+        $task->setName('Name 1');
+        $task->setStatus(1);
+        $task->setEffort(20);
+        $task->setOwnedBy("Test");
+        $task->setEstimatedEndDate('2010-01-10');
+        $task->setDescription('Description 1');
+        $updateCount= $this->taskDao->updateTask($task);
+        $this->assertEquals(1, $updateCount);
+        $result = TestDataService::fetchObject('Task', 1);
+        $this->assertEquals('2010-01-10', $result->getEstimatedEndDate());
+        
+        
+        $task = new Task();
+        $task->setId(1);
+        $task->setName('Name 2');
+        $task->setStatus(1);
+        $task->setEffort(20);
+        $task->setOwnedBy("Test");        
+        $task->setDescription('Description 1');
+        $updateCount= $this->taskDao->updateTask($task);
+        $this->assertEquals(1, $updateCount);
+        $result = TestDataService::fetchObject('Task', 1);
+        $this->assertEquals('2010-01-10', $result->getEstimatedEndDate());
+        $this->assertEquals('Name 2', $result->getName());
+        
+        
+        
+        
     }
     
     public function testDeleteTask() {
@@ -68,5 +104,36 @@ class TaskDaoTest extends PHPUnit_Framework_TestCase {
     public function testGetTaskTotalEffortByStoryIdWithNullId() {
         $result = $this->taskDao->getTaskTotalEffortByStoryId(NUll);
         $this->assertNull($result->getTotalEffort());
+    }
+    
+    /*
+     * @author Eranga
+     * Testing for getting max estimated ending date from all the tasks for given story
+     */
+    public function testGetMaxEndingDateOfTasks(){
+        $storyId=1;
+        $expected='2011-03-24';
+        $absolute = $this->taskDao->getMaxEndingDateOfTasks($storyId);
+        $this->assertEquals($expected,$absolute);
+    }
+    
+    /*
+     * @author Eranga
+     * Testing for getting max estimated ending date from all the tasks for non existing story
+     */
+    public function testGetMaxEndingDateOfTasksForNonExistingStory(){
+        $storyId=100;
+        $absolute = $this->taskDao->getMaxEndingDateOfTasks($storyId);
+        $this->assertNull($absolute);
+    }
+    
+    /*
+     * @author Eranga
+     * Testing for getting max estimated ending date for story when no tasks defined for that
+     */
+    public function testGetMaxEndingDateOfTasksForNonExistingTasks(){
+        $storyId=3;
+        $absolute = $this->taskDao->getMaxEndingDateOfTasks($storyId);
+        $this->assertNull($absolute);
     }
 }

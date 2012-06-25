@@ -1,0 +1,28 @@
+User:
+  0: {id: 1, firstName: 'Thilina', lastName: 'Buddika', email: 'thilina@xample.com', isActive: 1, username: thilina, userType: 1, password: '99d7c10873a1ba8ab23684a861e0fc80b6e9b126' }
+  2: {id: 2, firstName: 'Chanaka', lastName: 'Darmarathna', email: 'chanaka@xample.com', isActive: 1, username: chanaka, userType: 2, password: '8467b4b1c0f7d3d16f2bed67f98311414b719097'}
+  3: {id: 3, firstName: 'Madhura', lastName: 'Priyadarshana', email: 'priyadarashana@xample.com', isActive: 1, username: madhura, userType: 2, password: '59d57acf6fbd4bd770a13df6c067afdcf131b1cd'}
+  4: {id: 4, firstName: 'Warna', lastName: 'Udayanaga', email: 'hroshan@xample.com', isActive: 1, username: warna, userType: 2, password: '73752294a962e48bc561ef2eafaef26a6514b26d'}
+  5: {id: 5, firstName: 'Sameera', lastName: 'Bandara', email: 'sameera@xample.com', isActive: 1, username: sameera, userType: 1, password: '64873782838f0c49d8aa661bc09347d7be550840'}
+
+Project:
+  0: {id: 1, name: 'GWT apps featured in Google IO videos', projectStatusId: 1, deleted: 1, userId: 1, startDate: '2011-01-01'}
+  1: {id: 2, name: 'Google+ hangout', projectStatusId: 2, deleted: 1, userId: 1, startDate: '2011-01-01'}
+  2: {id: 3, name: 'Google + stream', projectStatusId: 2, deleted: 1, userId: 2, startDate: '2011-01-01'}
+  3: {id: 4, name: 'Google Summer of Code: Part 5', projectStatusId: 2, deleted: 0, userId: 3, startDate: '2011-01-01'}
+  5: {id: 6, name: 'Alfresco-phase1-CR2', projectStatusId: 2, deleted: 1, userId: 3, startDate: '2011-01-01'}
+  6: {id: 7, name: 'University of Alabama-phase1', projectStatusId: 2, deleted: 1, userId: 2, startDate: '2011-01-01'}
+  7: {id: 8, name: 'UB-Phase1-CR7', projectStatusId: 1, deleted: 1, userId: 4, startDate: '2011-01-01'}
+  8: {id: 9, name: 'Duke-NUS People Manager SAP Synchronization', projectStatusId: 3, deleted: 1, userId: 5, startDate: '2011-01-01'}
+  9: {id: 10, name: 'Google Art project', projectStatusId: 1, deleted: 0, userId: 4, startDate: '2011-01-01'}
+
+ProjectUser:
+  0: {id: 1, project_id: 1, user_id: 1, user_type: 3}
+  1: {id: 2, project_id: 1, user_id: 1, user_type: 2}
+  2: {id: 3, project_id: 2, user_id: 1, user_type: 1}
+  3: {id: 4, project_id: 2, user_id: 2, user_type: 1}
+  4: {id: 5, project_id: 4, user_id: 1, user_type: 3}
+  5: {id: 6, project_id: 4, user_id: 2, user_type: 2}
+  6: {id: 7, project_id: 4, user_id: 3, user_type: 1}
+  7: {id: 8, project_id: 4, user_id: 4, user_type: 2}
+  8: {id: 9, project_id: 8, user_id: 3, user_type: 2}

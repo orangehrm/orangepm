@@ -2,12 +2,12 @@
 <?php echo stylesheet_tag('viewStories') ?>
 
 <?php use_helper('Pagination'); ?>
-
 <script type="text/javascript">
     var lang_nameRequired = "<?php echo __('Project name is required');?>";
     var saveImgUrl = '<?php echo image_tag('b_save.gif', 'id=saveBtn') ?>';
     var editImgUrl = '<?php echo image_tag('b_edit.png', 'id=editBtn') ?>';
     var linkUrl = "<?php echo url_for('project/editStory') ?>";
+    var loginUrl = '<?php echo url_for('project/login')?>';
     var projectViewUrl = "<?php echo url_for("project/viewProjectDetails?projectId={$project->getId()}&projectName={$project->getName()}")?>";
     var statusChanged = false;
     var userId = "<?php echo $userId;?>";
@@ -18,6 +18,22 @@
     var updateLinkUrl = "<?php echo url_for('project/updateLog') ?>";
     var deleteLinkUrl = "<?php echo url_for("project/deleteLog?projectId=$projectId&projectName={$project->getName()}&from=viewDetails"); ?>";
     var viewTaskUrl = "<?php echo url_for('project/viewTasks') ?>";
+    var isAllowToEditEffort = "<?php    if(($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($projectAccessLevel == User::USER_TYPE_SUPER_ADMIN) ) { echo '1';}
+                                        else {echo '0'; } ?>";
+    function setSelected()
+    {
+        var list = document.getElementById('project_projectUserSelected');
+        var alllList = document.getElementById('project_projectUserAll');
+        var vals=list.options[0].value;
+        for(var i = 1; i < list.options.length; ++i){
+            vals+=','+list.options[i].value;
+            list.options[i].selected=false;
+        }
+        for(var i = 0; i < alllList.options.length; ++i){
+            alllList.options[i].selected=false;
+        }
+        document.getElementById("aaa").value = vals;
+    }
 </script>
 
 <div class="Project">
@@ -29,7 +45,8 @@
         <div class="headlineField"><?php echo __($project->getName()) ?></div>
         <div class="formField">
         <div class="form_devision_heading">Details</div>
-            <form id="showProjectForm" action="<?php echo url_for('project/viewProjectDetails') ?>" method="post">
+            <form id="showProjectForm" action="<?php echo url_for('project/viewProjectDetails') ?>" method="post" onsubmit="setSelected()">
+                <input type="hidden" name="aaa" id="aaa">
                 <input type="hidden" id="projectId" name="projectId" value="<?php echo $project->getId()?>" />
                 <div><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render(array('value' => $project->getName())) ?><?php echo $projectForm['name']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['startDate']->renderLabel() ?><?php echo $projectForm['startDate']->render(array('value' => $project->getStartDate())) ?><?php echo $projectForm['startDate']->renderError() ?><br class="clear" /></div>
@@ -37,14 +54,40 @@
                 
                 <?php if($sf_user->hasCredential('superAdmin')): ?>
                 <div><?php echo $projectForm['projectAdmin']->renderLabel() ?><?php echo $projectForm['projectAdmin']->render() ?><?php echo $projectForm['projectAdmin']->renderError() ?></div>
+                <?php else:?>
+                <div><label for="project_projectAdmin"><?php echo __('Project Admin') ?></label><?php echo $project->getUser()->getFirstName();?> <?php echo $project->getUser()->getLastName();?></div>
                 <?php endif; ?>
                 <div><?php echo $projectForm['status']->renderLabel() ?><?php echo $projectForm['status']->render() ?><?php echo $projectForm['status']->renderError() ?></div>
                 <div><?php echo $projectForm['description']->renderLabel() ?><?php echo $projectForm['description']->render() ?></div>
+                <table>
+                    <tr>
+                        <td style="vertical-align: top;padding-top: 10px"><label for="project_assigningUsers">Assign Members</label></td>
+                        <td>
+                            <div><?php echo $projectForm['projectUserAll']->renderLabel() ?><br/><?php echo $projectForm['projectUserAll']->render(array('class'=>'listbox')) ?></div>
+                        </td>                        
+                        <td >
+                            <div id="btns" style="padding-left: 0px;padding-right: 20px">
+                            <input class="formButton" type="button" value="<?php echo __('>') ?>" id="btnRight" />
+                            <input class="formButton" type="button"  value="<?php echo __('<') ?>" id="btnLeft"/>   
+                            </div>
+                        </td>
+                        <td>
+                            <div><?php echo $projectForm['projectUserSelected']->renderLabel() ?><br/><?php echo $projectForm['projectUserSelected']->render(array('class'=>'listbox')) ?></div>        
+                        </td>                        
+                    </tr>                    
+                </table>
+                
+                
+                 <!-- buddy --> 
+                <?php if($projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN): ?>
                 <div>
                     <input class="formButton" type="submit" value="<?php echo __('Edit') ?>" id="saveButton" name="saveButton" />
                     &nbsp;&nbsp;&nbsp;
                     <input class="formButton" type="submit" id="cancel" value="<?php echo __('Cancel') ?>" />
                 </div>
+                 <!-- buddy --> 
+                <?php endif; ?>
+                
                 <?php echo $projectForm->renderHiddenFields(); ?>
             </form>
         </div>
@@ -87,6 +130,7 @@
                             <th><?php echo __('Effort');?></th>
                             <th><?php echo __('Tasks Total');?></th>
                             <th><?php echo __('Date Added') ?></th>
+                            <th><?php echo __('Estimated End Date') ?></th>
                             <th><?php echo 'Status' ?></th>
                             <th><?php echo 'Accepted Date' ?></th>
                             <th colspan="2"><?php echo __('Actions') ?></th>
@@ -99,6 +143,7 @@
                                 <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
                                 <td class="<?php echo "changedTasksTotal taskTotal " . $story->getId(); ?>"> <?php echo $taskService->getTaskTotalEffortByStoryId($story->getId()) ?></td>
                                 <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
+                                <td class="<?php echo "estimatedEndDate EndDate " . $story->getId(); ?>"> <?php echo $story->getEstimatedEndDate(); ?></td>
                                 <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $status; ?></td>
                                 <td class="<?php echo "changedAcceptedDate acceptedDate " . $story->getId(); ?>"> <?php echo $story->getAcceptedDate(); ?></td>
                                 <td class="<?php echo "edit edit " . $story->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn') ?></td>

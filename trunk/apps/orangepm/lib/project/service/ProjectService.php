@@ -7,6 +7,7 @@ class ProjectService {
     public $isEdited = false;
     public $editedProjectId = Project::PROJECT_STATUS_DEFAULT_ID;
     private $projectDao = null;
+    private $storyDao = null;
     /**
 	 * Calculate the Project progress
 	 * @param $acceptedDate, $status, $storyId
@@ -15,6 +16,7 @@ class ProjectService {
     
     function __construct() {
         $this->projectDao = new ProjectDao();
+        $this->storyDao=new StoryDao();
     }
     
     /**
@@ -27,11 +29,28 @@ class ProjectService {
     }
     
     /**
+     * Set story dao
+     * @param StoryDao $storyDao
+     * @return null
+     */
+    public function setStoryDao(StoryDao $storyDao) {
+        $this->storyDao = $storyDao;
+    }
+    
+    /**
      * Get project dao
      * @return ProjectDao
      */
     public function getProjectDao() {
         return $this->projectDao;
+    }
+    
+    /**
+     * Get story dao
+     * @return StoryDao
+     */
+    public function getStoryDao() {
+        return $this->storyDao;
     }
     
     public function trackProjectProgress($acceptedDate, $status, $storyId) {
@@ -408,10 +427,11 @@ class ProjectService {
     */ 
     public function saveProject($project) {
         
-        $dao = new ProjectDao();
-        $dao->saveProject($project);
+        $this->projectDao->saveProject($project);
         
     }
+    
+    
        
     /**
      * Get all projects considering user type and status 
@@ -447,6 +467,44 @@ class ProjectService {
     }
     
     /**
+     * Update an existing project
+     * @author Eranga
+     * @param $projectId
+     */
+    public function updateProject($project,$projectUsersColl=null,$deleteProjUsers=true) { 
+    
+        $this->projectDao->updateProject($project,$projectUsersColl,$deleteProjUsers);        
+    }
+    
+    /**
+     * Getting projects for a particular user
+     * @author Eranga
+     * @param $userID
+     */
+    public function getProjectUsersByUser($userId) {        
+        return $this->projectDao->getProjectUsersByUser($userId);        
+    }
+    
+    /**
+     * 
+     * @param type $userId
+     * @param type $statusId
+     * @return array 
+     */
+    public function getProjectsByUserIdAndStatusId($userId, $statusId) {
+        $projectUser = $this->projectDao->getProjectUsersByUser($userId, $statusId, true);
+        if($projectUser!=NULL){
+            $projects=array();
+            foreach($projectUser as $value) {
+                array_push($projects,  $value->getProject());
+            }
+            return $projects; 
+        }        
+        return NULL;
+    }
+
+
+    /**
      * Get the percentage
      * @param $value
      * @param $total
@@ -459,4 +517,68 @@ class ProjectService {
             return 0;
         }
     }
+
+    
+    /**
+     *
+     * Return the user type
+     * @author Samith
+     * @param type $userId
+     * @param type $projectId
+     * @return type - null if parameters are invalid , otherwise 
+     */
+    public function getProjectUserType($userId, $projectId){
+        
+        $userType = null;
+        $result = $this->projectDao->getProjectUsersByProjectAndUser($userId, $projectId);
+        if($result){
+            $userType = $result->getUserType();
+            
+        }
+        
+        return $userType;
+    }
+    
+    /*
+     * Get all project members for a project
+     * @param $projectId
+     */
+    public function getProjectUsersByProjectId($projectId) {
+        $result=$this->projectDao->getProjectUsersByProjectId($projectId);
+        return $result;
+    }
+    
+    /*
+     * get all users in project
+     * @param $projectId
+     * @return included Users name array
+     */
+    
+    public function getUsersForProjectAsArrayOnlyName($projectId) {
+        $projectUser = $this->projectDao->getProjectUsersByProjectId($projectId);
+        $userArray=array();
+        if($projectUser==null){
+            return $userArray;
+        }
+        
+        foreach($projectUser as $value) {
+            $user=$value->getUser();
+            //array_push($includedUsers,  $value->getUser());
+            $userArray[$user->getId()] = $user->getFirstName().' '.$user->getLastName();
+        }
+        return $userArray; 
+    }
+    
+    /*
+     * Get project stories related to the project
+     * @author eranga
+     * @param $active - weather prject is deleted or not
+     * @param $projectId - id of the related project for the stories
+     * @param $pageNo - Number of the page of the data set after paging
+     */
+    public function getRelatedProjectStories($active, $projectId, $pageNo){
+        return $this->getStoryDao()->getRelatedProjectStories($active, $projectId, $pageNo);
+    }
+    
+
 }
