@@ -13,7 +13,7 @@ class UserDao {
     public function getUsers($active, $pageNo) {
 
         if ($active) {
-            $pager = new sfDoctrinePager('Project', 50);
+            $pager = new sfDoctrinePager('Project', 500);
 
             $pager->getQuery()->from('User a')->where('a.isActive = ?', User::FLAG_ACTIVE);
             $pager->setPage($pageNo);

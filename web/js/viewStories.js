@@ -113,6 +113,11 @@ $(document).ready(function() {
             $('#saveBtn').click(function(){
                 synchronizedVariable = true;
                 $currentRow = $('#saveBtn').closest('tr');
+                var changedStatus = document.getElementById('changedStatus');
+                var editboxAcceptedDate = document.getElementById('editboxAcceptedDate');
+                if(changedStatus.value != " Accepted") {
+                    editboxAcceptedDate.value= '';
+                }
                 if($('.ajaxName input').val() != '') {                    
                     
                     if($('.ajaxEstimation input').val() != '') {
@@ -313,7 +318,7 @@ function findSelected(){
         
     }
     else{
-        editboxAcceptedDate.value= '';
+//        editboxAcceptedDate.value= '';
         changedEstimation.disabled = false;
         editboxAcceptedDate.disabled=true;
     }
