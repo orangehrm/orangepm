@@ -61,9 +61,9 @@
             </form>
         </div>
         <div class="viewWeeklyProgressButton">
-            <form action="<?php echo url_for("project/viewWeeklyProgress?projectName={$projectName}&projectId={$projectId}"); ?>" method="GET">
+            <form action="<?php echo url_for("project/viewWeeklyProgress?projectId={$projectId}&projectName={$projectName}"); ?>" method="GET">
                 <input type="submit" value="<?php echo "View Weekly Progress" ?>"/>
-        </form>
+            </form>
     </div>
     <div id="moreField">"Effort" and "Task Total" are in Engineering Hours</div>
 </div>
