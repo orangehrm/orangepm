@@ -40,6 +40,44 @@ Project:
       type: one
       foreignAlias: Project
       foreignType: many
+    ProjectUser:
+      local: id
+      foreign: project_id
+      class: ProjectUser
+      type: many
+      
+ProjectUser:
+  actAs: [Timestampable]
+  tableName: orangepm_project_user
+  columns:
+    project_id:
+      name: project_id as projectId
+      type: integer
+      notnull: true
+      name: project_id as projectId
+    user_id:
+      type: integer
+      name: user_id as userId
+    user_type:
+      name: user_type as userType
+      type: integer
+      notnull: true
+  relations:
+    Project:
+      local: project_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      class: Project
+      foreignAlias: ProjectUser
+      foreignType: many
+    User:
+      local: user_id
+      foreign: id     
+      type: one
+      class: User
+      foreignAlias: ProjectUser
+      foreignType: many
        
 Story:
   actAs: [Timestampable]
@@ -53,6 +91,10 @@ Story:
     estimation: { type: integer, notnull: false }
     name: string(255)
     date_added: date
+    estimated_end_date:
+      name: estimated_end_date as estimatedEndDate
+      type: date
+      default: null
     status: string(255)
     accepted_date: { type: date, notnull: false }
     deleted_date: {type: date }
@@ -186,6 +228,10 @@ Task:
       type: string(255)
     status:
       type: integer
+    estimated_end_date:
+      name: estimated_end_date as estimatedEndDate
+      type: date
+      default: null
   relations:
     Story:
       onDelete: CASCADE

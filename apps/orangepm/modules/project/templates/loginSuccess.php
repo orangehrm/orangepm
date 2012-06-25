@@ -8,10 +8,13 @@
     //]]>
 </script>
 
+<?php if (isset($sessonMessage)): ?>
+    <div class="flash_notice"><?php echo $sessonMessage; ?></div>
+<?php endif; ?>
+
 <div class="login">
-    
-    <div class="title"><?php echo __('Login') ; ?></div>
-    
+    <div class="title"><?php echo __('Login'); ?></div>
+
     <div class="textFields">        
         <form id="login_form" action="<?php echo url_for("project/login"); ?>" method="post" name="login_form" >
             <?php if (isset($errorMessage)): ?>
@@ -24,7 +27,7 @@
             <div class="submit"><input id="loginButton" class="formButton" type="button" value="<?php echo __('Login'); ?>" /></div>
         </form>        
     </div>
-    
+
 </div>
 
 <?php echo javascript_include_tag('login'); ?>

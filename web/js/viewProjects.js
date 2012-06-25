@@ -72,7 +72,7 @@ $(document).ready(function() {
             $('.ajaxProjectAdmin').removeClass('ajaxProjectAdmin');
 
             $(this).parent().children('td.changedName').addClass('ajaxName');
-            $(this).parent().children('td.changedName').html('<input id="editboxName" size="55" type="text" value="'+$(this).parent().children('td.changedName').text()+'">');
+            $(this).parent().children('td.changedName').html('<input id="editboxName" size="55" type="text" value="'+escapeQuotes($(this).parent().children('td.changedName').text())+'">');
 
             $(this).parent().children('td.changedStartDate').addClass('ajaxStartDate');
             $(this).parent().children('td.changedStartDate').html('<input id="editboxStartDate" size="9" type="text" value="'+$(this).parent().children('td.changedStartDate').text()+'">');
@@ -81,12 +81,12 @@ $(document).ready(function() {
             $(this).parent().children('td.changedEndDate').html('<input id="editboxEndDate" size="9" type="text" value="'+$(this).parent().children('td.changedEndDate').text()+'">');
             
             $("#editboxStartDate, #editboxEndDate").datepicker(
-                    {
-                        dateFormat: 'yy-mm-dd',
-                        changeMonth: true,
-                        changeYear: true,
-                        showAnim: "slideDown"
-             });
+            {
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                showAnim: "slideDown"
+            });
             
             if(dropdownToggleVariable){
                 
@@ -140,17 +140,27 @@ $(document).ready(function() {
                     $.ajax({
                         type: "post",
                         url: linkUrl,
-                        
-                        data: "name="+$('.ajaxName input').val().trim()+"&startDate="+$('.ajaxStartDate input').val().trim()+"&endDate="+$('.ajaxEndDate input').val().trim()+"&id="+classNameArray[2]+"&projectStatus="+status + "&projectAdminId=" + $('#changedProjectAdmin option:selected').val(),
-
-                        success: function(){
-                            var hstring = '<a href='+'viewProjectDetails?'+'projectId='+classNameArray[2]+' > '+$('.ajaxName input').val().trim()+'</a>';
-                            $('.ajaxName').html(hstring);                            
-                            $('.ajaxName').removeClass('ajaxName');                           
-                            $('.ajaxStartDate').html($('.ajaxStartDate input').val().trim());
-                            $('.ajaxEndDate').html($('.ajaxEndDate input').val().trim());
-                            $('.ajaxStartDate').removeClass('ajaxStartDate');
-                            $('.ajaxEndDate').removeClass('ajaxEndDate');
+                        data: {
+                            name : $('.ajaxName input').val().trim(), 
+                            startDate : $('.ajaxStartDate input').val().trim(), 
+                            endDate : $('.ajaxEndDate input').val().trim(), 
+                            id : classNameArray[2], 
+                            projectStatus : status, 
+                            projectAdminId : $('#changedProjectAdmin option:selected').val(), 
+                            ajaxPost : true
+                        },
+                        success: function(responce){
+                            if(responce!=''){
+                                window.location.href = loginUrl+"?noSession=true";
+                            }else {
+                                var hstring = '<a href='+'viewProjectDetails?'+'projectId='+classNameArray[2]+' > '+$('.ajaxName input').val().trim()+'</a>';
+                                $('.ajaxName').html(hstring);                            
+                                $('.ajaxName').removeClass('ajaxName');                           
+                                $('.ajaxStartDate').html($('.ajaxStartDate input').val().trim());
+                                $('.ajaxEndDate').html($('.ajaxEndDate input').val().trim());
+                                $('.ajaxStartDate').removeClass('ajaxStartDate');
+                                $('.ajaxEndDate').removeClass('ajaxEndDate');
+                            }
                         }
 
                     });
@@ -177,4 +187,13 @@ function setMainErrorMessage(message) {
 
 function removeMainErrorMessage() {
     $('#mainErrorDiv').empty();
+}
+function escapeQuotes(words){
+    return words
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
 }

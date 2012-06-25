@@ -15,16 +15,20 @@ class addTaskAction extends sfAction {
         $this->story = $this->storyDao->getStoryById($this->storyId);
         $this->project = $this->projectService->getProjectById($this->story->getProjectId());
         $loggedUserObject = null;
-        if ($this->projectService->isActionAllowedForUser($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->project->getId())) {
-            $this->taskForm = new TaskForm();
+        $auth = new AuthenticationService();
+        $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->story->getProjectId());
+        if ( $projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
+            $this->taskForm = new TaskForm();            
             $this->taskList = $this->taskService->getTaskByStoryId($this->storyId);
             if ($request->isMethod('post')) {
                 $this->taskForm->bind($request->getParameter('task'));
                 if ($this->taskForm->isValid()) {
                     $this->saveTask();
-                    echo $this->taskForm->getValue('status');
                     $this->redirect("project/viewTasks?storyId={$this->storyId}");
                 }
+            }
+            else{
+                $this->taskForm->setDefault('estimatedEndDate', date("Y-m-d"));
             }
         } else {
             $this->redirect("project/viewProjects");
@@ -35,6 +39,7 @@ class addTaskAction extends sfAction {
         $task = new Task();
         $task->setName($this->taskForm->getValue('name'));
         $task->setEffort($this->taskForm->getValue('effort') ? $this->taskForm->getValue('effort') : null);
+        $task->setEstimatedEndDate($this->taskForm->getValue('estimatedEndDate'));
         $task->setStatus($this->taskForm->getValue('status'));
         $task->setOwnedBy($this->taskForm->getValue('ownedBy'));
         $task->setDescription($this->taskForm->getValue('description'));

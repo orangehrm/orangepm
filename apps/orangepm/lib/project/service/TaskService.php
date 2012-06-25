@@ -5,10 +5,12 @@
  */
 class TaskService {
     
-    private $taskDao = null;
+    private $taskDao = null;  
+    private $storyDao = null;
     
     public function __construct() {
-        $this->taskDao = new TaskDao();
+        $this->taskDao = new TaskDao();        
+        $this->storyDao = new StoryDao();
     }
     
     /**
@@ -28,11 +30,40 @@ class TaskService {
     }
     
     /**
+     *Get StoryDao
+     * @return StroyDao $storyDao
+     */
+    public function getStoryDao() {
+        return $this->storyDao;
+    }
+    
+    /**
+     * Set StroyDao
+     * @param StroyDao $storyDao
+     */
+    public function setStoryDao(StoryDao $storyDao) {
+        $this->storyDao = $storyDao;
+    }
+    
+    /**
      * Save task
      * @param Task $task
      */
     public function saveTask(Task $task) {
         $this->taskDao->saveTask($task);
+        $taskEndDate = $task->getEstimatedEndDate();
+        $storyEndDate = $task->getStory()->getEstimatedEndDate();
+        $newEndDate = $taskEndDate;
+        if($taskEndDate != null){
+            
+            if($storyEndDate != null){
+                if($taskEndDate < $storyEndDate){
+                    $newEndDate = $storyEndDate;
+                }
+            }
+            $this->storyDao->updateEstimatedEndDate($task->getStoryId(), $newEndDate);
+        }
+       
     }
     
     /**
@@ -59,7 +90,15 @@ class TaskService {
      * @return update record count
      */
     public function updateTask(Task $task) {
-        return $this->taskDao->updateTask($task);
+        $taskId = $task->getId();
+        $this->taskDao->updateTask($task); 
+        
+        $updatedTask = $this->taskDao->getTaskById($taskId);
+        $storyId =$updatedTask->getStoryId();        
+        $taskMaxEndDate = $this->taskDao->getMaxEndingDateOfTasks($storyId);        
+        return $this->storyDao->updateEstimatedEndDate($storyId, $taskMaxEndDate);
+            
+        
     }
     
     /**
@@ -67,8 +106,14 @@ class TaskService {
      * @param integer $id
      * @return Deleted record count
      */
-    public function deleteTask($id) {
-        return $this->taskDao->deleteTask($id);
+    public function deleteTask($id) {        
+        $updatedTask = $this->taskDao->getTaskById($id);
+        $storyId =$updatedTask->getStoryId();
+        $this->taskDao->deleteTask($id);
+        
+        $taskMaxEndDate = $this->taskDao->getMaxEndingDateOfTasks($storyId);        
+        return $this->storyDao->updateEstimatedEndDate($storyId, $taskMaxEndDate);           
+        
     }
     
     /**

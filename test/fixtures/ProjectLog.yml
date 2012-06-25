@@ -33,7 +33,7 @@ Story:
 ProjectLog:
   0: {id: 5, project_id: 2, added_by: 2, description: 'This is the test log 5', logged_date: '2011-01-5'}
   1: {id: 6, project_id: 4, added_by: 4, description: 'This is the test test log 6', logged_date: '2011-01-9'}
-  2: {id: 7, project_id: 4, added_by: 3, description: null, logged_date: '2011-01-2'}
+  2: {id: 7, project_id: 4, added_by: 3, logged_date: '2011-01-2'}
   3: {id: 1, project_id: 4, added_by: 3, description: 'This is the test log 1', logged_date: '2011-01-12'}
   4: {id: 2, project_id: 4, added_by: 3, description: 'This is the test log 2', logged_date: '2011-01-13'}
   5: {id: 3, project_id: 1, added_by: 3, description: 'This is the test log 3', logged_date: '2011-01-14'}

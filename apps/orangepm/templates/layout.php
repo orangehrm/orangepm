@@ -18,12 +18,13 @@
                 <ul id="menu">
                     <?php if ($sf_user->isAuthenticated()): ?>
                         <li> <?php echo link_to(__('Projects'), 'project/viewProjects', array('id' => 'projects')); ?></li>
-                        <?php if ($sf_user->hasCredential('superAdmin')): ?>
+                        <?php if ($sf_user->hasCredential('superAdmin')){ ?>
                             <li> <?php echo link_to(__('Users'), 'project/viewUsers', array()); ?></li>
-                        <?php endif; ?>
-                        <?php if ($sf_user->hasCredential('projectAdmin')): ?>
+                            <li> <?php echo link_to(__('Projects Summary'), 'project/viewAllProjectDetails', array()); ?></li>
+                        <?php } else { ?>
+                        
                             <li> <?php echo link_to(__('Profile'), 'project/viewProfile', array()); ?></li>
-                        <?php endif; ?>
+                        <?php } ?>
                         <li> <a href="http://code.google.com/p/orangepm/issues/list" id="issueTracker" ><?php echo __('Issue Tracker') ?></a></li>
 
                         <div class="logoutClass" id="logout">

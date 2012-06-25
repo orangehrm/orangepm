@@ -41,12 +41,15 @@ class AllTests {
         $suite->addTestFile(dirname(__FILE__) . '/lib/service/ProjectServiceTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/lib/service/ProjectLogServiceTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/lib/service/TaskServiceTest.php');
-        
+        $suite->addTestFile(dirname(__FILE__) . '/lib/service/AuthenticationServiceTest.php');
+                
         /* DAO tests */
         $suite->addTestFile(dirname(__FILE__) . '/lib/dao/ProjectDaoTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/lib/dao/ProjectLogDaoTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/lib/dao/TaskDaoTest.php');
         $suite->addTestFile(dirname(__FILE__) . '/lib/dao/ProjectProgressTest.php');
+        $suite->addTestFile(dirname(__FILE__) . '/lib/dao/UserDaoTest.php');
+        $suite->addTestFile(dirname(__FILE__) . '/lib/dao/StoryDaoTest.php');
         //$suite->addTestFile(dirname(__FILE__) . '/StoryDaoTest.php');
 
 

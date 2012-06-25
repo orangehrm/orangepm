@@ -65,6 +65,9 @@ class TaskDao {
             } else {
                 $query->set('t.effort', '?', $task->getEffort());
             }
+            if($task->getEstimatedEndDate() != NULL){
+                $query->set('t.estimatedEndDate', '?', $task->getEstimatedEndDate());
+            }
             $query->set('t.description', '?', $task->getDescription());
             $query->set('t.ownedBy', '?', $task->getOwnedBy());
             $query->set('t.status', '?', $task->getStatus());
@@ -124,5 +127,15 @@ class TaskDao {
         } catch (Exception $e) {
             throw new DaoException($e->getMessage(), $e->getCode(), $e);
         }
-    } 
+    }
+    
+    public function getMaxEndingDateOfTasks($storyId){
+        $query = Doctrine_Query::create()
+                        ->select('MAX(t.estimatedEndDate) as max_date')
+                        ->from('Task t')
+                        ->where('t.storyId = ?', $storyId);
+        $allCols = $query->fetchOne();
+        return $allCols['max_date'];
+    }
+    
 }

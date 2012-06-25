@@ -285,6 +285,13 @@ div.searchButton{
     margin: 0px;
 }
 
+div.searchButtonOnly {
+    position: absolute;
+    top: 230px;
+    left: 60px;
+    margin: 0px;
+}
+
 #mainErrorDiv {
     text-align: center;
     font-weight: bold;
