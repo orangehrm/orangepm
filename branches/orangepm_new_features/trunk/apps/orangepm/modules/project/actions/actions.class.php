@@ -527,7 +527,8 @@ class projectActions extends sfActions {
         $auth = new AuthenticationService();
         $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId);
         if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
-            $this->projectName = $request->getParameter('projectName');
+            $project = $projectService->getProjectById($this->projectId);
+            $this->projectName = $project->getName();
             $this->storyForm = new StoryForm();
             $this->storyForm->setDefault('projectId', $this->projectId);
 
@@ -631,8 +632,10 @@ class projectActions extends sfActions {
      * @return unknown_type
      */
     public function executeViewWeeklyProgress($request) {
-        $this->projectName = $request->getParameter('projectName');
         $this->projectId = $request->getParameter('projectId');
+        $projectService = new ProjectService();
+        $project = $projectService->getProjectById($this->projectId);
+        $this->projectName = $project->getName();
         // $pageNo = $this->getRequestParameter('page', 1);
 
         $viewStoriesDao = new StoryDao();
