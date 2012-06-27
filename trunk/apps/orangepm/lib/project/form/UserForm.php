@@ -80,7 +80,7 @@ class UserForm extends sfForm {
             $userService = new UserService();
             $usernames = $userService->getAllUsernamesAsArray();
             $errorList = array();
-            if (in_array($values['username'], $usernames)) {
+            if (in_array( strtolower($values['username']), array_map('strtolower',$usernames))) {
                 $errorList['username'] = new sfValidatorError($validator, 'Username is already added');
             }
             if (count($errorList) > 0) {
