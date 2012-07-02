@@ -158,6 +158,7 @@ $(document).ready(function() {
                                         $('.ajaxPassword').html($('.ajaxPassword input').val());
 
                                         $('.ajaxUserType').removeClass('ajaxUserType');*/
+                                        location.href="viewUsers";
 
                                         }
 
@@ -165,7 +166,6 @@ $(document).ready(function() {
 
                                     dropdownToggleVariable = false;
                                     toggleVariable = "Edited";
-                                    location.href="viewUsers";
                                 } else {
                                     setMainErrorMessage('Password is empty');
                                 }

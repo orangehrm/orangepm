@@ -201,7 +201,7 @@ class projectActions extends sfActions {
         );
 
         $userService->updateUser($userParameters, $request->getParameter('id'));
-        die;
+	return sfView::NONE;
     }
 
     /**
