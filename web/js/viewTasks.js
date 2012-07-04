@@ -52,9 +52,9 @@ $(document).ready(function() {
                             url: updateTaskUrl,
                             data: {id: id , name: nameText, effort: effortText, estimatedEndDate: estimatedEndDate, status: statusSelect, ownedBy: ownedByText, description: descriptionText, projectId: projectId},                            
                             success: function(responce){
-                                if(responce=='notSaved'){
-                                    window.location.href = loginUrl+"?noSession=true";
-                                }else {
+                            //    if(responce=='notSaved'){
+                            //        window.location.href = loginUrl+"?noSession=true";
+                            //    }else {
                                     $parentRow.children('td.changedName').html(nameText);
                                     $parentRow.children('td.changedEffort').html(effortText);
                                     $parentRow.children('td.changedEstimatedEndDate').html(estimatedEndDate);
@@ -62,7 +62,7 @@ $(document).ready(function() {
                                     $parentRow.children('td.changedStatus').addClass(statusArray[statusSelect].toLowerCase());
                                     $parentRow.children('td.changedOwnedBy').html(ownedByText);
                                     $parentRow.children('td.changedDescription').html(descriptionText);                                    
-                                }                            
+                             //   }                            
                             },
                             fail: function() {
                                 $parentRow.children('td.changedName').html(name);
