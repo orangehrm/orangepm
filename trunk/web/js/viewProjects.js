@@ -150,9 +150,9 @@ $(document).ready(function() {
                             ajaxPost : true
                         },
                         success: function(responce){
-                            if(responce!=''){
-                                window.location.href = loginUrl+"?noSession=true";
-                            }else {
+                        //    if(responce!=''){
+                          //      window.location.href = loginUrl+"?noSession=true";
+                          //  }else {
                                 var hstring = '<a href='+'viewProjectDetails?'+'projectId='+classNameArray[2]+' > '+$('.ajaxName input').val().trim()+'</a>';
                                 $('.ajaxName').html(hstring);                            
                                 $('.ajaxName').removeClass('ajaxName');                           
@@ -160,7 +160,7 @@ $(document).ready(function() {
                                 $('.ajaxEndDate').html($('.ajaxEndDate input').val().trim());
                                 $('.ajaxStartDate').removeClass('ajaxStartDate');
                                 $('.ajaxEndDate').removeClass('ajaxEndDate');
-                            }
+                           // }
                         }
 
                     });

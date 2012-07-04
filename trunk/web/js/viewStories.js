@@ -150,10 +150,10 @@ $(document).ready(function() {
                                             },
 
                                             success: function(responce){
-                                                if(responce!=''){
-                                                    window.location.href = loginUrl+"?noSession=true";
-                                                }
-                                                else{
+                                            //    if(responce!=''){
+                                            //        window.location.href = loginUrl+"?noSession=true";
+                                            //    }
+                                            //    else{
                                                     $('#message').html('The Story was updated successfully');
                                                     var stroyClass = $('.ajaxName').attr('class').split(' ');
                                                     $('.ajaxName').html("<a href="+viewTaskUrl+"?storyId="+stroyClass[2]+">"+$('.ajaxName input').val()+"</a>");
@@ -166,7 +166,7 @@ $(document).ready(function() {
                                                     if((projectViewUrl != null) && (statusChanged)) {
                                                         window.location.reload();
                                                     }
-                                                }
+                                              //  }
                                             }
                                         });
 
