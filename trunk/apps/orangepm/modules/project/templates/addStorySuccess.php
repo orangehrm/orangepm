@@ -21,7 +21,8 @@
                 <tr><td  valign="top"><?php echo $storyForm['storyName']->renderLabel() ?> </td><td colspan="2" class="labelfield" ><?php echo $storyForm['storyName']->render() ?><?php echo $storyForm['storyName']->renderError() ?></td></tr>
                 <tr><td><?php echo $storyForm['dateAdded']->renderLabel() ?></td><td><?php echo $storyForm['dateAdded']->renderError() ?><?php echo $storyForm['dateAdded']->render() ?></td></tr>
                 <tr><td><?php echo $storyForm['estimatedEffort']->renderLabel() ?>&nbsp;&nbsp; </td><td><?php echo $storyForm['estimatedEffort']->renderError() ?><?php echo $storyForm['estimatedEffort']->render() ?></td>&nbsp;<td><?php echo __("(Engineering Hours)") ?></td></tr>
-                <tr><td><?php echo $storyForm['status']->renderLabel() ?></td><td><?php echo $storyForm['status']->render(array('onchange' => 'clicked(project_status)'))?></td>
+                <tr><td><?php echo $storyForm['status']->renderLabel() ?></td><td><?php echo $storyForm['status']->render(array('onchange' => 'clicked(project_status)'))?></td></tr>
+                <tr><td><?php echo $storyForm['assignTo']->renderLabel() ?></td><td><?php echo $storyForm['assignTo']->render()?></td>
                     &nbsp;
                     <td><?php echo $storyForm['acceptedDate']->renderLabel() ?></td><td><?php echo $storyForm['acceptedDate']->renderError() ?><?php echo $storyForm['acceptedDate']->render() ?></td></tr>
                 <?php echo $storyForm->renderHiddenFields(); ?>
@@ -51,6 +52,7 @@
         <th><?php echo __('Story Name') ?></th>
         <th><?php echo __('Estimated Effort'); ?> <br> <?php echo __('(Engineering Hours)'); ?></th>
         <th><?php echo __('Date Added') ?></th>
+         <th><?php echo __('Assign To') ?></th>
         <th><?php echo 'Status' ?></th>
         <th><?php echo 'Accepted Date' ?></th>
     </tr>
@@ -62,6 +64,7 @@
                         <td class="<?php echo "change name " . $story->getId(); ?>"><?php echo $story->getName(); ?></td>
                         <td> <?php echo $story->getEstimation(); ?></td>
                         <td> <?php echo $story->getDateAdded(); ?></td>
+                        <td> <?php echo $story->getAssignTo(); ?></td>
                         <td><?php echo $status ?></td>
                         <td><?php echo $story->getAcceptedDate(); ?></td>
 

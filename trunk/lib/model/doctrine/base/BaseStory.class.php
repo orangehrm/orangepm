@@ -11,6 +11,7 @@
  * @property string $name
  * @property date $date_added
  * @property date $estimatedEndDate
+ * @property string $assignTo
  * @property string $status
  * @property date $accepted_date
  * @property date $deleted_date
@@ -24,6 +25,7 @@
  * @method string              getName()             Returns the current record's "name" value
  * @method date                getDateAdded()        Returns the current record's "date_added" value
  * @method date                getEstimatedEndDate() Returns the current record's "estimatedEndDate" value
+ * @method string              getAssignTo()         Returns the current record's "assignTo" value
  * @method string              getStatus()           Returns the current record's "status" value
  * @method date                getAcceptedDate()     Returns the current record's "accepted_date" value
  * @method date                getDeletedDate()      Returns the current record's "deleted_date" value
@@ -36,6 +38,7 @@
  * @method Story               setName()             Sets the current record's "name" value
  * @method Story               setDateAdded()        Sets the current record's "date_added" value
  * @method Story               setEstimatedEndDate() Sets the current record's "estimatedEndDate" value
+ * @method Story               setAssignTo()         Sets the current record's "assignTo" value
  * @method Story               setStatus()           Sets the current record's "status" value
  * @method Story               setAcceptedDate()     Sets the current record's "accepted_date" value
  * @method Story               setDeletedDate()      Sets the current record's "deleted_date" value
@@ -74,6 +77,10 @@ abstract class BaseStory extends sfDoctrineRecord
              ));
         $this->hasColumn('estimated_end_date as estimatedEndDate', 'date', null, array(
              'type' => 'date',
+             ));
+        $this->hasColumn('assign_to as assignTo', 'string', 255, array(
+             'type' => 'string',
+             'length' => 255,
              ));
         $this->hasColumn('status', 'string', 255, array(
              'type' => 'string',

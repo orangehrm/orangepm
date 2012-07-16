@@ -272,6 +272,13 @@ class ProjectDao {
 
         return false;
     }
-
+    
+    public function getUsersByProjectId($projectId)  {
+         
+        $q = Doctrine_Query::create()->from('ProjectUser')
+                                     ->where('projectId = ?',$projectId);
+         
+        return $q->execute();
+        
+     }
 }
-

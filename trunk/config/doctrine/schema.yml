@@ -95,6 +95,9 @@ Story:
       name: estimated_end_date as estimatedEndDate
       type: date
       default: null
+    assign_to: 
+      name: assign_to as assignTo
+      type: string(255)
     status: string(255)
     accepted_date: { type: date, notnull: false }
     deleted_date: {type: date }

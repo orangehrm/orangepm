@@ -62,6 +62,7 @@ $(document).ready(function() {
             $('.ajaxDate').html($('.ajaxDate input').val());
             $('.ajaxEstimation').html($('.ajaxEstimation input').val());
             $('.ajaxAcceptedDate').html($('.ajaxAcceptedDate input').val());
+            $('.ajaxAssign').html($('.ajaxAssign select').val());
             $('.ajaxStatus').html($('.ajaxStatus select').val());
             
             $('.ajaxName').removeClass('ajaxName');
@@ -69,6 +70,7 @@ $(document).ready(function() {
             $('.ajaxEstimation').removeClass('ajaxEstimation');
             $('.ajaxAcceptedDate').removeClass('ajaxAcceptedDate');
             $('.ajaxStatus').removeClass('ajaxStatus');
+            $('.ajaxAssign').removeClass('ajaxAssign');
             
             $(this).parent().children('td.changedName').addClass('ajaxName');
             $(this).parent().children('td.changedName').html('<input id="editboxName" size="20" type="text" value="'+escapeQuotes($(this).parent().children('td.changedName').text())+'">');
@@ -77,7 +79,9 @@ $(document).ready(function() {
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
             $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
             if(isAllowToEditEffort == '0'){
-                document.getElementById('editboxEstimation').disabled = true;
+                if (!document.getElementById('editboxEstimation') == null) {
+                    document.getElementById('editboxEstimation').disabled = true;
+                }
             }
 
             $(this).parent().children('td.changedAcceptedDate').addClass('ajaxAcceptedDate');
@@ -109,7 +113,16 @@ $(document).ready(function() {
                 dropdownToggleVariable = false;
             }
 
-              
+            $(this).parent().children('td.assignTo').addClass('ajaxAssign'); 
+                var html = '<select name="assignTo" id="assignTo" >';
+                for (var key in jsArray) {
+                    html += '<option value="'+jsArray[key]+'">'+jsArray[key]+'</option>';
+                }
+                html += '</select>';
+                
+                $(this).parent().children('td.assignTo').html(html);
+         
+         
             $('#saveBtn').click(function(){
                 synchronizedVariable = true;
                 $currentRow = $('#saveBtn').closest('tr');
@@ -118,11 +131,12 @@ $(document).ready(function() {
                 if(changedStatus.value != " Accepted") {
                     editboxAcceptedDate.value= '';
                 }
+                
                 if($('.ajaxName input').val() != '') {                    
                     
                     if($('.ajaxEstimation input').val() != '') {
                         
-                        if(!isNaN($('.ajaxEstimation input').val())) {
+                        if(($('.ajaxEstimation input').length == 0) || (($('.ajaxEstimation input').length > 0) && (!isNaN($('.ajaxEstimation input').val())))) {
                     
                             if(ValidateForm($('.ajaxDate input').val())) {
                         
@@ -136,18 +150,27 @@ $(document).ready(function() {
                                     removeMainErrorMessage();
                                     
                                     if(($('.ajaxStatus select').val()==" Accepted" && ValidateForm($('.ajaxAcceptedDate input').val()))||$('.ajaxStatus select').val()!=" Accepted") {
+                                        
+                                        var ajaxData = {
+                                                name : $('.ajaxName input').val() , 
+                                                date : $('.ajaxDate input').val() ,                                                 
+                                                id : classNameArray[2] ,
+                                                assign : $('.ajaxAssign select').val(),
+                                                status : jQuery.trim($('.ajaxStatus select').val()) , 
+                                                acceptedDate : jQuery.trim($('.ajaxAcceptedDate input').val())
+                                            };
+                                            
+                                        var estimation = $('.ajaxEstimation input');
+                                        
+                                        if (estimation.val()) {
+                                            ajaxData.estimation = jQuery.trim(estimation.val());
+                                        }
+                                        
                                         $.ajax({
                                             type: "post",
                                             url: linkUrl,
+                                            data: ajaxData,
 
-                                            data: {
-                                                name : $('.ajaxName input').val() , 
-                                                date : $('.ajaxDate input').val() , 
-                                                estimation : jQuery.trim($('.ajaxEstimation input').val()) , 
-                                                id : classNameArray[2] , 
-                                                status : jQuery.trim($('.ajaxStatus select').val()) , 
-                                                acceptedDate : jQuery.trim($('.ajaxAcceptedDate input').val())
-                                            },
 
                                             success: function(responce){
                                             //    if(responce!=''){
@@ -161,13 +184,15 @@ $(document).ready(function() {
                                                     $('.ajaxEstimation').html($('.ajaxEstimation input').val());
 
                                                     $('.ajaxAcceptedDate').html($('.ajaxAcceptedDate input').val());
+                                                    $('.ajaxAssign').html($('.ajaxAssign select').val());
+                                                    $('.ajaxAssign').removeClass('ajaxAssign');                                                   
                                                     $('.ajaxStatus').html($('.ajaxStatus select').val());
                                                     $('.ajaxStatus').removeClass('ajaxStatus');                                                
                                                     if((projectViewUrl != null) && (statusChanged)) {
                                                         window.location.reload();
                                                     }
-                                              //  }
-                                            }
+                                                }
+                                            
                                         });
 
                                         toggleVariable = "Edited";
@@ -178,13 +203,13 @@ $(document).ready(function() {
                         }
                         else { 
                             setMainErrorMessage('Estimation Effort is not valid');
-                        }
+                      }
                     } else {
                         setMainErrorMessage('Estimation Effort is empty');
                     }
                 } else {
                     setMainErrorMessage('Story Name is empty');
-                }
+               }
             });
 
             $( "#editboxDate, #editboxAcceptedDate" ).datepicker(

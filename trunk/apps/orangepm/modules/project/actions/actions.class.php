@@ -529,7 +529,7 @@ class projectActions extends sfActions {
         if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
             $project = $projectService->getProjectById($this->projectId);
             $this->projectName = $project->getName();
-            $this->storyForm = new StoryForm();
+            $this->storyForm = new StoryForm(array(),array('projectId' => $this->projectId));
             $this->storyForm->setDefault('projectId', $this->projectId);
 
             $response = $this->getResponse();
@@ -541,12 +541,16 @@ class projectActions extends sfActions {
                 $this->storyForm->bind($request->getParameter('project'));
                 if ($this->storyForm->isValid()) {
                     $dao = new StoryDao();
+                    $userDao =  new UserDao();
+                    $user = $userDao->getUserById($this->storyForm->getValue('assignTo'));
+                    $userName = $user->getFirstName().' '.$user->getLastName();
                     $storyStatus = array(0 => 'Pending', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing', 5 => 'Rework', 6 => 'Accepted');
                     $inputParameters = array(
                         'name' => $this->storyForm->getValue('storyName'),
                         'added date' => $this->storyForm->getValue('dateAdded'),
                         'estimated effort' => $this->storyForm->getValue('estimatedEffort'),
                         'project id' => $this->storyForm->getValue('projectId'),
+                        'assign to' => $userName,
                         'status' => $storyStatus[$this->storyForm->getValue('status')],
                         'accepted date' => $this->storyForm->getValue('acceptedDate')
                     );
@@ -592,17 +596,20 @@ class projectActions extends sfActions {
      * @return unknown_type
      */
     public function executeViewStories($request) {
-
+            
         $response = $this->getResponse();
         $response->setTitle(__('Stories'));
-
+        $this->loggedUserObject = null;
         $this->projectId = $request->getParameter('id');
-
+        $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
+        $this->moveForm = new MoveStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $loggedUserId));
+        $this->copyForm = new CopyStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $loggedUserId));
         $projectService = new ProjectService();
+        $this->userDao = new UserDao() ;
         $this->taskService = new TaskService();
         $loggedUserObject = null;
         $projectDao = new ProjectDao();
-        $auth = new AuthenticationService();
+        $auth = new AuthenticationService();  
         if ($projectDao->getProjectById($this->projectId) != null) {
             $this->projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId);
             if ($this->projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $this->projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $this->projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
@@ -610,6 +617,9 @@ class projectActions extends sfActions {
                 $this->id = $request->getParameter('id');
 
                 $this->projectName = $projectDao->getProjectById($this->id)->getName();
+                $this->userType = $this->userDao->getUserById($loggedUserId)->getUserType();
+                $this->userList = $projectService->getUsersByProjectId($this->projectId);
+               
                 $viewStoriesDao = new StoryDao();
 
                 $pageNo = $this->getRequestParameter('page', 1);

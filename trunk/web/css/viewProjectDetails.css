@@ -138,7 +138,7 @@ table.showTable td {
     padding: 4px;
     font-size: 14px;
     text-align: left;
-    border: 1px #fff solid;
+    border: 3px #fff solid;
     vertical-align: top;
 }
 
@@ -151,7 +151,7 @@ table.showTable th {
     padding-right: 15px;
     font-size: 16px;
     text-align: center;
-    border: 1px #fff solid;
+    border: 3px #fff solid;
     font-weight: bold;
 }
 

@@ -35,7 +35,7 @@ table.tableContent td {
     padding: 4px;
     font-size: 14px;
     text-align: left;
-    border: 1px #fff solid;
+    border: 3px #fff solid;
     vertical-align: top;
 }
 
@@ -48,13 +48,22 @@ table.tableContent th {
     padding-right: 15px;
     font-size: 16px;
     text-align: center;
-    border: 1px #fff solid;
+    border: 3px #fff solid;
     font-weight: bold;
 }
 
 table.tableContent td.close {
     padding-left: 20px;
 }
+
+table.tableContent td.move {
+    padding-left: 20px;
+}
+
+table.tableContent td.copy {
+    padding-left: 20px;
+}
+
 
 table.tableContent td.edit {
     padding-left: 20px;
@@ -100,13 +109,13 @@ a:visited {
     text-decoration:none;
 }
 
-a:active {
-    background-color: yellow;
+a:hover {
+    color:red;
     text-decoration:none;
 }
 
-a:hover {
-    color:red;
+a:active {
+    background-color: yellow;
     text-decoration:none;
 }
 

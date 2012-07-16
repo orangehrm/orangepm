@@ -580,5 +580,22 @@ class ProjectService {
         return $this->getStoryDao()->getRelatedProjectStories($active, $projectId, $pageNo);
     }
     
+     public function getUsersByProjectId($projectId)  {
+        
+        $list = array();
+        $this->userDao = new UserDao();
+        $users = $this->projectDao->getUsersByProjectId($projectId);
+         
+        foreach ($users as $user) {
+            
+            $userName = $this->userDao->getUserById($user->getUserId());
+            $list[$user->getUserId()] = $userName->getFirstName().' '.$userName->getLastName();
+                
+         } 
+        
+        return $list;
+        
+    }
+
 
 }

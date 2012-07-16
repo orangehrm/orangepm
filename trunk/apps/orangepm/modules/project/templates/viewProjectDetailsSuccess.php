@@ -127,7 +127,9 @@
                     <tbody>
                         <tr>
                             <th><?php echo __('Story Name') ?></th>
+                            <?php if($userRole != 3){ ?>
                             <th><?php echo __('Effort');?></th>
+                            <?php } else { ?> &nbsp;&nbsp;<?php } ?>
                             <th><?php echo __('Tasks Total');?></th>
                             <th><?php echo __('Date Added') ?></th>
                             <th><?php echo __('Estimated End Date') ?></th>
@@ -140,7 +142,9 @@
                         <?php $status = $story->getStatus() == 'Pending' ? 'Backlog' : $story->getStatus();?>
                             <tr id="row">
                                 <td class="<?php echo "changedName name " . $story->getId(); ?>"><a href="<?php echo url_for("project/viewTasks?storyId={$story->getId()}")?>"><?php echo $story->getName(); ?></a></td>
-                                <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
+                                <?php if($userRole != 3){ ?>
+                                <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>                
+                               <?php } ?> 
                                 <td class="<?php echo "changedTasksTotal taskTotal " . $story->getId(); ?>"> <?php echo $taskService->getTaskTotalEffortByStoryId($story->getId()) ?></td>
                                 <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
                                 <td class="<?php echo "estimatedEndDate EndDate " . $story->getId(); ?>"> <?php echo $story->getEstimatedEndDate(); ?></td>

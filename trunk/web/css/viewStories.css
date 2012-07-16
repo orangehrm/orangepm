@@ -20,6 +20,29 @@ root {
     font-weight: bold;
 }
 
+#moveId label {
+    position: relative;
+    float: left;
+    width: 150px;
+    left: 5px;
+    text-align: left;
+}
+
+#copyId label {
+    position: relative;
+    float: left;
+    width: 150px;
+    left: 5px;
+    text-align: left;
+}
+
+form div {
+    clear: left;
+    margin: 0;
+    padding: 0;
+    padding-top: 0.8em;
+}
+
 table.tableContent {
     top: 30px;
     width: 1000px;
@@ -33,7 +56,19 @@ td.edit {
     cursor:pointer;
 }
 
-a img {
+table.tableContent a { color: blue; text-decoration: none; }
+table.tableContent a:link {color: blue} table.tableContent a:visited { color: purple}
+table.tableContent a:hover { color: red; } table.tableContent a:active { background-color: yellow} 
+
+ td.move {
+    cursor: pointer;
+ }
+ 
+ td.copy {
+    cursor: pointer;
+ }
+  
+ a img {
     border: none;
 }
 
