@@ -18,6 +18,7 @@ class StoryDao {
         $story->setDateAdded($storyParameters['added date']);
         $story->setEstimation($storyParameters['estimated effort']);
         $story->setProjectId($storyParameters['project id']);
+        $story->setAssignTo($storyParameters['assign to']);
         $story->setStatus($storyParameters['status']);
         $story->setAcceptedDate($storyParameters['accepted date']);
 
@@ -67,12 +68,16 @@ class StoryDao {
 
         $story = Doctrine_Core::getTable('Story')->find($storyParameters['id']);
         if ($story instanceof Story) {
+            
             $story->setName($storyParameters['name']);
-            $story->setEstimation($storyParameters['estimated effort']);
+            if($storyParameters['estimated effort']) {
+                $story->setEstimation($storyParameters['estimated effort']);
+            }
             $story->setDateAdded($storyParameters['added date']);
             $story->setStatus($storyParameters['status']);
             $story->setAcceptedDate($storyParameters['accepted date']);
             $story->save();
+            
         }
         
     }
@@ -130,6 +135,7 @@ class StoryDao {
     
     /**
      * Get story by id
+     * 
      * @param $id
      * @return Doctrine Story object
      */
@@ -168,17 +174,62 @@ class StoryDao {
      * @author Eranga
      * Setting estimated end date for story depending on the new task added
      */
-    public function updateEstimatedEndDate($storyId,$date){
-        $story=Doctrine_Core::getTable('Story')->find($storyId);
+    public function updateEstimatedEndDate($storyId,$date) {
+        $story = Doctrine_Core::getTable('Story')->find($storyId);
         if($story instanceof Story){
             $story->setEstimatedEndDate($date);
             $story->save();     
-            return true;
+            return $story;
             
-        }else{
-            return false;
+        } else {
+            return NULL;
         }
             
     }
-
+    
+    /**
+     * Get all the projects
+     * 
+     * @return Doctrine_object projects
+     */
+     public function getProjectList() {  
+        $q = Doctrine_Query::create()->from('Project')
+                                     ->orderBy('id');
+            
+        return $q->execute();   
+     }
+     
+    /**
+     * Get projects according to the user type
+     * 
+     * @param Integer $userId
+     * @return Doctrine_objects projects
+     */
+     public function getProjectByUserType($loggedUser) {  
+        $q = Doctrine_Query::create()->from('Project')
+                                     ->where('userId = ?', $loggedUser);
+         
+        return $q->execute();    
+     }
+     
+     /**
+      * Move Story to another project
+      * 
+      * @param Integer $storyId
+      * @param Integer $projectId
+      * @return Doctrine_object story
+      */
+      public function moveStory($storyId, $projectId) {
+         
+        $story = Doctrine_Core::getTable('Story')->find($storyId);
+        
+        if($story instanceof Story) {
+            $story->setProjectId($projectId);
+            $story->save();     
+            return $story;   
+        } else {
+            return NULL;
+        }
+         
+     }
 }

@@ -26,6 +26,8 @@ class viewProjectDetailsAction extends sfAction {
             $projectUserString=$request->getParameter('aaa');
             $removeUserId=$this->project->getUserId();
             $loggedUserObject = null;
+            $this->userDao = new UserDao();
+           
             $isProjectAccessLevel=$this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
             $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));        
             $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
@@ -41,6 +43,7 @@ class viewProjectDetailsAction extends sfAction {
                     }
                 }                        
                 $this->userId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+                $this->userRole = $this->userDao->getUserById($this->userId)->getUserType();
                 $this->userName = $this->projectLogService->getUserName($this->userId);            
                 $this->projectId = $projectId;
                 $this->projectForm->setDefault('projectAdmin', array('choices' => $this->project->getUserId()));

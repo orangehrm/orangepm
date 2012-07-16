@@ -13,7 +13,7 @@ require_once 'PHPUnit/Framework.php';
 require_once  sfConfig::get('sf_test_dir') . '/util/TestDataService.php';
 
 class StoryDaoTest extends PHPUnit_Framework_TestCase {
-    //put your code here
+    
     
     protected $storyDao;
     
@@ -70,18 +70,16 @@ class StoryDaoTest extends PHPUnit_Framework_TestCase {
                         ->where('c.id = ?', 5);
       $storyArray = $query->execute();
 
-        $this->assertEquals("Test Story Update", $storyArray[0]->getName());
-        $this->assertEquals('44', $storyArray[0]->getEstimation());
-        
-
-
-
+      $this->assertEquals("Test Story Update", $storyArray[0]->getName());
+      $this->assertEquals('44', $storyArray[0]->getEstimation());
+    
+    
    }
    /**
     * @author guru
     */
-   public function testGetProjectIdByStoryId() {
-       $this->assertEquals(6 ,  $this->storyDao->getProjectIdByStoryId(12));
+   public function testGetProjectIdByStoryId() {     
+       $this->assertEquals(6 ,  $this->storyDao->getProjectIdByStoryId(12));     
    }
    /**
     *@author guru 
@@ -121,8 +119,11 @@ class StoryDaoTest extends PHPUnit_Framework_TestCase {
    public function testUpdateEstimatedEndDateWhenDateIsNull(){
        $date=null;
        $storyId=4;
-       $this->assertTrue($this->storyDao->updateEstimatedEndDate($storyId,$date));
-       $story=$this->storyDao->getStory($storyId);
+       $story = $this->storyDao->updateEstimatedEndDate($storyId,$date);
+       $this->assertTrue($story instanceof Story);
+       $this->assertEquals(4, $story->getId());
+       
+       $story = $this->storyDao->getStory($storyId);
        $this->assertEquals($date,$story->getEstimatedEndDate());
    }
    
@@ -133,7 +134,7 @@ class StoryDaoTest extends PHPUnit_Framework_TestCase {
    public function testUpdateEstimatedEndDateForInvalidUserId(){
        $date='2011-01-15';
        $storyId=1675;
-       $this->assertFalse($this->storyDao->updateEstimatedEndDate($storyId,$date));       
+       $this->assertNull($this->storyDao->updateEstimatedEndDate($storyId,$date));       
    }
    
    /*
@@ -166,5 +167,45 @@ class StoryDaoTest extends PHPUnit_Framework_TestCase {
        $taskSet=$this->storyDao->getTasks($storyId);
        $this->assertNull($taskSet);   
    }
+   
+    public function testGetProjectList()    {
+        
+        $project = new Project();
+        $projectList = $this->storyDao->getProjectList();
+        
+        foreach ($projectList as $project) {
+            
+            $this->assertTrue($project instanceof Project);
+            
+        }
+        
+        $this->assertEquals(9, count($projectList));          
+        $this->assertEquals('GWT apps featured in Google IO videos', $projectList[0]->getName());
+       
+    }
+    
+    public function testGetProjectByUserType()  {
+        
+        $project = new Project();
+        $projectList = $this->storyDao->getProjectByUserType(1);
+
+        foreach ($projectList as $project) {
+            
+            $this->assertTrue($project instanceof Project);
+            
+        }
+        
+        $this->assertEquals(2, count($projectList));
+        $this->assertEquals('GWT apps featured in Google IO videos', $projectList[0]->getName());
+        
+    }
+    
+    public function testMoveStory()  {
+        $storyId = 1;
+        $projectId = 9;
+        $changeStory = $this->storyDao->moveStory($storyId, $projectId);
+        $this->assertEquals($projectId, $changeStory->getProjectId());
+              
+   } 
 }
 ?>
