@@ -43,7 +43,7 @@ span#noLogsMessage {
 } 
 
 div.showForm {
-    width: 1150px;
+    width: 1250px;
 }
 
 
@@ -115,7 +115,7 @@ table.showTable {
     text-align: center;
     font-weight: normal;
     color: #fff;
-    width: 1055px;
+    width: 1155px;
     background-color: #666;
     border: 0px;
     border-collapse: collapse;
@@ -147,8 +147,8 @@ table.showTable th {
     background-color: #666;
     color: #fff;
     padding: 4px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
     font-size: 16px;
     text-align: center;
     border: 3px #fff solid;

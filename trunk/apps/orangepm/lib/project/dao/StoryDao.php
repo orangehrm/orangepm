@@ -70,10 +70,11 @@ class StoryDao {
         if ($story instanceof Story) {
             
             $story->setName($storyParameters['name']);
-            if($storyParameters['estimated effort']) {
-                $story->setEstimation($storyParameters['estimated effort']);
+            if($storyParameters['estimated effort'] != null){
+            $story->setEstimation($storyParameters['estimated effort']);
             }
             $story->setDateAdded($storyParameters['added date']);
+            $story->setAssignTo($storyParameters['assign']);
             $story->setStatus($storyParameters['status']);
             $story->setAcceptedDate($storyParameters['accepted date']);
             $story->save();

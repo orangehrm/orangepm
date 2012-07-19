@@ -13,8 +13,10 @@ class viewTasksAction extends sfAction {
     public function execute($request) {
         $this->storyId = $request->getParameter('storyId');        
         $this->story = $this->storyDao->getStoryById($this->storyId);
+        
         if($this->story != NULL) {
-            $this->project = $this->projectService->getProjectById($this->story->getProjectId());           
+            $this->project = $this->projectService->getProjectById($this->story->getProjectId()); 
+            $this->projectsId = $this->project->getId();
             $loggedUserObject = null;
             $auth = new AuthenticationService();
             $projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->story->getProjectId());

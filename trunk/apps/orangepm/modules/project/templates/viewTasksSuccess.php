@@ -8,11 +8,18 @@
     var loginUrl = '<?php echo url_for('project/login')?>';
     var projectId = '<?php echo $project->getId()?>';
     var statusArray = new Array();
+    var ownerArray = new Array();
     <?php 
     $tasks = $taskService->getAllTaskStatusArray();
     foreach ($tasks as $key => $val) {?>
         statusArray[<?php echo $key?>] = '<?php echo $val?>';
     <?php } ?>
+    <?php
+        $userList = $projectService->getUsersByProjectId($projectsId);
+        foreach( $userList as $toJsArray => $convert ) {
+       ?>    
+            ownerArray[<?php echo $toJsArray ?>] = '<?php echo $convert;?>';            
+  <?php } ?>
 </script>
 
 <div class="Task">

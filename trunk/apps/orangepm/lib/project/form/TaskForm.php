@@ -56,8 +56,11 @@ class TaskForm extends sfForm {
     }
     
     private function _setOwnedByWidgets() {
-        $this->formWidgets['ownedBy'] = new sfWidgetFormInputText(array(), array('size'=>'71'));
-        $this->formValidators['ownedBy'] = new sfValidatorString(array('required' => false));
+        $projectService = new ProjectService();
+        $projectId = $this->getOption('projectId');
+        $projectMembers = $projectService->getUsersByProjectId($projectId);
+        $this->formWidgets['ownedBy'] = new sfWidgetFormSelect(array('choices' => $projectMembers));
+        $this->formValidators['ownedBy'] = new sfValidatorChoice(array('choices' => array_keys($projectMembers)));
         $this->formWidgets['ownedBy']->setLabel(__("Owned By"));
     }
     
