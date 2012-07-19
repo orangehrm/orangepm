@@ -31,7 +31,8 @@ class viewAllProjectDetailsAction extends sfAction {
         }
         
         $this->projectProgressList=$this->getPercentageList($this->projects);
-        
+        //$this->projectId = $request->getParameter('id');
+               
         if (count($this->projectProgressList) == 0) {
             $this->noRecordMessage = __("No Matching Projects Found");
         }

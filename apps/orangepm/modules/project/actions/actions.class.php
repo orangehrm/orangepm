@@ -487,6 +487,7 @@ class projectActions extends sfActions {
             'name' => $request->getParameter('name'),
             'added date' => $request->getParameter('date'),
             'id' => $request->getParameter('id'),
+            'assign' => $request->getParameter('assign'),
             'status' => $request->getParameter('status')
         );
         $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
@@ -605,7 +606,7 @@ class projectActions extends sfActions {
         $this->moveForm = new MoveStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $loggedUserId));
         $this->copyForm = new CopyStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $loggedUserId));
         $projectService = new ProjectService();
-        $this->userDao = new UserDao() ;
+        $this->userDao = new UserDao();
         $this->taskService = new TaskService();
         $loggedUserObject = null;
         $projectDao = new ProjectDao();

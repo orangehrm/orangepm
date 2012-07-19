@@ -79,21 +79,19 @@ $(document).ready(function() {
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
             $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
             if(isAllowToEditEffort == '0'){
-                if (!document.getElementById('editboxEstimation') == null) {
-                    document.getElementById('editboxEstimation').disabled = true;
-                }
+                document.getElementById('editboxEstimation').disabled = true;
             }
 
             $(this).parent().children('td.changedAcceptedDate').addClass('ajaxAcceptedDate');
             $(this).parent().children('td.changedAcceptedDate').html('<input id="editboxAcceptedDate" size="9" type="text" value="'+$(this).parent().children('td.changedAcceptedDate').text()+ '">');
             document.getElementById('editboxAcceptedDate').disabled = true;
 
-                
-
+            
+                          
             $(this).parent().children('td.changedStatus').addClass('ajaxStatus');
             if(dropdownToggleVariable){
                 var previousStatus = jQuery.trim($(this).parent().children('td.changedStatus').text());
-                
+                var previousAssign = jQuery.trim($(this).parent().children('td.assignTo').text());
                 $(this).parent().children('td.changedStatus').html('<select name="changedStatus" id="changedStatus" onchange="findSelected()"">'+
                     '<option value=" Backlog">Backlog</option>'+
                     '<option value=" Design">Design</option>'+
@@ -112,31 +110,49 @@ $(document).ready(function() {
             
                 dropdownToggleVariable = false;
             }
-
+                      
             $(this).parent().children('td.assignTo').addClass('ajaxAssign'); 
                 var html = '<select name="assignTo" id="assignTo" >';
                 for (var key in jsArray) {
                     html += '<option value="'+jsArray[key]+'">'+jsArray[key]+'</option>';
                 }
                 html += '</select>';
-                
                 $(this).parent().children('td.assignTo').html(html);
-         
-         
+               
+                var count = 0;
+                $($("#assignTo").children()).each(
+                function()	{
+                  if ($(this).attr('value') == previousAssign) {
+                        document.getElementById('assignTo').selectedIndex = count;
+				} else {
+                        count++;
+                    }
+				}
+                )
+               
             $('#saveBtn').click(function(){
                 synchronizedVariable = true;
                 $currentRow = $('#saveBtn').closest('tr');
                 var changedStatus = document.getElementById('changedStatus');
                 var editboxAcceptedDate = document.getElementById('editboxAcceptedDate');
+                
+                if((changedStatus.value == " Accepted") && (editboxAcceptedDate.value != ' ')) {
+                     $(this).parent().siblings('.move').find('a').hide();
+                } else {
+                     $(this).parent().siblings('.move').find('a').show();
+                }
+                 
+                
+                
+                
                 if(changedStatus.value != " Accepted") {
                     editboxAcceptedDate.value= '';
                 }
-                
                 if($('.ajaxName input').val() != '') {                    
                     
                     if($('.ajaxEstimation input').val() != '') {
                         
-                        if(($('.ajaxEstimation input').length == 0) || (($('.ajaxEstimation input').length > 0) && (!isNaN($('.ajaxEstimation input').val())))) {
+                         if(($('.ajaxEstimation input').length == 0) || (($('.ajaxEstimation input').length > 0) && (!isNaN($('.ajaxEstimation input').val())))) {             
                     
                             if(ValidateForm($('.ajaxDate input').val())) {
                         
@@ -145,17 +161,18 @@ $(document).ready(function() {
                                 }
                               
 
-                                else{
+                                else {
                                     
                                     removeMainErrorMessage();
                                     
                                     if(($('.ajaxStatus select').val()==" Accepted" && ValidateForm($('.ajaxAcceptedDate input').val()))||$('.ajaxStatus select').val()!=" Accepted") {
-                                        
+                                        var assignTo = $('.ajaxAssign select').val();
+                                      
                                         var ajaxData = {
                                                 name : $('.ajaxName input').val() , 
                                                 date : $('.ajaxDate input').val() ,                                                 
                                                 id : classNameArray[2] ,
-                                                assign : $('.ajaxAssign select').val(),
+                                                assign : assignTo,
                                                 status : jQuery.trim($('.ajaxStatus select').val()) , 
                                                 acceptedDate : jQuery.trim($('.ajaxAcceptedDate input').val())
                                             };
@@ -169,23 +186,22 @@ $(document).ready(function() {
                                         $.ajax({
                                             type: "post",
                                             url: linkUrl,
-                                            data: ajaxData,
+                                            data: ajaxData,                                         
 
-
-                                            success: function(responce){
+                                            success: function(response){
                                             //    if(responce!=''){
                                             //        window.location.href = loginUrl+"?noSession=true";
                                             //    }
                                             //    else{
+                                                    
                                                     $('#message').html('The Story was updated successfully');
                                                     var stroyClass = $('.ajaxName').attr('class').split(' ');
                                                     $('.ajaxName').html("<a href="+viewTaskUrl+"?storyId="+stroyClass[2]+">"+$('.ajaxName input').val()+"</a>");
                                                     $('.ajaxDate').html($('.ajaxDate input').val());
                                                     $('.ajaxEstimation').html($('.ajaxEstimation input').val());
-
                                                     $('.ajaxAcceptedDate').html($('.ajaxAcceptedDate input').val());
-                                                    $('.ajaxAssign').html($('.ajaxAssign select').val());
-                                                    $('.ajaxAssign').removeClass('ajaxAssign');                                                   
+                                                    $('.ajaxAssign').html(assignTo);
+                                                    $('.ajaxAssign').removeClass('ajaxAssign');
                                                     $('.ajaxStatus').html($('.ajaxStatus select').val());
                                                     $('.ajaxStatus').removeClass('ajaxStatus');                                                
                                                     if((projectViewUrl != null) && (statusChanged)) {
@@ -203,13 +219,13 @@ $(document).ready(function() {
                         }
                         else { 
                             setMainErrorMessage('Estimation Effort is not valid');
-                      }
+                        }
                     } else {
-                        setMainErrorMessage('Estimation Effort is empty');
-                    }
+                       setMainErrorMessage('Estimation Effort is empty');
+                   }
                 } else {
                     setMainErrorMessage('Story Name is empty');
-               }
+                }
             });
 
             $( "#editboxDate, #editboxAcceptedDate" ).datepicker(

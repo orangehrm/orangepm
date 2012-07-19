@@ -31,7 +31,7 @@ $(document).ready(function() {
             var name = $.trim($(this).parent().children('td.changedName').find('input').attr('value'));
             var effort = $.trim($(this).parent().children('td.changedEffort').find('input').attr('value'));
             var preestimatedEndDate = $.trim($(this).parent().children('td.changedEstimatedEndDate').find('input').attr('value'));
-            var ownedBy = $.trim($(this).parent().children('td.changedOwnedBy').find('input').attr('value'));
+            
             var description = $.trim($(this).parent().children('td.changedDescription').find('textarea').attr('value'));
             if($(this).hasClass('ajaxEdit')) {
                 if($.trim($(this).parent().children('td.changedName').find('input').attr('value')) != '') {
@@ -42,7 +42,7 @@ $(document).ready(function() {
                         var effortText = $.trim($(this).parent().children('td.changedEffort').find('input').attr('value'));
                         var estimatedEndDate = $.trim($(this).parent().children('td.changedEstimatedEndDate').find('input').attr('value'));
                         var statusSelect = $(this).parent().children('td.changedStatus').find('select').attr('value');
-                        var ownedByText = $.trim($(this).parent().children('td.changedOwnedBy').find('input').attr('value'));
+                        var ownedByText = $(this).parent().children('td.changedOwnedBy').find('select').attr('value');
                         var descriptionText = $.trim($(this).parent().children('td.changedDescription').find('textarea').attr('value'));
                         var classString = $(this).attr('class');
                         var id = classString.split(' ')[1];
@@ -61,6 +61,7 @@ $(document).ready(function() {
                                     $parentRow.children('td.changedStatus').html(statusArray[statusSelect]);
                                     $parentRow.children('td.changedStatus').addClass(statusArray[statusSelect].toLowerCase());
                                     $parentRow.children('td.changedOwnedBy').html(ownedByText);
+                                    $parentRow.children('td.changedOwnedBy').removeClass('ajaxOwnedBy');
                                     $parentRow.children('td.changedDescription').html(descriptionText);                                    
                              //   }                            
                             },
@@ -69,7 +70,7 @@ $(document).ready(function() {
                                 $parentRow.children('td.changedEffort').html(effort);
                                 $parentRow.children('td.changedEstimatedEndDate').html(estimatedEndDate);
                                 $parentRow.children('td.changedStatus').html(statusArray[status]);
-                                $parentRow.children('td.changedOwnedBy').html(ownedBy);
+                                $parentRow.children('td.changedOwnedBy').html(ownerArray[ownedBy]);
                                 $parentRow.children('td.changedDescription').html(description);
                             }
                         });
@@ -87,7 +88,7 @@ $(document).ready(function() {
                 name = $.trim($(this).parent().children('td.changedName').text());
                 effort = $.trim($(this).parent().children('td.changedEffort').text());
                 estimatedEndDate = $.trim($(this).parent().children('td.changedEstimatedEndDate').text());
-                ownedBy = $.trim($(this).parent().children('td.changedOwnedBy').text());
+                var ownedBy = $.trim($(this).parent().children('td.changedOwnedBy').text());
                 description = $.trim($(this).parent().children('td.changedDescription').text());
                 status = $.trim($(this).parent().children('td.changedStatus').text());
                 
@@ -103,12 +104,32 @@ $(document).ready(function() {
                     statusDropDown += '<option value="'+key+'">'+statusArray[key]+'</option>';
                 }
                 statusDropDown += '</select> ';
+                
                 $(this).parent().children('td.changedStatus').html(statusDropDown);
                 $(this).parent().children('td.changedStatus').removeClass(status.toLowerCase());
                 var statusId = getStatusId(status);
                 $('#ajaxStatus').find("option[value='"+statusId+"']").attr('selected',true);
+                
                 $(this).parent().children('td.changedOwnedBy').addClass('ajaxOwnedBy');
-                $(this).parent().children('td.changedOwnedBy').html("<input type='text' id='ajaxOwnedByInput' value='"+escapeQuotes(ownedBy)+"'></input>");
+                var ownedByDropDown = '<select name="ajaxOwner" id="ajaxOwner" >';
+                for(key in ownerArray) {
+                    ownedByDropDown += '<option value="'+ownerArray[key]+'">'+ownerArray[key]+'</option>';
+                }
+                ownedByDropDown += '</select> ';
+                
+                $(this).parent().children('td.changedOwnedBy').html(ownedByDropDown);
+              
+                var count = 0;
+                $($("#ajaxOwner").children()).each(
+                function()	{
+                  if ($(this).attr('value') == ownedBy) {
+                        document.getElementById('ajaxOwner').selectedIndex = count;
+                  } else {
+                        count++;
+                    }
+				}
+                )
+              
                 $(this).parent().children('td.changedDescription').addClass('ajaxDescription');
                 $(this).parent().children('td.changedDescription').html("<textarea id='ajaxDescriptionInput'>"+description+"</textarea>");
                 $(this).html(saveImgUrl);
@@ -127,6 +148,11 @@ $(document).ready(function() {
     
     function getStatusId(status) {
         var index = $.inArray(status, statusArray);
+        return index;
+    }
+    
+    function getOwnerId(status) {
+        var index = $.inArray(status, ownerArray);
         return index;
     }
     

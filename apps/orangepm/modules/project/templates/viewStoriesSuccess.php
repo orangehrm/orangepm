@@ -25,9 +25,9 @@
             <tr>
                 <th><?php echo __('Story Name') ?></th>
                 <?php if($userType != User::USER_TYPE_PROJECT_MEMBER) { ?>
-                <th><?php echo __('Effort');?></th>
+                <th><?php echo __('Estimated Effort');?></th>
                 <?php }  ?>
-                <th><?php echo __('Tasks Total');?></th>
+                <th><?php echo __('Current Effort');?></th>
                 <th><?php echo __('Date Added') ?></th>
                 <th><?php echo __('Estimated End Date') ?></th>
                 <th><?php echo __('Assign To') ?></th>
@@ -46,14 +46,11 @@
                     <td class="<?php echo "changedTasksTotal taskTotal " . $story->getId(); ?>"> <?php echo $taskService->getTaskTotalEffortByStoryId($story->getId()) ?></td>
                     <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
                     <td class="<?php echo "estimatedEndDate EndDate " . $story->getId(); ?>"> <?php echo $story->getEstimatedEndDate(); ?></td>
-                    <td class="<?php echo "assignTo".$story->getId(); ?>"> <?php echo $story->getAssignTo(); ?></td>
+                    <td class="<?php echo "assignTo ".$story->getId(); ?>"> <?php echo $story->getAssignTo(); ?></td>
                     <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $status ?></td>
                     <td class="<?php echo "changedAcceptedDate acceptedDate " . $story->getId(); ?>"> <?php echo $story->getAcceptedDate(); ?></td>
                     <td class="<?php echo "edit edit " . $story->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn') ?></td>
-                    <td class="move"><?php
-                    if($status != 'Accepted') {
-                            echo '<a class="moveLink" id="'.$story->getId().'" >move</a>';
-                                              }?> </td>
+                    <td class="move"><a class="moveLink" id="'.$story->getId().'" >move</a></td>
                     <td class="copy"><?php                  
                             echo '<a class="copyLink" id="'.$story->getId().'" >copy</a>';
                                               ?> </td>
@@ -110,6 +107,11 @@
 <?php echo javascript_include_tag('viewStories'); ?>
 
 <script type="text/javascript">
+   
+    if(isAllowToEditEffort == '0'){
+                $('.tableContent').find('.copy').hide();
+                $('.tableContent').find('.move').hide();
+            }   
    
     $(document).ready(function() {
         $("#mydialog").dialog({
@@ -202,8 +204,7 @@
      }  
      
   });
-  
-   var jsArray = [ ];
+  var jsArray = [ ];
 <?php
 
         foreach( $userList as $toJsArray => $convert ) {

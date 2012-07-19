@@ -65,6 +65,10 @@ div#requiredField {
     width: 173px;
 }
 
+#task_ownedBy{
+    width: 173px;
+}
+
 .taskName{
     width: 250px;
 }

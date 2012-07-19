@@ -22,6 +22,7 @@ class viewProjectDetailsAction extends sfAction {
         }
         $projectId = $request->getParameter('projectId');
         $this->project = $this->projectService->getProjectById($projectId);
+        $this->usersyList = $this->projectService->getUsersByProjectId($projectId);
         if($this->project != NULL) {
             $projectUserString=$request->getParameter('aaa');
             $removeUserId=$this->project->getUserId();

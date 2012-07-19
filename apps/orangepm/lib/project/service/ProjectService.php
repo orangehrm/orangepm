@@ -584,6 +584,7 @@ class ProjectService {
         
         $list = array();
         $this->userDao = new UserDao();
+        $this->projectDao = new ProjectDao();
         $users = $this->projectDao->getUsersByProjectId($projectId);
          
         foreach ($users as $user) {
