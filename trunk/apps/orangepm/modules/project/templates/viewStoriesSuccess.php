@@ -50,7 +50,7 @@
                     <td class="<?php echo "changedStatus status " . $story->getId(); ?>"> <?php echo $status ?></td>
                     <td class="<?php echo "changedAcceptedDate acceptedDate " . $story->getId(); ?>"> <?php echo $story->getAcceptedDate(); ?></td>
                     <td class="<?php echo "edit edit " . $story->getId(); ?>"><?php echo image_tag('b_edit.png', 'id=editBtn') ?></td>
-                    <td class="move"><a class="moveLink" id="'.$story->getId().'" >move</a></td>
+                    <td class="move"><?php echo'<a class="moveLink" id="'.$story->getId().'" >move</a>'?></td>
                     <td class="copy"><?php                  
                             echo '<a class="copyLink" id="'.$story->getId().'" >copy</a>';
                                               ?> </td>
