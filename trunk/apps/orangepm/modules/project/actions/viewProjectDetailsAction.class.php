@@ -22,13 +22,14 @@ class viewProjectDetailsAction extends sfAction {
         }
         $projectId = $request->getParameter('projectId');
         $this->project = $this->projectService->getProjectById($projectId);
-        $this->usersyList = $this->projectService->getUsersByProjectId($projectId);
+        $this->usersyList = $this->projectService->getUsersByProjectId($projectId);       
         if($this->project != NULL) {
             $projectUserString=$request->getParameter('aaa');
             $removeUserId=$this->project->getUserId();
             $loggedUserObject = null;
             $this->userDao = new UserDao();
-           
+            $this->projectDetailList = $this->projectService->getProjectStatus($projectId);
+                       
             $isProjectAccessLevel=$this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
             $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));        
             $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
@@ -41,6 +42,7 @@ class viewProjectDetailsAction extends sfAction {
                         $this->updatedProject= $this->projectService->getProjectById($projectId);
                         $removeUserId=$this->updatedProject->getUserId();
                         $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));
+                        $this->projectDetailList = $this->projectDetailList = $this->projectService->getProjectStatus($projectId);                                 
                     }
                 }                        
                 $this->userId = $this->getUser()->getAttribute($loggedUserObject)->getId();
@@ -96,6 +98,7 @@ class viewProjectDetailsAction extends sfAction {
         if ($this->projectForm->getValue('endDate') != '') {
             $project->setEndDate($this->projectForm->getValue('endDate'));
         }
+        $project->setCurrentEffort($this->projectForm->getValue('currentEffort'));
         $projectUsersColl=new Doctrine_Collection('ProjectUser');
                $projectUser=new ProjectUser();
                $projectUser->setUserId($project->getUserId());

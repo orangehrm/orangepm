@@ -13,6 +13,7 @@
  * @property clob $description
  * @property date $startDate
  * @property date $endDate
+ * @property string $currentEffort
  * @property ProjectStatus $ProjectStatus
  * @property Story $Story
  * @property User $User
@@ -27,6 +28,7 @@
  * @method clob                getDescription()     Returns the current record's "description" value
  * @method date                getStartDate()       Returns the current record's "startDate" value
  * @method date                getEndDate()         Returns the current record's "endDate" value
+ * @method string              getCurrentEffort()   Returns the current record's "currentEffort" value
  * @method ProjectStatus       getProjectStatus()   Returns the current record's "ProjectStatus" value
  * @method Story               getStory()           Returns the current record's "Story" value
  * @method User                getUser()            Returns the current record's "User" value
@@ -40,6 +42,7 @@
  * @method Project             setDescription()     Sets the current record's "description" value
  * @method Project             setStartDate()       Sets the current record's "startDate" value
  * @method Project             setEndDate()         Sets the current record's "endDate" value
+ * @method Project             setCurrentEffort()   Sets the current record's "currentEffort" value
  * @method Project             setProjectStatus()   Sets the current record's "ProjectStatus" value
  * @method Project             setStory()           Sets the current record's "Story" value
  * @method Project             setUser()            Sets the current record's "User" value
@@ -85,6 +88,10 @@ abstract class BaseProject extends sfDoctrineRecord
              ));
         $this->hasColumn('end_date as endDate', 'date', null, array(
              'type' => 'date',
+             ));
+        $this->hasColumn('current_effort as currentEffort', 'string', 255, array(
+             'type' => 'string',
+             'length' => 255,
              ));
     }
 

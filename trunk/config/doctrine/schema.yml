@@ -23,6 +23,9 @@ Project:
     end_date:
       name: end_date as endDate
       type: date
+    current_effort:
+      name: current_effort as currentEffort
+      type: string(255)
   relations:
     ProjectStatus:
       onDelete: set null

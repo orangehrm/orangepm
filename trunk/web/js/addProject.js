@@ -15,6 +15,9 @@ $(document).ready(function(){
             },
             'project[startDate]' : {
                 required: true
+            },
+            'project[endDate]' : {
+                required: true
             }
         },
         
@@ -24,6 +27,9 @@ $(document).ready(function(){
             },
             'project[startDate]' : {
                 required: lang_startDateRequired
+            },
+            'project[endDate]' : {
+                required: lang_endDateRequired
             }
         },        
         errorElement : 'div',

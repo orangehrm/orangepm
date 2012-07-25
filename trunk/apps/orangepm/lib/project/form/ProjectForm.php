@@ -24,7 +24,8 @@ class ProjectForm extends sfForm {
         $this->_setStatusWidgets();
         $this->_setStartDateWidgets();
         $this->_setEndDateWidgets();
-
+        $this->_setCurrentEffortWidgets();
+        
         if($this->getOption('user')) {
             $this->_setProjectAdminWidgets();
         }
@@ -73,8 +74,9 @@ class ProjectForm extends sfForm {
     }
     private function _setEndDateWidgets() {
         
-        $this->formWidgets['endDate'] = new sfWidgetFormInputText(array('label' => 'Committed End Date'), array());
-        $this->formValidators['endDate'] = new sfValidatorString(array('required' => false), array('required' => __('Commited End Date is required')));
+        $this->formWidgets['endDate'] = new sfWidgetFormInputText(array(), array());
+        $this->formValidators['endDate'] = new sfValidatorString(array('required' => true), array('required' => __('Commited End Date is required')));
+        $this->formWidgets['endDate']->setLabel(__("Committed End Date")."<span class='mandatoryStar'>*</span>");
         
     }
     
@@ -85,6 +87,13 @@ class ProjectForm extends sfForm {
         $this->formWidgets['startDate']->setLabel(__("Development Start Date")."<span class='mandatoryStar'>*</span>");
         
     }
+    
+    private function _setCurrentEffortWidgets() {
+        
+        $this->formWidgets['currentEffort'] = new sfWidgetFormInputText(array(), array());
+        $this->formValidators['currentEffort'] = new sfValidatorString(array('required' => false));
+        $this->formWidgets['currentEffort']->setLabel(__("Current Effort"));
+  }
     
     private function _setStatusWidgets() {
         

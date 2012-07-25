@@ -60,7 +60,8 @@
                 <div><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render(array('value' => $project->getName())) ?><?php echo $projectForm['name']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['startDate']->renderLabel() ?><?php echo $projectForm['startDate']->render(array('value' => $project->getStartDate())) ?><?php echo $projectForm['startDate']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['endDate']->renderLabel() ?><?php echo $projectForm['endDate']->render(array('value' => $project->getEndDate())) ?><?php echo $projectForm['endDate']->renderError() ?><br class="clear" /></div>
-                
+                <div><?php echo $projectForm['currentEffort']->renderLabel() ?><?php echo $projectForm['currentEffort']->render(array('value' => $project->getCurrentEffort())) ?><?php echo $projectForm['currentEffort']->renderError() ?><br class="clear" /></div>
+              
                 <?php if($sf_user->hasCredential('superAdmin')): ?>
                 <div><?php echo $projectForm['projectAdmin']->renderLabel() ?><?php echo $projectForm['projectAdmin']->render() ?><?php echo $projectForm['projectAdmin']->renderError() ?></div>
                 <?php else:?>
@@ -121,6 +122,33 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <div class='project_Details' id="projectFacts">
+            <table class='showTable'>
+                    <tbody>
+                        <tr>
+                            <td><label for="Avg_Weekly_Velocity"><?php echo __('Avg Weekly Velocity : ') ?></label></td> <td><?php echo $projectDetailList[0] ?> </td>
+                        </tr>
+                        <tr>
+                            <td><label for="Required_Weekly_Velocity"><?php echo __('Required Weekly Velocity : ') ?></label></td> <td><?php echo $projectDetailList[1] ?> </td>
+                        </tr>
+                        <tr>
+                            <td><label for="Last_week_Velocity"><?php echo __('Last week Velocity : ') ?></label></td> <td><?php echo $projectDetailList[2] ?> </td>
+                        </tr>
+                        <tr>
+                            <td><label for="Variance_based_on_Known_last_known_velocity"><?php echo __('Variance based on Known last known velocity : ') ?></label></td> <td><?php echo $projectDetailList[3] ?></td>
+                        </tr>
+                        <tr>
+                            <td><label for="Variance_based_on_avg_weekly_velocity"><?php echo __('Variance based on avg weekly velocity : ') ?></label></td> <td><?php echo $projectDetailList[4] ?></td>
+                        </tr>
+                        <tr>
+                            <td><label for="Estimated_total_effort_used_for_costing"><?php echo __('Estimated total effort used for costing : ') ?></label></td> <td><?php echo $projectDetailList[5] ?></td>
+                        </tr>
+                        <tr>
+                            <td><label for="Current_total_effort"><?php echo __('Current total effort (based on time sheets) : ') ?></label></td> <td><?php echo $project->getCurrentEffort(); ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             </div>
         </div>
         <div class="break_line"></div>

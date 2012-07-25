@@ -4,6 +4,7 @@
 <script type="text/javascript">
     var lang_nameRequired = "<?php echo __('Project name is required'); ?>";
     var lang_startDateRequired = "<?php echo __('Development Start date is required'); ?>";
+    var lang_endDateRequired = "<?php echo __('Committed End Date is required'); ?>";
     function setSelected()
     {
         var list = document.getElementById('project_projectUserSelected');
@@ -34,7 +35,8 @@
                 <div><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render() ?><?php echo $projectForm['name']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['startDate']->renderLabel() ?><?php echo $projectForm['startDate']->render() ?><?php echo $projectForm['startDate']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['endDate']->renderLabel() ?><?php echo $projectForm['endDate']->render() ?><?php echo $projectForm['endDate']->renderError() ?><br class="clear" /></div>
-
+                <div><?php echo $projectForm['currentEffort']->renderLabel() ?><?php echo $projectForm['currentEffort']->render() ?><?php echo $projectForm['currentEffort']->renderError() ?><br class="clear" /></div>
+                
                 <?php if ($sf_user->hasCredential('superAdmin')): ?>
                     <div><?php echo $projectForm['projectAdmin']->renderLabel() ?><?php echo $projectForm['projectAdmin']->render() ?><?php echo $projectForm['projectAdmin']->renderError() ?></div>
                 <?php endif; ?>

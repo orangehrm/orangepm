@@ -73,17 +73,17 @@ $(document).ready(function() {
             $('.ajaxAssign').removeClass('ajaxAssign');
             
             $(this).parent().children('td.changedName').addClass('ajaxName');
-            $(this).parent().children('td.changedName').html('<input id="editboxName" size="20" type="text" value="'+escapeQuotes($(this).parent().children('td.changedName').text())+'">');
+            $(this).parent().children('td.changedName').html('<input id="editboxName" size="10" type="text" value="'+escapeQuotes($(this).parent().children('td.changedName').text())+'">');
             $(this).parent().children('td.changedDate').addClass('ajaxDate');
-            $(this).parent().children('td.changedDate').html('<input id="editboxDate" size="9" type="text" value="'+$(this).parent().children('td.changedDate').text()+'">');
+            $(this).parent().children('td.changedDate').html('<input id="editboxDate" size="5" type="text" value="'+$(this).parent().children('td.changedDate').text()+'">');
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
-            $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="5" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
+            $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="3" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
             if(isAllowToEditEffort == '0'){
                 document.getElementById('editboxEstimation').disabled = true;
             }
 
             $(this).parent().children('td.changedAcceptedDate').addClass('ajaxAcceptedDate');
-            $(this).parent().children('td.changedAcceptedDate').html('<input id="editboxAcceptedDate" size="9" type="text" value="'+$(this).parent().children('td.changedAcceptedDate').text()+ '">');
+            $(this).parent().children('td.changedAcceptedDate').html('<input id="editboxAcceptedDate" size="5" type="text" value="'+$(this).parent().children('td.changedAcceptedDate').text()+ '">');
             document.getElementById('editboxAcceptedDate').disabled = true;
 
             

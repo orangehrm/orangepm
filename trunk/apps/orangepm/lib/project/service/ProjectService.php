@@ -597,6 +597,125 @@ class ProjectService {
         return $list;
         
     }
-
+    
+    /**
+     * 
+     * Get Project Details relevent to the project Id
+     * @param Interger $projectId
+     * @return Project Status array
+     * @author Senura
+     * 
+     */
+    public function getProjectStatus($projectId) {
+        
+        $startDate1 = $this->getProjectById($projectId)->getStartDate();
+        $endDate1 = $this->getProjectById($projectId)->getEndDate();       
+        $this->storyList = $this->storyDao->getStoriesForProjectProgress(true, $projectId, "date_added");     
+        $allArray = $this->viewWeeklyProgress($this->storyList, $projectId);
+        $weekStartingDate = $allArray[0];
+        $totalEstimation = $allArray[1];
+        $weeklyVelocity = $allArray[2];
+        $workCompleted = $allArray[3];
+        $this->burnDownArray = $allArray[4];
+        
+        $endDate = strtotime($endDate1);
+        $startDate = strtotime($startDate1);
+        
+        if ($endDate != 0 && $startDate != 0) {
+            $timeBetween = $endDate - $startDate;
+        } else {
+            $timeBetween = 0;
+        }
+        
+        $dayCount = ($timeBetween / 24 / 60 / 60); 
+        reset($weekStartingDate);
+         
+        if (key($weekStartingDate) == 0) {
+            $totalEstimatedValue = $totalEstimation[$weekStartingDate[count($weekStartingDate)-1]];
+            $totalAcceptedWork = $workCompleted[$weekStartingDate[count($weekStartingDate)-1]];
+            $lastWeekVelocity = $weeklyVelocity[$weekStartingDate[count($weekStartingDate)-2]];
+        } else {
+            $totalEstimatedValue = $totalEstimation[$weekStartingDate[count($weekStartingDate)]];
+            $totalAcceptedWork = $workCompleted[$weekStartingDate[count($weekStartingDate)]];
+            $lastWeekVelocity = $weeklyVelocity[$weekStartingDate[count($weekStartingDate)-1]];
+        }
+        
+        
+                    
+        $numOfWeeksCompleted = count($weekStartingDate);
+        
+        if ($numOfWeeksCompleted != 0 && $totalAcceptedWork != 0) {
+            $avgWeeklyVelocity = round($totalAcceptedWork / $numOfWeeksCompleted, 2).' per week';
+        } else { 
+            $avgWeeklyVelocity = 0;
+        }
+        
+ 
+        $currentDate = strtotime(date('Y-m-d'));
+        $remainingTime = $endDate - $currentDate;
+        $remainingWeeks = ($remainingTime / 24 / 60 / 60 / 7); 
+        $remainingWork = $totalEstimatedValue - $totalAcceptedWork;
+        if ($remainingWork !=0 && $remainingWeeks != 0) {
+            $reqWeeklyVelocity = round($remainingWork / $remainingWeeks, 2).' per week';
+        } else {
+            $reqWeeklyVelocity = 0;
+        }
+        
+       
+      
+        foreach ($weeklyVelocity as $k => $v) { 
+            if($v != 0 ) {
+                $lastKnwnVelocity = $v;
+                }     
+        }
+        
+        if ($lastKnwnVelocity != 0 && $remainingWork != 0) {
+            $varianceOfWeeks = $remainingWork / $lastKnwnVelocity;
+        } else {
+            $varianceOfWeeks = 0;
+        }
+        
+        $currentDate = strtotime(date('Y-m-d'));
+        $leftTime = $endDate - $currentDate;
+        $leftWeeks = ($leftTime / 24 / 60 / 60 / 7); 
+       
+        if (($varianceOfWeeks < $leftWeeks) && ($varianceOfWeeks != 0)) {  
+            $varianceBasedonLKV = round($leftWeeks - $varianceOfWeeks, 2).' (weeks ahead)';
+        } else if(($varianceOfWeeks == $leftWeeks) || ($varianceOfWeeks == 0)) {
+            $varianceBasedonLKV = 0;
+        } else {
+            $varianceBasedonLKV = round($varianceOfWeeks - $leftWeeks, 2).' (weeks Delayed)';
+        }
+        
+        
+        if ($avgWeeklyVelocity != 0 && $remainingWork != 0 ) {
+            $avgVarianceOfWeeks = $remainingWork / $avgWeeklyVelocity;
+        } else {
+            $avgVarianceOfWeeks = 0;
+        }
+      
+        if (($avgVarianceOfWeeks < $leftWeeks) && ($varianceOfWeeks != 0)) {  
+            $varianceBasedonAWV = round($leftWeeks - $avgVarianceOfWeeks, 2).' (weeks ahead)';
+        } else if (($avgVarianceOfWeeks == $leftWeeks) || ($varianceOfWeeks == 0)) {
+            $varianceBasedonAWV = 0;
+        } else {
+            $varianceBasedonAWV = round($avgVarianceOfWeeks - $leftWeeks, 2).' (weeks Delayed)';
+        }
+ 
+          
+        $estimatedTotalEffort = $dayCount.' days';
+        
+        if ($endDate1 == null) {
+            $reqWeeklyVelocity = 0;
+            $varianceBasedonLKV = 0;
+            $varianceBasedonAWV = 0;
+            $estimatedTotalEffort = 0;
+        } else {
+        $array = array($avgWeeklyVelocity, $reqWeeklyVelocity, $lastWeekVelocity, $varianceBasedonLKV, $varianceBasedonAWV, $estimatedTotalEffort);
+        }
+        
+        return $array;
+        
+    }
 
 }
