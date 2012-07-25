@@ -175,4 +175,16 @@ class ProjectServiceTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(4, count($absolute));
         
     }
+    
+    public function testgetProjectStatus() {
+    
+            $ProjectStatus = $this->projectService->getProjectStatus(1); 
+            print_r($ProjectStatus);
+            $this->assertEquals('2.5 per week',$getProjectStatus[0]);
+            $this->assertEquals('10.5 per week',$getProjectStatus[1]);
+            $this->assertEquals('0.86 (weeks Delayed)',$getProjectStatus[2]);
+            $this->assertEquals('3.66 (weeks Delayed)',$getProjectStatus[3]);
+            $this->assertEquals('27 days',$getProjectStatus[4]);
+
+    }
 }

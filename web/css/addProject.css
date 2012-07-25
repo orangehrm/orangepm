@@ -78,3 +78,8 @@ div#requiredField {
     font-size: 10px;
     padding-left: 12px;
 }
+
+#project_status {
+    width: 165px
+    
+}

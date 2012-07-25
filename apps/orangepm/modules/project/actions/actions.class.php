@@ -346,6 +346,7 @@ class projectActions extends sfActions {
                     if ($this->projectForm->getValue('endDate') != '') {
                         $project->setEndDate($this->projectForm->getValue('endDate'));
                     }
+                    $project->setCurrentEffort($this->projectForm->getValue('currentEffort'));
                     $project->setDescription($this->projectForm->getValue('description'));
                     if ($isSuperAdmin) {
                         if ($this->projectForm->getValue('projectAdmin') != 0) {
@@ -453,7 +454,7 @@ class projectActions extends sfActions {
             if ($request->getParameter('endDate') != '') {
                 $project->setEndDate($request->getParameter('endDate'));
             }
-            /*        if($this->getUser()->hasCredential('projectAdmin')) {
+                     /*        if($this->getUser()->hasCredential('projectAdmin')) {
               $project->setUserId($this->getUser()->getAttribute($loggedUserObject)->getId());
               } else {
               if ($request->getParameter('endDate') == )
@@ -657,9 +658,10 @@ class projectActions extends sfActions {
         $progressServiceObject = new ProjectService();
         $allArray = $progressServiceObject->viewWeeklyProgress($this->storyList, $this->projectId);
         $this->weekStartingDate = $allArray[0];
-        $this->totalEstimation = $allArray[1];
+        $this->totalEstimation = $allArray[1];      
         $this->weeklyVelocity = $allArray[2];
-        $this->workCompleted = $allArray[3];
+        print_r($this->weeklyVelocity);
+        $this->workCompleted = $allArray[3]; 
         $this->burnDownArray = $allArray[4];
 
         if (count($allArray) == 0) {
