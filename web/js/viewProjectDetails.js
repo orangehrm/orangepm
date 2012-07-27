@@ -3,6 +3,7 @@ $(document).ready(function(){
     $('#project_name').attr('disabled', true);
     $('#project_startDate').attr('disabled', true);
     $('#project_endDate').attr('disabled', true);
+    $('#project_estimatedTotalEffort').attr('disabled', true);
     $('#project_currentEffort').attr('disabled', true);
     $('#project_projectAdmin').attr('disabled', true);
     $('#project_status').attr('disabled', true);
@@ -19,6 +20,7 @@ $(document).ready(function(){
             $('#project_name').removeAttr("disabled");
             $('#project_startDate').removeAttr("disabled");
             $('#project_endDate').removeAttr("disabled");
+            $('#project_estimatedTotalEffort').removeAttr("disabled");
             $('#project_currentEffort').removeAttr("disabled");
             $('#project_projectAdmin').removeAttr("disabled");
             $('#project_status').removeAttr("disabled");

@@ -25,6 +25,7 @@ class ProjectForm extends sfForm {
         $this->_setStartDateWidgets();
         $this->_setEndDateWidgets();
         $this->_setCurrentEffortWidgets();
+        $this->_setEstimatedTotalEffortWidgets();
         
         if($this->getOption('user')) {
             $this->_setProjectAdminWidgets();
@@ -92,8 +93,15 @@ class ProjectForm extends sfForm {
         
         $this->formWidgets['currentEffort'] = new sfWidgetFormInputText(array(), array());
         $this->formValidators['currentEffort'] = new sfValidatorString(array('required' => false));
-        $this->formWidgets['currentEffort']->setLabel(__("Current Effort"));
-  }
+        $this->formWidgets['currentEffort']->setLabel(__("Current Total Effort"));
+    }
+    
+    private function _setEstimatedTotalEffortWidgets() {
+        
+        $this->formWidgets['estimatedTotalEffort'] = new sfWidgetFormInputText(array(), array());
+        $this->formValidators['estimatedTotalEffort'] = new sfValidatorString(array('required' => false));
+        $this->formWidgets['estimatedTotalEffort']->setLabel(__("Estimated Total Effort"));
+    }
     
     private function _setStatusWidgets() {
         

@@ -35,6 +35,7 @@
                 <div><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render() ?><?php echo $projectForm['name']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['startDate']->renderLabel() ?><?php echo $projectForm['startDate']->render() ?><?php echo $projectForm['startDate']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['endDate']->renderLabel() ?><?php echo $projectForm['endDate']->render() ?><?php echo $projectForm['endDate']->renderError() ?><br class="clear" /></div>
+                <div><?php echo $projectForm['estimatedTotalEffort']->renderLabel() ?><?php echo $projectForm['estimatedTotalEffort']->render() ?><?php echo $projectForm['estimatedTotalEffort']->renderError() ?><br class="clear" /></div>              
                 <div><?php echo $projectForm['currentEffort']->renderLabel() ?><?php echo $projectForm['currentEffort']->render() ?><?php echo $projectForm['currentEffort']->renderError() ?><br class="clear" /></div>
                 
                 <?php if ($sf_user->hasCredential('superAdmin')): ?>

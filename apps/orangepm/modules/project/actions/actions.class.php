@@ -346,6 +346,7 @@ class projectActions extends sfActions {
                     if ($this->projectForm->getValue('endDate') != '') {
                         $project->setEndDate($this->projectForm->getValue('endDate'));
                     }
+                    $project->setTotalEstimatedEffort($this->projectForm->getValue('estimatedTotalEffort'));
                     $project->setCurrentEffort($this->projectForm->getValue('currentEffort'));
                     $project->setDescription($this->projectForm->getValue('description'));
                     if ($isSuperAdmin) {
@@ -546,7 +547,7 @@ class projectActions extends sfActions {
                     $userDao =  new UserDao();
                     $user = $userDao->getUserById($this->storyForm->getValue('assignTo'));
                     $userName = $user->getFirstName().' '.$user->getLastName();
-                    $storyStatus = array(0 => 'Pending', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing', 5 => 'Rework', 6 => 'Accepted');
+                    $storyStatus = array(0 => 'Backlog', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing', 5 => 'Rework', 6 => 'Accepted');
                     $inputParameters = array(
                         'name' => $this->storyForm->getValue('storyName'),
                         'added date' => $this->storyForm->getValue('dateAdded'),
@@ -554,7 +555,8 @@ class projectActions extends sfActions {
                         'project id' => $this->storyForm->getValue('projectId'),
                         'assign to' => $userName,
                         'status' => $storyStatus[$this->storyForm->getValue('status')],
-                        'accepted date' => $this->storyForm->getValue('acceptedDate')
+                        'accepted date' => $this->storyForm->getValue('acceptedDate'),
+                        
                     );
                     $projectService->trackProjectProgressAddStory($inputParameters['accepted date'], $inputParameters['status'], $inputParameters['project id'], $inputParameters['estimated effort']);
                     $dao->saveStory($inputParameters);
@@ -603,6 +605,14 @@ class projectActions extends sfActions {
         $response->setTitle(__('Stories'));
         $this->loggedUserObject = null;
         $this->projectId = $request->getParameter('id');
+        $this->columnName = 'date_added';
+        $this->order = 'ASC';
+
+        if(($request->getParameter('columnname') != null) && ($request->getParameter('order')!= null )) {    
+			$this->order = $request->getParameter('order');
+            $this->columnName = $request->getParameter('columnname');
+        }
+
         $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
         $this->moveForm = new MoveStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $loggedUserId));
         $this->copyForm = new CopyStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $loggedUserId));
@@ -625,8 +635,8 @@ class projectActions extends sfActions {
                 $viewStoriesDao = new StoryDao();
 
                 $pageNo = $this->getRequestParameter('page', 1);
-                $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $this->projectId, $pageNo);
-
+                $this->storyList = $viewStoriesDao->getSortedByColumnName(true, $this->projectId, $pageNo, $this->columnName, $this->order);
+                $this->order = $this->__sortByColumnName();
                 if (count($this->storyList) == 0) {
                     $this->noRecordMessage = __("No Matching Stories Found");
                 }
@@ -636,6 +646,23 @@ class projectActions extends sfActions {
         } else {
             $this->redirect("project/viewProjects");
         }
+    }
+
+	/**
+	 * Sort the column
+	 * @return String order
+	 */
+    private function  __sortByColumnName() {
+
+        if ($this->order == "") {
+            $this->order = "ASC"; 
+        } elseif ($this->order == "ASC") {
+            $this->order = "DESC";
+        } elseif ($this->order == "DESC") {
+            $this->order = "ASC";
+        }
+        return $this->order;
+
     }
 
     /**
@@ -660,7 +687,6 @@ class projectActions extends sfActions {
         $this->weekStartingDate = $allArray[0];
         $this->totalEstimation = $allArray[1];      
         $this->weeklyVelocity = $allArray[2];
-        print_r($this->weeklyVelocity);
         $this->workCompleted = $allArray[3]; 
         $this->burnDownArray = $allArray[4];
 

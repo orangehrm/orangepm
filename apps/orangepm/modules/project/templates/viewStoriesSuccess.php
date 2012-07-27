@@ -22,16 +22,14 @@
     <div class="StoryShowForm">
         <table class="tableContent">
             <tr><td class="pageNav" colspan="12"><?php echo pager_navigation($storyList, url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}") ?></td></tr>
-            <tr>
-                <th><?php echo __('Story Name') ?></th>
-                <?php if($userType != User::USER_TYPE_PROJECT_MEMBER) { ?>
-                <th><?php echo __('Estimated Effort');?></th>
-                <?php }  ?>
+            <tr class="row1" >
+                <th><a class="order" href='<?php echo url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}&columnname=name&order={$order}"?>'><?php echo __('Story Name') ?></a></th>
+                <th class="estimatedEffort"><?php echo __('Estimated Effort');?></th>
                 <th><?php echo __('Current Effort');?></th>
-                <th><?php echo __('Date Added') ?></th>
-                <th><?php echo __('Estimated End Date') ?></th>
+                <th><a class="order" href='<?php echo url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}&columnname=date_added&order={$order}"?>'><?php echo __('Date Added') ?></a></th>
+                <th><a class=<?php echo $order?> href='<?php echo url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}&columnname=estimated_end_date&order={$order}"?>'><?php echo __('Estimated End Date') ?></a></th>
                 <th><?php echo __('Assign To') ?></th>
-                <th><?php echo 'Status' ?></th>
+                <th><a class="order" href='<?php echo url_for("project/viewStories") . "?id={$projectId}&projectName={$projectName}&columnname=status&order={$order}"?>'><?php echo 'Status' ?></a></th>
                 <th><?php echo 'Accepted Date' ?></th>
                 <th colspan="4"><?php echo __('Actions') ?></th>
             </tr>
@@ -40,9 +38,9 @@
             <?php $status = $story->getStatus() == 'Pending' ? 'Backlog' : $story->getStatus();?>
                 <tr id="row">
                     <td class="<?php echo "changedName name " . $story->getId(); ?>"><a href="<?php echo url_for("project/viewTasks?storyId={$story->getId()}")?>"><?php echo $story->getName(); ?></a></td>
-                    <?php if($userType != User::USER_TYPE_PROJECT_MEMBER) { ?>
-                    <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
-                    <?php }  ?>
+                    
+                    <td id="abd" class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>
+                    
                     <td class="<?php echo "changedTasksTotal taskTotal " . $story->getId(); ?>"> <?php echo $taskService->getTaskTotalEffortByStoryId($story->getId()) ?></td>
                     <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
                     <td class="<?php echo "estimatedEndDate EndDate " . $story->getId(); ?>"> <?php echo $story->getEstimatedEndDate(); ?></td>

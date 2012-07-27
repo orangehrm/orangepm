@@ -111,6 +111,7 @@ class ProjectDao {
             $project->setDescription($tempProject->getDescription());
             $project->setStartDate($tempProject->getStartDate());
             $project->setEndDate($tempProject->getEndDate());
+            $project->setTotalEstimatedEffort($tempProject->getTotalEstimatedEffort());           
             $project->setCurrentEffort($tempProject->getCurrentEffort());           
             $project->save();
         }

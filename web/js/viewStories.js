@@ -1,4 +1,14 @@
 $(document).ready(function() {
+    
+    if(isAllowToEditEffort == '0') {
+        $('.row1').children('th.estimatedEffort').hide();
+        $('.changedEstimation').hide();
+     }
+    
+     if(isAllowToEditEffort == '0') {
+        $('.row1').children('th.estimatedEffort').hide();
+        $('.changedEstimation').hide();
+     }
     $("#dialog").dialog({
         autoOpen: false,
         modal: true
@@ -54,10 +64,11 @@ $(document).ready(function() {
             }
             if(toggleVariable == "Edited"){
                 $(this).html(editImgUrl);
+                window.location.reload();
                 toggleVariable = "Saved";
                     
             }
-               
+              
             $('.ajaxName').html($('.ajaxName input').val());
             $('.ajaxDate').html($('.ajaxDate input').val());
             $('.ajaxEstimation').html($('.ajaxEstimation input').val());
@@ -79,6 +90,8 @@ $(document).ready(function() {
             $(this).parent().children('td.changedEstimation').addClass('ajaxEstimation');
             $(this).parent().children('td.changedEstimation').html('<input id="editboxEstimation" size="3" type="text" value="'+$(this).parent().children('td.changedEstimation').text()+ '">');
             if(isAllowToEditEffort == '0'){
+                $(this).parent().siblings('.row1').children('th.estimatedEffort').hide();
+                //$(this).estimatedEffort.changedEstimation { display: none; }
                 document.getElementById('editboxEstimation').disabled = true;
             }
 
@@ -205,7 +218,7 @@ $(document).ready(function() {
                                                     $('.ajaxStatus').html($('.ajaxStatus select').val());
                                                     $('.ajaxStatus').removeClass('ajaxStatus');                                                
                                                     if((projectViewUrl != null) && (statusChanged)) {
-                                                        window.location.reload();
+                                                       // window.location.reload();
                                                     }
                                                 }
                                             
@@ -225,7 +238,7 @@ $(document).ready(function() {
                    }
                 } else {
                     setMainErrorMessage('Story Name is empty');
-                }
+                }            
             });
 
             $( "#editboxDate, #editboxAcceptedDate" ).datepicker(
