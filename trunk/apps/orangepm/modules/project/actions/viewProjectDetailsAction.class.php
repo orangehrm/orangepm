@@ -28,8 +28,18 @@ class viewProjectDetailsAction extends sfAction {
             $removeUserId=$this->project->getUserId();
             $loggedUserObject = null;
             $this->userDao = new UserDao();
+
+            $this->columnName = 'date_added';
+            $this->order = 'ASC';
+            if(($request->getParameter('columnname') != null) && ($request->getParameter('order')!= null )) {
+                $this->order = $request->getParameter('order');
+                $this->columnName = $request->getParameter('columnname');
+            }
+           
+
             $this->projectDetailList = $this->projectService->getProjectStatus($projectId);
                        
+
             $isProjectAccessLevel=$this->authenticationService->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $projectId);
             $this->projectForm = new ProjectForm(array(), array('user' => $isSuperAdmin,'newproject'=>false,'projectid'=>$projectId,'removeUserId'=>$removeUserId));        
             $this->projectAccessLevel = User::USER_TYPE_UNSPECIFIED;
@@ -54,7 +64,8 @@ class viewProjectDetailsAction extends sfAction {
                 $this->projectForm->setDefault('description', $this->project->getDescription());
 
                 $viewStoriesDao = new StoryDao();
-                $this->storyList = $viewStoriesDao->getRelatedProjectStories(true, $projectId , 1);
+                $this->storyList = $viewStoriesDao->getSortedByColumnName(true, $this->projectId, $pageNo, $this->columnName, $this->order);
+                $this->order = $this->__sortByColumnName();
                 if (count($this->storyList) == 0) {
                     $this->noStoryMessage = __("No Matching Stories Found");
                 }
@@ -98,6 +109,7 @@ class viewProjectDetailsAction extends sfAction {
         if ($this->projectForm->getValue('endDate') != '') {
             $project->setEndDate($this->projectForm->getValue('endDate'));
         }
+         $project->setTotalEstimatedEffort($this->projectForm->getValue('estimatedTotalEffort'));       
         $project->setCurrentEffort($this->projectForm->getValue('currentEffort'));
         $projectUsersColl=new Doctrine_Collection('ProjectUser');
                $projectUser=new ProjectUser();
@@ -136,7 +148,7 @@ class viewProjectDetailsAction extends sfAction {
     
     public function getPercentageList($projectId) {
         $viewStoriesDao = new StoryDao();
-        $storyList = $viewStoriesDao->getRelatedProjectStories(true, $projectId , 1);
+        $storyList = $viewStoriesDao->getSortedByColumnName(true, $projectId , 1, $this->columnName, $this->order);
         $statusCountArray = array('Backlog' => 0, 'Design' => 0, 'Development' => 0, 'Development Completed' => 0, 'Testing' => 0, 'Rework' => 0, 'Accepted' => 0);
         
         if(count($storyList) != 0) {
@@ -148,6 +160,18 @@ class viewProjectDetailsAction extends sfAction {
             }
             $this->storyEstimationCount = $storyEstimationCount;
         }
+        
         return $statusCountArray;
+    }
+    
+    private function  __sortByColumnName() {
+        if ($this->order == "") {
+                    $this->order = "ASC"; 
+                } elseif ($this->order == "ASC") {
+                    $this->order = "DESC";
+                } elseif ($this->order == "DESC") {
+                    $this->order = "ASC";
+                }
+        return $this->order;
     }
 }

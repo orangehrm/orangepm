@@ -268,6 +268,17 @@ textarea.description{
     width: 150px;
 }
 
+
+table.showTable  th a:link { 
+    text-decoration: underline;
+    color:white
+}
+
+table.showTable th a:visited { 
+    text-decoration: underline;
+    color: white
+}
+
 .listbox {
     position: relative;
     right: 7px

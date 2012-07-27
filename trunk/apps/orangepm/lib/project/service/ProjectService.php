@@ -627,7 +627,8 @@ class ProjectService {
             $timeBetween = 0;
         }
         
-        $dayCount = ($timeBetween / 24 / 60 / 60); 
+        $dayCount = ($timeBetween / 24 / 60 / 60);
+        $totalNumberOfWeeks = $dayCount/7;
         reset($weekStartingDate);
          
         if (key($weekStartingDate) == 0) {
@@ -640,82 +641,89 @@ class ProjectService {
             $lastWeekVelocity = $weeklyVelocity[$weekStartingDate[count($weekStartingDate)-1]];
         }
         
+        $currentDate = strtotime(date('Y-m-d'));
+        $TimeCompleted = ($currentDate - $startDate);           
+        $actualNumOfWeeksCompleted = ($TimeCompleted / 24 / 60 / 60 / 7);
+        $numOfWeeksCompleted = $actualNumOfWeeksCompleted;
         
-                    
-        $numOfWeeksCompleted = count($weekStartingDate);
         
         if ($numOfWeeksCompleted != 0 && $totalAcceptedWork != 0) {
-            $avgWeeklyVelocity = round($totalAcceptedWork / $numOfWeeksCompleted, 2).' per week';
+            $avgWeeklyVelocity = round($totalAcceptedWork / $numOfWeeksCompleted, 2).' hours per week';
         } else { 
             $avgWeeklyVelocity = 0;
         }
         
  
-        $currentDate = strtotime(date('Y-m-d'));
+        
         $remainingTime = $endDate - $currentDate;
-        $remainingWeeks = ($remainingTime / 24 / 60 / 60 / 7); 
+        $remainingWeeks = ($remainingTime / 24 / 60 / 60 / 7);
+        if($remainingWeeks < 0) {
+            $remainingWeeks = 0;
+        }
         $remainingWork = $totalEstimatedValue - $totalAcceptedWork;
         if ($remainingWork !=0 && $remainingWeeks != 0) {
-            $reqWeeklyVelocity = round($remainingWork / $remainingWeeks, 2).' per week';
+            $reqWeeklyVelocity = round($remainingWork / $remainingWeeks, 2).' hours per week';
         } else {
             $reqWeeklyVelocity = 0;
         }
         
-       
-      
-        foreach ($weeklyVelocity as $k => $v) { 
-            if($v != 0 ) {
-                $lastKnwnVelocity = $v;
+        
+        if ($totalNumberOfWeeks < 3 || $remainingWeeks == 0) {
+            $varianceBasedonLKV = null;
+        } else {
+            
+            foreach (array_slice($weeklyVelocity, -3, 3,true) as $k => $v) { 
+                if($v != 0 ) {
+                    $lastKnwnVelocity = $lastKnwnVelocity+$v;
+
                 }     
-        }
+            }
+                $avgLastThreeWeeks = $lastKnwnVelocity / 3;
+            if ($avgLastThreeWeeks != 0 && $remainingWork != 0) {
+                $varianceOfWeeks = $remainingWork / $avgLastThreeWeeks;
+            } 
+            if (($varianceOfWeeks < $remainingWeeks) && ($varianceOfWeeks != 0)) {  
+                $varianceBasedonLKV = round($remainingWeeks - $varianceOfWeeks, 2).' (weeks ahead)';
+            } else if(($varianceOfWeeks == $remainingWeeks) || ($varianceOfWeeks == 0)) {
+                $varianceBasedonLKV = 0;
+            } else {
+                $varianceBasedonLKV = round($varianceOfWeeks - $remainingWeeks, 2).' (weeks Delayed)';
+            }
         
-        if ($lastKnwnVelocity != 0 && $remainingWork != 0) {
-            $varianceOfWeeks = $remainingWork / $lastKnwnVelocity;
-        } else {
-            $varianceOfWeeks = 0;
         }
-        
-        $currentDate = strtotime(date('Y-m-d'));
-        $leftTime = $endDate - $currentDate;
-        $leftWeeks = ($leftTime / 24 / 60 / 60 / 7); 
        
-        if (($varianceOfWeeks < $leftWeeks) && ($varianceOfWeeks != 0)) {  
-            $varianceBasedonLKV = round($leftWeeks - $varianceOfWeeks, 2).' (weeks ahead)';
-        } else if(($varianceOfWeeks == $leftWeeks) || ($varianceOfWeeks == 0)) {
-            $varianceBasedonLKV = 0;
-        } else {
-            $varianceBasedonLKV = round($varianceOfWeeks - $leftWeeks, 2).' (weeks Delayed)';
-        }
         
-        
-        if ($avgWeeklyVelocity != 0 && $remainingWork != 0 ) {
-            $avgVarianceOfWeeks = $remainingWork / $avgWeeklyVelocity;
+        if ($remainingWeeks == 0) {
+            $varianceBasedonAWV = null;
         } else {
-            $avgVarianceOfWeeks = 0;
+            
+            if ($avgWeeklyVelocity != 0 && $remainingWork != 0 ) {
+                $avgVarianceOfWeeks = $remainingWork / $avgWeeklyVelocity;
+            } 
+            
+            if (($avgVarianceOfWeeks < $remainingWeeks) && ($avgVarianceOfWeeks != 0)) {  
+                $varianceBasedonAWV = round($remainingWeeks - $avgVarianceOfWeeks, 2).' (weeks ahead)';
+            } else if (($avgVarianceOfWeeks == $remainingWeeks) || ($avgVarianceOfWeeks == 0)) {
+                $varianceBasedonAWV = 0;
+            } else {
+                $varianceBasedonAWV = round($avgVarianceOfWeeks - $remainingWeeks, 2).' (weeks Delayed)';
+            }
+            
         }
-      
-        if (($avgVarianceOfWeeks < $leftWeeks) && ($varianceOfWeeks != 0)) {  
-            $varianceBasedonAWV = round($leftWeeks - $avgVarianceOfWeeks, 2).' (weeks ahead)';
-        } else if (($avgVarianceOfWeeks == $leftWeeks) || ($varianceOfWeeks == 0)) {
-            $varianceBasedonAWV = 0;
-        } else {
-            $varianceBasedonAWV = round($avgVarianceOfWeeks - $leftWeeks, 2).' (weeks Delayed)';
-        }
- 
           
         $estimatedTotalEffort = $dayCount.' days';
         
         if ($endDate1 == null) {
-            $reqWeeklyVelocity = 0;
-            $varianceBasedonLKV = 0;
-            $varianceBasedonAWV = 0;
-            $estimatedTotalEffort = 0;
-        } else {
-        $array = array($avgWeeklyVelocity, $reqWeeklyVelocity, $lastWeekVelocity, $varianceBasedonLKV, $varianceBasedonAWV, $estimatedTotalEffort);
+            $reqWeeklyVelocity = null;
+            $varianceBasedonLKV = null;
+            $varianceBasedonAWV = null;
+            $estimatedTotalEffort = null;
+        } else {      
+        $projectStatus = array(round($totalNumberOfWeeks, 2), round($actualNumOfWeeksCompleted, 2), round($remainingWeeks, 2), $avgWeeklyVelocity, $reqWeeklyVelocity, $lastWeekVelocity, $varianceBasedonLKV, $varianceBasedonAWV);
         }
         
-        return $array;
-        
-    }
+        return $projectStatus;
+      
+   }
 
 }

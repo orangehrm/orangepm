@@ -46,10 +46,10 @@ class StoryDao {
     * @param $active, $projectId, $pageNo
     * @return set of stories for the project
     */
-   public function getRelatedProjectStories($active, $projectId, $pageNo) {
+   public function getRelatedProjectStories($active, $projectId, $pageNo) {       
         if ($active) {
             $pager = new sfDoctrinePager('Story', 50);
-            $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId)->orderBy('date_added, name');
+            $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId)->orderBy("date_added, name");
             $pager->setPage($pageNo);
             $pager->init();
             return $pager;
@@ -58,7 +58,19 @@ class StoryDao {
         }
         
     }
-
+    public function getSortedByColumnName($active, $projectId, $pageNo, $columnName, $order) {       
+        if ($active) {
+            $pager = new sfDoctrinePager('Story', 50);
+            $pager->getQuery()->from('Story a')->where('a.deleted = ?', Project::FLAG_ACTIVE)->andWhere('a.project_id = ?', $projectId)->orderBy("$columnName $order");
+            $pager->setPage($pageNo);
+            $pager->init();
+            return $pager;
+        } elseif (!$active) {
+            return Doctrine_Core::getTable('Story')->findAll();
+        }
+        
+    }
+     
    /**
     * Update story
     * @param $storyParameters Array

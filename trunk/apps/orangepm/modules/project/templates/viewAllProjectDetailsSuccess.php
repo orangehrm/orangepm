@@ -66,22 +66,31 @@
             <table class='showTable'>
                     <tbody>
                         <tr>
-                            <td><label for="Avg_Weekly_Velocity"><?php echo __('Avg Weekly Velocity : ') ?></label></td> <td><?php echo $projectDetailList[0] ?> </td>
+                            <td><label for="Total_Number_Of_Weeks"><?php echo __('Total Number Of Weeks : ') ?></label></td> <td><?php echo $projectDetailList[0] ?> </td>
                         </tr>
                         <tr>
-                            <td><label for="Required_Weekly_Velocity"><?php echo __('Required Weekly Velocity : ') ?></label></td> <td><?php echo $projectDetailList[1] ?> </td>
+                            <td><label for="Total_Number_Of_Weeks_Completed"><?php echo __('Total Number Of Weeks Completed : ') ?></label></td> <td><?php echo $projectDetailList[1] ?> </td>
                         </tr>
                         <tr>
-                            <td><label for="Last_week_Velocity"><?php echo __('Last week Velocity : ') ?></label></td> <td><?php echo $projectDetailList[2] ?> </td>
+                            <td><label for="Total_Number_Of_Weeks_Remaining"><?php echo __('Total Number Of Weeks Remaining : ') ?></label></td> <td><?php echo $projectDetailList[2] ?> </td>
                         </tr>
                         <tr>
-                            <td><label for="Variance_based_on_Known_last_known_velocity"><?php echo __('Variance based on Known last known velocity : ') ?></label></td> <td><?php echo $projectDetailList[3] ?></td>
+                            <td><label for="Avg_Weekly_Velocity"><?php echo __('Avg Weekly Velocity : ') ?></label></td> <td><?php echo $projectDetailList[3] ?> </td>
                         </tr>
                         <tr>
-                            <td><label for="Variance_based_on_avg_weekly_velocity"><?php echo __('Variance based on avg weekly velocity : ') ?></label></td> <td><?php echo $projectDetailList[4] ?></td>
+                            <td><label for="Required_Weekly_Velocity"><?php echo __('Required Weekly Velocity : ') ?></label></td> <td><?php echo $projectDetailList[4] ?> </td>
                         </tr>
                         <tr>
-                            <td><label for="Estimated_total_effort_used_for_costing"><?php echo __('Estimated total effort used for costing : ') ?></label></td> <td><?php echo $projectDetailList[5] ?></td>
+                            <td><label for="Last_week_Velocity"><?php echo __('Last week Velocity : ') ?></label></td> <td><?php echo $projectDetailList[5] ?> </td>
+                        </tr>
+                        <tr>
+                            <td><label for="Variance_based_on_Known_last_known_velocity"><?php echo __('Variance based on last three weeks velocity : ') ?></label></td> <td><?php echo $projectDetailList[6] ?></td>
+                        </tr>
+                        <tr>
+                            <td><label for="Variance_based_on_avg_weekly_velocity"><?php echo __('Variance based on avg weekly velocity : ') ?></label></td> <td><?php echo $projectDetailList[7] ?></td>
+                        </tr>
+                        <tr>
+                            <td><label for="Estimated_total_effort_used_for_costing"><?php echo __('Estimated total effort used for costing : ') ?></label></td> <td><?php echo $single['project']->getTotalEstimatedEffort() ?></td>
                         </tr>
                         <tr>
                             <td><label for="Current_total_effort"><?php echo __('Current total effort (based on time sheets) : ') ?></label></td> <td><?php echo $single['project']->getCurrentEffort(); ?></td>

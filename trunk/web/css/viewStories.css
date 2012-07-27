@@ -56,11 +56,21 @@ td.edit {
     cursor:pointer;
 }
 
-table.tableContent a { color: blue; text-decoration: none; }
-table.tableContent a:link {color: blue} table.tableContent a:visited { color: purple}
-table.tableContent a:hover { color: red; } table.tableContent a:active { background-color: yellow} 
+table.tableContent tr td a { color: blue; text-decoration: none; }
+table.tableContent tr td a:link {color: blue} table.tableContent tr td a:visited { color: purple}
+table.tableContent tr td a:hover { color: red; } table.tableContent tr td a:active { background-color: yellow} 
 
- td.move {
+table.tableContent  th a:link { 
+    text-decoration: underline;
+    color:white
+}
+
+table.tableContent th a:visited { 
+    text-decoration: underline;
+    color: white
+}
+
+td.move {
     cursor: pointer;
  }
  

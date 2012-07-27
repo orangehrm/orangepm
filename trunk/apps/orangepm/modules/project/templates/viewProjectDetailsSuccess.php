@@ -60,8 +60,8 @@
                 <div><?php echo $projectForm['name']->renderLabel() ?><?php echo $projectForm['name']->render(array('value' => $project->getName())) ?><?php echo $projectForm['name']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['startDate']->renderLabel() ?><?php echo $projectForm['startDate']->render(array('value' => $project->getStartDate())) ?><?php echo $projectForm['startDate']->renderError() ?><br class="clear" /></div>
                 <div><?php echo $projectForm['endDate']->renderLabel() ?><?php echo $projectForm['endDate']->render(array('value' => $project->getEndDate())) ?><?php echo $projectForm['endDate']->renderError() ?><br class="clear" /></div>
+                <div><?php echo $projectForm['estimatedTotalEffort']->renderLabel() ?><?php echo $projectForm['estimatedTotalEffort']->render(array('value' => $project->getTotalEstimatedEffort())) ?><?php echo $projectForm['estimatedTotalEffort']->renderError() ?><br class="clear" /></div>              
                 <div><?php echo $projectForm['currentEffort']->renderLabel() ?><?php echo $projectForm['currentEffort']->render(array('value' => $project->getCurrentEffort())) ?><?php echo $projectForm['currentEffort']->renderError() ?><br class="clear" /></div>
-              
                 <?php if($sf_user->hasCredential('superAdmin')): ?>
                 <div><?php echo $projectForm['projectAdmin']->renderLabel() ?><?php echo $projectForm['projectAdmin']->render() ?><?php echo $projectForm['projectAdmin']->renderError() ?></div>
                 <?php else:?>
@@ -126,22 +126,31 @@
             <table class='showTable'>
                     <tbody>
                         <tr>
-                            <td><label for="Avg_Weekly_Velocity"><?php echo __('Avg Weekly Velocity : ') ?></label></td> <td><?php echo $projectDetailList[0] ?> </td>
+                            <td><label for="Total_Number_Of_Weeks"><?php echo __('Total Number Of Weeks : ') ?></label></td> <td><?php echo $projectDetailList[0] ?> </td>
                         </tr>
                         <tr>
-                            <td><label for="Required_Weekly_Velocity"><?php echo __('Required Weekly Velocity : ') ?></label></td> <td><?php echo $projectDetailList[1] ?> </td>
+                            <td><label for="Total_Number_Of_Weeks_Completed"><?php echo __('Total Number Of Weeks Completed : ') ?></label></td> <td><?php echo $projectDetailList[1] ?> </td>
                         </tr>
                         <tr>
-                            <td><label for="Last_week_Velocity"><?php echo __('Last week Velocity : ') ?></label></td> <td><?php echo $projectDetailList[2] ?> </td>
+                            <td><label for="Total_Number_Of_Weeks_Remaining"><?php echo __('Total Number Of Weeks Remaining : ') ?></label></td> <td><?php echo $projectDetailList[2] ?> </td>
                         </tr>
                         <tr>
-                            <td><label for="Variance_based_on_Known_last_known_velocity"><?php echo __('Variance based on Known last known velocity : ') ?></label></td> <td><?php echo $projectDetailList[3] ?></td>
+                            <td><label for="Avg_Weekly_Velocity"><?php echo __('Avg Weekly Velocity : ') ?></label></td> <td><?php echo $projectDetailList[3] ?> </td>
                         </tr>
                         <tr>
-                            <td><label for="Variance_based_on_avg_weekly_velocity"><?php echo __('Variance based on avg weekly velocity : ') ?></label></td> <td><?php echo $projectDetailList[4] ?></td>
+                            <td><label for="Required_Weekly_Velocity"><?php echo __('Required Weekly Velocity : ') ?></label></td> <td><?php echo $projectDetailList[4] ?> </td>
                         </tr>
                         <tr>
-                            <td><label for="Estimated_total_effort_used_for_costing"><?php echo __('Estimated total effort used for costing : ') ?></label></td> <td><?php echo $projectDetailList[5] ?></td>
+                            <td><label for="Last_week_Velocity"><?php echo __('Last week Velocity : ') ?></label></td> <td><?php echo $projectDetailList[5] ?> </td>
+                        </tr>
+                        <tr>
+                            <td><label for="Variance_based_on_Known_last_known_velocity"><?php echo __('Variance based on last three weeks velocity : ') ?></label></td> <td><?php echo $projectDetailList[6] ?></td>
+                        </tr>
+                        <tr>
+                            <td><label for="Variance_based_on_avg_weekly_velocity"><?php echo __('Variance based on avg weekly velocity : ') ?></label></td> <td><?php echo $projectDetailList[7] ?></td>
+                        </tr>
+                        <tr>
+                            <td><label for="Estimated_total_effort_used_for_costing"><?php echo __('Estimated total effort used for costing : ') ?></label></td> <td><?php echo $project->getTotalEstimatedEffort(); ?></td>
                         </tr>
                         <tr>
                             <td><label for="Current_total_effort"><?php echo __('Current total effort (based on time sheets) : ') ?></label></td> <td><?php echo $project->getCurrentEffort(); ?></td>
@@ -153,6 +162,7 @@
         </div>
         <div class="break_line"></div>
         <div class='formField'>
+            <section id="stoires">
             <a name="stories"></a>
             <?php $urlParm = "project/viewStories?". http_build_query(array('id' => $projectId , 'projectName' => $project->getName()))?>
             <div class="form_devision_heading"><a href="<?php echo url_for($urlParm)?>">Stories</a><a class="divisionExpandColaps show" id="storyExpandColaps" href="">[-]</a>
@@ -162,16 +172,14 @@
             <div class='division_content' id="storyDivisionContent">
                 <table class='showTable'>
                     <tbody>
-                        <tr>
-                            <th><?php echo __('Story Name') ?></th>
-                            <?php if($userRole != 3){ ?>
-                            <th><?php echo __('Estimated Effort');?></th>
-                            <?php } else { ?> &nbsp;&nbsp;<?php } ?>
+                        <tr class="row1">
+                            <th><a href='<?php echo url_for("project/viewProjectDetails") . "?projectId={$projectId}&projectName={$project->getName()}&columnname=name&order={$order}&#stoires"?>'><?php echo __('Story Name') ?></a></th>
+                            <th class="estimatedEffort" ><?php echo __('Estimated Effort');?></th>
                             <th><?php echo __('Current Effort');?></th>
-                            <th><?php echo __('Date Added') ?></th>
-                            <th><?php echo __('Estimated End Date') ?></th>
+                            <th><a class="order" href='<?php echo url_for("project/viewProjectDetails") . "?projectId={$projectId}&projectName={$project->getName()}&columnname=date_added&order={$order}&#stoires"?>'><?php echo __('Date Added') ?></a></th>
+                            <th><a class="order" href='<?php echo url_for("project/viewProjectDetails") . "?projectId={$projectId}&projectName={$project->getName()}&columnname=estimated_end_date&order={$order}&#stoires"?>'><?php echo __('Estimated End Date') ?></a></th>
                             <th><?php echo __('Assign To') ?></th>
-                            <th><?php echo 'Status' ?></th>
+                            <th><a class="order" href='<?php echo url_for("project/viewProjectDetails") . "?projectId={$projectId}&projectName={$project->getName()}&columnname=status&order={$order}&#stoires"?>'><?php echo 'Status' ?></a></th>
                             <th><?php echo 'Accepted Date' ?></th>
                             <th colspan="2"><?php echo __('Actions') ?></th>
                         </tr>
@@ -180,9 +188,7 @@
                         <?php $status = $story->getStatus() == 'Pending' ? 'Backlog' : $story->getStatus();?>
                             <tr id="row">
                                 <td class="<?php echo "changedName name " . $story->getId(); ?>"><a href="<?php echo url_for("project/viewTasks?storyId={$story->getId()}")?>"><?php echo $story->getName(); ?></a></td>
-                                <?php if($userRole != 3){ ?>
                                 <td class="<?php echo "changedEstimation estimation " . $story->getId(); ?>"> <?php echo $story->getEstimation(); ?></td>                
-                               <?php } ?> 
                                 <td class="<?php echo "changedTasksTotal taskTotal " . $story->getId(); ?>"> <?php echo $taskService->getTaskTotalEffortByStoryId($story->getId()) ?></td>
                                 <td class="<?php echo "changedDate date " . $story->getId(); ?>"> <?php echo $story->getDateAdded(); ?></td>
                                 <td class="<?php echo "estimatedEndDate EndDate " . $story->getId(); ?>"> <?php echo $story->getEstimatedEndDate(); ?></td>
@@ -199,6 +205,7 @@
                 <div id="moreFieldProject">"Effort" and "Task Total" are in Engineering Hours</div>
             </div>
             <div class="info">Go to Story page by clicking on "Stories"</div>
+            </section>
         </div>
         <div class="break_line"></div>
         <div class='formField'>
