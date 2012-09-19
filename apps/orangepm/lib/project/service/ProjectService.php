@@ -628,7 +628,7 @@ class ProjectService {
         }
         
         $dayCount = ($timeBetween / 24 / 60 / 60);
-        $totalNumberOfWeeks = $dayCount/7;
+        $totalNumberOfWeeks = ($dayCount+1) / 7;
         reset($weekStartingDate);
          
         if (key($weekStartingDate) == 0) {
@@ -643,13 +643,20 @@ class ProjectService {
         
         $currentDate = strtotime(date('Y-m-d'));
         $TimeCompleted = ($currentDate - $startDate);           
-        $actualNumOfWeeksCompleted = ($TimeCompleted / 24 / 60 / 60 / 7);
+        $weeksCompleted = ($TimeCompleted / 24 / 60 / 60);
+        $actualNumOfWeeksCompleted = ($weeksCompleted+1) / 7;
+        if($actualNumOfWeeksCompleted > $totalNumberOfWeeks) {
+            $actualNumOfWeeksCompleted = null;
+        }
         $numOfWeeksCompleted = $actualNumOfWeeksCompleted;
         
         
-        if ($numOfWeeksCompleted != 0 && $totalAcceptedWork != 0) {
+        if ($numOfWeeksCompleted != 0 && $totalAcceptedWork != 0 && $numOfWeeksCompleted < 1) {
+            $avgWeeklyVelocity = round($totalAcceptedWork, 2).' hours per week';
+        } else 
+        if ($numOfWeeksCompleted != 0 && $totalAcceptedWork != 0 && $numOfWeeksCompleted >= 1) { 
             $avgWeeklyVelocity = round($totalAcceptedWork / $numOfWeeksCompleted, 2).' hours per week';
-        } else { 
+        } else {
             $avgWeeklyVelocity = 0;
         }
         
@@ -662,13 +669,13 @@ class ProjectService {
         }
         $remainingWork = $totalEstimatedValue - $totalAcceptedWork;
         if ($remainingWork !=0 && $remainingWeeks != 0) {
-            $reqWeeklyVelocity = round($remainingWork / $remainingWeeks, 2).' hours per week';
+            $reqWeeklyVelocity = round($remainingWork / $remainingWeeks , 2).' hours per week';
         } else {
             $reqWeeklyVelocity = 0;
         }
         
         
-        if ($totalNumberOfWeeks < 3 || $remainingWeeks == 0) {
+        if ($numOfWeeksCompleted < 3 || $remainingWeeks == 0) {
             $varianceBasedonLKV = null;
         } else {
             
