@@ -7,7 +7,7 @@ class CopyStoryForm extends sfForm {
     public $loggedUser;
     private $formWidgets = array();
     private $formValidators  = array();
-    
+    private $authenticationService;
     
     public function getProjectService() {
         
@@ -33,6 +33,10 @@ class CopyStoryForm extends sfForm {
     private function _setProjectWidgets() {
         
         $projects = $this->_getProjects();
+        if (empty($projects) ) {
+            $projects['$'] = "NULL";          
+        }
+        
         $this->formWidgets['project'] = new sfWidgetFormSelect(array('choices' => $projects));
         $this->formWidgets['project']->setLabel(__("Select Project"));
         $this->formWidgets['storyId'] = new sfWidgetFormInputHidden();
@@ -48,10 +52,11 @@ class CopyStoryForm extends sfForm {
     * @return Doctrine_objectt array
     */  
     private function _getProjects() {
-        
+        $this->authenticationService = new AuthenticationService();
+        $this->projectAccessLevel = $this->authenticationService->projectAccessLevel($this->loggedUser, $this->projectId);
         $projectList = array();
         
-        if($this->loggedUser == User::USER_TYPE_SUPER_ADMIN) {
+        if($this->projectAccessLevel == User::USER_TYPE_SUPER_ADMIN) {
             $projects = $this->getProjectService()->getProjectList(); 
         } else {            
             $projects = $this->getProjectService()->getProjectByUserType($this->loggedUser);
