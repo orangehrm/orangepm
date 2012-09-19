@@ -123,7 +123,8 @@
      var userType = <?php echo $userType ?> ;
      if(userType != 3) {
         $(".moveLink").click(function(e) { 
-         
+        
+        var No_project = $('#moveForm_project').val();      
         /*
          * In move link get the story Id and set it to the id element
          * set values to the storyId hidden form using jquery after setting
@@ -135,24 +136,32 @@
         e.preventDefault();
        
         $("#mydialog").dialog({
-            buttons : {
+            buttons : { "Submit": { text: 'Submit', 
+                                    id: 'btnSubmit',
+                                    class: 'btnSubmit', 
+                                    click: function () {
+                                        $('#moveId').submit();
+                                    }
+                                  },
+       
                 
-                "Submit" : function() {
-                   
-                    $('#moveId').submit();
-                                                
-                },
-                
-                "Cancel" : function() {
-                    
-                    $(this).dialog("close");
-                    
-                }
-            }
+                        "Cancel" : { text: 'Cancel',
+                                     id: 'btnCancel',
+                                     class: 'btnCancel',
+                                     click: function () {
+                                        $(this).dialog("close"); 
+                                     }
+                                   }
+             }
+            
         });
        
         $("#mydialog").dialog("open");
-               
+         if (No_project == '#') {
+            $("#btnSubmit").button("option", "disabled", true);        
+        }
+        
+       
                      
     });
      }
@@ -169,6 +178,7 @@
      if(userType != 3) {
         $(".copyLink").click(function(e) { 
          
+         var No_project = $('#copyForm_project').val(); 
         /*
          * In move link get the story Id and set it to the id element
          * set values to the storyId hidden form using jquery after setting those values can get or set in action
@@ -179,24 +189,28 @@
         e.preventDefault();
        
         $("#copyDialog").dialog({
-            buttons : {
+            buttons : { "Confirm": { text: 'Submit', 
+                                    id: 'btnConfirm',
+                                    class: 'btnConfirm', 
+                                    click: function () {
+                                        $('#copyId').submit();
+                                    }
+                                  },
                 
-                "Submit" : function() {
-                   
-                    $('#copyId').submit();
-                                                
-                },
-                
-                "Cancel" : function() {
-                    
-                    $(this).dialog("close");
-                    
-                }
+                "Cancel" : { text: 'Cancel',
+                                     id: 'btnClear',
+                                     class: 'btnClear',
+                                     click: function () {
+                                        $(this).dialog("close"); 
+                                     }
+                                   }
             }
         });
        
         $("#copyDialog").dialog("open");
-               
+        if (No_project == '$') {
+            $("#btnConfirm").button("option", "disabled", true);        
+        }       
                      
     });
      }  

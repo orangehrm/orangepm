@@ -7,7 +7,7 @@ class MoveStoryForm extends sfForm {
     public $loggedUser;
     private $formWidgets = array();
     private $formValidators  = array();
-    
+    private $authenticationService;
     
     public function getProjectService() {
 
@@ -29,6 +29,9 @@ class MoveStoryForm extends sfForm {
     private function _setProjectWidgets() {
         
         $projects = $this->_getProjects();
+       if (empty($projects) ) {
+            $projects['#'] = "NULL";          
+        }
        
         $this->formWidgets['project'] = new sfWidgetFormSelect(array('choices' => $projects));
         $this->formWidgets['project']->setLabel(__("Select Project"));
@@ -51,8 +54,10 @@ class MoveStoryForm extends sfForm {
     private function _getProjects() {
         
         $list = array();
+        $this->authenticationService = new AuthenticationService();
+        $this->projectAccessLevel = $this->authenticationService->projectAccessLevel($this->loggedUser, $this->projectId);
         
-        if($this->loggedUser == User::USER_TYPE_SUPER_ADMIN){
+        if($this->projectAccessLevel == User::USER_TYPE_SUPER_ADMIN){
             
             $projects = $this->getProjectService()->getProjectList();
             
