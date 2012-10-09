@@ -732,5 +732,33 @@ class ProjectService {
         return $projectStatus;
       
    }
+   
+   public function getProjectsByUserId($loggedUser,$projectId) {
+        
+       $StoryService = new StoryService(); 
+       $list = array();
+        
+        if($loggedUser == User::USER_TYPE_SUPER_ADMIN){
+            
+            $projects = $StoryService->getProjectList();
+            
+        } else {
+            
+        $projects = $StoryService->getProjectByUserType($loggedUser);
+        
+        }
+        
+        foreach ($projects as $project) {
+            
+            if($project->getDeleted() != 0 && $project->getId() != $projectId)    {
+                
+                $list[$project->getId()] = $project->getName();
+                
+            }
+            
+        } 
+
+        return $list;
+    }
 
 }

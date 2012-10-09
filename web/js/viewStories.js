@@ -4,11 +4,12 @@ $(document).ready(function() {
         $('.row1').children('th.estimatedEffort').hide();
         $('.changedEstimation').hide();
      }
+     
+    if(projectList == '0'){
+        $('.move').find('a').hide();
+        $('.copy').find('a').hide();
+    }         
     
-     if(isAllowToEditEffort == '0') {
-        $('.row1').children('th.estimatedEffort').hide();
-        $('.changedEstimation').hide();
-     }
     $("#dialog").dialog({
         autoOpen: false,
         modal: true
