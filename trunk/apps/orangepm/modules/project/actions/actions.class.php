@@ -271,7 +271,7 @@ class projectActions extends sfActions {
         $projectSevice = new ProjectService();
         $loginService = new LoginService();
 
-        $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
+        $this->loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
 
         if ($this->statusId == null) {
             $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
@@ -285,10 +285,10 @@ class projectActions extends sfActions {
             }
         } else {
             if ($this->selectedStatusId != "") {
-                $this->projects = $projectSevice->getProjectsByUserIdAndStatusId($loggedUserId, $this->selectedStatusId);
-                $this->projects = $projectSevice->getProjectsByUserIdAndStatusId($loggedUserId, $this->selectedStatusId);
+                $this->projects = $projectSevice->getProjectsByUserIdAndStatusId($this->loggedUserId, $this->selectedStatusId);
+                $this->projects = $projectSevice->getProjectsByUserIdAndStatusId($this->loggedUserId, $this->selectedStatusId);
             } else {
-                $this->projects = $projectSevice->getProjectsByUserIdAndStatusId($loggedUserId, $this->statusId);
+                $this->projects = $projectSevice->getProjectsByUserIdAndStatusId($this->loggedUserId, $this->statusId);
             }
         }
 
@@ -334,7 +334,7 @@ class projectActions extends sfActions {
             $loggedUserObject = null;
             $projectSevice = new ProjectService();
 
-            $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+            $this->loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
             if ($request->isMethod('post')) {
                 $this->projectForm->bind($request->getParameter('project'));
 
@@ -353,10 +353,10 @@ class projectActions extends sfActions {
                         if ($this->projectForm->getValue('projectAdmin') != 0) {
                             $project->setUserId($this->projectForm->getValue('projectAdmin'));
                         } else {
-                            $project->setUserId($loggedUserId);
+                            $project->setUserId($this->loggedUserId);
                         }
                     } else {
-                        $project->setUserId($loggedUserId);
+                        $project->setUserId($this->loggedUserId);
                     }
                     $projectSevice->saveProject($project);
                     $projectId = $project->getId();
@@ -392,12 +392,12 @@ class projectActions extends sfActions {
                     $this->redirect("project/viewProjectDetails?projectId=$projectId");
                 }
             } else {
-                $this->projectForm->setDefault('projectAdmin', $loggedUserId);
+                $this->projectForm->setDefault('projectAdmin', $this->loggedUserId);
             }
             if ($isSuperAdmin) {
                 $this->projects = $projectSevice->getAllProjects(true, Project::PROJECT_STATUS_ALL_ID);
             } else {
-                $this->projects = $projectSevice->getProjectsByUser($loggedUserId);
+                $this->projects = $projectSevice->getProjectsByUser($this->loggedUserId);
             }
         } else {
             $this->redirect("project/viewProjects");
@@ -413,9 +413,9 @@ class projectActions extends sfActions {
 
         $this->projectId = $request->getParameter('id');
         $loggedUserObject = null;
-        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+        $this->loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $auth = new AuthenticationService();
-        $accessLevel = $auth->projectAccessLevel($loggedUserId, $this->projectId);
+        $accessLevel = $auth->projectAccessLevel($this->loggedUserId, $this->projectId);
         if (($accessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($accessLevel == User::USER_TYPE_SUPER_ADMIN)) {
             $dao = new projectDao();
             $dao->deleteProject($this->projectId);
@@ -440,13 +440,13 @@ class projectActions extends sfActions {
         }
         $this->projectId = $request->getParameter('id');
         $loggedUserObject = null;
-        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+        $this->loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $auth = new AuthenticationService();
-        $accessLevel = $auth->projectAccessLevel($loggedUserId, $this->projectId);
+        $accessLevel = $auth->projectAccessLevel($this->loggedUserId, $this->projectId);
         if (($accessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($accessLevel == User::USER_TYPE_SUPER_ADMIN)) {
             $dao = new ProjectDao();
             $project = new Project();
-            $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+            $this->loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
             $this->projectAdminId = $request->getParameter('projectAdminId');
             $project->setId($request->getParameter('id'));
             $project->setName($request->getParameter('name'));
@@ -464,10 +464,10 @@ class projectActions extends sfActions {
                 if ($request->getParameter('projectAdminId') != 0) {
                     $project->setUserId($request->getParameter('projectAdminId'));
                 } else {
-                    $project->setUserId($loggedUserId);
+                    $project->setUserId($this->loggedUserId);
                 }
             } else {
-                $project->setUserId($loggedUserId);
+                $project->setUserId($this->loggedUserId);
             }
             //$project->setUserId($this->projectAdminId);
             $dao->updateProject($project, null, false);
@@ -492,10 +492,10 @@ class projectActions extends sfActions {
             'assign' => $request->getParameter('assign'),
             'status' => $request->getParameter('status')
         );
-        $loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
+        $this->loggedUserId = $this->getUser()->getAttribute($loggedUserObject)->getId();
         $projectId = $dao->getProjectIdByStoryId($request->getParameter('id'));
         $auth = new AuthenticationService();
-        $accessLevel = $auth->projectAccessLevel($loggedUserId, $projectId);
+        $accessLevel = $auth->projectAccessLevel($this->loggedUserId, $projectId);
         if (($accessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($accessLevel == User::USER_TYPE_SUPER_ADMIN)) {
             if ($request->getParameter('estimation') == '')
                 $inputParameters['estimated effort'] = null;
@@ -612,14 +612,17 @@ class projectActions extends sfActions {
 			$this->order = $request->getParameter('order');
             $this->columnName = $request->getParameter('columnname');
         }
-
-        $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
-        $this->moveForm = new MoveStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $loggedUserId));
-        $this->copyForm = new CopyStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $loggedUserId));
+        
+        $this->loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
+        $this->moveForm = new MoveStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $this->loggedUserId));
+        $this->copyForm = new CopyStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $this->loggedUserId));
         $projectService = new ProjectService();
         $this->userDao = new UserDao();
         $this->taskService = new TaskService();
+        $this->projectList = $projectService->getProjectsByUserId($this->projectId,$this->loggedUserId);
+        
         $loggedUserObject = null;
+        
         $projectDao = new ProjectDao();
         $auth = new AuthenticationService();  
         if ($projectDao->getProjectById($this->projectId) != null) {
@@ -629,7 +632,7 @@ class projectActions extends sfActions {
                 $this->id = $request->getParameter('id');
 
                 $this->projectName = $projectDao->getProjectById($this->id)->getName();
-                $this->userType = $this->userDao->getUserById($loggedUserId)->getUserType();
+                $this->userType = $this->userDao->getUserById($this->loggedUserId)->getUserType();
                 $this->userList = $projectService->getUsersByProjectId($this->projectId);
                
                 $viewStoriesDao = new StoryDao();

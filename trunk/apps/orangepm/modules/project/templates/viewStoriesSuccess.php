@@ -9,6 +9,7 @@
     var viewTaskUrl = "<?php echo url_for('project/viewTasks') ?>";
     var isAllowToEditEffort = "<?php    if(($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN) || ($projectAccessLevel == User::USER_TYPE_SUPER_ADMIN) ) { echo '1';}
                                         else {echo '0'; } ?>";
+    var projectList = "<?php if($projectList == null) {echo '0';} else {echo '1';} ?> "                                        
 </script>
 
 <div class="Project">

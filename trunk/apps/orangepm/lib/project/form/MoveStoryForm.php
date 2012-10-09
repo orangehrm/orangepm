@@ -7,13 +7,7 @@ class MoveStoryForm extends sfForm {
     public $loggedUser;
     private $formWidgets = array();
     private $formValidators  = array();
-    private $authenticationService;
-    
-    public function getProjectService() {
-
-        $this->projectSerivce = new StoryService();
-        return $this->projectSerivce;
-    }
+       
      
     public function configure() {
         
@@ -23,16 +17,14 @@ class MoveStoryForm extends sfForm {
         $this->setWidgets($this->formWidgets);
         $this->widgetSchema->setNameFormat('moveForm[%s]');
         $this->setValidators($this->formValidators);
-    }
+         }
     
     
     private function _setProjectWidgets() {
         
-        $projects = $this->_getProjects();
-       if (empty($projects) ) {
-            $projects['#'] = "NULL";          
-        }
-       
+        $this->projectSerivce = new ProjectService();
+        $projects = $this->projectSerivce->getProjectsByUserId($this->loggedUser,$this->projectId);
+   
         $this->formWidgets['project'] = new sfWidgetFormSelect(array('choices' => $projects));
         $this->formWidgets['project']->setLabel(__("Select Project"));
         $this->formWidgets['storyId'] = new sfWidgetFormInputHidden();
@@ -51,34 +43,32 @@ class MoveStoryForm extends sfForm {
     * @return project array
     */
     
-    private function _getProjects() {
-        
-        $list = array();
-        $this->authenticationService = new AuthenticationService();
-        $this->projectAccessLevel = $this->authenticationService->projectAccessLevel($this->loggedUser, $this->projectId);
-        
-        if($this->projectAccessLevel == User::USER_TYPE_SUPER_ADMIN){
-            
-            $projects = $this->getProjectService()->getProjectList();
-            
-        } else {
-            
-        $projects = $this->getProjectService()->getProjectByUserType($this->loggedUser);
-        
-        }
-        
-        foreach ($projects as $project) {
-            
-            if($project->getDeleted() != 0 && $project->getId() != $this->projectId)    {
-                
-                $list[$project->getId()] = $project->getName();
-                
-            }
-            
-        } 
-
-        return $list;
-    }
+//    private function _getProjects() {
+//        
+//        $list = array();
+//        
+//        if($this->loggedUser == User::USER_TYPE_SUPER_ADMIN){
+//            
+//            $projects = $this->getProjectService()->getProjectList();
+//            
+//        } else {
+//            
+//        $projects = $this->getProjectService()->getProjectByUserType($this->loggedUser);
+//        
+//        }
+//        
+//        foreach ($projects as $project) {
+//            
+//            if($project->getDeleted() != 0 && $project->getId() != $this->projectId)    {
+//                
+//                $list[$project->getId()] = $project->getName();
+//                
+//            }
+//            
+//        } 
+//
+//        return $list;
+//    }
 }
 
 ?>
