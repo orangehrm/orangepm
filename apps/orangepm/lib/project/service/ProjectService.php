@@ -679,7 +679,7 @@ class ProjectService {
             $varianceBasedonLKV = null;
         } else {
             
-            foreach (array_slice($weeklyVelocity, -3, 3,true) as $k => $v) { 
+            foreach (array_slice($weeklyVelocity, -4, 3,true) as $k => $v) { 
                 if($v != 0 ) {
                     $lastKnwnVelocity = $lastKnwnVelocity+$v;
 
