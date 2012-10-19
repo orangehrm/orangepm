@@ -630,8 +630,12 @@ class ProjectService {
         $dayCount = ($timeBetween / 24 / 60 / 60);
         $totalNumberOfWeeks = ($dayCount+1) / 7;
         reset($weekStartingDate);
-         
-        if (key($weekStartingDate) == 0) {
+        
+        if (strtotime($weekStartingDate[count($weekStartingDate)]." +7 days") <=  strtotime(date('Y-m-d'))) {
+             $lastWeekVelocity = $weeklyVelocity[$weekStartingDate[count($weekStartingDate)]];
+             $totalAcceptedWork = $workCompleted[$weekStartingDate[count($weekStartingDate)]];
+             $totalEstimatedValue = $totalEstimation[$weekStartingDate[count($weekStartingDate)]];
+        } elseif (key($weekStartingDate) == 0) {
             $totalEstimatedValue = $totalEstimation[$weekStartingDate[count($weekStartingDate)-1]];
             $totalAcceptedWork = $workCompleted[$weekStartingDate[count($weekStartingDate)-1]];
             $lastWeekVelocity = $weeklyVelocity[$weekStartingDate[count($weekStartingDate)-2]];
@@ -641,17 +645,18 @@ class ProjectService {
             $lastWeekVelocity = $weeklyVelocity[$weekStartingDate[count($weekStartingDate)-1]];
         }
         
-        $currentDate = strtotime(date('Y-m-d'));
+        $currentDate = strtotime(date('Y-m-d')." -1 days");
         $TimeCompleted = ($currentDate - $startDate);           
-        $weeksCompleted = ($TimeCompleted / 24 / 60 / 60);
-        $actualNumOfWeeksCompleted = ($weeksCompleted+1) / 7;
-        if($actualNumOfWeeksCompleted > $totalNumberOfWeeks) {
+        $weeksCompleted = ($TimeCompleted / 24 / 60 / 60);       
+        $actualNumOfWeeksCompleted = ($weeksCompleted) / 7;
+        
+        if($actualNumOfWeeksCompleted > $totalNumberOfWeeks || $weeksCompleted <= 0) {
             $actualNumOfWeeksCompleted = null;
         }
         $numOfWeeksCompleted = $actualNumOfWeeksCompleted;
         
         
-        if ($numOfWeeksCompleted != 0 && $totalAcceptedWork != 0 && $numOfWeeksCompleted < 1) {
+        if ($numOfWeeksCompleted != 0 && $totalAcceptedWork != 0 && $numOfWeeksCompleted < 1 || $numOfWeeksCompleted == 0) {
             $avgWeeklyVelocity = round($totalAcceptedWork, 2).' hours per week';
         } else 
         if ($numOfWeeksCompleted != 0 && $totalAcceptedWork != 0 && $numOfWeeksCompleted >= 1) { 
@@ -661,12 +666,14 @@ class ProjectService {
         }
         
  
-        
+       
         $remainingTime = $endDate - $currentDate;
-        $remainingWeeks = ($remainingTime / 24 / 60 / 60 / 7);
+        $remainingDays = ($remainingTime / 24 / 60 / 60);
+        $remainingWeeks = ($remainingDays) / 7;
+        $remainingWeeks = round($remainingWeeks, 2);
         if($remainingWeeks < 0) {
             $remainingWeeks = 0;
-        }
+        } 
         $remainingWork = $totalEstimatedValue - $totalAcceptedWork;
         if ($remainingWork !=0 && $remainingWeeks != 0) {
             $reqWeeklyVelocity = round($remainingWork / $remainingWeeks , 2).' hours per week';
