@@ -24,6 +24,9 @@ class MoveStoryForm extends sfForm {
         
         $this->projectSerivce = new ProjectService();
         $projects = $this->projectSerivce->getProjectsByUserId($this->loggedUser,$this->projectId);
+        if (empty($projects) ) {
+            $projects['#'] = "NO Projects";          
+        }
    
         $this->formWidgets['project'] = new sfWidgetFormSelect(array('choices' => $projects));
         $this->formWidgets['project']->setLabel(__("Select Project"));

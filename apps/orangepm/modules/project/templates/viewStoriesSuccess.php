@@ -120,6 +120,11 @@
             modal: true,
             position: 'middle'
     });
+    
+    if(projectList == '0'){
+        $('.move').find('a').hide();
+        $('.copy').find('a').hide();
+    }  
        
      var userType = <?php echo $userType ?> ;
      if(userType != 3) {

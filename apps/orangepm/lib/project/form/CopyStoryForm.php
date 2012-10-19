@@ -34,7 +34,7 @@ class CopyStoryForm extends sfForm {
         
         $projects = $this->_getProjects();
         if (empty($projects) ) {
-            $projects['$'] = "NULL";          
+            $projects['$'] = "No Projects";          
         }
         
         $this->formWidgets['project'] = new sfWidgetFormSelect(array('choices' => $projects));

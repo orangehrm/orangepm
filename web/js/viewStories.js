@@ -5,11 +5,7 @@ $(document).ready(function() {
         $('.changedEstimation').hide();
      }
      
-    if(projectList == '0'){
-        $('.move').find('a').hide();
-        $('.copy').find('a').hide();
-    }         
-    
+       
     $("#dialog").dialog({
         autoOpen: false,
         modal: true
