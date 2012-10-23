@@ -24,10 +24,11 @@ class MoveStoryForm extends sfForm {
         
         $this->projectSerivce = new ProjectService();
         $projects = $this->projectSerivce->getProjectsByUserId($this->loggedUser,$this->projectId);
+        
         if (empty($projects) ) {
             $projects['#'] = "NO Projects";          
         }
-   
+        
         $this->formWidgets['project'] = new sfWidgetFormSelect(array('choices' => $projects));
         $this->formWidgets['project']->setLabel(__("Select Project"));
         $this->formWidgets['storyId'] = new sfWidgetFormInputHidden();
@@ -38,40 +39,6 @@ class MoveStoryForm extends sfForm {
         
     }
     
-      
-    
-
-    /*
-    * getprojects
-    * @return project array
-    */
-    
-//    private function _getProjects() {
-//        
-//        $list = array();
-//        
-//        if($this->loggedUser == User::USER_TYPE_SUPER_ADMIN){
-//            
-//            $projects = $this->getProjectService()->getProjectList();
-//            
-//        } else {
-//            
-//        $projects = $this->getProjectService()->getProjectByUserType($this->loggedUser);
-//        
-//        }
-//        
-//        foreach ($projects as $project) {
-//            
-//            if($project->getDeleted() != 0 && $project->getId() != $this->projectId)    {
-//                
-//                $list[$project->getId()] = $project->getName();
-//                
-//            }
-//            
-//        } 
-//
-//        return $list;
-//    }
 }
 
 ?>
