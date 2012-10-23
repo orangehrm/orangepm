@@ -4,8 +4,8 @@ $(document).ready(function() {
         $('.row1').children('th.estimatedEffort').hide();
         $('.changedEstimation').hide();
      }
-     
-       
+           
+    
     $("#dialog").dialog({
         autoOpen: false,
         modal: true

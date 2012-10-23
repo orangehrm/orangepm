@@ -638,19 +638,57 @@ class ProjectService {
         } elseif (key($weekStartingDate) == 0) {
             $totalEstimatedValue = $totalEstimation[$weekStartingDate[count($weekStartingDate)-1]];
             $totalAcceptedWork = $workCompleted[$weekStartingDate[count($weekStartingDate)-1]];
-            $lastWeekVelocity = $weeklyVelocity[$weekStartingDate[count($weekStartingDate)-2]];
+           
+            
         } else {
             $totalEstimatedValue = $totalEstimation[$weekStartingDate[count($weekStartingDate)]];
             $totalAcceptedWork = $workCompleted[$weekStartingDate[count($weekStartingDate)]];
-            $lastWeekVelocity = $weeklyVelocity[$weekStartingDate[count($weekStartingDate)-1]];
+           
         }
         
         $currentDate = strtotime(date('Y-m-d')." -1 days");
-        $TimeCompleted = ($currentDate - $startDate);           
-        $weeksCompleted = ($TimeCompleted / 24 / 60 / 60);       
-        $actualNumOfWeeksCompleted = ($weeksCompleted) / 7;
+        $lastWeekVelocity;
+        if (date("l", $currentDate) == "Monday") {
+            $lastWeekStartDate =   strtotime(date('Y-m-d')." -7 days");
+            $lastWeekStartDate =  date('Y-m-d', $lastWeekStartDate);
+            foreach ($weeklyVelocity as $k => $v) {
+               
+                if($k == $lastWeekStartDate) {
+                    $lastWeekVelocity = $v;
+                    break;
+                } 
+                       
+            }
+            
+            if (empty($lastWeekVelocity)) {
+                $lastWeekVelocity = 0;
+            }
+        } else {
+             for ($s = 1; $s <= 6; $s++) {
+                    $newtime = $currentDate - ($s * 60 * 60 * 24);
+                                       
+                    if (date("l", $newtime) == "Monday") {
+                        $newtime = date("Y-m-d", $newtime);
+                        $lastWeekStartDate =   strtotime($newtime." -7 days");
+                        $lastWeekStartDate = date('Y-m-d', $lastWeekStartDate);
+                    foreach ($weeklyVelocity as $k => $v) {
+                        if ($k == $lastWeekStartDate) {
+                            $lastWeekVelocity = $v;
+                            break;
+                        }
+                    }
+                    if (empty($lastWeekVelocity)) {
+                        $lastWeekVelocity = 0;
+                    }
+                    }
+                }
+        }
         
-        if($actualNumOfWeeksCompleted > $totalNumberOfWeeks || $weeksCompleted <= 0) {
+        $currentDate = strtotime(date('Y-m-d'));
+        $TimeCompleted = ($currentDate - $startDate);           
+        $weeksCompleted = ($TimeCompleted / 24 / 60 / 60);
+        $actualNumOfWeeksCompleted = ($weeksCompleted+1) / 7; 
+        if($actualNumOfWeeksCompleted > $totalNumberOfWeeks) {
             $actualNumOfWeeksCompleted = null;
         }
         $numOfWeeksCompleted = $actualNumOfWeeksCompleted;
@@ -686,7 +724,7 @@ class ProjectService {
             $varianceBasedonLKV = null;
         } else {
             
-            foreach (array_slice($weeklyVelocity, -4, 3,true) as $k => $v) { 
+            foreach (array_slice($weeklyVelocity, -4, 3,true) as $k => $v) {
                 if($v != 0 ) {
                     $lastKnwnVelocity = $lastKnwnVelocity+$v;
 
