@@ -630,23 +630,17 @@ class ProjectService {
         $dayCount = ($timeBetween / 24 / 60 / 60);
         $totalNumberOfWeeks = ($dayCount+1) / 7;
         reset($weekStartingDate);
-        
-        if (strtotime($weekStartingDate[count($weekStartingDate)]." +7 days") <=  strtotime(date('Y-m-d'))) {
-             $lastWeekVelocity = $weeklyVelocity[$weekStartingDate[count($weekStartingDate)]];
-             $totalAcceptedWork = $workCompleted[$weekStartingDate[count($weekStartingDate)]];
-             $totalEstimatedValue = $totalEstimation[$weekStartingDate[count($weekStartingDate)]];
-        } elseif (key($weekStartingDate) == 0) {
+        if (key($weekStartingDate) == 0) {
             $totalEstimatedValue = $totalEstimation[$weekStartingDate[count($weekStartingDate)-1]];
             $totalAcceptedWork = $workCompleted[$weekStartingDate[count($weekStartingDate)-1]];
-           
-            
+                     
         } else {
             $totalEstimatedValue = $totalEstimation[$weekStartingDate[count($weekStartingDate)]];
             $totalAcceptedWork = $workCompleted[$weekStartingDate[count($weekStartingDate)]];
            
         }
         
-        $currentDate = strtotime(date('Y-m-d')." -1 days");
+        $currentDate = strtotime(date('Y-m-d'));
         $lastWeekVelocity;
         if (date("l", $currentDate) == "Monday") {
             $lastWeekStartDate =   strtotime(date('Y-m-d')." -7 days");
@@ -708,7 +702,6 @@ class ProjectService {
         $remainingTime = $endDate - $currentDate;
         $remainingDays = ($remainingTime / 24 / 60 / 60);
         $remainingWeeks = ($remainingDays) / 7;
-        $remainingWeeks = round($remainingWeeks, 2);
         if($remainingWeeks < 0) {
             $remainingWeeks = 0;
         } 
