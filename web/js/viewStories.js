@@ -61,7 +61,7 @@ $(document).ready(function() {
             }
             if(toggleVariable == "Edited"){
                 $(this).html(editImgUrl);
-                window.location.reload();
+                //window.location.reload();
                 toggleVariable = "Saved";
                     
             }
@@ -137,8 +137,7 @@ $(document).ready(function() {
 				} else {
                         count++;
                     }
-				}
-                )
+				});
                
             $('#saveBtn').click(function(){
                 synchronizedVariable = true;
@@ -199,12 +198,13 @@ $(document).ready(function() {
                                             data: ajaxData,                                         
 
                                             success: function(response){
+                                                window.location.reload();
                                             //    if(responce!=''){
                                             //        window.location.href = loginUrl+"?noSession=true";
                                             //    }
                                             //    else{
                                                     
-                                                    $('#message').html('The Story was updated successfully');
+                                                  //  $('#message').html('The Story was updated successfully');
                                                     var stroyClass = $('.ajaxName').attr('class').split(' ');
                                                     $('.ajaxName').html("<a href="+viewTaskUrl+"?storyId="+stroyClass[2]+">"+$('.ajaxName input').val()+"</a>");
                                                     $('.ajaxDate').html($('.ajaxDate input').val());
