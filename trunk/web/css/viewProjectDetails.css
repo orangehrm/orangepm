@@ -80,11 +80,11 @@ span.mandatoryStar {
 }
 
 .listbox{
-        width: 170px;
-        height: 170px;
-        margin-top: 5px;
-         
-    }
+    width: 170px;
+    height: 170px;
+    margin-top: 5px;
+
+}
 
 .break_line{
     width: 1370px;
@@ -126,7 +126,7 @@ table.showTable {
     border-collapse: collapse;
     border-spacing: 0px;
     margin-bottom: 30px;
-   
+
 }
 
 
@@ -288,4 +288,59 @@ table.showTable th a:visited {
 }
 #changedStatus {
     width: 150px
+}
+
+#project_infoLink{
+    width: 700px;
+}
+
+
+
+#linkTable{
+    position: relative;
+    top: 10px;
+    left: 0px;
+    text-align: center;
+    font-weight: normal;
+    color: #FFF;
+    background-color: #666;
+    border: 0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    margin-bottom: 30px;
+}
+
+#linkTable td {
+    background-color: #CCC;
+    color: #000;
+    padding: 2px;
+    font-size: 14px;
+    text-align: left;
+    border: 3px #fff solid;
+    vertical-align: top;
+    width: auto;
+}
+
+#linkTable th {
+    white-space: pre;
+    background-color: #666;
+    color: #fff;
+    padding: 4px;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 16px;
+    text-align: center;
+    border: 3px #fff solid;
+    font-weight: bold;
+}
+
+.helpText {
+    font-size: 8pt;
+    color:#888888;
+    padding-left: 10px;
+    float: left;
+}
+
+.inputFormatHint {
+    color: #D8D8D8;
 }

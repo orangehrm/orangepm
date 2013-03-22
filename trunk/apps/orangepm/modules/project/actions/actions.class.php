@@ -201,7 +201,7 @@ class projectActions extends sfActions {
         );
 
         $userService->updateUser($userParameters, $request->getParameter('id'));
-	return sfView::NONE;
+        return sfView::NONE;
     }
 
     /**
@@ -455,7 +455,7 @@ class projectActions extends sfActions {
             if ($request->getParameter('endDate') != '') {
                 $project->setEndDate($request->getParameter('endDate'));
             }
-                     /*        if($this->getUser()->hasCredential('projectAdmin')) {
+            /*        if($this->getUser()->hasCredential('projectAdmin')) {
               $project->setUserId($this->getUser()->getAttribute($loggedUserObject)->getId());
               } else {
               if ($request->getParameter('endDate') == )
@@ -532,7 +532,7 @@ class projectActions extends sfActions {
         if ($projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
             $project = $projectService->getProjectById($this->projectId);
             $this->projectName = $project->getName();
-            $this->storyForm = new StoryForm(array(),array('projectId' => $this->projectId));
+            $this->storyForm = new StoryForm(array(), array('projectId' => $this->projectId));
             $this->storyForm->setDefault('projectId', $this->projectId);
 
             $response = $this->getResponse();
@@ -544,9 +544,9 @@ class projectActions extends sfActions {
                 $this->storyForm->bind($request->getParameter('project'));
                 if ($this->storyForm->isValid()) {
                     $dao = new StoryDao();
-                    $userDao =  new UserDao();
+                    $userDao = new UserDao();
                     $user = $userDao->getUserById($this->storyForm->getValue('assignTo'));
-                    $userName = $user->getFirstName().' '.$user->getLastName();
+                    $userName = $user->getFirstName() . ' ' . $user->getLastName();
                     $storyStatus = array(0 => 'Backlog', 1 => 'Design', 2 => 'Development', 3 => 'Development Completed', 4 => 'Testing', 5 => 'Rework', 6 => 'Accepted');
                     $inputParameters = array(
                         'name' => $this->storyForm->getValue('storyName'),
@@ -556,7 +556,6 @@ class projectActions extends sfActions {
                         'assign to' => $userName,
                         'status' => $storyStatus[$this->storyForm->getValue('status')],
                         'accepted date' => $this->storyForm->getValue('acceptedDate'),
-                        
                     );
                     $projectService->trackProjectProgressAddStory($inputParameters['accepted date'], $inputParameters['status'], $inputParameters['project id'], $inputParameters['estimated effort']);
                     $dao->saveStory($inputParameters);
@@ -600,7 +599,7 @@ class projectActions extends sfActions {
      * @return unknown_type
      */
     public function executeViewStories($request) {
-            
+
         $response = $this->getResponse();
         $response->setTitle(__('Stories'));
         $this->loggedUserObject = null;
@@ -608,23 +607,23 @@ class projectActions extends sfActions {
         $this->columnName = 'date_added';
         $this->order = 'ASC';
 
-        if(($request->getParameter('columnname') != null) && ($request->getParameter('order')!= null )) {    
-			$this->order = $request->getParameter('order');
+        if (($request->getParameter('columnname') != null) && ($request->getParameter('order') != null )) {
+            $this->order = $request->getParameter('order');
             $this->columnName = $request->getParameter('columnname');
         }
-        
+
         $this->loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
         $this->moveForm = new MoveStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $this->loggedUserId));
         $this->copyForm = new CopyStoryForm(array(), array('projectId' => $this->projectId, 'loggedUserId' => $this->loggedUserId));
         $projectService = new ProjectService();
         $this->userDao = new UserDao();
         $this->taskService = new TaskService();
-        $this->projectList = $projectService->getProjectsByUserId($this->projectId,$this->loggedUserId);
-        
+        $this->projectList = $projectService->getProjectsByUserId($this->projectId, $this->loggedUserId);
+
         $loggedUserObject = null;
-        
+
         $projectDao = new ProjectDao();
-        $auth = new AuthenticationService();  
+        $auth = new AuthenticationService();
         if ($projectDao->getProjectById($this->projectId) != null) {
             $this->projectAccessLevel = $auth->projectAccessLevel($this->getUser()->getAttribute($loggedUserObject)->getId(), $this->projectId);
             if ($this->projectAccessLevel == User::USER_TYPE_PROJECT_ADMIN || $this->projectAccessLevel == User::USER_TYPE_SUPER_ADMIN || $this->projectAccessLevel == User::USER_TYPE_PROJECT_MEMBER) {
@@ -634,7 +633,7 @@ class projectActions extends sfActions {
                 $this->projectName = $projectDao->getProjectById($this->id)->getName();
                 $this->userType = $this->userDao->getUserById($this->loggedUserId)->getUserType();
                 $this->userList = $projectService->getUsersByProjectId($this->projectId);
-               
+
                 $viewStoriesDao = new StoryDao();
 
                 $pageNo = $this->getRequestParameter('page', 1);
@@ -651,21 +650,20 @@ class projectActions extends sfActions {
         }
     }
 
-	/**
-	 * Sort the column
-	 * @return String order
-	 */
-    private function  __sortByColumnName() {
+    /**
+     * Sort the column
+     * @return String order
+     */
+    private function __sortByColumnName() {
 
         if ($this->order == "") {
-            $this->order = "ASC"; 
+            $this->order = "ASC";
         } elseif ($this->order == "ASC") {
             $this->order = "DESC";
         } elseif ($this->order == "DESC") {
             $this->order = "ASC";
         }
         return $this->order;
-
     }
 
     /**
@@ -688,14 +686,30 @@ class projectActions extends sfActions {
         $progressServiceObject = new ProjectService();
         $allArray = $progressServiceObject->viewWeeklyProgress($this->storyList, $this->projectId);
         $this->weekStartingDate = $allArray[0];
-        $this->totalEstimation = $allArray[1];      
+        $this->totalEstimation = $allArray[1];
         $this->weeklyVelocity = $allArray[2];
-        $this->workCompleted = $allArray[3]; 
+        $this->workCompleted = $allArray[3];
         $this->burnDownArray = $allArray[4];
 
         if (count($allArray) == 0) {
             $this->noRecordMessage = __("No Records to Show");
         }
+    }
+
+    public function executeAddProjectLinks($request) {
+
+        $projectId = $request->getParameter('projectId');
+        $linkName = $request->getParameter('linkName');
+        $link = $request->getParameter('link');
+        $projectService = new ProjectService();
+        $this->id = $projectService->saveProjectLink($projectId, $linkName, $link);
+    }
+
+    public function executeDeleteProjectLinks($request) {
+        $linkId = $request->getParameter('linkId');
+
+        $projectService = new ProjectService();
+        $this->success = $projectService->deleteProjectLink($linkId);
     }
 
 }

@@ -269,3 +269,26 @@ TaskStatus:
     name:
       type: string(255)
       notnull: true
+      
+ProjectInformationLinks:
+  tableName: orangepm_project_info_links
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    link_name:
+      type: string(255)
+      notnull: true
+    link:
+      type: string(255)
+      notnull: true
+    project_id:
+      type: integer
+  relations:
+    Project:
+      onDelete: CASCADE
+      local: project_id
+      foreign: id
+      class: Project
+      type: many
