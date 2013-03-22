@@ -15,23 +15,23 @@ class viewAllProjectDetailsAction extends sfAction {
             $this->redirect('project/viewProjects');
         }
         $this->selectedStatusId = $request->getParameter('selectedStatusId');
-        
+
         $selectedStatusDetails = array('selectedProjectStatusId' => $this->selectedStatusId);
-        
+
         $this->projectSearchForm = new ProjectSearchForm(array(), $selectedStatusDetails);
         $loggedUserId = $this->getUser()->getAttribute($this->loggedUserObject)->getId();
-        if($this->statusId ==null){
+        if ($this->statusId == null) {
             $this->statusId = Project::PROJECT_STATUS_DEFAULT_ID;
         }
-        if($this->selectedStatusId!=NULL){
+        if ($this->selectedStatusId != NULL) {
             $this->projects = $this->projectService->getAllProjects(true, $this->selectedStatusId);
-        }
-        else{
+        } else {
             $this->projects = $this->projectService->getAllProjects(true, $this->statusId);
         }
-        
-        $this->projectProgressList=$this->getPercentageList($this->projects);
-               
+
+        $this->projectProgressList = $this->getPercentageList($this->projects);
+        $this->projectLinkListArray = $this->getProjectLinksList($this->projects);
+
         if (count($this->projectProgressList) == 0) {
             $this->noRecordMessage = __("No Matching Projects Found");
         }
@@ -39,9 +39,9 @@ class viewAllProjectDetailsAction extends sfAction {
 
     public function getPercentageList($projects) {
         $allStatusCountArray = array();
-        foreach($projects as $single) {
+        foreach ($projects as $single) {
             $storyList = $this->projectService->getRelatedProjectStories(true, $single->getId(), 1);
-            $statusCountArray = array('project'=>$single,'EstCount'=>0,'Backlog' => 0, 'Design' => 0, 'Development' => 0, 'Development Completed' => 0, 'Testing' => 0, 'Rework' => 0, 'Accepted' => 0);
+            $statusCountArray = array('project' => $single, 'EstCount' => 0, 'Backlog' => 0, 'Design' => 0, 'Development' => 0, 'Development Completed' => 0, 'Testing' => 0, 'Rework' => 0, 'Accepted' => 0);
             if (count($storyList) != 0) {
                 $storyEstimationCount = 0;
                 foreach ($storyList->getResults() as $story) {
@@ -50,10 +50,22 @@ class viewAllProjectDetailsAction extends sfAction {
                     $statusCountArray["$key"]+= $story->getEstimation();
                 }
                 $statusCountArray['EstCount'] = $storyEstimationCount;
-                $allStatusCountArray[]=$statusCountArray;
+                $allStatusCountArray[] = $statusCountArray;
             }
         }
         return $allStatusCountArray;
+    }
+
+    public function getProjectLinksList($projects) {
+
+        $projectLinkListArray = array();
+        foreach ($projects as $project) {
+            $linkList = null;
+            $linkList = $this->projectService->getProjectLinkList($project->getId());
+            $projectLinkListArray[$project->getId()] = $linkList;
+        }
+
+        return $projectLinkListArray;
     }
 
 }

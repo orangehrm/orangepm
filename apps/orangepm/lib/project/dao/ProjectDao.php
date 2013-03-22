@@ -96,11 +96,11 @@ class ProjectDao {
      * @param $project
      * @return none
      */
-    public function updateProject($tempProject, $projectUsersColl = null,$deleteProjUsers=true) {
+    public function updateProject($tempProject, $projectUsersColl = null, $deleteProjUsers=true) {
         $project = Doctrine_Core::getTable('Project')->find($tempProject->getId());
         if ($projectUsersColl != null) {
             $project->setProjectUser($projectUsersColl);
-        } else if($deleteProjUsers){
+        } else if ($deleteProjUsers) {
             $project->getProjectUser()->delete();
         }
 
@@ -111,8 +111,8 @@ class ProjectDao {
             $project->setDescription($tempProject->getDescription());
             $project->setStartDate($tempProject->getStartDate());
             $project->setEndDate($tempProject->getEndDate());
-            $project->setTotalEstimatedEffort($tempProject->getTotalEstimatedEffort());           
-            $project->setCurrentEffort($tempProject->getCurrentEffort());           
+            $project->setTotalEstimatedEffort($tempProject->getTotalEstimatedEffort());
+            $project->setCurrentEffort($tempProject->getCurrentEffort());
             $project->save();
         }
     }
@@ -274,13 +274,71 @@ class ProjectDao {
 
         return false;
     }
-    
-    public function getUsersByProjectId($projectId)  {
-         
+
+    public function getUsersByProjectId($projectId) {
+
         $q = Doctrine_Query::create()->from('ProjectUser')
-                                     ->where('projectId = ?',$projectId);
-         
+                ->where('projectId = ?', $projectId);
+
         return $q->execute();
-        
-     }  
+    }
+
+    public function saveProjectLink($projectId, $linkName, $link) {
+
+        try {
+            $projectLink = new ProjectInformationLinks();
+            $projectLink->setLinkName($linkName);
+            $projectLink->setProjectId($projectId);
+            $projectLink->setLink($link);
+            $projectLink->save();
+            if ($projectLink->getId() != null) {
+                return $projectLink->getId();
+            } else {
+
+                return false;
+            }
+        } catch (Exception $ex) {
+            throw new DaoException($ex->getMessage());
+        }
+    }
+
+    public function getProjectLinkList($projectId) {
+        try {
+
+            $q = Doctrine_Query::create()->from('ProjectInformationLinks')
+                    ->where('project_id = ?', $projectId);
+
+            $projectLinks = $q->execute();
+
+            if (count($projectLinks) > 0) {
+                return $projectLinks;
+            } else {
+               
+                return null;
+            }
+        } catch (Exception $ex) {
+            throw new DaoException($ex->getMessage());
+        }
+    }
+
+    public function deleteProjectLink($linkId) {
+
+        try {
+            $q = Doctrine_Query:: create()
+                    ->delete('ProjectInformationLinks')
+                    ->where("id = ?", $linkId);
+
+
+            $result = $q->execute();
+
+            if (count($result) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
 }

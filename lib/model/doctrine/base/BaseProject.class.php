@@ -20,37 +20,40 @@
  * @property User $User
  * @property Doctrine_Collection $ProjectUser
  * @property Doctrine_Collection $ProjectLogs
+ * @property ProjectInformationLinks $ProjectInformationLinks
  * 
- * @method integer             getId()                   Returns the current record's "id" value
- * @method string              getName()                 Returns the current record's "name" value
- * @method integer             getProjectStatusId()      Returns the current record's "projectStatusId" value
- * @method boolean             getDeleted()              Returns the current record's "deleted" value
- * @method integer             getUserId()               Returns the current record's "userId" value
- * @method clob                getDescription()          Returns the current record's "description" value
- * @method date                getStartDate()            Returns the current record's "startDate" value
- * @method date                getEndDate()              Returns the current record's "endDate" value
- * @method string              getTotalEstimatedEffort() Returns the current record's "totalEstimatedEffort" value
- * @method string              getCurrentEffort()        Returns the current record's "currentEffort" value
- * @method ProjectStatus       getProjectStatus()        Returns the current record's "ProjectStatus" value
- * @method Story               getStory()                Returns the current record's "Story" value
- * @method User                getUser()                 Returns the current record's "User" value
- * @method Doctrine_Collection getProjectUser()          Returns the current record's "ProjectUser" collection
- * @method Doctrine_Collection getProjectLogs()          Returns the current record's "ProjectLogs" collection
- * @method Project             setId()                   Sets the current record's "id" value
- * @method Project             setName()                 Sets the current record's "name" value
- * @method Project             setProjectStatusId()      Sets the current record's "projectStatusId" value
- * @method Project             setDeleted()              Sets the current record's "deleted" value
- * @method Project             setUserId()               Sets the current record's "userId" value
- * @method Project             setDescription()          Sets the current record's "description" value
- * @method Project             setStartDate()            Sets the current record's "startDate" value
- * @method Project             setEndDate()              Sets the current record's "endDate" value
- * @method Project             setTotalEstimatedEffort() Sets the current record's "totalEstimatedEffort" value
- * @method Project             setCurrentEffort()        Sets the current record's "currentEffort" value
- * @method Project             setProjectStatus()        Sets the current record's "ProjectStatus" value
- * @method Project             setStory()                Sets the current record's "Story" value
- * @method Project             setUser()                 Sets the current record's "User" value
- * @method Project             setProjectUser()          Sets the current record's "ProjectUser" collection
- * @method Project             setProjectLogs()          Sets the current record's "ProjectLogs" collection
+ * @method integer                 getId()                      Returns the current record's "id" value
+ * @method string                  getName()                    Returns the current record's "name" value
+ * @method integer                 getProjectStatusId()         Returns the current record's "projectStatusId" value
+ * @method boolean                 getDeleted()                 Returns the current record's "deleted" value
+ * @method integer                 getUserId()                  Returns the current record's "userId" value
+ * @method clob                    getDescription()             Returns the current record's "description" value
+ * @method date                    getStartDate()               Returns the current record's "startDate" value
+ * @method date                    getEndDate()                 Returns the current record's "endDate" value
+ * @method string                  getTotalEstimatedEffort()    Returns the current record's "totalEstimatedEffort" value
+ * @method string                  getCurrentEffort()           Returns the current record's "currentEffort" value
+ * @method ProjectStatus           getProjectStatus()           Returns the current record's "ProjectStatus" value
+ * @method Story                   getStory()                   Returns the current record's "Story" value
+ * @method User                    getUser()                    Returns the current record's "User" value
+ * @method Doctrine_Collection     getProjectUser()             Returns the current record's "ProjectUser" collection
+ * @method Doctrine_Collection     getProjectLogs()             Returns the current record's "ProjectLogs" collection
+ * @method ProjectInformationLinks getProjectInformationLinks() Returns the current record's "ProjectInformationLinks" value
+ * @method Project                 setId()                      Sets the current record's "id" value
+ * @method Project                 setName()                    Sets the current record's "name" value
+ * @method Project                 setProjectStatusId()         Sets the current record's "projectStatusId" value
+ * @method Project                 setDeleted()                 Sets the current record's "deleted" value
+ * @method Project                 setUserId()                  Sets the current record's "userId" value
+ * @method Project                 setDescription()             Sets the current record's "description" value
+ * @method Project                 setStartDate()               Sets the current record's "startDate" value
+ * @method Project                 setEndDate()                 Sets the current record's "endDate" value
+ * @method Project                 setTotalEstimatedEffort()    Sets the current record's "totalEstimatedEffort" value
+ * @method Project                 setCurrentEffort()           Sets the current record's "currentEffort" value
+ * @method Project                 setProjectStatus()           Sets the current record's "ProjectStatus" value
+ * @method Project                 setStory()                   Sets the current record's "Story" value
+ * @method Project                 setUser()                    Sets the current record's "User" value
+ * @method Project                 setProjectUser()             Sets the current record's "ProjectUser" collection
+ * @method Project                 setProjectLogs()             Sets the current record's "ProjectLogs" collection
+ * @method Project                 setProjectInformationLinks() Sets the current record's "ProjectInformationLinks" value
  * 
  * @package    orangepm
  * @subpackage model
@@ -125,6 +128,10 @@ abstract class BaseProject extends sfDoctrineRecord
              'foreign' => 'project_id'));
 
         $this->hasMany('ProjectLog as ProjectLogs', array(
+             'local' => 'id',
+             'foreign' => 'project_id'));
+
+        $this->hasOne('ProjectInformationLinks', array(
              'local' => 'id',
              'foreign' => 'project_id'));
 

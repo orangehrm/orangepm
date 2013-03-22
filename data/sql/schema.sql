@@ -1,4 +1,4 @@
-CREATE TABLE orangepm_project (id BIGINT AUTO_INCREMENT, name VARCHAR(255), project_status_id BIGINT, deleted TINYINT(1) DEFAULT '1' NOT NULL, user_id BIGINT, description LONGTEXT, start_date DATE NOT NULL, end_date DATE, current_effort VARCHAR(255), created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX project_status_id_idx (project_status_id), INDEX user_id_idx (user_id), PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE orangepm_project (id BIGINT AUTO_INCREMENT, name VARCHAR(255), project_status_id BIGINT, deleted TINYINT(1) DEFAULT '1' NOT NULL, user_id BIGINT, description LONGTEXT, start_date DATE NOT NULL, end_date DATE, total_estimated_effort VARCHAR(255), current_effort VARCHAR(255), created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX project_status_id_idx (project_status_id), INDEX user_id_idx (user_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE orangepm_project_log (id BIGINT AUTO_INCREMENT, project_id BIGINT NOT NULL, added_by BIGINT, description LONGTEXT, logged_date DATETIME NOT NULL, INDEX project_id_idx (project_id), INDEX added_by_idx (added_by), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE orangepm_project_progress (project_id BIGINT, accepted_date DATE, work_completed BIGINT, unit_of_work BIGINT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(project_id, accepted_date)) ENGINE = INNODB;
 CREATE TABLE orangepm_project_status (id BIGINT AUTO_INCREMENT, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) ENGINE = INNODB;
@@ -15,3 +15,6 @@ ALTER TABLE orangepm_project_user ADD CONSTRAINT orangepm_project_user_user_id_o
 ALTER TABLE orangepm_project_user ADD CONSTRAINT orangepm_project_user_project_id_orangepm_project_id FOREIGN KEY (project_id) REFERENCES orangepm_project(id) ON DELETE CASCADE;
 ALTER TABLE orangepm_task ADD CONSTRAINT orangepm_task_story_id_orangepm_story_id FOREIGN KEY (story_id) REFERENCES orangepm_story(id) ON DELETE CASCADE;
 ALTER TABLE orangepm_task ADD CONSTRAINT orangepm_task_status_orangepm_task_status_id FOREIGN KEY (status) REFERENCES orangepm_task_status(id) ON DELETE SET NULL;
+
+CREATE TABLE orangepm_project_info_links (`id` BIGINT AUTO_INCREMENT, `link_name` VARCHAR(255) NOT NULL, `link` VARCHAR(255) NOT NULL,`project_id` BIGINT ,PRIMARY KEY(id)) ENGINE = INNODB;
+alter table orangepm_project_info_links add constraint foreign key (project_id) references orangepm_project(id) on delete cascade;

@@ -1,4 +1,22 @@
 $(document).ready(function(){
+
+    if(showLinkTable){
+        $('#linkTable').show();
+    }
+    
+    if ($('#project_infoLink').val() == '' || $('#project_infoLink').val() == lang_typeHint) {
+        $('#project_infoLink').addClass("inputFormatHint").val(lang_typeHint);
+    }
+    
+    $('#project_infoLink').one('focus', function() {
+        
+        if ($(this).hasClass("inputFormatHint")) {
+            $(this).val("");
+            $(this).removeClass("inputFormatHint");
+        }
+
+    });
+    
     var selectedProjectAdmin=$('#project_projectAdmin option:selected');
     $('#project_name').attr('disabled', true);
     $('#project_startDate').attr('disabled', true);
@@ -14,7 +32,7 @@ $(document).ready(function(){
     //$('#btnRight').hide();
     $('#cancel').attr('disabled', true);
 
-       $('#saveButton').click(function(event) {  
+    $('#saveButton').click(function(event) {  
         if($('#saveButton').attr('value') == 'Edit') {
             event.preventDefault();
             $('#project_name').removeAttr("disabled");
@@ -35,13 +53,13 @@ $(document).ready(function(){
         }      
     });
    
-   $("#project_startDate, #project_endDate").datepicker(
-            {
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                showAnim: "slideDown"
-     });
+    $("#project_startDate, #project_endDate").datepicker(
+    {
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true,
+        showAnim: "slideDown"
+    });
     
     $(".changedStatus").change(function() {
         statusChanged = true;
@@ -112,4 +130,95 @@ $(document).ready(function(){
         $('#project_projectUserAll option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
         $('#project_projectUserSelected option[value="'+ $(selectedProjectAdmin).val() +'"]').remove();
     });
+    
+    $('#addLinkButton').click(function(e) {
+        var selectedLink = $('#project_infoLink').val();
+        if (selectedLink.length == 0) {
+            alert('link empty');
+            e.preventDefault();
+        }else{
+            valuesArray=selectedLink.split(' ');
+            var  linkId = addLinkToProject(valuesArray[0],valuesArray[1],projectId);
+        }
+      
+    });
+
+  
 });
+
+$('.delLink').live("click", function() {
+    var id=$(this).parent().attr('id');
+    var parent=$(this).parent().parent();
+    
+    
+    $("#dialogLinkDeletion").dialog({
+        buttons : {
+            "OK" : function() {
+                   
+                deleteProjectLink(id,parent);
+                $(this).dialog("close");
+            },
+            "Cancel" : function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+    
+    
+
+
+});
+
+function addLinkToProject(linkName,link,projectId){
+    
+    $.ajax({
+        type: "post",
+        url: addProjectLinksUrl,
+        data: {
+            projectId : projectId , 
+            linkName :  linkName, 
+            link : link
+           
+        },
+
+        success: function(msg){
+           
+            id= msg;
+            newElement = '<tr id="'+'tableR_'+id+'"><td>'+linkName+'</td><td> <a href='+'"'+link+'"'+'target="_blank">'+link+'</a></td><td id="'+id+'"><img class="delLink" src="../../images/b_drop.png" /></td></tr>'; 
+            $('#linkTable').append(newElement);
+            $('#linkTable').show();
+           
+        }
+
+    });
+    
+    
+}
+
+
+function deleteProjectLink(linkId,parent){
+    
+    $.ajax({
+        type: "post",
+        url: deleteProjectUrl,
+        data: {
+            linkId : linkId  
+           
+        },
+
+        success: function(msg){
+           
+            id= msg;
+            element='tableR_'+linkId;
+            
+            parent.remove();            
+            var rowCount = $('#linkTable tr').length;
+            if(rowCount == 1){
+                $('#linkTable').hide();
+            }
+        }
+
+    });
+    
+    
+}
