@@ -133,8 +133,8 @@ $(document).ready(function(){
     
     $('#addLinkButton').click(function(e) {
         var selectedLink = $('#project_infoLink').val();
-        if (selectedLink.length == 0) {
-            alert('link empty');
+        if ($('#project_infoLink').val() == '' || $('#project_infoLink').val() == lang_typeHint) {
+            alert('Please add a link!');
             e.preventDefault();
         }else{
             valuesArray=selectedLink.split(' ');
