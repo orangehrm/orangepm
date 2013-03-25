@@ -336,11 +336,11 @@ table.showTable th a:visited {
 
 .helpText {
     font-size: 8pt;
-    color:#888888;
-    padding-left: 10px;
+    color:#555555;
+    padding-left:10px;
     float: left;
 }
 
 .inputFormatHint {
-    color: #D8D8D8;
+    color: #555555;
 }

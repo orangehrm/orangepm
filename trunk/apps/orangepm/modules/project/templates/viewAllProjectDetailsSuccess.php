@@ -1,3 +1,8 @@
+<script type="text/javascript">
+    var showLinkTable= false;
+    var lang_typeHint = '<?php echo __("use link name<space>link format "); ?>';
+</script>
+
 <?php echo stylesheet_tag('viewProjectDetails') ?>
 <?php echo stylesheet_tag('viewStories') ?>
 <div class="Project">
@@ -36,8 +41,8 @@
                                 <td><label for="project_members"><?php echo __('Project Members : ') ?></label></td> <td><?php echo implode(',', $projectMembersList); ?> </td>
                             </tr>
                             <tr>
-                                <td><label for="project_members"><?php echo __('Project Members : ') ?></label></td> <td><table> <tbody><?php foreach ($projectLinkListArray[$single['project']->getId()] as $link):
-         ?><tr><td><?php echo $link->getLinkName(); ?></td><td><?php echo link_to($link->getLink(), $link->getLink(), array('target' => '_blank')) ?></td></tr> <?php endforeach; ?> </tbody> </table></td>
+                                <td><label for="project_members"><?php echo __('Project Links : ') ?></label></td> <td><table> <tbody><?php foreach ($projectLinkListArray[$single['project']->getId()] as $link):
+            ?><tr><td><?php echo $link->getLinkName(); ?></td><td><?php echo link_to($link->getLink(), $link->getLink(), array('target' => '_blank')) ?></td></tr> <?php endforeach; ?> </tbody> </table></td>
                             </tr>
 
                         </tbody>
@@ -57,14 +62,14 @@
                                 <th class="effortColumn"> Effort (<?php echo $single['EstCount']; ?>)</th>
                             </tr>
                             <?php foreach ($single as $status => $effort): ?>
-        <?php if (($status != 'project') && ($status != 'EstCount')) { ?>
+                                <?php if (($status != 'project') && ($status != 'EstCount')) { ?>
                                     <tr>
                                         <td><?php echo __($status); ?></td>
                                         <td><div id="progressbar_<?php echo str_replace(" ", "_", strtolower($status)); ?>"class="progressbar" value="<?php echo $projectService->getPecentage($single["$status"], $single['EstCount']) ?>"></div></td>
                                         <td><?php echo $effort ?></td>
                                     </tr>
                                 <?php } ?>                        
-    <?php endforeach; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                     <div class='project_Details' id="projectFacts">
@@ -107,7 +112,7 @@
             </div>        
         </div>
         <br/>
-<?php endforeach; ?>
+    <?php endforeach; ?>
 </div>
 <?php echo javascript_include_tag('viewProjectDetails'); ?>
 <?php echo javascript_include_tag('viewStories'); ?>

@@ -19,7 +19,7 @@
     var updateLinkUrl = "<?php echo url_for('project/updateLog') ?>";
     var addProjectLinksUrl = "<?php echo url_for('project/addProjectLinks') ?>";
     var deleteProjectUrl= "<?php echo url_for('project/deleteProjectLinks') ?>";
-    var lang_typeHint = '<?php echo __("use link name<space>link format "); ?>';
+    var lang_typeHint = '<?php echo __("Insert in name<space>link format "); ?>';
     var deleteLinkUrl = "<?php echo url_for("project/deleteLog?projectId=$projectId&projectName={$project->getName()}&from=viewDetails"); ?>";
     var viewTaskUrl = "<?php echo url_for('project/viewTasks') ?>";
     var isAllowToEditEffort = "<?php
